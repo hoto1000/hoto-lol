@@ -10,7 +10,7 @@ import pathlib
 import shutil
 
 ROOT = pathlib.Path(__file__).parent
-OUT = ROOT / "public"
+OUT = ROOT / "docs"  # GitHub Pages serves main:/docs
 
 SITE = "hoto.lol"
 
@@ -80,6 +80,8 @@ def page(path, title, description, body, script=""):
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(description)}">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; media-src 'self'; img-src 'self'">
+<meta name="referrer" content="no-referrer">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/site.css">
 </head>
@@ -141,11 +143,8 @@ def build():
     shutil.copy(ROOT / "site.css", OUT / "site.css")
     shutil.copy(ROOT / "favicon.svg", OUT / "favicon.svg")
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
-    (OUT / "_headers").write_text(
-        "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: no-referrer\n"
-        "  Permissions-Policy: interest-cohort=()\n  X-Robots-Tag: noindex, nofollow\n"
-        "  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; media-src 'self'; img-src 'self'\n"
-    )
+    (OUT / "CNAME").write_text("hoto.lol\n")
+    (OUT / ".nojekyll").write_text("")
     (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
 
     # Home
