@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hoto.lol</title>
+<meta name="description" content="Plain-spoken essays and podcast episodes on happiness, schools, thinking, and civic life.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="crisis" role="note">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</div>
+<header class="top">
+<a class="wordmark" href="/">hoto<span>.</span>lol</a>
+<nav class="main" aria-label="Main"><a href="/" aria-current="page">Home</a><a href="/blog/">Blog</a><a href="/podcasts/">Podcasts</a><a href="/civic/">Civic guide</a></nav>
+</header>
+<main id="main" tabindex="-1">
+
+<p class="kicker">Essays · Episodes · Questions</p>
+<h1>Big questions, asked plainly.</h1>
+<p class="lede">Short essays and podcast episodes about happiness, schools, how to think, and how we live together.</p>
+<h2>Latest writing</h2>
+<ul class="list"><li><time datetime="2026-10-24">2026-10-24</time><br><a class="title" href="/blog/a-school-should-be-a-harbor/">A school should be a harbor, not a sorting machine</a><p>Eight small, testable ways to make a school feel safe: private help, a calm start, a quiet room, meals without shame, and rules that listen.</p></li><li><time datetime="2026-10-23">2026-10-23</time><br><a class="title" href="/blog/how-great-thinkers-are-made/">How great thinkers are made</a><p>Six habits that build a sharper mind, from reading the originals to arguing with people who disagree.</p></li></ul>
+<p><a class="back" href="/blog/">All posts →</a></p>
+<h2>Latest episode</h2>
+<section class="episode" id="a-study-on-happiness" aria-labelledby="a-study-on-happiness-h">
+<p class="meta"><time datetime="2026-10-23">2026-10-23</time> · 9 min</p>
+<h3 id="a-study-on-happiness-h">A Study on Happiness</h3>
+<p>What happiness really is, why change matters, and why learning every side of politics can help us know ourselves.</p>
+<div class="player"><button type="button" data-src="/podcasts/why-modern-happiness-is-broken.m4a" data-title="A Study on Happiness">▶ Play episode</button></div>
+
+</section>
+<p><a class="back" href="/podcasts/">All episodes →</a></p>
+<h2>Coming soon: a civic guide</h2>
+<p>A neutral, privacy-first way to see where you stand on the issues. <a href="/civic/">Read what it will be</a>.</p>
+
+</main>
+<footer>
+<p>Essays, episodes, and questions worth sitting with.</p>
+<p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
+<p>No ads, no trackers, no accounts.</p>
+</footer>
+<script>
+document.querySelectorAll('.player button').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var a = document.createElement('audio');
+    a.controls = true; a.preload = 'none'; a.src = b.dataset.src;
+    a.setAttribute('aria-label', b.dataset.title);
+    b.replaceWith(a); a.play().catch(function () {});
+  });
+});
+</script>
+</body>
+</html>
