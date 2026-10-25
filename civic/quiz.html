@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Privacy: this page may not load or send anything over the network. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>Where do my political views sit? · Project Hoto</title>
+<meta name="description" content="An independent, neutral, privacy-first civic self-reflection tool. Your answers never leave your device.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/site.css">
+<style>
+:root{
+  --bg:#f6f1e7; --surface:#fffaf1; --text:#1d1b18; --muted:#5f584e; --line:#d9cfbd;
+  --accent:#b23a0a; --accent-ink:#ffffff; --band:#f0c3a6; --dot:#7a2a06; --focus:#1d1b18;
+  --warn-bg:#fff6e5; --ok:#1e6b3a; --bad:#a1261c;
+  --radius:12px; --gap:16px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16140f; --surface:#1f1c16; --text:#ede6d8; --muted:#a39a8b; --line:#3a342a;
+    --accent:#fb923c; --accent-ink:#1d1b18; --band:#6b3a1c; --dot:#fde3cf; --focus:#ede6d8;
+    --warn-bg:#2b2418; --ok:#6fcf8f; --bad:#f08a80; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16140f; --surface:#1f1c16; --text:#ede6d8; --muted:#a39a8b; --line:#3a342a;
+  --accent:#fb923c; --accent-ink:#1d1b18; --band:#6b3a1c; --dot:#fde3cf; --focus:#ede6d8;
+  --warn-bg:#2b2418; --ok:#6fcf8f; --bad:#f08a80; color-scheme: dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:1.0625rem/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:44rem;margin:0 auto;padding:16px 16px 64px}
+.tool-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.tool-bar p{margin:0;color:var(--muted);font-size:.95rem}
+main.wrap{max-width:44rem;padding:16px 16px 64px}
+header.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:8px}
+header.top p{margin:0;color:var(--muted);font-size:.95rem}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.35rem;line-height:1.3;margin:0 0 .5em}
+h3{font-size:1.1rem;margin:0 0 .4em}
+h2:focus{outline:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:0 0 var(--gap)}
+.muted{color:var(--muted)}
+.note{background:var(--warn-bg);border-radius:var(--radius);padding:12px 16px}
+button,.btn{font:inherit;cursor:pointer;border-radius:10px;padding:10px 18px;min-height:44px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+button.secondary{background:transparent;color:var(--accent)}
+button.link{border:none;background:none;color:var(--accent);text-decoration:underline;padding:4px;min-height:auto}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.nav{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:8px}
+.progress{font-size:.95rem;color:var(--muted);margin:0 0 12px}
+fieldset{border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 0 var(--gap);background:var(--surface)}
+legend{font-weight:650;padding:0 6px}
+.pair{display:grid;grid-template-columns:1fr;gap:10px;margin:8px 0 14px}
+@media (min-width:620px){.pair{grid-template-columns:1fr 1fr}}
+.stmt{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stmt b{display:block;font-size:.9rem;color:var(--muted)}
+.opts{display:grid;gap:6px}
+.opts label{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;border:1px solid transparent;min-height:44px}
+.opts label:hover{border-color:var(--line)}
+.opts input{width:20px;height:20px;flex:none;accent-color:var(--accent)}
+.opts .sep{border-top:1px dashed var(--line);margin:4px 0}
+.track{position:relative;height:28px;border-radius:14px;background:linear-gradient(var(--line),var(--line)) center/100% 4px no-repeat;margin:10px 0 4px}
+.track.empty{background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px) center/100% 2px no-repeat}
+.band{position:absolute;top:6px;height:16px;border-radius:8px;background:var(--band)}
+.dot{position:absolute;top:2px;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:var(--dot);border:3px solid var(--surface)}
+.mid{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line)}
+.poles{display:flex;justify-content:space-between;gap:12px;font-size:.9rem;color:var(--muted)}
+.poles span:last-child{text-align:right}
+details{margin:8px 0}
+summary{cursor:pointer;color:var(--accent);min-height:32px}
+ul.answers{padding-left:20px;margin:6px 0}
+.toggle{display:flex;gap:10px;align-items:flex-start}
+.toggle input{width:20px;height:20px;margin-top:4px;flex:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pass{color:var(--ok)} .fail{color:var(--bad)}
+@media (prefers-reduced-motion:no-preference){.dot,.band{transition:left .2s,width .2s}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
+<header class="top">
+<a class="wordmark" href="/">Project <span>Hoto</span></a>
+<nav class="main" aria-label="Main"><a href="/">Home</a><a href="/blog/">Blog</a><a href="/podcasts/">Podcasts</a><a href="/civic/" aria-current="page">Civic guide</a><a href="https://blog.hoto.lol/">Planet Hoto ↗</a></nav>
+</header>
+<main id="main" class="wrap" tabindex="-1">
+  <div class="tool-bar">
+    <p>Independent civic tool. Not affiliated with any party, candidate, campaign, or government. No ads on this page.</p>
+    <div>
+      <button type="button" class="secondary" id="resetBtn">Reset all answers</button>
+    </div>
+  </div>
+  <div id="resetConfirm" class="note" hidden role="region" aria-label="Confirm reset">
+    <p style="margin-top:0">Clear every answer on this page?</p>
+    <div class="nav" style="justify-content:flex-start">
+      <button type="button" id="resetYes">Yes, clear everything</button>
+      <button type="button" class="secondary" id="resetNo">Cancel</button>
+    </div>
+  </div>
+  <p id="live" class="sr-only" aria-live="polite"></p>
+  <div id="app"></div>
+</main>
+<footer>
+<p>This page has no ads, trackers, or analytics, and it cannot send your answers anywhere. <a href="/privacy/">Privacy</a>.</p>
+<p>Education and reflection only. It does not recommend any party, candidate, or vote.</p>
+</footer>
+
+<script>
+/* ===== CORE START (pure data + scoring; no DOM, no storage) ===== */
+const VERSION = 1;
+
+// Each area is its own line. "low" and "high" are just the two ends; neither is better.
+// leftRightSign: used ONLY for the optional rough summary. +1 means the "high" end is
+// the end US politics usually calls "left". null means the area is left out of the summary.
+const DIMENSIONS = [
+  {id:'econ', name:'Economic policy', low:'More market-led', high:'More government-guided', leftRightSign:1,
+   intro:'How much should markets versus government shape wages, taxes, and business rules?'},
+  {id:'services', name:'Public services', low:'Narrower, targeted help', high:'Broader, universal services', leftRightSign:1,
+   intro:'Who should public programs cover, and on what terms?'},
+  {id:'liberties', name:'Civil liberties', low:'More room for security and enforcement tools', high:'Tighter limits on government surveillance and enforcement', leftRightSign:null,
+   intro:'How should government balance safety and order against privacy and free expression?'},
+  {id:'social', name:'Social policy', low:'Keep or restore traditional rules', high:'Loosen or update traditional rules', leftRightSign:1,
+   intro:'How should laws handle questions about personal choices, religion, and community norms?'},
+  {id:'climate', name:'Climate and energy', low:'Prioritize affordable, current energy', high:'Prioritize faster emissions cuts', leftRightSign:1,
+   intro:'How fast, and by what means, should the country change how it makes energy?'},
+  {id:'immigration', name:'Immigration', low:'Lower, more restricted immigration', high:'Higher, more open immigration', leftRightSign:1,
+   intro:'How many people should be able to move here, and how should the border and asylum work?'},
+  {id:'power', name:'Government power', low:'More limited, spread-out power', high:'More expansive, centralized power', leftRightSign:null,
+   intro:'How much should government do, and how much power should sit at the national level or with one office?'}
+];
+
+// aPole: which end of the area statement A points toward ('low' or 'high').
+// Order is deliberately mixed so the "high" statement is not always first.
+const ITEMS = [
+  {id:'e1', dim:'econ', short:'Minimum wage', aPole:'low',
+   a:'Minimum wages should be left mostly to local markets and employers, because high required wages can cost jobs.',
+   b:'Government should set a higher minimum wage, because many full-time workers struggle to cover basic costs.'},
+  {id:'e2', dim:'econ', short:'Taxes on high earners and large companies', aPole:'high',
+   a:'Taxes on high earners and large companies should go up, to reduce inequality and pay for public needs.',
+   b:'Taxes on high earners and large companies should stay low, to encourage investment and job growth.'},
+  {id:'e3', dim:'econ', short:'Business rules', aPole:'low',
+   a:'Most industries work best with fewer government rules, so businesses can compete and try new things.',
+   b:'Many industries need stronger government rules to protect workers, customers, and fair competition.'},
+
+  {id:'p1', dim:'services', short:'Health coverage', aPole:'high',
+   a:'Government should guarantee health coverage for everyone, even if taxes go up.',
+   b:'Health coverage should mostly come through private plans, with public help aimed at people most in need.'},
+  {id:'p2', dim:'services', short:'Child care and college', aPole:'low',
+   a:'Help with child care or college should go mainly to people with the lowest incomes, to keep costs down.',
+   b:'Child care and college should be available to everyone at low or no cost, so every family can count on them.'},
+  {id:'p3', dim:'services', short:'Work requirements for benefits', aPole:'low',
+   a:'Adults who are able to work should have to work or look for work to get public benefits.',
+   b:'Public benefits should not depend on work rules, so people are not cut off during hard times.'},
+
+  {id:'c1', dim:'liberties', short:'Government access to digital data', aPole:'low',
+   a:'Police and intelligence agencies need broad access to digital data to prevent crime and terrorism.',
+   b:'Government should need a warrant and strict limits to access digital data, even if some threats are harder to catch.'},
+  {id:'c2', dim:'liberties', short:'Government and online speech', aPole:'low',
+   a:'Government should be able to require online platforms to remove harmful false information.',
+   b:'Government should stay out of deciding what speech platforms allow, even when content is false or offensive.'},
+  {id:'c3', dim:'liberties', short:'Police stop-and-search powers', aPole:'high',
+   a:'Rules that limit police searches protect people\u2019s rights and should be made stronger.',
+   b:'Police need more freedom to stop and search people in high-crime situations.'},
+
+  {id:'s1', dim:'social', short:'Abortion', aPole:'high',
+   a:'Abortion should be legal in most cases, because the decision belongs to the pregnant person.',
+   b:'Abortion should be illegal in most cases, because it ends a developing human life.'},
+  {id:'s2', dim:'social', short:'Drug use', aPole:'low',
+   a:'Using drugs like heroin or meth should stay a crime, to discourage use and protect communities.',
+   b:'Personal drug use should be handled as a health issue rather than a crime.'},
+  {id:'s3', dim:'social', short:'Religion in public schools', aPole:'low',
+   a:'Public schools should be allowed to include voluntary prayer or religious displays that reflect local traditions.',
+   b:'Public schools should stay neutral and keep religious practice out of official school activities.'},
+
+  {id:'k1', dim:'climate', short:'Speed of emissions cuts', aPole:'high',
+   a:'Government should move quickly to cut greenhouse gas emissions, even if energy costs rise for a while.',
+   b:'Emissions cuts should go more slowly, so energy stays affordable and reliable.'},
+  {id:'k2', dim:'climate', short:'Oil, gas, and coal', aPole:'low',
+   a:'The country should keep expanding oil, gas, and coal production to keep energy secure and protect jobs.',
+   b:'The country should scale down oil, gas, and coal and shift support to clean energy, to cut pollution and prepare for future energy needs.'},
+  {id:'k3', dim:'climate', short:'How to address climate', aPole:'low',
+   a:'Climate efforts should rely mostly on private invention and voluntary choices.',
+   b:'Climate efforts need required rules and limits on pollution.'},
+
+  {id:'i1', dim:'immigration', short:'Legal immigration levels', aPole:'high',
+   a:'Legal immigration should increase, to grow the workforce and reunite families.',
+   b:'Legal immigration should decrease, to ease pressure on wages, housing, and public services.'},
+  {id:'i2', dim:'immigration', short:'People living here without legal status', aPole:'low',
+   a:'Most people living in the country without legal status should be required to leave.',
+   b:'Most long-term residents without legal status should be offered a path to legal status.'},
+  {id:'i3', dim:'immigration', short:'Border enforcement and asylum', aPole:'low',
+   a:'Border enforcement should come first, even if fewer people are able to seek asylum.',
+   b:'The ability to seek asylum should be protected, even if border enforcement becomes harder.'},
+
+  {id:'g1', dim:'power', short:'Who sets education standards', aPole:'low',
+   a:'Big decisions like school standards should be made mostly by states and local communities, so they fit local needs.',
+   b:'Big decisions like school standards should be set nationally, so the rules are the same everywhere.'},
+  {id:'g2', dim:'power', short:'Emergency powers', aPole:'high',
+   a:'In emergencies, the president should be able to act quickly without waiting for Congress.',
+   b:'Even in emergencies, major actions should need approval from Congress or the courts.'},
+  {id:'g3', dim:'power', short:'Size of the federal government', aPole:'low',
+   a:'The federal government has grown too large and should do fewer things.',
+   b:'The federal government should take on more responsibilities to solve national problems.'}
+];
+
+// Response values: -2..2 (negative = closer to A), 'unsure', or absent (skipped).
+const SCALE = [
+  {v:-2, label:'Much closer to A'},
+  {v:-1, label:'A bit closer to A'},
+  {v: 0, label:'In between, or both equally'},
+  {v: 1, label:'A bit closer to B'},
+  {v: 2, label:'Much closer to B'}
+];
+
+const THRESH = {middle:0.25, strong:0.75, mixedEach:0.5, summarySplit:0.4, summaryMinAreas:3};
+
+function sanitizeAnswers(raw){
+  const out = {};
+  if(!raw || typeof raw !== 'object') return out;
+  for(const it of ITEMS){
+    const v = raw[it.id];
+    if(v === 'unsure' || (Number.isInteger(v) && v >= -2 && v <= 2)) out[it.id] = v;
+  }
+  return out;
+}
+
+// Turns one answer into a number from -1 (low end) to +1 (high end), or null if not scored.
+function itemScore(item, resp){
+  if(typeof resp !== 'number') return null;
+  const towardHigh = item.aPole === 'high' ? -resp : resp;
+  return towardHigh / 2;
+}
+
+function scoreDimension(dim, answers){
+  const items = ITEMS.filter(i => i.dim === dim.id);
+  const scores = []; let unsure = 0, skipped = 0;
+  for(const it of items){
+    const r = answers[it.id];
+    if(r === 'unsure') unsure++;
+    else if(typeof r === 'number') scores.push(itemScore(it, r));
+    else skipped++;
+  }
+  const n = scores.length, total = items.length;
+  if(n === 0) return {dim:dim.id, status:'unplaced', n, total, unsure, skipped};
+  const mean = scores.reduce((a,b)=>a+b,0)/n;
+  const min = Math.min(...scores), max = Math.max(...scores);
+  let status, toward = null, strength = null;
+  if(min <= -THRESH.mixedEach && max >= THRESH.mixedEach) status = 'mixed';
+  else if(Math.abs(mean) < THRESH.middle) status = 'middle';
+  else { status = 'lean'; toward = mean < 0 ? 'low' : 'high'; strength = Math.abs(mean) >= THRESH.strong ? 'clear' : 'some'; }
+  let confidence;
+  if(n === 1) confidence = 'very rough';
+  else if(n === total && (max - min) <= 0.5) confidence = 'steadier';
+  else confidence = 'rough';
+  return {dim:dim.id, status, toward, strength, mean, min, max, n, total, unsure, skipped, confidence};
+}
+
+function scoreAll(answers){
+  const clean = sanitizeAnswers(answers);
+  return DIMENSIONS.map(d => scoreDimension(d, clean));
+}
+
+// Optional rough summary. Uses only areas with a conventional US left/right reading.
+// Returns leftness from -1 (usually called right) to +1 (usually called left).
+function roughSummary(results){
+  const used = [];
+  for(const r of results){
+    const d = DIMENSIONS.find(x => x.id === r.dim);
+    if(d.leftRightSign === null || r.status === 'unplaced') continue;
+    used.push({dim:r.dim, value:r.mean * d.leftRightSign});
+  }
+  if(used.length < THRESH.summaryMinAreas) return {status:'insufficient', areas:used.length};
+  const vals = used.map(u => u.value);
+  const value = vals.reduce((a,b)=>a+b,0)/vals.length;
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const split = min <= -THRESH.summarySplit && max >= THRESH.summarySplit;
+  return {status: split ? 'split' : 'ok', value, min, max, areas:used.length};
+}
+
+// What gets written to device storage, if the visitor opts in. Answers only.
+function buildSavePayload(answers){
+  return {v:VERSION, answers:sanitizeAnswers(answers)};
+}
+
+// ---- Sample tests (also runnable in Node) ----
+function runSelfTests(){
+  const T = [];
+  const check = (name, cond, detail='') => T.push({name, pass:!!cond, detail});
+  const byDim = (res, id) => res.find(r => r.dim === id);
+
+  // 1. Everything skipped
+  let res = scoreAll({});
+  check('All skipped: every area is "not placed"', res.every(r => r.status === 'unplaced' && r.skipped === 3));
+  check('All skipped: no rough summary', roughSummary(res).status === 'insufficient');
+
+  // 2. Everything "not sure"
+  const allUnsure = Object.fromEntries(ITEMS.map(i => [i.id,'unsure']));
+  res = scoreAll(allUnsure);
+  check('All "not sure": not placed, and unsure counted separately from skipped', res.every(r => r.status==='unplaced' && r.unsure===3 && r.skipped===0));
+
+  // 3. Contradictory answers within one area
+  // e1 aPole low: much closer to A -> -1. e3 aPole low: much closer to B -> +1.
+  res = scoreAll({e1:-2, e3:2});
+  const econ = byDim(res,'econ');
+  check('Contradictory within an area: shown as "mixed", not averaged to middle', econ.status === 'mixed' && econ.min === -1 && econ.max === 1);
+
+  // 4. Reverse-coded item scores the right way
+  res = scoreAll({e2:-2}); // A on e2 points to "high" (more government-guided)
+  const e = byDim(res,'econ');
+  check('Reverse-coded item: "much closer to A" on e2 lands at the high end', e.status==='lean' && e.toward==='high' && e.mean===1);
+  check('One answer only: marked "very rough"', e.confidence === 'very rough');
+
+  // 5. Genuine middle
+  const allMid = Object.fromEntries(ITEMS.map(i => [i.id,0]));
+  res = scoreAll(allMid);
+  check('All "in between": every area "near the middle" and steadier', res.every(r => r.status==='middle' && r.confidence==='steadier'));
+
+  // 6. Contradictory across areas -> summary flags the split
+  const split = {};
+  for(const i of ITEMS.filter(i=>i.dim==='econ' || i.dim==='services')) split[i.id] = i.aPole==='high' ? -2 : 2;   // high end
+  for(const i of ITEMS.filter(i=>i.dim==='immigration' || i.dim==='climate')) split[i.id] = i.aPole==='low' ? -2 : 2; // low end
+  const sum = roughSummary(scoreAll(split));
+  check('Contradictory across areas: summary marked "split", value near middle', sum.status==='split' && Math.abs(sum.value) < 0.01);
+
+  // 7. Too few areas for a summary
+  check('Only two summary areas answered: no summary shown', roughSummary(scoreAll({e1:2, p1:-2})).status === 'insufficient');
+
+  // 8. Areas without a conventional left/right reading never feed the summary
+  const onlyExcluded = {c1:2,c2:2,c3:-2,g1:2,g2:-2,g3:2};
+  check('Civil liberties and government power do not feed the summary', roughSummary(scoreAll(onlyExcluded)).areas === 0);
+
+  // 9. Storage payload holds answers only, and bad values are dropped
+  const payload = buildSavePayload({e1:2, e2:'unsure', e3:7, zz:1, reflection:['work']});
+  const keys = Object.keys(payload.answers).sort().join(',');
+  check('Saved data holds only valid quiz answers (no reflection, no junk)', keys === 'e1,e2' && !('reflection' in payload), keys);
+
+  // 10. Balance: each area has statements pointing both ways, and A is not always the same end
+  const balanced = DIMENSIONS.every(d => { const p = ITEMS.filter(i=>i.dim===d.id).map(i=>i.aPole); return p.includes('low') && p.includes('high'); });
+  check('Every area mixes which end statement A points to', balanced);
+
+  return T;
+}
+/* ===== CORE END ===== */
+
+/* ===== UI ===== */
+(function(){
+  if(typeof document === 'undefined') return;
+  const STORE_KEY = 'wdmvs-prototype';
+  const app = document.getElementById('app');
+  const live = document.getElementById('live');
+  const STEPS_TOTAL = DIMENSIONS.length;
+
+  let answers = {};
+  let remember = false;
+  let step = 0;            // 0 intro, 1..7 areas, 8 results, 9 reflection
+  let reflection = new Set(); // memory only, never saved, never scored
+
+  function storageGet(){ try{ return localStorage.getItem(STORE_KEY); }catch(e){ return null; } }
+  function storageSet(v){ try{ localStorage.setItem(STORE_KEY, v); return true; }catch(e){ return false; } }
+  function storageDel(){ try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+
+  // Live site: answers stay in this tab's memory only, never in browser storage,
+  // because other pages on this origin load third-party ad scripts that share storage.
+  storageDel();
+
+  function persist(){
+    if(remember) storageSet(JSON.stringify(buildSavePayload(answers)));
+    else storageDel();
+  }
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function go(n){
+    step = n; render();
+    const h = app.querySelector('h2');
+    if(h){ h.setAttribute('tabindex','-1'); h.focus(); }
+    window.scrollTo(0,0);
+  }
+
+  function announce(t){ live.textContent = ''; setTimeout(()=>{ live.textContent = t; }, 30); }
+
+  function answerText(v){
+    if(v === 'unsure') return 'Not sure';
+    if(typeof v !== 'number') return 'Skipped';
+    return SCALE.find(s => s.v === v).label;
+  }
+
+  // ---- Intro ----
+  function renderIntro(){
+    app.innerHTML = `
+      <h1>Where do my political views sit?</h1>
+      <section class="card">
+        <h2>Before you start</h2>
+        <p>This is a self-reflection tool. It asks what you think about policy, one area at a time. It does not ask about your personality, identity, or background.</p>
+        <p>You will see two statements for each question. Pick where you land between them. You can choose “not sure” or skip any question.</p>
+        <p>Your results show each area on its own line. There is no single label, no right answer, and no party or candidate recommendation.</p>
+        <p class="muted">About 21 questions across 7 areas. Around 5 to 8 minutes.</p>
+      </section>
+      <section class="card">
+        <h2 class="h3" style="font-size:1.1rem">Your privacy</h2>
+        <p>Nothing you enter leaves this device. This page is built so it cannot send data anywhere, and it has no ads, accounts, or tracking.</p>
+        <p class="muted">Your answers are not saved. They disappear when you close or leave this page, or press “Reset all answers.”</p>
+      </section>
+      ${methodsHTML()}
+      <div class="nav"><span></span><button type="button" id="start">${Object.keys(answers).length ? 'Continue' : 'Start'}</button></div>`;
+    app.querySelector('#start').addEventListener('click', () => go(1));
+  }
+
+  // ---- One area ----
+  function renderArea(idx){
+    const d = DIMENSIONS[idx];
+    const items = ITEMS.filter(i => i.dim === d.id);
+    const qs = items.map((it, k) => {
+      const cur = answers[it.id];
+      const name = 'q_' + it.id;
+      const radio = (val, label) => {
+        const checked = (val === 'skip' ? cur === undefined : cur === val) ? 'checked' : '';
+        return `<label><input type="radio" name="${name}" value="${val}" ${checked}> <span>${esc(label)}</span></label>`;
+      };
+      return `
+      <fieldset>
+        <legend>Question ${k+1} of ${items.length}: ${esc(it.short)}</legend>
+        <div class="pair">
+          <div class="stmt" id="${it.id}a"><b>Statement A</b>${esc(it.a)}</div>
+          <div class="stmt" id="${it.id}b"><b>Statement B</b>${esc(it.b)}</div>
+        </div>
+        <div class="opts" role="radiogroup" aria-describedby="${it.id}a ${it.id}b">
+          ${SCALE.map(s => radio(s.v, s.label)).join('')}
+          <div class="sep" aria-hidden="true"></div>
+          ${radio('unsure','Not sure')}
+          ${radio('skip','Skip this question')}
+        </div>
+      </fieldset>`;
+    }).join('');
+    app.innerHTML = `
+      <p class="progress">Area ${idx+1} of ${STEPS_TOTAL}</p>
+      <h2>${esc(d.name)}</h2>
+      <p>${esc(d.intro)}</p>
+      ${qs}
+      <div class="nav">
+        <button type="button" class="secondary" id="back">Back</button>
+        <button type="button" id="next">${idx+1 === STEPS_TOTAL ? 'See my results' : 'Next area'}</button>
+      </div>`;
+    app.querySelectorAll('input[type=radio]').forEach(inp => inp.addEventListener('change', e => {
+      const id = e.target.name.slice(2), v = e.target.value;
+      if(v === 'skip') delete answers[id];
+      else if(v === 'unsure') answers[id] = 'unsure';
+      else answers[id] = parseInt(v, 10);
+      persist();
+    }));
+    app.querySelector('#back').addEventListener('click', () => go(step - 1));
+    app.querySelector('#next').addEventListener('click', () => go(step + 1));
+    announce(`Area ${idx+1} of ${STEPS_TOTAL}: ${d.name}`);
+  }
+
+  // ---- Results ----
+  const pct = x => ((x + 1) / 2 * 100).toFixed(1) + '%';
+
+  function describe(d, r){
+    if(r.status === 'unplaced') return 'Not placed. You skipped or chose “not sure” on every question here, which is a fine answer.';
+    if(r.status === 'mixed') return 'Mixed. Your answers here pointed in different directions. That is common, and it means this area doesn\u2019t fit on one simple line for you.';
+    if(r.status === 'middle') return 'Near the middle. On balance your answers sat between the two ends.';
+    const pole = r.toward === 'low' ? d.low : d.high;
+    return `${r.strength === 'clear' ? 'Leans clearly' : 'Leans somewhat'} toward “${pole}.”`;
+  }
+  function basis(r){
+    const parts = [`Based on ${r.n} of ${r.total} questions`];
+    if(r.unsure) parts.push(`${r.unsure} “not sure”`);
+    if(r.skipped) parts.push(`${r.skipped} skipped`);
+    let s = parts.join('; ') + '.';
+    if(r.status !== 'unplaced'){
+      s += r.confidence === 'very rough' ? ' With one answer, this is a very rough estimate.'
+         : r.confidence === 'rough' ? ' Treat this as a rough estimate.'
+         : ' Your answers here were fairly consistent.';
+    }
+    return s;
+  }
+  function trackHTML(d, r){
+    if(r.status === 'unplaced'){
+      return `<div class="track empty" role="img" aria-label="${esc(d.name)}: not placed"></div>`;
+    }
+    const left = pct(r.min), width = ((r.max - r.min) / 2 * 100);
+    const label = `${d.name}: average at ${Math.round((r.mean+1)*50)} on a 0 to 100 line from “${d.low}” (0) to “${d.high}” (100). Your answers ranged from ${Math.round((r.min+1)*50)} to ${Math.round((r.max+1)*50)}.`;
+    return `<div class="track" role="img" aria-label="${esc(label)}">
+        <div class="mid" aria-hidden="true"></div>
+        <div class="band" style="left:${left};width:max(${width.toFixed(1)}%,6px)" aria-hidden="true"></div>
+        <div class="dot" style="left:${pct(r.mean)}" aria-hidden="true"></div>
+      </div>`;
+  }
+
+  function renderResults(){
+    const results = scoreAll(answers);
+    const sum = roughSummary(results);
+    const cards = results.map(r => {
+      const d = DIMENSIONS.find(x => x.id === r.dim);
+      const its = ITEMS.filter(i => i.dim === d.id);
+      return `<section class="card" aria-labelledby="h_${d.id}">
+        <h3 id="h_${d.id}">${esc(d.name)}</h3>
+        <p style="margin:.2em 0">${esc(describe(d, r))}</p>
+        <div class="poles" aria-hidden="true"><span>${esc(d.low)}</span><span>${esc(d.high)}</span></div>
+        ${trackHTML(d, r)}
+        <p class="muted" style="margin:.4em 0 0">${esc(basis(r))}</p>
+        <details><summary>Show my answers in this area</summary>
+          <ul class="answers">${its.map(i => `<li><b>${esc(i.short)}:</b> ${esc(answerText(answers[i.id]))}</li>`).join('')}</ul>
+          <button type="button" class="link" data-edit="${DIMENSIONS.indexOf(d)+1}">Change answers in ${esc(d.name)}</button>
+        </details>
+      </section>`;
+    }).join('');
+
+    let summaryHTML;
+    if(sum.status === 'insufficient'){
+      summaryHTML = `<p>Not shown. It needs answers in at least ${THRESH.summaryMinAreas} of the 5 areas it uses, and you have ${sum.areas}.</p>`;
+    } else {
+      const pos = ((1 - sum.value) / 2 * 100).toFixed(1) + '%';
+      const lo = ((1 - sum.max) / 2 * 100), hi = ((1 - sum.min) / 2 * 100);
+      summaryHTML = `
+        <p>${sum.status === 'split'
+          ? 'Your areas pull in different directions, so a single point hides a lot. The band shows how spread out they are.'
+          : 'This point is an average of several separate areas. The band shows how spread out they are.'}</p>
+        <div class="poles" aria-hidden="true"><span>Often called “left” in the US</span><span>Often called “right” in the US</span></div>
+        <div class="track" role="img" aria-label="Rough summary from ${sum.areas} areas: point at ${Math.round((1-sum.value)*50)} on a 0 to 100 line where 0 is often called left and 100 often called right in the US. Areas ranged from ${Math.round(lo)} to ${Math.round(hi)}.">
+          <div class="mid" aria-hidden="true"></div>
+          <div class="band" style="left:${lo.toFixed(1)}%;width:max(${(hi-lo).toFixed(1)}%,6px)" aria-hidden="true"></div>
+          <div class="dot" style="left:${pos}" aria-hidden="true"></div>
+        </div>
+        <p class="muted">Uses ${sum.areas} areas. Civil liberties and government power are left out, because people across the usual left and right often land on either side of them.</p>`;
+    }
+
+    app.innerHTML = `
+      <h2>Your results, area by area</h2>
+      <p>Each line below is separate. The dot is the average of your answers in that area. The shaded band runs from your lowest to your highest answer, so a wide band means your views in that area vary.</p>
+      <p class="note">These results describe answers to 21 short questions today. They are not a label, and they don\u2019t say which party, candidate, or vote fits you. People with very different backgrounds can answer the same way, and people with the same background often disagree.</p>
+      ${cards}
+      <section class="card" aria-labelledby="h_sum">
+        <details>
+          <summary id="h_sum"><b>Optional: one rough left–right summary</b></summary>
+          ${summaryHTML}
+        </details>
+      </section>
+      ${methodsHTML()}
+      <div class="nav">
+        <button type="button" class="secondary" id="back">Back to questions</button>
+        <button type="button" id="reflect">Optional reflection</button>
+      </div>
+      ${location.hash === '#review' ? reviewerHTML() : ''}`;
+    app.querySelector('#back').addEventListener('click', () => go(STEPS_TOTAL));
+    app.querySelector('#reflect').addEventListener('click', () => go(STEPS_TOTAL + 2));
+    app.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => go(parseInt(b.dataset.edit,10))));
+    wireReviewer();
+    announce('Results ready.');
+  }
+
+  // ---- Optional social-location reflection (separate from scoring) ----
+  const REFLECT = [
+    {id:'work', label:'Work, money, and cost of living'},
+    {id:'health', label:'Health, disability, and access to care'},
+    {id:'place', label:'Where I live or have lived'},
+    {id:'language', label:'Language, culture, or faith'},
+    {id:'age', label:'Age and stage of life'},
+    {id:'institutions', label:'Dealings with schools, courts, police, benefits, or other institutions'},
+    {id:'others', label:'People close to me and what they have been through'}
+  ];
+  const PROMPTS = [
+    'Which of my answers come from things I have lived, and which from things I have read or heard?',
+    'Is there an area where my own situation makes a policy feel more urgent, or less urgent, than it might to someone else?',
+    'Who might be affected by this policy in ways I don\u2019t see from where I stand?',
+    'Has my view on any of these changed over time? What changed it?',
+    'Where would I want more facts before feeling sure?'
+  ];
+  function renderReflection(){
+    app.innerHTML = `
+      <h2>Optional reflection: social location</h2>
+      <p>“Social location” means how things like class, race, gender, disability, religion, language, age, and contact with institutions can shape a person\u2019s experiences and access to power or resources.</p>
+      <p class="note">This page is completely optional. Nothing here changes your results, and nothing here is saved, even if saving is on. It is never used to guess your views. People who share a background often disagree, so no background predicts a political view.</p>
+      <fieldset>
+        <legend>If you like, pick any areas you\u2019d want to think about. You can pick none.</legend>
+        <div class="opts">
+          ${REFLECT.map(r => `<label><input type="checkbox" value="${r.id}" ${reflection.has(r.id)?'checked':''}> <span>${esc(r.label)}</span></label>`).join('')}
+        </div>
+      </fieldset>
+      <section class="card" aria-labelledby="h_prompts">
+        <h3 id="h_prompts">Questions to sit with</h3>
+        <p class="muted">There is nothing to type or submit. These are just to think about, or talk over with someone you trust.</p>
+        <ul>${PROMPTS.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+        <p id="reflectNote" class="muted" aria-live="polite"></p>
+      </section>
+      <div class="nav">
+        <button type="button" class="secondary" id="back">Back to results</button>
+        <button type="button" class="secondary" id="clearReflect">Clear these choices</button>
+      </div>`;
+    const note = app.querySelector('#reflectNote');
+    const upd = () => { note.textContent = reflection.size ? 'You might try each question with the areas you picked in mind.' : ''; };
+    app.querySelectorAll('input[type=checkbox]').forEach(c => c.addEventListener('change', e => {
+      e.target.checked ? reflection.add(e.target.value) : reflection.delete(e.target.value); upd();
+    }));
+    upd();
+    app.querySelector('#back').addEventListener('click', () => go(STEPS_TOTAL + 1));
+    app.querySelector('#clearReflect').addEventListener('click', () => { reflection.clear(); renderReflection(); announce('Reflection choices cleared.'); });
+  }
+
+  function methodsHTML(){
+    return `<section class="card"><details><summary><b>How this works (methods note)</b></summary>
+      <p><b>What it covers.</b> Seven policy areas, each scored on its own: economic policy, public services, civil liberties, social policy, climate and energy, immigration, and government power. Three questions per area. The questions are written about US policy debates.</p>
+      <p><b>How answers become results.</b> Each question shows two statements. Each statement points toward one end of that area\u2019s line. “Much closer” to a statement counts as a full step toward its end, “a bit closer” as a half step, and “in between” as zero. In each area, some A statements point one way and some point the other, so always picking A doesn\u2019t push you to one end.</p>
+      <p><b>Not sure and skipped.</b> These are not counted as middle. They are left out and reported, so you can see how many answers a result is based on. An area with no counted answers is “not placed.”</p>
+      <p><b>Showing uncertainty.</b> The dot is your average in an area. The band runs from your lowest to highest answer. If you answered at least half a step toward both ends, the area is called “mixed” rather than averaged into the middle. Results based on fewer answers are marked as rougher.</p>
+      <p><b>The rough summary.</b> It is optional and hidden by default. It averages only the five areas where US politics commonly uses left and right labels, and needs at least three of them. It is a shorthand, not a verdict.</p>
+      <p><b>Limits.</b> Three questions per area is few. Wording shapes answers. These ends are not good or bad, and the tool does not recommend any party, candidate, or vote.</p>
+      <p><b>Why this design.</b> Research finds most people’s views don’t sit on one left–right line. Many people lean one way on economic issues and another on social issues, so each area is scored on its own (Feldman &amp; Johnston, 2014; Treier &amp; Hillygus, 2009). Questions offer two competing statements instead of agree/disagree, because agree/disagree wording nudges people toward agreeing and gives lower-quality answers (Pew Research Center, n.d.; Saris et al., 2010). Pew’s own political typology quiz uses the same paired-statement format (Pew Research Center, 2014). One caution: “not sure” options can lower effort for some people (Krosnick et al., 2002). This tool keeps “not sure” so no one is pushed to answer, and shows how many answers each result rests on.</p>
+      <p><b>Sources.</b></p>
+      <ul class="answers" style="font-size:.95rem">
+        <li>Feldman, S., &amp; Johnston, C. (2014). Understanding the determinants of political ideology: Implications of structural complexity. <i>Political Psychology, 35</i>(3), 337–358. <a href="https://doi.org/10.1111/pops.12055" rel="noopener noreferrer" target="_blank">doi.org/10.1111/pops.12055</a></li>
+        <li>Krosnick, J. A., et al. (2002). The impact of “no opinion” response options on data quality. <i>Public Opinion Quarterly, 66</i>(3), 371–403. <a href="https://doi.org/10.1086/341394" rel="noopener noreferrer" target="_blank">doi.org/10.1086/341394</a></li>
+        <li>Pew Research Center. (2014). Why the typology quiz questions are asked the way they are. <a href="https://www.pewresearch.org/short-reads/2014/06/27/why-the-typology-quiz-questions-are-asked-the-way-they-are/" rel="noopener noreferrer" target="_blank">pewresearch.org</a></li>
+        <li>Pew Research Center. (n.d.). Writing survey questions. <a href="https://www.pewresearch.org/our-methods/about-our-us-surveys/writing-survey-questions/" rel="noopener noreferrer" target="_blank">pewresearch.org</a></li>
+        <li>Saris, W., Revilla, M., Krosnick, J. A., &amp; Shaeffer, E. M. (2010). Comparing questions with agree/disagree response options to questions with item-specific response options. <i>Survey Research Methods, 4</i>(1), 61–79. <a href="https://doi.org/10.18148/srm/2010.v4i1.2682" rel="noopener noreferrer" target="_blank">doi.org/10.18148/srm/2010.v4i1.2682</a></li>
+        <li>Treier, S., &amp; Hillygus, D. S. (2009). The nature of political ideology in the contemporary electorate. <i>Public Opinion Quarterly, 73</i>(4), 679–703. <a href="https://doi.org/10.1093/poq/nfp067" rel="noopener noreferrer" target="_blank">doi.org/10.1093/poq/nfp067</a></li>
+        <li>W3C. (2023). Web Content Accessibility Guidelines (WCAG) 2.2. <a href="https://www.w3.org/TR/WCAG22/" rel="noopener noreferrer" target="_blank">w3.org/TR/WCAG22</a></li>
+      </ul>
+      <p><b>Privacy.</b> The page blocks all network requests. Answers live only in this tab\u2019s memory and are never saved. The optional reflection page is never saved and never scored. “Reset all answers” at the top deletes everything.</p>
+    </details></section>`;
+  }
+
+  function reviewerHTML(){
+    return `<section class="card"><details id="rev"><summary><b>For reviewers: run sample tests</b></summary>
+      <p class="muted">Runs the built-in checks for skipped, “not sure,” and contradictory answers against the scoring code. Does not touch your answers.</p>
+      <button type="button" class="secondary" id="runTests">Run tests</button>
+      <ul id="testOut" aria-live="polite"></ul>
+    </details></section>`;
+  }
+  function wireReviewer(){
+    const b = app.querySelector('#runTests'); if(!b) return;
+    b.addEventListener('click', () => {
+      const out = app.querySelector('#testOut');
+      const res = runSelfTests();
+      out.innerHTML = res.map(t => `<li class="${t.pass?'pass':'fail'}">${t.pass?'Pass':'Fail'}: ${esc(t.name)}${t.detail && !t.pass ? ' ('+esc(t.detail)+')' : ''}</li>`).join('')
+        + `<li><b>${res.filter(t=>t.pass).length} of ${res.length} passed</b></li>`;
+    });
+  }
+
+  function render(){
+    if(step === 0) renderIntro();
+    else if(step <= STEPS_TOTAL) renderArea(step - 1);
+    else if(step === STEPS_TOTAL + 1) renderResults();
+    else renderReflection();
+  }
+
+  // ---- Reset ----
+  const rc = document.getElementById('resetConfirm');
+  document.getElementById('resetBtn').addEventListener('click', () => { rc.hidden = false; document.getElementById('resetYes').focus(); });
+  document.getElementById('resetNo').addEventListener('click', () => { rc.hidden = true; document.getElementById('resetBtn').focus(); });
+  document.getElementById('resetYes').addEventListener('click', () => {
+    answers = {}; reflection.clear(); remember = false; storageDel();
+    rc.hidden = true; go(0); announce('All answers cleared.');
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -163,8 +163,8 @@ def build():
 <p><a class="back" href="/podcasts/">All episodes →</a></p>
 <h2>Planet Hoto</h2>
 <p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit blog.hoto.lol →</a></p>
-<h2>Coming soon: a civic guide</h2>
-<p>A neutral, privacy-first way to see where you stand on the issues. <a href="/civic/">Read what it will be</a>.</p>
+<h2>Civic guide: where do my political views sit?</h2>
+<p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads. <a href="/civic/">Try the civic guide →</a></p>
 """, PLAYER_JS))
 
     # Blog index
@@ -197,20 +197,13 @@ def build():
 {cards}
 """, PLAYER_JS))
 
-    # Civic guide placeholder
-    write("civic/index.html", page("/civic/", "Civic guide", "An independent, neutral, privacy-first civic issue guide. Coming soon.", """
-<p class="kicker">Coming soon</p>
-<h1>Civic guide</h1>
-<p class="lede">An independent civic tool for seeing where you stand on the issues, in your own words.</p>
-<h2>What it will be</h2>
-<ul>
-<li>Neutral. Every issue is described the way its own supporters and critics would describe it.</li>
-<li>Private. Your answers stay on your device. Nothing is sent, saved, or sold.</li>
-<li>Independent. Not affiliated with any party, candidate, campaign, or government.</li>
-<li>Honest. It shows you what you think. It does not tell you how to vote.</li>
-</ul>
-<p>It is not built yet. Check back.</p>
-"""))
+    # Civic guide: a standalone page, deliberately NOT built with page(), so it never
+    # loads the AdSense script. Its own CSP blocks all network requests. Political and
+    # social-location answers must never reach ads, analytics, or storage.
+    quiz = (ROOT / "civic" / "quiz.html").read_text(encoding="utf-8")
+    assert "googlesyndication" not in quiz and "adsbygoogle" not in quiz, "civic guide must not load ads"
+    assert "connect-src 'none'" in quiz, "civic guide must keep its no-network CSP"
+    write("civic/index.html", quiz)
 
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", """
@@ -219,6 +212,8 @@ def build():
 <h2>Ads</h2>
 <p>This site shows ads from Google AdSense. Google and its partners may use cookies to show ads based on your visits to this and other sites.</p>
 <p>You can turn off personalized ads at <a href="https://adssettings.google.com/" rel="noopener noreferrer">Google Ad Settings</a>, and learn more at <a href="https://policies.google.com/technologies/ads" rel="noopener noreferrer">how Google uses data in ads</a>.</p>
+<h2>Civic guide</h2>
+<p>The <a href="/civic/">civic guide</a> has no ads, trackers, or analytics. It blocks all network requests, so your answers cannot be sent anywhere. Answers are kept only in the open page, never saved to your browser, and disappear when you leave or press “Reset all answers.” Your political answers are never used for ads, accounts, or retargeting.</p>
 <h2>Podcast audio</h2>
 <p>Episodes are hosted on this site and only load when you press Play.</p>
 """))
