@@ -116,7 +116,7 @@ Notice that Mill is claimed by civil libertarians on the left and the right. Loc
 1. **Steelman both sides.** Each statement's reason should be one its supporters would sign. Check against section 2's audit after any edit.
 2. **No authorities in questions.** No thinkers, scripture, parties, or popes named in any statement.
 3. **No group predictions.** Never say or imply that Christians, Catholics, or followers of any thinker answer a certain way. The sources show the opposite.
-4. **Optional "where these ideas come from" panel (not built).** If added later, it should sit after results and list sources for *both* sides of each area, the way sections 3–5 do. It should never be tied to a visitor's answers or say "your views match X."
+4. **"Where these ideas come from" panel (built Oct 25, 2026).** It sits after the results, collapsed, and lists sources toward each end of every area plus sources both sides claim. It is never tied to a visitor's answers. Gun policy, trade, and foreign policy were added with Second Amendment and *Heller*, Smith and Hamilton, and Washington, NATO Article 5, and the just war tradition.
 5. **Scripture accuracy.** If scripture is ever shown, quote a named translation and give chapter and verse. Don't paraphrase it in ways that tilt the meaning.
 
 ---
