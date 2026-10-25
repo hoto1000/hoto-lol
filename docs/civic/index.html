@@ -123,14 +123,20 @@ const DIMENSIONS = [
    intro:'Who should public programs cover, and on what terms?'},
   {id:'liberties', name:'Civil liberties', low:'More room for security and enforcement tools', high:'Tighter limits on government surveillance and enforcement', leftRightSign:null,
    intro:'How should government balance safety and order against privacy and free expression?'},
-  {id:'social', name:'Social policy', low:'Keep or restore traditional rules', high:'Loosen or update traditional rules', leftRightSign:1,
+  {id:'social', name:'Social policy', low:'More weight on shared norms and protections', high:'More room for personal choice', leftRightSign:1,
    intro:'How should laws handle questions about personal choices, religion, and community norms?'},
-  {id:'climate', name:'Climate and energy', low:'Prioritize affordable, current energy', high:'Prioritize faster emissions cuts', leftRightSign:1,
+  {id:'climate', name:'Climate and energy', low:'Prioritize affordable, reliable, secure energy', high:'Prioritize faster emissions cuts', leftRightSign:1,
    intro:'How fast, and by what means, should the country change how it makes energy?'},
   {id:'immigration', name:'Immigration', low:'Lower, more restricted immigration', high:'Higher, more open immigration', leftRightSign:1,
    intro:'How many people should be able to move here, and how should the border and asylum work?'},
   {id:'power', name:'Government power', low:'More limited, spread-out power', high:'More expansive, centralized power', leftRightSign:null,
-   intro:'How much should government do, and how much power should sit at the national level or with one office?'}
+   intro:'How much should government do, and how much power should sit at the national level or with one office?'},
+  {id:'guns', name:'Gun policy', low:'Fewer limits on gun ownership', high:'More limits on gun ownership', leftRightSign:1,
+   intro:'How should the law balance the right to own and carry guns against efforts to prevent gun deaths?'},
+  {id:'trade', name:'Trade', low:'More open trade', high:'More protected trade', leftRightSign:null,
+   intro:'How freely should goods move across borders, and when should the country protect its own industries?'},
+  {id:'foreign', name:'Foreign policy', low:'More restraint, acting alone when needed', high:'More engagement through allies and commitments', leftRightSign:null,
+   intro:'How involved should the country be abroad, and how much should it work through allies and international agreements?'}
 ];
 
 // aPole: which end of the area statement A points toward ('low' or 'high').
@@ -204,7 +210,37 @@ const ITEMS = [
    b:'Even in emergencies, major actions should need approval from Congress or the courts.'},
   {id:'g3', dim:'power', short:'Size of the federal government', aPole:'low',
    a:'The federal government has grown too large and should do fewer things.',
-   b:'The federal government should take on more responsibilities to solve national problems.'}
+   b:'The federal government should take on more responsibilities to solve national problems.'},
+
+  {id:'f1', dim:'guns', short:'Background checks', aPole:'high',
+   a:'All gun sales, including private sales, should require a background check, to keep guns from people barred from owning them.',
+   b:'Background check rules should stay as they are, because new rules mostly burden law-abiding owners and are hard to enforce.'},
+  {id:'f2', dim:'guns', short:'Carrying a concealed handgun', aPole:'low',
+   a:'Adults who can legally own a handgun should be able to carry it concealed without a special permit, so they can protect themselves.',
+   b:'Carrying a concealed handgun in public should require a permit and training, to lower the risk of accidents and violence.'},
+  {id:'f3', dim:'guns', short:'Semi-automatic rifles', aPole:'low',
+   a:'Semi-automatic rifles like the AR-15 should stay legal to buy, because millions of people own them lawfully for sport and self-defense.',
+   b:'New sales of semi-automatic rifles like the AR-15 should be banned, because they have been used in some of the deadliest mass shootings.'},
+
+  {id:'t1', dim:'trade', short:'Tariffs on imports', aPole:'high',
+   a:'The country should put higher tariffs on many imports, to protect jobs and industries at home.',
+   b:'The country should keep tariffs low, so prices stay down and other countries don\u2019t strike back at our exports.'},
+  {id:'t2', dim:'trade', short:'Trade deals', aPole:'low',
+   a:'Trade deals that lower barriers on both sides mostly help the economy, even if some industries shrink.',
+   b:'Trade deals have cost too many jobs at home, so new deals should be rare and much stricter.'},
+  {id:'t3', dim:'trade', short:'Making key products at home', aPole:'high',
+   a:'Key products like medicines and computer chips should be made at home, even if they cost more.',
+   b:'Key products should be bought wherever they are made best and cheapest, with stockpiles kept for emergencies.'},
+
+  {id:'o1', dim:'foreign', short:'Military commitments abroad', aPole:'low',
+   a:'The country should cut back its military commitments abroad and focus on problems at home.',
+   b:'The country should keep a strong military presence abroad, to deter attacks and protect allies.'},
+  {id:'o2', dim:'foreign', short:'Military aid to allies', aPole:'high',
+   a:'The country should keep sending military aid to allies under attack, so aggressors don\u2019t win.',
+   b:'The country should send less military aid abroad and push harder for negotiated settlements.'},
+  {id:'o3', dim:'foreign', short:'Acting alone or with others', aPole:'low',
+   a:'The country should act on its own when its interests require it, rather than wait for international agreement.',
+   b:'The country should work through alliances and international organizations, even when that means compromising.'}
 ];
 
 // Response values: -2..2 (negative = closer to A), 'unsure', or absent (skipped).
@@ -305,6 +341,9 @@ const LENS = {
   social:{touches:['people of many faiths and people with no faith','people facing a pregnancy decision','people affected by drug use and their families','parents, students, and teachers']},
   climate:{touches:['workers in oil, gas, coal, and clean-energy jobs','people in places hit by heat, fire, drought, or flooding','households where energy bills take a big share of the budget','younger people who will live with long-term effects']},
   immigration:{touches:['recent immigrants and people waiting on legal status','families with members of mixed legal status','workers whose wages or rents could shift','border communities','employers who hire immigrant workers']},
+  guns:{touches:['people who hunt or shoot for sport','people who keep a gun for self-defense','families and communities who have lost someone to gun violence','people in rural areas far from police help','people who sell or make guns for a living']},
+  trade:{touches:['factory workers','farmers who sell crops overseas','shoppers on tight budgets','businesses that rely on imported parts','towns built around one industry']},
+  foreign:{touches:['service members and military families','veterans','people with family in countries at war','taxpayers who fund defense and aid','people abroad who rely on this country\u2019s help or are harmed by its actions']},
   power:{touches:['people in rural towns and in big cities','people who depend on federal programs','people who distrust distant government','people who have felt unheard by government at any level']}
 };
 
@@ -325,6 +364,50 @@ function lensNote(result, stake){
   if(stake === 'notmuch') return 'This area is farther from your daily life. Who is it close to home for, and have you heard from them in their own words?';
   return null;
 }
+
+// Randomized statement order (per visitor, memory only). Answers are always STORED in the
+// canonical orientation (negative = closer to the item's own statement "a"), so scoring never
+// depends on what a visitor happened to see as "A".
+function makeOrder(rand){
+  rand = rand || Math.random;
+  return Object.fromEntries(ITEMS.map(i => [i.id, rand() < 0.5]));
+}
+function shownPair(item, swapped){ return swapped ? {a:item.b, b:item.a} : {a:item.a, b:item.b}; }
+// Converts between what the visitor clicked and the stored value. It is its own inverse.
+function flip(resp, swapped){ return (swapped && typeof resp === 'number' && resp !== 0) ? -resp : resp; }
+
+// "Where these ideas come from": thinkers and texts people on each side draw on.
+// Shown only as general background, collapsed, never matched to a visitor's answers.
+const IDEAS = {
+  econ:{low:['John Locke (1689): government exists partly to protect property people gain through their work','Robert Nozick (1974): holdings that were fairly acquired and fairly traded should not be redistributed'],
+        high:['John Rawls (1971): choose rules as if you didn\u2019t know your place in society, and let inequalities stand only if they help the worst off'],
+        both:['Catholic social teaching, from Rome: Rerum Novarum (1891) defends private property and also a living wage, unions, and the state\u2019s duty to step in for justice']},
+  services:{low:['Subsidiarity, in Quadragesimo Anno (1931): what smaller groups can do should not be taken over by larger ones','2 Thessalonians 3:10: \u201cif anyone is not willing to work, let him not eat,\u201d often cited for work requirements'],
+        high:['John Rawls (1971): a fair society is judged by how it treats those with the least','Rerum Novarum (1891): public authority has a duty to protect the poor and workers'],
+        both:['Matthew 25:35\u201340, \u201cI was hungry and you gave me food,\u201d cited both for public programs and for private and church charity']},
+  liberties:{low:['Romans 13:3\u20134: rulers as a check on wrongdoing, often cited for strong law enforcement'],
+        high:['John Stuart Mill, On Liberty (1859): the state may limit liberty only to prevent harm to others','John Locke (1689): power that oversteps its trust loses its claim on obedience'],
+        both:['Federalist No. 51 (1788): government must first \u201ccontrol the governed\u201d and then be \u201cobliged to control itself\u201d']},
+  social:{low:['Edmund Burke (1790): customs and institutions carry inherited wisdom and should change slowly','Cicero\u2019s natural law: a moral law above any one government\u2019s choices'],
+        high:['John Stuart Mill, On Liberty (1859): people should be free to run their own lives where others aren\u2019t harmed','Mark 12:17, \u201crender to Caesar,\u201d often read as keeping religious and civil spheres apart'],
+        both:['Moral psychology: people weigh care, fairness, liberty, loyalty, authority, and purity differently, and everyone uses more than one (Graham et al., 2009; Atari et al., 2023)']},
+  climate:{low:[],high:[],
+        both:['Genesis 2:15, humans placed in the garden \u201cto work it and keep it,\u201d cited both for conservation and for responsible use of resources','Edmund Burke (1790): society as a partnership among the living, the dead, and those not yet born, cited both for protecting the future and for caution about rapid change']},
+  immigration:{low:['The Catechism of the Catholic Church, para. 2241: governments may set legal conditions on immigration for the common good','Romans 13:1\u20135, cited for following and enforcing existing law'],
+        high:['Leviticus 19:33\u201334: treat the foreigner as native-born, \u201cfor you were foreigners in Egypt\u201d','The Catechism, para. 2241: prosperous nations should welcome, as far as they can, foreigners seeking safety and a livelihood'],
+        both:['The same Catechism paragraph holds both duties at once, which is why it appears on both sides here']},
+  power:{low:['Polybius on Rome\u2019s mixed constitution, read by John Adams and James Madison: each branch should check the others','Subsidiarity, in Quadragesimo Anno (1931): decisions belong at the most local level that can handle them'],
+        high:['James Madison drew on Polybius to argue that confederacies with weak central governments fall apart, part of the case for a stronger national government in 1787'],
+        both:['Federalist No. 51 (1788): \u201cambition must be made to counteract ambition,\u201d cited by whichever side is out of power']},
+  guns:{low:[],high:[],
+        both:['The Second Amendment, read by some as mainly an individual right and by others as tied to a militia. In District of Columbia v. Heller (2008), the Supreme Court held it protects an individual right, while saying some longstanding limits remain allowed','John Stuart Mill\u2019s harm principle, cited both for owners\u2019 liberty and for rules meant to prevent harm to others']},
+  trade:{low:['Adam Smith, The Wealth of Nations (1776): trade restrictions mostly protect a few producers at the cost of everyone who buys'],
+        high:['Alexander Hamilton, Report on Manufactures (1791): young industries may need protection until they can compete'],
+        both:[]},
+  foreign:{low:['George Washington\u2019s Farewell Address (1796): steer clear of permanent alliances'],
+        high:['The North Atlantic Treaty (1949), Article 5: an attack on one member is an attack on all'],
+        both:['The just war tradition (Augustine, Aquinas), cited both for defending others and for strict limits on when war is justified']}
+};
 
 function sanitizeStakes(raw){
   const out = {}; if(!raw || typeof raw !== 'object') return out;
@@ -403,6 +486,19 @@ function runSelfTests(){
   check('Social location: "a lot" with mixed answers gets the mixed note', /mixed or in between/.test(lensNote({status:'mixed'}, 'alot')));
   check('Social location: bad stake values are dropped', JSON.stringify(sanitizeStakes({econ:'alot', climate:'very', zz:'some'})) === '{"econ":"alot"}');
 
+  // Randomized order: stored values are identical however statements were shown
+  const it = ITEMS.find(i => i.id === 'e2');
+  check('Random order: flipping twice returns the original answer', [-2,-1,0,1,2,'unsure',undefined].every(v => flip(flip(v,true),true) === v));
+  check('Random order: "much closer to the shown A" scores the same as the unswapped answer to that statement',
+    JSON.stringify(scoreAll({e2: flip(2, true)})) === JSON.stringify(scoreAll({e2: -2})) && shownPair(it, true).b === it.a);
+  const ord = makeOrder(() => 0.1); check('Random order: every question gets an order', ITEMS.every(i => typeof ord[i.id] === 'boolean'));
+
+  // New areas
+  check('Ten areas, 30 questions, 3 per area', DIMENSIONS.length === 10 && ITEMS.length === 30 && DIMENSIONS.every(d => ITEMS.filter(i=>i.dim===d.id).length === 3));
+  check('Trade and foreign policy do not feed the rough summary; gun policy does', roughSummary(scoreAll({t1:2,t2:2,t3:2,o1:2,o2:2,o3:2})).areas === 0 && DIMENSIONS.find(d=>d.id==='guns').leftRightSign === 1);
+  check('Ideas panel: every area has an entry and no area shows only one side',
+    DIMENSIONS.every(d => IDEAS[d.id] && ((IDEAS[d.id].low.length > 0) === (IDEAS[d.id].high.length > 0)) && (IDEAS[d.id].low.length + IDEAS[d.id].high.length + IDEAS[d.id].both.length) > 0));
+
   // 13. Every area has a lens, with several kinds of positions
   check('Social location: every area lists at least 4 positions', DIMENSIONS.every(d => LENS[d.id] && LENS[d.id].touches.length >= 4));
 
@@ -426,9 +522,10 @@ function runSelfTests(){
 
   let answers = {};
   let remember = false;
-  let step = 0;            // 0 intro, 1..7 areas, 8 results, 9 reflection
+  let step = 0;            // 0 intro, 1..N areas, N+1 results, N+2 social location lens
   let reflection = new Set(); // memory only, never saved, never scored
   let stakes = {};             // social-location lens: memory only, never saved, never scored
+  let order = makeOrder();     // which statement shows first, per visitor; memory only
 
   function storageGet(){ try{ return localStorage.getItem(STORE_KEY); }catch(e){ return null; } }
   function storageSet(v){ try{ localStorage.setItem(STORE_KEY, v); return true; }catch(e){ return false; } }
@@ -454,10 +551,14 @@ function runSelfTests(){
 
   function announce(t){ live.textContent = ''; setTimeout(()=>{ live.textContent = t; }, 30); }
 
-  function answerText(v){
+  // Describes a stored answer in words, naming the statement rather than a letter,
+  // because the letters were randomized.
+  function answerText(it, v){
     if(v === 'unsure') return 'Not sure';
     if(typeof v !== 'number') return 'Skipped';
-    return SCALE.find(s => s.v === v).label;
+    if(v === 0) return 'In between, or both equally';
+    const toward = v < 0 ? it.a : it.b;
+    return `${Math.abs(v) === 2 ? 'Much closer to' : 'A bit closer to'}: \u201c${toward}\u201d`;
   }
 
   // ---- Intro ----
@@ -470,7 +571,7 @@ function runSelfTests(){
         <p>After your results, there is an optional social location lens. It helps you think about how your own life, and other people’s lives, connect to each area. It is never scored, never saved, and never used to guess your views.</p>
         <p>You will see two statements for each question. Pick where you land between them. You can choose “not sure” or skip any question.</p>
         <p>Your results show each area on its own line. There is no single label, no right answer, and no party or candidate recommendation.</p>
-        <p class="muted">About 21 questions across 7 areas. Around 5 to 8 minutes.</p>
+        <p class="muted">About 30 questions across 10 areas. Around 8 to 12 minutes.</p>
       </section>
       <section class="card">
         <h2 class="h3" style="font-size:1.1rem">Your privacy</h2>
@@ -487,7 +588,8 @@ function runSelfTests(){
     const d = DIMENSIONS[idx];
     const items = ITEMS.filter(i => i.dim === d.id);
     const qs = items.map((it, k) => {
-      const cur = answers[it.id];
+      const cur = flip(answers[it.id], order[it.id]);   // value as the visitor sees it
+      const shown = shownPair(it, order[it.id]);
       const name = 'q_' + it.id;
       const radio = (val, label) => {
         const checked = (val === 'skip' ? cur === undefined : cur === val) ? 'checked' : '';
@@ -497,8 +599,8 @@ function runSelfTests(){
       <fieldset>
         <legend>Question ${k+1} of ${items.length}: ${esc(it.short)}</legend>
         <div class="pair">
-          <div class="stmt" id="${it.id}a"><b>Statement A</b>${esc(it.a)}</div>
-          <div class="stmt" id="${it.id}b"><b>Statement B</b>${esc(it.b)}</div>
+          <div class="stmt" id="${it.id}a"><b>Statement A</b>${esc(shown.a)}</div>
+          <div class="stmt" id="${it.id}b"><b>Statement B</b>${esc(shown.b)}</div>
         </div>
         <div class="opts" role="radiogroup" aria-describedby="${it.id}a ${it.id}b">
           ${SCALE.map(s => radio(s.v, s.label)).join('')}
@@ -521,7 +623,7 @@ function runSelfTests(){
       const id = e.target.name.slice(2), v = e.target.value;
       if(v === 'skip') delete answers[id];
       else if(v === 'unsure') answers[id] = 'unsure';
-      else answers[id] = parseInt(v, 10);
+      else answers[id] = flip(parseInt(v, 10), order[id]);
       persist();
     }));
     app.querySelector('#back').addEventListener('click', () => go(step - 1));
@@ -578,7 +680,7 @@ function runSelfTests(){
         <p class="muted" style="margin:.4em 0 0">${esc(basis(r))}</p>
         ${stakes[d.id] && stakes[d.id] !== 'private' ? `<p class="muted" style="margin:.3em 0 0"><b>Close to home:</b> ${esc(STAKES.find(s=>s.v===stakes[d.id]).label.toLowerCase())} (your answer in the social location lens; not scored)</p>` : ''}
         <details><summary>Show my answers in this area</summary>
-          <ul class="answers">${its.map(i => `<li><b>${esc(i.short)}:</b> ${esc(answerText(answers[i.id]))}</li>`).join('')}</ul>
+          <ul class="answers">${its.map(i => `<li><b>${esc(i.short)}:</b> ${esc(answerText(i, answers[i.id]))}</li>`).join('')}</ul>
           <button type="button" class="link" data-edit="${DIMENSIONS.indexOf(d)+1}">Change answers in ${esc(d.name)}</button>
         </details>
       </section>`;
@@ -586,7 +688,7 @@ function runSelfTests(){
 
     let summaryHTML;
     if(sum.status === 'insufficient'){
-      summaryHTML = `<p>Not shown. It needs answers in at least ${THRESH.summaryMinAreas} of the 5 areas it uses, and you have ${sum.areas}.</p>`;
+      summaryHTML = `<p>Not shown. It needs answers in at least ${THRESH.summaryMinAreas} of the ${DIMENSIONS.filter(d => d.leftRightSign !== null).length} areas it uses, and you have ${sum.areas}.</p>`;
     } else {
       const pos = ((1 - sum.value) / 2 * 100).toFixed(1) + '%';
       const lo = ((1 - sum.max) / 2 * 100), hi = ((1 - sum.min) / 2 * 100);
@@ -600,13 +702,13 @@ function runSelfTests(){
           <div class="band" style="left:${lo.toFixed(1)}%;width:max(${(hi-lo).toFixed(1)}%,6px)" aria-hidden="true"></div>
           <div class="dot" style="left:${pos}" aria-hidden="true"></div>
         </div>
-        <p class="muted">Uses ${sum.areas} areas. Civil liberties and government power are left out, because people across the usual left and right often land on either side of them.</p>`;
+        <p class="muted">Uses ${sum.areas} areas. Civil liberties, government power, trade, and foreign policy are left out, because people across the usual left and right often land on either side of them.</p>`;
     }
 
     app.innerHTML = `
       <h2>Your results, area by area</h2>
       <p>Each line below is separate. The dot is the average of your answers in that area. The shaded band runs from your lowest to your highest answer, so a wide band means your views in that area vary.</p>
-      <p class="note">These results describe answers to 21 short questions today. They are not a label, and they don\u2019t say which party, candidate, or vote fits you. People with very different backgrounds can answer the same way, and people with the same background often disagree.</p>
+      <p class="note">These results describe answers to ${ITEMS.length} short questions today. They are not a label, and they don\u2019t say which party, candidate, or vote fits you. People with very different backgrounds can answer the same way, and people with the same background often disagree.</p>
       <section class="card" aria-labelledby="h_lensin">
         <h3 id="h_lensin">Look at these through a social location lens (optional)</h3>
         <p>Your views don’t form in a vacuum. Things like money, work, health, faith, language, age, where you live, and dealings with institutions can shape what each area means to you. The lens helps you look at that, area by area. It doesn’t change your results.</p>
@@ -619,6 +721,7 @@ function runSelfTests(){
           ${summaryHTML}
         </details>
       </section>
+      ${ideasHTML()}
       ${methodsHTML()}
       <div class="nav">
         <button type="button" class="secondary" id="back">Back to questions</button>
@@ -713,13 +816,30 @@ function runSelfTests(){
     app.querySelector('#clearReflect').addEventListener('click', () => { reflection.clear(); stakes = {}; renderReflection(); announce('Social location choices cleared.'); });
   }
 
+  function ideasHTML(){
+    const list = arr => `<ul>${arr.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+    const blocks = DIMENSIONS.map(d => {
+      const I = IDEAS[d.id]; let h = '';
+      if(I.low.length) h += `<p style="margin-bottom:.2em"><b>Often drawn on toward \u201c${esc(d.low)}\u201d</b></p>${list(I.low)}`;
+      if(I.high.length) h += `<p style="margin-bottom:.2em"><b>Often drawn on toward \u201c${esc(d.high)}\u201d</b></p>${list(I.high)}`;
+      if(I.both.length) h += `<p style="margin-bottom:.2em"><b>Drawn on by both sides</b></p>${list(I.both)}`;
+      return `<details><summary>${esc(d.name)}</summary>${h}</details>`;
+    }).join('');
+    return `<section class="card" aria-labelledby="h_ideas">
+      <h3 id="h_ideas">Where these ideas come from (optional)</h3>
+      <p>Some of the thinkers and texts people draw on in each area, from ancient Rome and the Bible to modern philosophy. This is general background. It is not matched to your answers, and many of these sources are claimed by people on both sides.</p>
+      ${blocks}
+      <p class="muted">Sources include the Stanford Encyclopedia of Philosophy, the Vatican\u2019s published encyclicals, the Catechism of the Catholic Church, and the National Constitution Center.</p>
+    </section>`;
+  }
+
   function methodsHTML(){
     return `<section class="card"><details><summary><b>How this works (methods note)</b></summary>
-      <p><b>What it covers.</b> Seven policy areas, each scored on its own: economic policy, public services, civil liberties, social policy, climate and energy, immigration, and government power. Three questions per area. The questions are written about US policy debates.</p>
-      <p><b>How answers become results.</b> Each question shows two statements. Each statement points toward one end of that area\u2019s line. “Much closer” to a statement counts as a full step toward its end, “a bit closer” as a half step, and “in between” as zero. In each area, some A statements point one way and some point the other, so always picking A doesn\u2019t push you to one end.</p>
+      <p><b>What it covers.</b> Ten policy areas, each scored on its own: economic policy, public services, civil liberties, social policy, climate and energy, immigration, government power, gun policy, trade, and foreign policy. Three questions per area. The questions are written about US policy debates.</p>
+      <p><b>How answers become results.</b> Each question shows two statements. Each statement points toward one end of that area\u2019s line. “Much closer” to a statement counts as a full step toward its end, “a bit closer” as a half step, and “in between” as zero. In each area, the statements are written so that some point one way and some the other. Which statement appears as A is also shuffled for each visitor, so the order you see doesn\u2019t steer the results (Pew Research Center, n.d.).</p>
       <p><b>Not sure and skipped.</b> These are not counted as middle. They are left out and reported, so you can see how many answers a result is based on. An area with no counted answers is “not placed.”</p>
       <p><b>Showing uncertainty.</b> The dot is your average in an area. The band runs from your lowest to highest answer. If you answered at least half a step toward both ends, the area is called “mixed” rather than averaged into the middle. Results based on fewer answers are marked as rougher.</p>
-      <p><b>The rough summary.</b> It is optional and hidden by default. It averages only the five areas where US politics commonly uses left and right labels, and needs at least three of them. It is a shorthand, not a verdict.</p>
+      <p><b>The rough summary.</b> It is optional and hidden by default. It averages only the six areas where US politics commonly uses left and right labels (economic policy, public services, social policy, climate, immigration, and gun policy), and needs at least three of them. It is a shorthand, not a verdict.</p>
       <p><b>Limits.</b> Three questions per area is few. Wording shapes answers. These ends are not good or bad, and the tool does not recommend any party, candidate, or vote.</p>
       <p><b>Why this design.</b> Research finds most people’s views don’t sit on one left–right line. Many people lean one way on economic issues and another on social issues, so each area is scored on its own (Feldman &amp; Johnston, 2014; Treier &amp; Hillygus, 2009). Questions offer two competing statements instead of agree/disagree, because agree/disagree wording nudges people toward agreeing and gives lower-quality answers (Pew Research Center, n.d.; Saris et al., 2010). Pew’s own political typology quiz uses the same paired-statement format (Pew Research Center, 2014). One caution: “not sure” options can lower effort for some people (Krosnick et al., 2002). This tool keeps “not sure” so no one is pushed to answer, and shows how many answers each result rests on.</p>
       <p><b>Sources.</b></p>
@@ -768,7 +888,7 @@ function runSelfTests(){
   document.getElementById('resetBtn').addEventListener('click', () => { rc.hidden = false; document.getElementById('resetYes').focus(); });
   document.getElementById('resetNo').addEventListener('click', () => { rc.hidden = true; document.getElementById('resetBtn').focus(); });
   document.getElementById('resetYes').addEventListener('click', () => {
-    answers = {}; reflection.clear(); stakes = {}; remember = false; storageDel();
+    answers = {}; reflection.clear(); stakes = {}; order = makeOrder(); remember = false; storageDel();
     rc.hidden = true; go(0); announce('All answers cleared.');
   });
 

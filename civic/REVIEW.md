@@ -194,3 +194,31 @@ Each source was checked against the publisher or a university record page. The v
 Simulated run: the dots and bands were identical before and after using the lens, a tag appeared only where a stake was given, nothing was written to storage, and reset cleared the tags. The accessibility scan shows 0 problems on the lens and results screens.
 
 **Open question for a human reviewer:** do the "whose lives this touches" lists feel balanced to readers across the spectrum? Each one was written to name positions on both sides of the policy's costs and benefits.
+
+## Update: recommended changes applied (Oct 25, 2026)
+
+**1. Randomized statement order (Pew advice).** Each visitor sees a random A/B order for every question, chosen fresh each visit and on reset, and never stored. Answers are always stored in the same internal orientation, so scoring can't depend on what someone saw as "A." "Show my answers" now names the statement ("Much closer to: '…'") instead of a letter.
+
+**2. Three new areas, for 10 areas and 30 questions.** Each area has 3 items, with statement A pointing different ways.
+- Gun policy (background checks, concealed carry, semi-automatic rifles). Included in the rough summary, since it maps onto the usual US left/right.
+- Trade (tariffs, trade deals, making key products at home). Left out of the summary because it cuts across the usual sides.
+- Foreign policy (commitments abroad, military aid, acting alone or with others). Left out of the summary for the same reason.
+
+Each new area also has a social-location lens entry that passes the wording check.
+
+**3. Rebalanced pole labels.**
+- Social policy: "More weight on shared norms and protections" vs "More room for personal choice." It was "Keep or restore traditional rules" vs "Loosen or update traditional rules."
+- Climate: the low end is now "Prioritize affordable, reliable, secure energy."
+
+**4. "Where these ideas come from" panel.** This is optional and collapsed, on the results page. Each area lists thinkers and texts drawn on toward each end, plus ones claimed by both sides: Locke, Burke, Mill, Rawls, Nozick, Smith, Hamilton, Washington, Polybius, the Federalist, the Bible, Rerum Novarum, Quadragesimo Anno, the Catechism, Heller, NATO Article 5, and the just war tradition.
+- It is never matched to the visitor's answers.
+- A test requires that no area shows only one side. Climate and gun policy show only the "both sides" sources.
+
+**Tests: 26 of 26 pass.** New checks cover the random-order round trip, equal scores under either order, 10 areas with 30 questions, summary inclusion and exclusion, and the ideas panel showing both sides.
+
+In a simulated run, the same intended answers given under the normal order and the fully reversed order produced identical results on all 10 areas. The accessibility scan shows 0 problems on the intro, question, results, and lens screens, and nothing was written to storage.
+
+**Still needs people, not code**
+- Have 3 to 5 reviewers with different politics read all 30 pairs, the pole labels, the lens lists, and the ideas panel.
+- Test by hand with VoiceOver and NVDA, at 200% zoom, and in Windows high-contrast mode.
+- The new items name current-debate examples (the AR-15, chips, medicines). Recheck them yearly.
