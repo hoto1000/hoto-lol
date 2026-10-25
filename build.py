@@ -82,7 +82,6 @@ def page(path, title, description, body, script=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2462240112532447" crossorigin="anonymous"></script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/site.css">
 </head>
