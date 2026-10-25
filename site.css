@@ -19,7 +19,7 @@
   }
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; color-scheme: light dark; }
 body {
   margin: 0;
   background: var(--paper);
@@ -35,13 +35,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 
 .crisis {
   font-family: var(--sans);
-  font-size: 0.875rem;
+  font-size: 1rem;
   text-align: center;
   padding: 8px 16px;
   border-bottom: 1px solid var(--rule);
   color: var(--muted);
 }
-.crisis a { font-weight: 600; }
+.crisis a { font-weight: 600; display: inline-block; padding: 12px 8px; margin: -12px -4px; }
 
 header.top, main, footer {
   max-width: 44rem;
@@ -74,7 +74,7 @@ main { padding-top: 32px; padding-bottom: 48px; }
 h1 { font-size: clamp(2rem, 6vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; }
 h2 { font-size: 1.4rem; line-height: 1.25; margin: 2em 0 0.4em; }
 h3 { font-size: 1.2rem; margin: 0 0 4px; }
-.kicker, time, .meta { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+.kicker, time, .meta { font-family: var(--sans); font-size: 1rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
 .lede { font-size: 1.25rem; color: var(--muted); }
 
 .list { list-style: none; padding: 0; margin: 0; }
@@ -97,6 +97,19 @@ h3 { font-size: 1.2rem; margin: 0 0 4px; }
 
 .episode { background: var(--card); border: 1px solid var(--rule); padding: 20px; margin: 20px 0; }
 .player { font-family: var(--sans); margin: 14px 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 20px 0 0; }
+.home-action {
+  font-family: var(--sans);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+}
+.home-action:first-child { background: var(--ink); color: var(--paper); }
 .player button {
   font: inherit;
   font-weight: 600;
@@ -115,10 +128,18 @@ article ul { padding-left: 1.2em; }
 
 footer {
   font-family: var(--sans);
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--muted);
   border-top: 1px solid var(--rule);
   padding-top: 20px;
   padding-bottom: 40px;
 }
 footer p { margin: 0.4em 0; }
+footer a { display: inline-block; padding: 12px 8px; margin: -12px -4px; }
+
+@media (max-width: 30rem) {
+  header.top { padding-top: 14px; padding-bottom: 8px; }
+  .wordmark { font-size: 1.5rem; }
+  nav.main { width: 100%; gap: 0 14px; font-size: 1rem; }
+  .home-action { flex: 1 1 100%; justify-content: center; }
+}

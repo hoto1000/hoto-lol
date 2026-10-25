@@ -48,29 +48,17 @@ EPISODES = [
     },
 ]
 
-NAV = [("/", "Home"), ("/blog/", "Blog"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide"), ("https://blog.hoto.lol/", "Planet Hoto ↗")]
-
-PLAYER_JS = """<script>
-document.querySelectorAll('.player button').forEach(function (b) {
-  b.addEventListener('click', function () {
-    var a = document.createElement('audio');
-    a.controls = true; a.preload = 'none'; a.src = b.dataset.src;
-    a.setAttribute('aria-label', b.dataset.title);
-    b.replaceWith(a); a.play().catch(function () {});
-  });
-});
-</script>"""
-
+NAV = [("/", "Home"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide"), ("https://blog.hoto.lol/", "Mental health guides ↗")]
 
 def esc(s):
     return html.escape(s, quote=True)
 
 
 def page(path, title, description, body, script=""):
-    nav = "".join(
-        f'<a href="{href}"{" aria-current=\"page\"" if (href == path or (href != "/" and path.startswith(href))) else ""}>{label}</a>'
-        for href, label in NAV
-    )
+    def cur(href):
+        return ' aria-current="page"' if (href == path or (href != "/" and path.startswith(href))) else ""
+
+    nav = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     full_title = SITE if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
@@ -112,9 +100,17 @@ def write(rel, text):
     f.write_text(text, encoding="utf-8")
 
 
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
+def nice(d):
+    y, m, dd = d.split("-")
+    return f"{MONTHS[int(m) - 1]} {int(dd)}, {y}"
+
+
 def post_list(posts):
     items = "".join(
-        f'<li><time datetime="{p["date"]}">{p["date"]}</time><br>'
+        f'<li><time datetime="{p["date"]}">{nice(p["date"])}</time><br>'
         f'<a class="title" href="/blog/{p["slug"]}/">{esc(p["title"])}</a>'
         f'<p>{esc(p["summary"])}</p></li>'
         for p in posts
@@ -128,10 +124,10 @@ def episode_card(e, full=True):
         paras = "".join(f"<p>{esc(x)}</p>" for x in e["overview"])
         overview = f"<details><summary>Read the episode overview</summary>{paras}</details>"
     return f"""<section class="episode" id="{e['slug']}" aria-labelledby="{e['slug']}-h">
-<p class="meta"><time datetime="{e['date']}">{e['date']}</time> · {e['length']}</p>
+<p class="meta"><time datetime="{e['date']}">{nice(e['date'])}</time> · {e['length']}</p>
 <h3 id="{e['slug']}-h">{esc(e['title'])}</h3>
 <p>{esc(e['summary'])}</p>
-<div class="player"><button type="button" data-src="{e['audio']}" data-title="{esc(e['title'])}">▶ Play episode</button></div>
+<div class="player"><audio controls preload="none" src="{e['audio']}" aria-label="{esc(e['title'])}"></audio></div>
 {overview}
 </section>"""
 
@@ -154,21 +150,22 @@ def build():
 <p class="kicker">Essays · Episodes · Questions</p>
 <h1>Big questions, asked plainly.</h1>
 <p class="lede">Short essays and podcast episodes about happiness, schools, how to think, and how we live together.</p>
+<p class="actions"><a class="home-action" href="/blog/">Read the essays</a><a class="home-action" href="/podcasts/">Listen to episodes</a></p>
 <h2>Latest writing</h2>
 {post_list(POSTS[:3])}
-<p><a class="back" href="/blog/">All posts →</a></p>
+<p><a class="back" href="/blog/">All essays →</a></p>
 <h2>Latest episode</h2>
 {episode_card(latest, full=False)}
 <p><a class="back" href="/podcasts/">All episodes →</a></p>
-<h2>Planet Hoto</h2>
-<p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit blog.hoto.lol →</a></p>
 <h2>Civic guide: where do my political views sit?</h2>
 <p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads. <a href="/civic/">Try the civic guide →</a></p>
-""", PLAYER_JS))
+<h2>Looking for mental health help?</h2>
+<p>That lives on our separate educational site, Planet Hoto: plain-language help with finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit Planet Hoto →</a></p>
+"""))
 
     # Blog index
-    write("blog/index.html", page("/blog/", "Blog", "Plain-spoken essays. Education and opinion only.", f"""
-<h1>Blog</h1>
+    write("blog/index.html", page("/blog/", "Essays", "Plain-spoken essays. Education and opinion only.", f"""
+<h1>Essays</h1>
 <div class="note"><p><strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you.</p>
 <p>If a post stirs up something heavy, you can stop reading any time.</p></div>
 {post_list(POSTS)}
@@ -179,11 +176,11 @@ def build():
         body = (ROOT / "content" / "posts" / f"{p['slug']}.html").read_text(encoding="utf-8")
         write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], f"""
 <article>
-<a class="back" href="/blog/">← Back to the blog</a>
+<a class="back" href="/blog/">← Back to essays</a>
 <h1>{esc(p['title'])}</h1>
-<p><time datetime="{p['date']}">{p['date']}</time></p>
+<p><time datetime="{p['date']}">{nice(p['date'])}</time></p>
 {body}
-<p><a class="back" href="/blog/">← Back to the blog</a></p>
+<p><a class="back" href="/blog/">← Back to essays</a></p>
 </article>
 """))
 
@@ -194,7 +191,7 @@ def build():
 <div class="note"><p>These episodes are personal reflections and opinions. They are conversation, not therapy.</p>
 <p>Nothing plays until you press Play.</p></div>
 {cards}
-""", PLAYER_JS))
+"""))
 
     # Civic guide: a standalone page, deliberately NOT built with page(), so it never
     # loads the AdSense script. Its own CSP blocks all network requests. Political and
