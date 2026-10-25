@@ -48,7 +48,7 @@ EPISODES = [
     },
 ]
 
-NAV = [("/", "Home"), ("/blog/", "Blog"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
+NAV = [("/", "Home"), ("/blog/", "Blog"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide"), ("https://blog.hoto.lol/", "Planet Hoto ↗")]
 
 PLAYER_JS = """<script>
 document.querySelectorAll('.player button').forEach(function (b) {
@@ -98,7 +98,7 @@ def page(path, title, description, body, script=""):
 <footer>
 <p>Essays, episodes, and questions worth sitting with.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
-<p>Ads help keep this site free. They are served by Google, which may use cookies. <a href="/privacy/">Privacy</a>.</p>
+<p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
 {script}
 </body>
@@ -161,7 +161,7 @@ def build():
 {episode_card(latest, full=False)}
 <p><a class="back" href="/podcasts/">All episodes →</a></p>
 <h2>Planet Hoto</h2>
-<p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="/blog/">Read the blog →</a></p>
+<p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit blog.hoto.lol →</a></p>
 <h2>Civic guide: where do my political views sit?</h2>
 <p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads. <a href="/civic/">Try the civic guide →</a></p>
 """, PLAYER_JS))
@@ -209,8 +209,7 @@ def build():
 <h1>Privacy</h1>
 <p>No accounts. No forms. Nothing you type here is sent to this site.</p>
 <h2>Ads</h2>
-<p>This site shows ads from Google AdSense. Google and its partners may use cookies to show ads based on your visits to this and other sites.</p>
-<p>You can turn off personalized ads at <a href="https://adssettings.google.com/" rel="noopener noreferrer">Google Ad Settings</a>, and learn more at <a href="https://policies.google.com/technologies/ads" rel="noopener noreferrer">how Google uses data in ads</a>.</p>
+<p>This site does not currently show ads. If that changes, this page will be updated before any ads appear.</p>
 <h2>Civic guide</h2>
 <p>The <a href="/civic/">civic guide</a> has no ads, trackers, or analytics. It blocks all network requests, so your answers cannot be sent anywhere. Answers are kept only in the open page, never saved to your browser, and disappear when you leave or press “Reset all answers.” Your political answers are never used for ads, accounts, or retargeting.</p>
 <h2>Podcast audio</h2>
