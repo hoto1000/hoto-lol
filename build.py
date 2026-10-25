@@ -48,7 +48,7 @@ EPISODES = [
     },
 ]
 
-NAV = [("/", "Home"), ("/blog/", "Blog"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
+NAV = [("/", "Home"), ("/blog/", "Blog"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide"), ("https://blog.hoto.lol/", "Planet Hoto ↗")]
 
 PLAYER_JS = """<script>
 document.querySelectorAll('.player button').forEach(function (b) {
@@ -159,6 +159,8 @@ def build():
 <h2>Latest episode</h2>
 {episode_card(latest, full=False)}
 <p><a class="back" href="/podcasts/">All episodes →</a></p>
+<h2>Planet Hoto</h2>
+<p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit blog.hoto.lol →</a></p>
 <h2>Coming soon: a civic guide</h2>
 <p>A neutral, privacy-first way to see where you stand on the issues. <a href="/civic/">Read what it will be</a>.</p>
 """, PLAYER_JS))
