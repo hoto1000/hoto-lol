@@ -5,8 +5,10 @@ To add a blog post: write the body HTML in content/posts/<slug>.html,
 then add an entry to POSTS below (newest first).
 To add an episode: put the audio in podcasts/ and add an entry to EPISODES.
 """
+import datetime
 import html
 import pathlib
+import re
 import shutil
 
 ROOT = pathlib.Path(__file__).parent
@@ -66,6 +68,20 @@ def esc(s):
     return html.escape(s, quote=True)
 
 
+def nice_date(iso):
+    d = datetime.date.fromisoformat(iso)
+    return f"{d:%b} {d.day}, {d.year}"
+
+
+def post_body(p):
+    return (ROOT / "content" / "posts" / f"{p['slug']}.html").read_text(encoding="utf-8")
+
+
+def read_minutes(p):
+    words = len(re.sub(r"<[^>]+>", " ", post_body(p)).split())
+    return max(1, round(words / 220))
+
+
 def page(path, title, description, body, script=""):
     nav = "".join(
         f'<a href="{href}"{" aria-current=\"page\"" if (href == path or (href != "/" and path.startswith(href))) else ""}>{label}</a>'
@@ -97,7 +113,15 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
+<p class="foot-brand">Project Hoto</p>
 <p>Essays, episodes, and questions worth sitting with.</p>
+<ul class="foot-links">
+<li><a href="/blog/">Blog</a></li>
+<li><a href="/podcasts/">Podcasts</a></li>
+<li><a href="/civic/">Civic guide</a></li>
+<li><a href="/privacy/">Privacy</a></li>
+<li><a href="https://blog.hoto.lol/">Planet Hoto ↗</a></li>
+</ul>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>Ads help keep this site free. They are served by Google, which may use cookies. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -113,14 +137,16 @@ def write(rel, text):
     f.write_text(text, encoding="utf-8")
 
 
-def post_list(posts):
+def post_list(posts, featured=False):
     items = "".join(
-        f'<li><time datetime="{p["date"]}">{p["date"]}</time><br>'
+        f'<li class="post-card"><p class="meta"><time datetime="{p["date"]}">{nice_date(p["date"])}</time> · {read_minutes(p)} min read</p>'
         f'<a class="title" href="/blog/{p["slug"]}/">{esc(p["title"])}</a>'
-        f'<p>{esc(p["summary"])}</p></li>'
+        f'<p>{esc(p["summary"])}</p><span class="more" aria-hidden="true">Read the essay →</span></li>'
         for p in posts
     )
-    return f'<ul class="list">{items}</ul>'
+    # Feature the newest post full width only when the rest pair up evenly.
+    cls = "posts featured" if featured and len(posts) >= 3 and len(posts) % 2 == 1 else "posts"
+    return f'<ul class="{cls}">{items}</ul>'
 
 
 def episode_card(e, full=True):
@@ -129,10 +155,10 @@ def episode_card(e, full=True):
         paras = "".join(f"<p>{esc(x)}</p>" for x in e["overview"])
         overview = f"<details><summary>Read the episode overview</summary>{paras}</details>"
     return f"""<section class="episode" id="{e['slug']}" aria-labelledby="{e['slug']}-h">
-<p class="meta"><time datetime="{e['date']}">{e['date']}</time> · {e['length']}</p>
+<p class="meta">Episode · <time datetime="{e['date']}">{nice_date(e['date'])}</time> · {e['length']}</p>
 <h3 id="{e['slug']}-h">{esc(e['title'])}</h3>
 <p>{esc(e['summary'])}</p>
-<div class="player"><button type="button" data-src="{e['audio']}" data-title="{esc(e['title'])}">▶ Play episode</button></div>
+<div class="player"><button type="button" data-src="{e['audio']}" data-title="{esc(e['title'])}">Play episode</button></div>
 {overview}
 </section>"""
 
@@ -152,24 +178,39 @@ def build():
     # Home
     latest = EPISODES[0]
     write("index.html", page("/", None, "Plain-spoken essays and podcast episodes on happiness, schools, thinking, and civic life.", f"""
+<section class="hero" aria-labelledby="hero-h">
 <p class="kicker">Essays · Episodes · Questions</p>
-<h1>Big questions, asked plainly.</h1>
+<h1 id="hero-h">Big questions, asked plainly.</h1>
 <p class="lede">Short essays and podcast episodes about happiness, schools, how to think, and how we live together.</p>
-<h2>Latest writing</h2>
-{post_list(POSTS[:3])}
-<p><a class="back" href="/blog/">All posts →</a></p>
-<h2>Latest episode</h2>
+<div class="actions">
+<a class="btn primary" href="/blog/">Read the essays</a>
+<a class="btn" href="/podcasts/">Listen to the podcast</a>
+</div>
+</section>
+<section aria-labelledby="latest-h">
+<div class="section-head"><h2 id="latest-h">Latest writing</h2><a href="/blog/">All posts →</a></div>
+{post_list(POSTS[:3], featured=True)}
+</section>
+<section aria-labelledby="episode-h">
+<div class="section-head"><h2 id="episode-h">Latest episode</h2><a href="/podcasts/">All episodes →</a></div>
 {episode_card(latest, full=False)}
-<p><a class="back" href="/podcasts/">All episodes →</a></p>
-<h2>Planet Hoto</h2>
-<p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit blog.hoto.lol →</a></p>
-<h2>Civic guide: where do my political views sit?</h2>
-<p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads. <a href="/civic/">Try the civic guide →</a></p>
+</section>
+<section aria-labelledby="elsewhere-h">
+<div class="section-head"><h2 id="elsewhere-h">Also from Hoto</h2></div>
+<div class="tiles">
+<div class="tile"><p class="kicker">Guides</p><h3><a href="https://blog.hoto.lol/">Planet Hoto ↗</a></h3><p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help.</p></div>
+<div class="tile"><p class="kicker">Tool</p><h3><a href="/civic/">Civic guide: where do my political views sit?</a></h3><p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads.</p></div>
+</div>
+</section>
 """, PLAYER_JS))
 
     # Blog index
     write("blog/index.html", page("/blog/", "Blog", "Plain-spoken essays. Education and opinion only.", f"""
+<div class="page-head">
+<p class="kicker">Essays</p>
 <h1>Blog</h1>
+<p class="lede">Plain-spoken essays. Education and opinion only.</p>
+</div>
 <div class="note"><p><strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you.</p>
 <p>If a post stirs up something heavy, you can stop reading any time.</p></div>
 {post_list(POSTS)}
@@ -177,21 +218,36 @@ def build():
 
     # Posts
     for p in POSTS:
-        body = (ROOT / "content" / "posts" / f"{p['slug']}.html").read_text(encoding="utf-8")
+        others = [o for o in POSTS if o["slug"] != p["slug"]][:2]
+        more = f"""<section class="keep-reading" aria-labelledby="more-h">
+<div class="section-head"><h2 id="more-h">Keep reading</h2><a href="/blog/">All posts →</a></div>
+{post_list(others)}
+</section>""" if others else ""
         write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], f"""
 <article>
 <a class="back" href="/blog/">← Back to the blog</a>
+<header>
+<p class="kicker">Essay</p>
 <h1>{esc(p['title'])}</h1>
-<p><time datetime="{p['date']}">{p['date']}</time></p>
-{body}
+<p class="lede">{esc(p['summary'])}</p>
+<p class="meta"><time datetime="{p['date']}">{nice_date(p['date'])}</time> · {read_minutes(p)} min read</p>
+</header>
+<div class="prose">
+{post_body(p)}
+</div>
 <p><a class="back" href="/blog/">← Back to the blog</a></p>
 </article>
+{more}
 """))
 
     # Podcasts
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcasts", "Podcast episodes, starting with a study on happiness.", f"""
+<div class="page-head">
+<p class="kicker">Audio</p>
 <h1>Podcasts</h1>
+<p class="lede">Conversations about happiness, change, and how we live.</p>
+</div>
 <div class="note"><p>These episodes are personal reflections and opinions. They are conversation, not therapy.</p>
 <p>Nothing plays until you press Play.</p></div>
 {cards}
