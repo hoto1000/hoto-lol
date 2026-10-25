@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds hoto.lol into ./public. Run: python3 build.py
+"""Builds the Project Hoto site (hoto.lol) into ./docs. Run: python3 build.py
 
 To add a blog post: write the body HTML in content/posts/<slug>.html,
 then add an entry to POSTS below (newest first).
@@ -12,7 +12,7 @@ import shutil
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "docs"  # GitHub Pages serves main:/docs
 
-SITE = "hoto.lol"
+SITE = "Project Hoto"
 
 POSTS = [
     {
@@ -90,7 +90,7 @@ def page(path, title, description, body, script=""):
 <a class="skip" href="#main">Skip to content</a>
 <div class="crisis" role="note">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</div>
 <header class="top">
-<a class="wordmark" href="/">hoto<span>.</span>lol</a>
+<a class="wordmark" href="/">Project <span>Hoto</span></a>
 <nav class="main" aria-label="Main">{nav}</nav>
 </header>
 <main id="main" tabindex="-1">

@@ -1,4 +1,4 @@
-# hoto.lol
+# Project Hoto (hoto.lol)
 
 Static blog + podcast site. No framework, no trackers.
 
