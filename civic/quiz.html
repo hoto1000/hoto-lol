@@ -286,6 +286,52 @@ function buildSavePayload(answers){
   return {v:VERSION, answers:sanitizeAnswers(answers)};
 }
 
+// ---- Social location lens (optional; NEVER read by any scoring function) ----
+// "Social location" = how class, race, gender, disability, religion, language, age,
+// and contact with institutions can shape a person's experiences and access to power
+// or resources. The lens describes whose lives a policy area touches. It never says
+// what any group believes, and nothing here can change a score.
+const STAKES = [
+  {v:'alot',  label:'A lot'},
+  {v:'some',  label:'Some'},
+  {v:'notmuch', label:'Not much'},
+  {v:'private', label:'I’d rather not say'}
+];
+
+const LENS = {
+  econ:{touches:['people paid by the hour','owners of small businesses','people living on savings, pensions, or investments','people looking for work']},
+  services:{touches:['people who rely on public programs','people who get coverage or child care through work','family caregivers','people with disabilities and those who help them day to day','taxpayers at different income levels']},
+  liberties:{touches:['people who are stopped, searched, or watched more often than others','people living in neighborhoods with a lot of crime','police officers and security workers','people who speak out or organize online']},
+  social:{touches:['people of many faiths and people with no faith','people facing a pregnancy decision','people affected by drug use and their families','parents, students, and teachers']},
+  climate:{touches:['workers in oil, gas, coal, and clean-energy jobs','people in places hit by heat, fire, drought, or flooding','households where energy bills take a big share of the budget','younger people who will live with long-term effects']},
+  immigration:{touches:['recent immigrants and people waiting on legal status','families with members of mixed legal status','workers whose wages or rents could shift','border communities','employers who hire immigrant workers']},
+  power:{touches:['people in rural towns and in big cities','people who depend on federal programs','people who distrust distant government','people who have felt unheard by government at any level']}
+};
+
+const LENS_PROMPTS = [
+  'Which of these positions is closest to your own life, and which is farthest from it?',
+  'What would someone in a very different position want you to understand about this area?',
+  'People in the same position often disagree. What reasons might someone in your position give for the other side?'
+];
+
+// Returns a note tied to the visitor's own stake. Pure: does not touch results or answers.
+function lensNote(result, stake){
+  if(stake === 'alot'){
+    if(result && (result.status === 'mixed' || result.status === 'middle'))
+      return 'This area is close to home, and your answers were mixed or in between. That can happen when a policy’s costs and benefits both land on you.';
+    return 'This area is close to home. Your experience is real knowledge about it, and it is one vantage point among several.';
+  }
+  if(stake === 'some') return 'This area touches your life in some ways. Which parts, and which parts not at all?';
+  if(stake === 'notmuch') return 'This area is farther from your daily life. Who is it close to home for, and have you heard from them in their own words?';
+  return null;
+}
+
+function sanitizeStakes(raw){
+  const out = {}; if(!raw || typeof raw !== 'object') return out;
+  for(const d of DIMENSIONS){ const v = raw[d.id]; if(STAKES.some(s => s.v === v)) out[d.id] = v; }
+  return out;
+}
+
 // ---- Sample tests (also runnable in Node) ----
 function runSelfTests(){
   const T = [];
@@ -342,6 +388,30 @@ function runSelfTests(){
   const balanced = DIMENSIONS.every(d => { const p = ITEMS.filter(i=>i.dim===d.id).map(i=>i.aPole); return p.includes('low') && p.includes('high'); });
   check('Every area mixes which end statement A points to', balanced);
 
+  // 11. Social location lens never changes scores
+  const someAnswers = {e1:2, e3:-1, p1:'unsure', s1:-2, k2:1, i2:2, g2:-1};
+  const before = JSON.stringify(scoreAll(someAnswers));
+  const stakesAll = Object.fromEntries(DIMENSIONS.map(d => [d.id,'alot']));
+  scoreAll(someAnswers).forEach(r => lensNote(r, stakesAll[r.dim]));
+  const withStakes = JSON.stringify(scoreAll(Object.assign({}, someAnswers, stakesAll, {reflection:['work']})));
+  check('Social location: stake answers and reflection choices never change any score', before === withStakes && JSON.stringify(scoreAll(someAnswers)) === before);
+  check('Social location: never included in saved data', !('stakes' in buildSavePayload(Object.assign({}, someAnswers, {stakes:stakesAll}))) && Object.keys(buildSavePayload(stakesAll).answers).length === 0);
+
+  // 12. Skipped stake shows no personal note; each stake gets a neutral note
+  check('Social location: skipped or "rather not say" adds no note', lensNote(null, undefined) === null && lensNote(null, 'private') === null);
+  check('Social location: each answered stake gets its own note', ['alot','some','notmuch'].every(v => typeof lensNote({status:'lean'}, v) === 'string'));
+  check('Social location: "a lot" with mixed answers gets the mixed note', /mixed or in between/.test(lensNote({status:'mixed'}, 'alot')));
+  check('Social location: bad stake values are dropped', JSON.stringify(sanitizeStakes({econ:'alot', climate:'very', zz:'some'})) === '{"econ":"alot"}');
+
+  // 13. Every area has a lens, with several kinds of positions
+  check('Social location: every area lists at least 4 positions', DIMENSIONS.every(d => LENS[d.id] && LENS[d.id].touches.length >= 4));
+
+  // 14. Wording check: the lens never says what a group thinks
+  const lensText = [].concat(...Object.values(LENS).map(x => x.touches), LENS_PROMPTS, ['alot','some','notmuch'].map(v => lensNote({status:'lean'}, v)), [lensNote({status:'mixed'},'alot')]).join(' ').toLowerCase();
+  const banned = ['tend to','tends to','usually','typically','most of them','more likely','less likely','believe','support','oppose','vote','liberal','conservative','left','right','democrat','republican'];
+  const hits = banned.filter(w => new RegExp('\\b' + w + '\\b').test(lensText));
+  check('Social location wording never predicts views or names sides', hits.length === 0, hits.join(', '));
+
   return T;
 }
 /* ===== CORE END ===== */
@@ -358,6 +428,7 @@ function runSelfTests(){
   let remember = false;
   let step = 0;            // 0 intro, 1..7 areas, 8 results, 9 reflection
   let reflection = new Set(); // memory only, never saved, never scored
+  let stakes = {};             // social-location lens: memory only, never saved, never scored
 
   function storageGet(){ try{ return localStorage.getItem(STORE_KEY); }catch(e){ return null; } }
   function storageSet(v){ try{ localStorage.setItem(STORE_KEY, v); return true; }catch(e){ return false; } }
@@ -395,7 +466,8 @@ function runSelfTests(){
       <h1>Where do my political views sit?</h1>
       <section class="card">
         <h2>Before you start</h2>
-        <p>This is a self-reflection tool. It asks what you think about policy, one area at a time. It does not ask about your personality, identity, or background.</p>
+        <p>This is a self-reflection tool. It asks what you think about policy, one area at a time. The scored questions are only about policy. They never ask about your identity or background.</p>
+        <p>After your results, there is an optional social location lens. It helps you think about how your own life, and other people’s lives, connect to each area. It is never scored, never saved, and never used to guess your views.</p>
         <p>You will see two statements for each question. Pick where you land between them. You can choose “not sure” or skip any question.</p>
         <p>Your results show each area on its own line. There is no single label, no right answer, and no party or candidate recommendation.</p>
         <p class="muted">About 21 questions across 7 areas. Around 5 to 8 minutes.</p>
@@ -504,6 +576,7 @@ function runSelfTests(){
         <div class="poles" aria-hidden="true"><span>${esc(d.low)}</span><span>${esc(d.high)}</span></div>
         ${trackHTML(d, r)}
         <p class="muted" style="margin:.4em 0 0">${esc(basis(r))}</p>
+        ${stakes[d.id] && stakes[d.id] !== 'private' ? `<p class="muted" style="margin:.3em 0 0"><b>Close to home:</b> ${esc(STAKES.find(s=>s.v===stakes[d.id]).label.toLowerCase())} (your answer in the social location lens; not scored)</p>` : ''}
         <details><summary>Show my answers in this area</summary>
           <ul class="answers">${its.map(i => `<li><b>${esc(i.short)}:</b> ${esc(answerText(answers[i.id]))}</li>`).join('')}</ul>
           <button type="button" class="link" data-edit="${DIMENSIONS.indexOf(d)+1}">Change answers in ${esc(d.name)}</button>
@@ -534,6 +607,11 @@ function runSelfTests(){
       <h2>Your results, area by area</h2>
       <p>Each line below is separate. The dot is the average of your answers in that area. The shaded band runs from your lowest to your highest answer, so a wide band means your views in that area vary.</p>
       <p class="note">These results describe answers to 21 short questions today. They are not a label, and they don\u2019t say which party, candidate, or vote fits you. People with very different backgrounds can answer the same way, and people with the same background often disagree.</p>
+      <section class="card" aria-labelledby="h_lensin">
+        <h3 id="h_lensin">Look at these through a social location lens (optional)</h3>
+        <p>Your views don’t form in a vacuum. Things like money, work, health, faith, language, age, where you live, and dealings with institutions can shape what each area means to you. The lens helps you look at that, area by area. It doesn’t change your results.</p>
+        <button type="button" class="secondary" id="lensTop">Open the social location lens</button>
+      </section>
       ${cards}
       <section class="card" aria-labelledby="h_sum">
         <details>
@@ -544,62 +622,95 @@ function runSelfTests(){
       ${methodsHTML()}
       <div class="nav">
         <button type="button" class="secondary" id="back">Back to questions</button>
-        <button type="button" id="reflect">Optional reflection</button>
+        <button type="button" id="reflect">Social location lens (optional)</button>
       </div>
       ${location.hash === '#review' ? reviewerHTML() : ''}`;
     app.querySelector('#back').addEventListener('click', () => go(STEPS_TOTAL));
     app.querySelector('#reflect').addEventListener('click', () => go(STEPS_TOTAL + 2));
+    app.querySelector('#lensTop').addEventListener('click', () => go(STEPS_TOTAL + 2));
     app.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => go(parseInt(b.dataset.edit,10))));
     wireReviewer();
     announce('Results ready.');
   }
 
-  // ---- Optional social-location reflection (separate from scoring) ----
+  // ---- Social location lens (optional, separate from scoring) ----
   const REFLECT = [
     {id:'work', label:'Work, money, and cost of living'},
     {id:'health', label:'Health, disability, and access to care'},
     {id:'place', label:'Where I live or have lived'},
     {id:'language', label:'Language, culture, or faith'},
     {id:'age', label:'Age and stage of life'},
+    {id:'gender', label:'Gender and family roles'},
+    {id:'race', label:'Race, ethnicity, and how others treat me'},
     {id:'institutions', label:'Dealings with schools, courts, police, benefits, or other institutions'},
     {id:'others', label:'People close to me and what they have been through'}
   ];
   const PROMPTS = [
     'Which of my answers come from things I have lived, and which from things I have read or heard?',
-    'Is there an area where my own situation makes a policy feel more urgent, or less urgent, than it might to someone else?',
-    'Who might be affected by this policy in ways I don\u2019t see from where I stand?',
+    'Where do I have more access to power or resources than others, and where do I have less? How might that shape what feels urgent to me?',
     'Has my view on any of these changed over time? What changed it?',
-    'Where would I want more facts before feeling sure?'
+    'Where would I want more facts, or more first-hand accounts, before feeling sure?'
   ];
   function renderReflection(){
+    const results = scoreAll(answers);
+    const areaBlocks = DIMENSIONS.map(d => {
+      const r = results.find(x => x.dim === d.id);
+      const cur = stakes[d.id];
+      const note = lensNote(r, cur);
+      const name = 'stake_' + d.id;
+      return `<section class="card" aria-labelledby="lh_${d.id}">
+        <h3 id="lh_${d.id}">${esc(d.name)}</h3>
+        <p class="muted" style="margin:.2em 0 .6em">Your result: ${esc(describe(d, r))}</p>
+        <fieldset style="margin-bottom:12px">
+          <legend>How much does this area touch your life, or the lives of people close to you? (optional)</legend>
+          <div class="opts">
+            ${STAKES.map(st => `<label><input type="radio" name="${name}" value="${st.v}" ${cur===st.v?'checked':''}> <span>${esc(st.label)}</span></label>`).join('')}
+          </div>
+        </fieldset>
+        <p id="ln_${d.id}" aria-live="polite" ${note ? '' : 'hidden'}>${note ? esc(note) : ''}</p>
+        <p style="margin-bottom:.3em"><b>Whose lives this area touches</b> (a few examples, not a full list):</p>
+        <ul>${LENS[d.id].touches.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+        <details><summary>Questions to think about</summary>
+          <ul>${LENS_PROMPTS.map(q => `<li>${esc(q)}</li>`).join('')}</ul>
+        </details>
+      </section>`;
+    }).join('');
     app.innerHTML = `
-      <h2>Optional reflection: social location</h2>
-      <p>“Social location” means how things like class, race, gender, disability, religion, language, age, and contact with institutions can shape a person\u2019s experiences and access to power or resources.</p>
-      <p class="note">This page is completely optional. Nothing here changes your results, and nothing here is saved, even if saving is on. It is never used to guess your views. People who share a background often disagree, so no background predicts a political view.</p>
+      <h2>Social location lens (optional)</h2>
+      <p>“Social location” means how things like class, race, gender, disability, religion, language, age, and contact with institutions can shape a person’s experiences and access to power or resources.</p>
+      <p>Where you stand in life can shape what a policy costs you, what it gives you, and what you notice about it. It does not decide what you think. People in the same position often reach different conclusions, and no background predicts a political view.</p>
+      <p class="note">Everything on this page is optional and broad. You never have to say anything about yourself. Your choices here are never scored, never saved, and never sent anywhere. They disappear when you leave the page or press “Reset all answers.”</p>
       <fieldset>
-        <legend>If you like, pick any areas you\u2019d want to think about. You can pick none.</legend>
+        <legend>Which parts of life feel connected to your views? Pick any, or none.</legend>
         <div class="opts">
           ${REFLECT.map(r => `<label><input type="checkbox" value="${r.id}" ${reflection.has(r.id)?'checked':''}> <span>${esc(r.label)}</span></label>`).join('')}
         </div>
       </fieldset>
       <section class="card" aria-labelledby="h_prompts">
         <h3 id="h_prompts">Questions to sit with</h3>
-        <p class="muted">There is nothing to type or submit. These are just to think about, or talk over with someone you trust.</p>
+        <p class="muted">Nothing to type or submit. These are for thinking, or for talking over with someone you trust.</p>
         <ul>${PROMPTS.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
         <p id="reflectNote" class="muted" aria-live="polite"></p>
       </section>
+      <h3 style="margin-top:1.2em">Area by area</h3>
+      ${areaBlocks}
       <div class="nav">
         <button type="button" class="secondary" id="back">Back to results</button>
-        <button type="button" class="secondary" id="clearReflect">Clear these choices</button>
+        <button type="button" class="secondary" id="clearReflect">Clear this page</button>
       </div>`;
     const note = app.querySelector('#reflectNote');
-    const upd = () => { note.textContent = reflection.size ? 'You might try each question with the areas you picked in mind.' : ''; };
+    const upd = () => { note.textContent = reflection.size ? 'You might try each question with the parts of life you picked in mind.' : ''; };
     app.querySelectorAll('input[type=checkbox]').forEach(c => c.addEventListener('change', e => {
       e.target.checked ? reflection.add(e.target.value) : reflection.delete(e.target.value); upd();
     }));
+    app.querySelectorAll('input[type=radio][name^="stake_"]').forEach(inp => inp.addEventListener('change', e => {
+      const id = e.target.name.slice(6); stakes[id] = e.target.value; stakes = sanitizeStakes(stakes);
+      const r = results.find(x => x.dim === id); const n = lensNote(r, stakes[id]);
+      const el = app.querySelector('#ln_' + id); el.textContent = n || ''; el.hidden = !n;
+    }));
     upd();
     app.querySelector('#back').addEventListener('click', () => go(STEPS_TOTAL + 1));
-    app.querySelector('#clearReflect').addEventListener('click', () => { reflection.clear(); renderReflection(); announce('Reflection choices cleared.'); });
+    app.querySelector('#clearReflect').addEventListener('click', () => { reflection.clear(); stakes = {}; renderReflection(); announce('Social location choices cleared.'); });
   }
 
   function methodsHTML(){
@@ -613,15 +724,18 @@ function runSelfTests(){
       <p><b>Why this design.</b> Research finds most people’s views don’t sit on one left–right line. Many people lean one way on economic issues and another on social issues, so each area is scored on its own (Feldman &amp; Johnston, 2014; Treier &amp; Hillygus, 2009). Questions offer two competing statements instead of agree/disagree, because agree/disagree wording nudges people toward agreeing and gives lower-quality answers (Pew Research Center, n.d.; Saris et al., 2010). Pew’s own political typology quiz uses the same paired-statement format (Pew Research Center, 2014). One caution: “not sure” options can lower effort for some people (Krosnick et al., 2002). This tool keeps “not sure” so no one is pushed to answer, and shows how many answers each result rests on.</p>
       <p><b>Sources.</b></p>
       <ul class="answers" style="font-size:.95rem">
+        <li>Crenshaw, K. (1989). Demarginalizing the intersection of race and sex: A Black feminist critique of antidiscrimination doctrine, feminist theory and antiracist politics. <i>University of Chicago Legal Forum, 1989</i>, 139\u2013167. <a href="https://scholarship.law.columbia.edu/faculty_scholarship/3007" rel="noopener noreferrer" target="_blank">scholarship.law.columbia.edu</a></li>
         <li>Feldman, S., &amp; Johnston, C. (2014). Understanding the determinants of political ideology: Implications of structural complexity. <i>Political Psychology, 35</i>(3), 337–358. <a href="https://doi.org/10.1111/pops.12055" rel="noopener noreferrer" target="_blank">doi.org/10.1111/pops.12055</a></li>
         <li>Krosnick, J. A., et al. (2002). The impact of “no opinion” response options on data quality. <i>Public Opinion Quarterly, 66</i>(3), 371–403. <a href="https://doi.org/10.1086/341394" rel="noopener noreferrer" target="_blank">doi.org/10.1086/341394</a></li>
         <li>Pew Research Center. (2014). Why the typology quiz questions are asked the way they are. <a href="https://www.pewresearch.org/short-reads/2014/06/27/why-the-typology-quiz-questions-are-asked-the-way-they-are/" rel="noopener noreferrer" target="_blank">pewresearch.org</a></li>
         <li>Pew Research Center. (n.d.). Writing survey questions. <a href="https://www.pewresearch.org/our-methods/about-our-us-surveys/writing-survey-questions/" rel="noopener noreferrer" target="_blank">pewresearch.org</a></li>
         <li>Saris, W., Revilla, M., Krosnick, J. A., &amp; Shaeffer, E. M. (2010). Comparing questions with agree/disagree response options to questions with item-specific response options. <i>Survey Research Methods, 4</i>(1), 61–79. <a href="https://doi.org/10.18148/srm/2010.v4i1.2682" rel="noopener noreferrer" target="_blank">doi.org/10.18148/srm/2010.v4i1.2682</a></li>
         <li>Treier, S., &amp; Hillygus, D. S. (2009). The nature of political ideology in the contemporary electorate. <i>Public Opinion Quarterly, 73</i>(4), 679–703. <a href="https://doi.org/10.1093/poq/nfp067" rel="noopener noreferrer" target="_blank">doi.org/10.1093/poq/nfp067</a></li>
+        <li>Watts-Jones, D. (2010). Location of self: Opening the door to dialogue on intersectionality in the therapy process. <i>Family Process, 49</i>(3), 405\u2013420.</li>
         <li>W3C. (2023). Web Content Accessibility Guidelines (WCAG) 2.2. <a href="https://www.w3.org/TR/WCAG22/" rel="noopener noreferrer" target="_blank">w3.org/TR/WCAG22</a></li>
       </ul>
-      <p><b>Privacy.</b> The page blocks all network requests. Answers live only in this tab\u2019s memory and are never saved. The optional reflection page is never saved and never scored. “Reset all answers” at the top deletes everything.</p>
+      <p><b>Social location.</b> The tool takes social location into account by helping you reflect on it, not by scoring it. Social location shapes experience and access to power and resources (Crenshaw, 1989; Watts-Jones, 2010), but research also shows people who share a background often disagree, so the tool never uses it to guess or adjust your views. The optional lens shows, for each area, whose lives that area touches, asks how close it is to your own life, and offers questions for seeing other vantage points. Your lens answers appear next to your results only as your own notes. They never move a dot, band, label, or summary.</p>
+      <p><b>Privacy.</b> The page blocks all network requests. Answers live only in this tab\u2019s memory and are never saved. The social location lens is never saved and never scored. “Reset all answers” at the top deletes everything.</p>
     </details></section>`;
   }
 
@@ -654,7 +768,7 @@ function runSelfTests(){
   document.getElementById('resetBtn').addEventListener('click', () => { rc.hidden = false; document.getElementById('resetYes').focus(); });
   document.getElementById('resetNo').addEventListener('click', () => { rc.hidden = true; document.getElementById('resetBtn').focus(); });
   document.getElementById('resetYes').addEventListener('click', () => {
-    answers = {}; reflection.clear(); remember = false; storageDel();
+    answers = {}; reflection.clear(); stakes = {}; remember = false; storageDel();
     rc.hidden = true; go(0); announce('All answers cleared.');
   });
 

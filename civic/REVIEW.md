@@ -161,3 +161,36 @@ Each source was checked against the publisher or a university record page. The v
 - Age focus: if the site may reach teens, decide whether this tool belongs there at all.
 - Whether to add guns, trade, or foreign policy areas.
 - Whether to get 3 to 5 reviewers with different politics to read every pair before launch.
+
+## Update: social location lens (Oct 25, 2026)
+
+**What changed.** The optional reflection page became a fuller "social location lens," linked from the top of the results and from the button at the bottom.
+- **Definition and framing.** The page defines social location, says it shapes experience and access to power and resources, and says plainly that it does not decide anyone's views.
+- **Broad, optional checkboxes.** Nine parts of life to reflect on, now including gender and family roles, and race, ethnicity, and how others treat me. Nothing to type.
+- **Area by area.** For each of the 7 areas:
+  - The visitor's own result.
+  - One optional question: how much does this area touch your life, or the lives of people close to you? Options: a lot, some, not much, rather not say. It never asks which experience or why.
+  - A list of whose lives the area touches, described by situation only, never by what anyone thinks.
+  - Three perspective-taking questions.
+  - A short neutral note that responds to the visitor's stake. Example: "close to home" plus mixed answers gives "That can happen when a policy's costs and benefits both land on you."
+- **On the results page.** An area the visitor marked shows "Close to home: a lot (your answer…; not scored)." It never moves a dot, band, label, or summary.
+- **Methods note.** Explains the approach and cites Crenshaw (1989) and Watts-Jones (2010).
+
+**Why it isn't scored.** The brief says never to infer ideology from social location and to keep it separate from scoring. Research on ideology also shows people who share a background often disagree. So the tool takes social location into account by helping people reflect on it, not by adjusting results.
+
+**New tests (20 total, all pass)**
+
+| # | Check | Result |
+|---|---|---|
+| 13 | Stake answers and reflection choices never change any score | Pass |
+| 14 | Social location never included in saved data | Pass |
+| 15 | Skipped or "rather not say" adds no note | Pass |
+| 16 | Each answered stake gets its own note | Pass |
+| 17 | "A lot" with mixed answers gets the mixed note | Pass |
+| 18 | Bad stake values are dropped | Pass |
+| 19 | Every area lists at least 4 positions | Pass |
+| 20 | Lens wording never uses predictive or partisan words (tend to, usually, more likely, believe, support, oppose, vote, left, right, liberal, conservative, party names) | Pass |
+
+Simulated run: the dots and bands were identical before and after using the lens, a tag appeared only where a stake was given, nothing was written to storage, and reset cleared the tags. The accessibility scan shows 0 problems on the lens and results screens.
+
+**Open question for a human reviewer:** do the "whose lives this touches" lists feel balanced to readers across the spectrum? Each one was written to name positions on both sides of the policy's costs and benefits.
