@@ -80,8 +80,9 @@ def page(path, title, description, body, script=""):
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(description)}">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; media-src 'self'; img-src 'self'">
-<meta name="referrer" content="no-referrer">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="google-adsense-account" content="ca-pub-2462240112532447">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2462240112532447" crossorigin="anonymous"></script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/site.css">
 </head>
@@ -98,7 +99,7 @@ def page(path, title, description, body, script=""):
 <footer>
 <p>Essays, episodes, and questions worth sitting with.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
-<p>No ads, no trackers, no accounts.</p>
+<p>Ads help keep this site free. They are served by Google, which may use cookies. <a href="/privacy/">Privacy</a>.</p>
 </footer>
 {script}
 </body>
@@ -145,7 +146,8 @@ def build():
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
     (OUT / "CNAME").write_text("hoto.lol\n")
     (OUT / ".nojekyll").write_text("")
-    (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
+    (OUT / "ads.txt").write_text("google.com, pub-2462240112532447, DIRECT, f08c47fec0942fa0\n")
+    (OUT / "robots.txt").write_text("User-agent: Mediapartners-Google\nAllow: /\n\nUser-agent: *\nDisallow: /\n")
 
     # Home
     latest = EPISODES[0]
@@ -208,6 +210,17 @@ def build():
 <li>Honest. It shows you what you think. It does not tell you how to vote.</li>
 </ul>
 <p>It is not built yet. Check back.</p>
+"""))
+
+    # Privacy
+    write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", """
+<h1>Privacy</h1>
+<p>No accounts. No forms. Nothing you type here is sent to this site.</p>
+<h2>Ads</h2>
+<p>This site shows ads from Google AdSense. Google and its partners may use cookies to show ads based on your visits to this and other sites.</p>
+<p>You can turn off personalized ads at <a href="https://adssettings.google.com/" rel="noopener noreferrer">Google Ad Settings</a>, and learn more at <a href="https://policies.google.com/technologies/ads" rel="noopener noreferrer">how Google uses data in ads</a>.</p>
+<h2>Podcast audio</h2>
+<p>Episodes are hosted on this site and only load when you press Play.</p>
 """))
 
     # 404
