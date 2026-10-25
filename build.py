@@ -32,6 +32,7 @@ POSTS = [
 EPISODES = [
     {
         "slug": "a-study-on-happiness",
+        "category": "Happiness",
         "title": "A Study on Happiness",
         "date": "2026-10-23",
         "length": "9 min",
@@ -45,6 +46,16 @@ EPISODES = [
             "That's what this country is supposed to be about. Freedom. The freedom to be whoever we want to be. So I want to ask hard questions, like whether the Constitution should be updated to reflect who we are today. Over the past century, America has become far more diverse. Maybe our founding rules should grow with the people they serve.",
             "So let's ask the big questions together. What makes a life feel full? And how can we build a country where more people get to feel that way?",
         ],
+    },
+    {
+        "slug": "aoc-does-background-dictate-governance",
+        "category": "Philosophy & Politics",
+        "title": "AOC: Does Background Dictate Governance?",
+        "date": "2026-10-24",
+        "length": "8 min",
+        "summary": "A look at how a leader's social location might shape the questions they ask in power, using Alexandria Ocasio-Cortez's possible 2028 run as the example.",
+        "listen_url": "https://speechify.app.link/RnX8Xf1Vv7b",
+        "note": "AI-generated audio overview made with Speechify, for general education and opinion.",
     },
 ]
 
@@ -125,14 +136,19 @@ def post_list(posts):
 
 def episode_card(e, full=True):
     overview = ""
-    if full:
+    if full and e.get("overview"):
         paras = "".join(f"<p>{esc(x)}</p>" for x in e["overview"])
         overview = f"<details><summary>Read the episode overview</summary>{paras}</details>"
+    if e.get("listen_url"):
+        player = f'<p class="player"><a href="{e["listen_url"]}" target="_blank" rel="noopener noreferrer">Listen on Speechify (opens in a new tab)</a></p>'
+    else:
+        player = f"""<div class="player"><button type="button" data-src="{e['audio']}" data-title="{esc(e['title'])}">▶ Play episode</button></div>"""
+    note = f'<p class="meta">{esc(e["note"])}</p>' if e.get("note") else ""
     return f"""<section class="episode" id="{e['slug']}" aria-labelledby="{e['slug']}-h">
 <p class="meta"><time datetime="{e['date']}">{e['date']}</time> · {e['length']}</p>
 <h3 id="{e['slug']}-h">{esc(e['title'])}</h3>
 <p>{esc(e['summary'])}</p>
-<div class="player"><button type="button" data-src="{e['audio']}" data-title="{esc(e['title'])}">▶ Play episode</button></div>
+{player}{note}
 {overview}
 </section>"""
 
@@ -189,8 +205,15 @@ def build():
 """))
 
     # Podcasts
-    cards = "".join(episode_card(e) for e in EPISODES)
-    write("podcasts/index.html", page("/podcasts/", "Podcasts", "Podcast episodes, starting with a study on happiness.", f"""
+    cats = []
+    for e in EPISODES:
+        if e["category"] not in cats:
+            cats.append(e["category"])
+    cards = "".join(
+        f'<h2>{esc(c)}</h2>' + "".join(episode_card(e) for e in EPISODES if e["category"] == c)
+        for c in cats
+    )
+    write("podcasts/index.html", page("/podcasts/", "Podcasts", "Podcast episodes on happiness, philosophy and politics.", f"""
 <h1>Podcasts</h1>
 <div class="note"><p>These episodes are personal reflections and opinions. They are conversation, not therapy.</p>
 <p>Nothing plays until you press Play.</p></div>
