@@ -48,7 +48,7 @@ EPISODES = [
     },
 ]
 
-NAV = [("/", "Home"), ("/blog/", "Blog"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide"), ("https://blog.hoto.lol/", "Planet Hoto ↗")]
+NAV = [("/", "Home"), ("/blog/", "Blog"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
 
 PLAYER_JS = """<script>
 document.querySelectorAll('.player button').forEach(function (b) {
@@ -162,7 +162,7 @@ def build():
 {episode_card(latest, full=False)}
 <p><a class="back" href="/podcasts/">All episodes →</a></p>
 <h2>Planet Hoto</h2>
-<p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit blog.hoto.lol →</a></p>
+<p>Plain-language mental health help for the practical side of life: finding care, paying for it, work, housing, and asking for help. <a href="/blog/">Read the blog →</a></p>
 <h2>Civic guide: where do my political views sit?</h2>
 <p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads. <a href="/civic/">Try the civic guide →</a></p>
 """, PLAYER_JS))
