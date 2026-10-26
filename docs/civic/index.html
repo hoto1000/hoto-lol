@@ -13,23 +13,10 @@
 <link rel="stylesheet" href="/site.css">
 <style>
 :root{
-  --bg:#f6f1e7; --surface:#fffaf1; --text:#1d1b18; --muted:#5f584e; --line:#d9cfbd;
-  --accent:#b23a0a; --accent-ink:#ffffff; --band:#f0c3a6; --dot:#7a2a06; --focus:#1d1b18;
-  --warn-bg:#fff6e5; --ok:#1e6b3a; --bad:#a1261c;
-  --radius:12px; --gap:16px;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#16140f; --surface:#1f1c16; --text:#ede6d8; --muted:#a39a8b; --line:#3a342a;
-    --accent:#fb923c; --accent-ink:#1d1b18; --band:#6b3a1c; --dot:#fde3cf; --focus:#ede6d8;
-    --warn-bg:#2b2418; --ok:#6fcf8f; --bad:#f08a80; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#16140f; --surface:#1f1c16; --text:#ede6d8; --muted:#a39a8b; --line:#3a342a;
-  --accent:#fb923c; --accent-ink:#1d1b18; --band:#6b3a1c; --dot:#fde3cf; --focus:#ede6d8;
-  --warn-bg:#2b2418; --ok:#6fcf8f; --bad:#f08a80; color-scheme: dark;
+  --bg:var(--paper); --surface:var(--card); --text:var(--ink); --muted:var(--ink-2); --line:var(--hair);
+  --accent:var(--ink); --accent-ink:var(--paper); --band:var(--hair); --dot:var(--ink); --focus:var(--ring);
+  --warn-bg:var(--card);
+  --radius:2px; --gap:16px;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:1.0625rem/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -37,8 +24,6 @@ body{margin:0;background:var(--bg);color:var(--text);font:1.0625rem/1.6 system-u
 .tool-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:8px}
 .tool-bar p{margin:0;color:var(--muted);font-size:.95rem}
 main.wrap{max-width:44rem;padding:16px 16px 64px}
-header.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:8px}
-header.top p{margin:0;color:var(--muted);font-size:.95rem}
 h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .4em}
 h2{font-size:1.35rem;line-height:1.3;margin:0 0 .5em}
 h3{font-size:1.1rem;margin:0 0 .4em}
@@ -46,10 +31,10 @@ h2:focus{outline:none}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:0 0 var(--gap)}
 .muted{color:var(--muted)}
 .note{background:var(--warn-bg);border-radius:var(--radius);padding:12px 16px}
-button,.btn{font:inherit;cursor:pointer;border-radius:10px;padding:10px 18px;min-height:44px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
-button.secondary{background:transparent;color:var(--accent)}
-button.link{border:none;background:none;color:var(--accent);text-decoration:underline;padding:4px;min-height:auto}
-:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+button,.btn{font-family:var(--display);font-weight:800;font-stretch:condensed;font-size:1.1875rem;line-height:1.1;cursor:pointer;border-radius:2px;padding:8px 20px;min-height:44px;border:2px solid var(--ink);background:var(--ink);color:var(--paper)}
+button.secondary{background:transparent;color:var(--ink)}
+button:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+button.link{border:none;background:none;color:var(--ink);text-decoration:underline;padding:4px 8px;min-height:44px}
 .nav{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:8px}
 .progress{font-size:.95rem;color:var(--muted);margin:0 0 12px}
 fieldset{border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 0 var(--gap);background:var(--surface)}
@@ -71,8 +56,9 @@ legend{font-weight:650;padding:0 6px}
 .poles{display:flex;justify-content:space-between;gap:12px;font-size:.9rem;color:var(--muted)}
 .poles span:last-child{text-align:right}
 details{margin:8px 0}
-summary{cursor:pointer;color:var(--accent);min-height:32px}
+summary{cursor:pointer;color:var(--ink);min-height:44px;display:flex;align-items:center}
 ul.answers{padding-left:20px;margin:6px 0}
+li>a[target]{display:inline-flex;align-items:center;min-height:44px}
 .toggle{display:flex;gap:10px;align-items:flex-start}
 .toggle input{width:20px;height:20px;margin-top:4px;flex:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -83,10 +69,10 @@ ul.answers{padding-left:20px;margin:6px 0}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
-<header class="top">
-<a class="wordmark" href="/">Project <span>Hoto</span></a>
-<nav class="main" aria-label="Main"><a href="/">Home</a><a href="/blog/">Essays</a><a href="/podcasts/">Podcasts</a><a href="/civic/" aria-current="page">Civic guide</a></nav>
-</header>
+<header class="site-head"><div class="shell">
+<a class="wordmark" href="/blog/">Project <span class="mk">Hoto</span></a>
+<nav class="main-nav" aria-label="Main"><a href="/blog/#start">Start here</a><a href="/blog/">Essays</a><a href="/podcasts/">Podcasts</a><a href="/civic/" aria-current="page">Civic guide</a></nav>
+</div></header>
 <main id="main" class="wrap" tabindex="-1">
   <div class="tool-bar">
     <p>Independent civic tool. Not affiliated with any party, candidate, campaign, or government. No ads on this page.</p>
@@ -104,10 +90,13 @@ ul.answers{padding-left:20px;margin:6px 0}
   <p id="live" class="sr-only" aria-live="polite"></p>
   <div id="app"></div>
 </main>
-<footer>
-<p>This page has no ads, trackers, or analytics, and it cannot send your answers anywhere. <a href="/privacy/">Privacy</a>.</p>
-<p>Education and reflection only. It does not recommend any party, candidate, or vote.</p>
-</footer>
+<footer class="site-foot"><div class="shell">
+<p class="tagline">Ask the hard questions. Argue them fairly.</p>
+<nav aria-label="Footer"><a href="/blog/#start">Start here</a><a href="/blog/">Essays</a><a href="/podcasts/">Podcasts</a><a href="/civic/">Civic guide</a></nav>
+<p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
+<p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
+<p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
+</div></footer>
 
 <script>
 /* ===== CORE START (pure data + scoring; no DOM, no storage) ===== */
