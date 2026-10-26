@@ -63,6 +63,16 @@ POSTS = [
 
 EPISODES = [
     {
+        "slug": "aoc-does-background-dictate-governance",
+        "title": "AOC: Does Background Dictate Governance?",
+        "date": "2026-10-24",
+        "length": "8 min",
+        "summary": "A look at how a leader's social location might shape the questions they ask in power, using Alexandria Ocasio-Cortez's possible 2028 run as the example.",
+        "listen_url": "https://speechify.app.link/RnX8Xf1Vv7b",
+        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Personal opinion; not affiliated with her or any campaign.",
+        "overview": [],
+    },
+    {
         "slug": "is-toxic-happiness-making-us-miserable",
         "title": "Is Toxic Happiness Making Us Miserable?",
         "date": "2026-10-24",
@@ -467,6 +477,11 @@ def episode_card(e, full=True):
     if full and e["overview"]:
         paras = "".join(f"<p>{esc(x)}</p>" for x in e["overview"])
         overview = f"<details><summary>Read the episode overview</summary>{paras}</details>"
+    if e.get("listen_url"):
+        player = f'<p class="player"><a href="{e["listen_url"]}" target="_blank" rel="noopener noreferrer">Listen on Speechify (opens in a new tab)</a></p>'
+    else:
+        player = f"""<div class="player"><audio controls preload="none" src="{e['audio']}" aria-label="{esc(e['title'])}"></audio></div>"""
+    note = f'<p class="meta">{esc(e["note"])}</p>' if e.get("note") else ""
     question = EPISODE_QUESTIONS.get(e["slug"])
     asks = f'<p class="label">The question</p><p class="ep-q">{q(question)}</p>' if question else ""
     return f"""<section class="episode" id="{e['slug']}" aria-labelledby="{e['slug']}-h">
@@ -474,7 +489,7 @@ def episode_card(e, full=True):
 <h2 id="{e['slug']}-h">{esc(e['title'])}</h2>
 <p class="meta"><time datetime="{e['date']}">{nice(e['date'])}</time> · {e['length']}</p>
 <p>{esc(e['summary'])}</p>
-<div class="player"><audio controls preload="none" src="{e['audio']}" aria-label="{esc(e['title'])}"></audio></div>
+{player}{note}
 {overview}
 </section>"""
 
