@@ -26,13 +26,13 @@ POSTS = [
     {
         "slug": "fearless-speech-for-regular-people",
         "title": 'Fearless speech for regular people: parrhesia meets boundary scripts',
-        "date": "2026-10-28",
+        "date": "2026-10-26",
         "summary": "Foucault's idea of parrhesia, what it is not, and four short boundary sentences for work and family.",
     },
     {
         "slug": "you-are-not-the-problem-but-the-label-might-be",
         "title": 'You are not the problem, but the label might be: power/knowledge meets diagnosis',
-        "date": "2026-10-27",
+        "date": "2026-10-26",
         "summary": 'Foucault on power, knowledge and norms: labels can help people, and it is still fair to ask who decided where the line goes.',
     },
     {
@@ -89,7 +89,7 @@ EPISODES = [
     {
         "slug": "the-watcher-in-your-pocket-audio",
         "title": 'Why You Police Your Own Behavior',
-        "date": "2026-10-28",
+        "date": "2026-10-26",
         "length": "6 min",
         "summary": 'The panopticon meets social media: why we edit ourselves when we might be watched. Audio version of the essay The Watcher in Your Pocket.',
         "listen_url": "https://speechify.app.link/1ZBUHMzzx7b",
@@ -99,7 +99,7 @@ EPISODES = [
     {
         "slug": "you-are-not-the-problem-audio",
         "title": 'Who Built Your Diagnostic Labels?',
-        "date": "2026-10-27",
+        "date": "2026-10-26",
         "length": "6 min",
         "summary": 'Foucault on power, knowledge and norms. Labels can help, and it is still fair to ask who decided where the line goes. Audio version of the essay.',
         "listen_url": "https://speechify.app.link/Atf111yzx7b",
