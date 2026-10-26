@@ -330,6 +330,7 @@ def page(path, title, description, body, script=""):
         return ' aria-current="page"' if on else ""
 
     nav = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
+    foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = f"{SITE}: hard questions about how we live together" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
@@ -341,11 +342,10 @@ def page(path, title, description, body, script=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
-<meta name="theme-color" content="#f0f1ec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#10121b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f3f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/archivo-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
 {CSS_LINK}
 </head>
 <body>
@@ -359,7 +359,8 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">Project Hoto</p>
+<p class="foot-mark">Ask the hard questions. Argue them fairly.</p>
+<nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
@@ -432,9 +433,8 @@ def question_item(p):
     headline = q(f["question"]) if f["question"] else esc(p["title"])
     note = f' <em>{esc(f["note"])}</em>' if f["note"] else ""
     title = f'<cite>{esc(p["title"])}</cite> · ' if f["question"] else ""
-    hid = f'q-{p["slug"]}'
-    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/" aria-labelledby="{hid}">'
-            f'<h4 class="q-text-wrap"><span class="q-text" id="{hid}">{headline}</span></h4>'
+    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/">'
+            f'<h4 class="q-text-wrap"><span class="q-text">{headline}</span></h4>'
             f'<span class="q-meta">{kind_badge(f["kind"])}{title}<time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</span>'
             f'<span class="q-sum">{esc(p["summary"])}{note}</span></a></li>')
 
