@@ -198,6 +198,8 @@ OPEN_QUESTIONS = [
     ("Is the public library part of the safety net?", "Internet, job searches, a cool room and company, without pretending it can replace housing or health care."),
     ("Who does the hidden second shift?", "School forms, appointments and office hours quietly assume someone has time for unpaid care."),
     ("What does a second chance need?", "One practical barrier after incarceration, like a housing application, without reducing anyone to their record."),
+    ("Who shows up after the storm?", "When a tornado or ice storm hits, how much rests on neighbors and local volunteers, and how should everyone else back them up?"),
+    ("Can getting help include giving it?", "One Ozarks charity's holiday program has parents pick gifts for their kids and kids pick gifts for their parents, so everyone has something to give. Could public programs protect dignity that way?"),
 ]
 
 RULES = [
@@ -206,6 +208,19 @@ RULES = [
     ("Disagreement is welcome.", "The strongest fair objection belongs inside the essay, not outside it."),
     ("Errors get fixed.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
 ]
+
+# Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
+# nonprofit in Springfield, Missouri. Project Hoto is not affiliated with them.
+IDEALS = [
+    ("Neighbors look after neighbors.", "Storms, layoffs, hunger and family crises hit whole towns at once. I start from the belief that we owe each other help when they do."),
+    ("Help now, and a way forward.", "Good help meets the urgent need today and leaves people more able to run their own lives tomorrow. I try to judge policies by both."),
+    ("Watch for who falls through the cracks.", "Every rule and program misses someone. I try to name who, and why."),
+    ("Everyone has something to give.", "Nobody is only a receiver. A good system leaves room for people to give back, in time, skill or care."),
+    ("Start local.", "Big questions land on real streets. Neighbors, local businesses, libraries, faith groups and volunteers are often the first to show up, and I want to learn from them."),
+]
+
+IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
+                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
 
 NAV = [("/blog/#start", "Start here"), ("/blog/", "Questions"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
 
@@ -373,6 +388,7 @@ def front_page():
 
     shelf = "".join(f"<li><h3>{q(a)}</h3><p>{esc(b)}</p></li>" for a, b in OPEN_QUESTIONS)
     rules = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in RULES)
+    ideals = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in IDEALS)
 
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
@@ -401,6 +417,12 @@ def front_page():
 <section class="section" id="open" aria-labelledby="open-h">
 <div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I am still thinking through. No essay yet, and no deadline.</p></div>
 <ul class="shelf">{shelf}</ul>
+</section>
+
+<section class="section" id="ideals" aria-labelledby="ideals-h">
+<div class="section-head"><h2 id="ideals-h">Where I start from</h2><p>Five ideals behind the questions. When hard times hit, neighbors help each other through.</p></div>
+<ul class="rules">{ideals}</ul>
+<a class="more" href="/how-i-argue/#ideals">Why these ideals →</a>
 </section>
 
 <section class="section" id="how" aria-labelledby="how-h">
@@ -561,15 +583,21 @@ def build():
         ("What we know", "What is documented, what is uncertain, and what I think, kept apart."),
         ("Who decides", "Who has the power to change it."),
         ("Who pays", "Who benefits, and who bears the costs."),
+        ("Who gets missed", "Who falls through the cracks, and what it would take to reach them."),
         ("The best objection", "The strongest fair case against my view."),
         ("One change", "A specific proposal, its trade-offs, and how we would know if it helped."),
         ("Sources and corrections", "Every source, plus a dated note on anything I fixed."),
     ])
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
+    ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
     write("how-i-argue/index.html", page("/how-i-argue/", "How I argue here", "The rules this blog holds itself to.", simple(
         "The method", "How I argue here",
         "Project Hoto is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
-        f"""<h2>Four commitments</h2>
+        f"""<h2 id="ideals">Where I start from</h2>
+<p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
+<div class="rules-page">{ideals}</div>
+<p>{IDEALS_CREDIT}</p>
+<h2>Four commitments</h2>
 <div class="rules-page">{rules}</div>
 <h2>The shape of a question</h2>
 <p>This is the order I am building new essays around. Each step answers something a fair reader would ask.</p>
