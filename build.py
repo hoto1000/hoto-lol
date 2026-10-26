@@ -24,6 +24,24 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "fearless-speech-for-regular-people",
+        "title": 'Fearless speech for regular people: parrhesia meets boundary scripts',
+        "date": "2026-10-28",
+        "summary": "Foucault's idea of parrhesia, what it is not, and four short boundary sentences for work and family.",
+    },
+    {
+        "slug": "you-are-not-the-problem-but-the-label-might-be",
+        "title": 'You are not the problem, but the label might be: power/knowledge meets diagnosis',
+        "date": "2026-10-27",
+        "summary": 'Foucault on power, knowledge and norms: labels can help people, and it is still fair to ask who decided where the line goes.',
+    },
+    {
+        "slug": "the-watcher-in-your-pocket",
+        "title": 'The watcher in your pocket: the panopticon meets social media',
+        "date": "2026-10-26",
+        "summary": 'How a prison design from 1786 explains why we edit ourselves online, and one small thing to try this week.',
+    },
+    {
         "slug": "a-president-who-understands-how-systems-feel",
         "title": "A President Who Understands How Systems Feel",
         "date": "2026-10-25",
@@ -68,6 +86,36 @@ POSTS = [
 ]
 
 EPISODES = [
+    {
+        "slug": "the-watcher-in-your-pocket-audio",
+        "title": 'Why You Police Your Own Behavior',
+        "date": "2026-10-28",
+        "length": "6 min",
+        "summary": 'The panopticon meets social media: why we edit ourselves when we might be watched. Audio version of the essay The Watcher in Your Pocket.',
+        "listen_url": "https://speechify.app.link/1ZBUHMzzx7b",
+        "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
+        "overview": [],
+    },
+    {
+        "slug": "you-are-not-the-problem-audio",
+        "title": 'Who Built Your Diagnostic Labels?',
+        "date": "2026-10-27",
+        "length": "6 min",
+        "summary": 'Foucault on power, knowledge and norms. Labels can help, and it is still fair to ask who decided where the line goes. Audio version of the essay.',
+        "listen_url": "https://speechify.app.link/Atf111yzx7b",
+        "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
+        "overview": [],
+    },
+    {
+        "slug": "fearless-speech-audio",
+        "title": 'The Courage of Fearless Speech',
+        "date": "2026-10-26",
+        "length": "6 min",
+        "summary": "Foucault's parrhesia, what it is not, and four short boundary sentences. Audio version of the essay.",
+        "listen_url": "https://speechify.app.link/2JKZh9xzx7b",
+        "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
+        "overview": [],
+    },
     {
         "slug": "aoc-does-background-dictate-governance",
         "title": "AOC: Does Background Dictate Governance?",
@@ -119,6 +167,30 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live"]
 
 FRAMING = {
+    "the-watcher-in-your-pocket": {
+        "question": 'Do you act differently when you think someone might be watching?',
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": 'Which of your habits would change if nobody could see them?',
+        "related": "when-watching-students-becomes-the-lesson",
+        "voices": ['Michel Foucault', 'Jeremy Bentham'],
+    },
+    "you-are-not-the-problem-but-the-label-might-be": {
+        "question": 'Who decides what counts as normal?',
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": 'Which labels do you carry, and what do they leave out?',
+        "related": "when-watching-students-becomes-the-lesson",
+        "voices": ['Michel Foucault'],
+    },
+    "fearless-speech-for-regular-people": {
+        "question": 'What does it cost you to say the true thing, and is it worth it?',
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": 'What is one sentence you have been rehearsing, and what would it cost to say it?',
+        "related": "when-watching-students-becomes-the-lesson",
+        "voices": ['Michel Foucault'],
+    },
     "a-president-who-understands-how-systems-feel": {
         "question": "Can where a leader comes from shape what they see?",
         "theme": "Politics and civic life",
