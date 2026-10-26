@@ -6,7 +6,9 @@ then add an entry to POSTS below (newest first).
 To add an episode: put the audio in podcasts/ and add an entry to EPISODES.
 """
 import html
+import math
 import pathlib
+import re
 import shutil
 
 ROOT = pathlib.Path(__file__).parent
@@ -87,20 +89,139 @@ EPISODES = [
     },
 ]
 
-NAV = [("/index.html#start", "Start here"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
+# ---------------------------------------------------------------------------
+# Editorial framing. Kept separate from POSTS and EPISODES so adding a post or
+# an episode stays a one-place edit. Every essay is led by the question it asks.
+#   question: the hard question the essay works on (shown above the title)
+#   theme:    which shelf it sits on in the question index
+#   kind:     Essay, Opinion, or Sourced explainer (opinion is always labeled)
+#   sit:      one question for the reader to sit with at the end
+#   related:  slug of one essay to read next
+#   voices:   thinkers the essay itself names (never add names it doesn't use)
+#   corrections: optional list of ("YYYY-MM-DD", "what changed"), shown at the top
+# ---------------------------------------------------------------------------
+THEMES = ["Politics and civic life", "Schools", "Mind and how to live"]
+
+FRAMING = {
+    "a-president-who-understands-how-systems-feel": {
+        "question": "Can where a leader comes from shape what they see?",
+        "theme": "Politics and civic life",
+        "kind": "Opinion",
+        "note": "Personal opinion; not affiliated with her or any campaign.",
+        "sit": "Which parts of your own life shape what you notice about how the country works, and what might they hide from you?",
+        "related": "what-im-learning-about-third-parties",
+        "voices": [],
+    },
+    "when-watching-students-becomes-the-lesson": {
+        "question": "What do students learn when someone is always watching?",
+        "theme": "Schools",
+        "kind": "Essay",
+        "sit": "Who should get to decide what counts as a warning sign in a student's life?",
+        "related": "a-school-should-be-a-harbor",
+        "voices": ["Michel Foucault"],
+    },
+    "a-school-should-be-a-harbor": {
+        "question": "What should school feel like?",
+        "theme": "Schools",
+        "kind": "Essay",
+        "sit": "Think of a school you went to. What small thing made you feel wanted, or unwanted, and did anyone in charge know?",
+        "related": "when-watching-students-becomes-the-lesson",
+        "voices": [],
+    },
+    "a-most-agreeable-war": {
+        "question": "Who starts wars, and who pays for them?",
+        "theme": "Politics and civic life",
+        "kind": "Essay",
+        "sit": "When did you last change your mind about people you had judged from far away, and what changed it?",
+        "related": "when-watching-students-becomes-the-lesson",
+        "voices": ["Jane Austen"],
+    },
+    "what-im-learning-about-third-parties": {
+        "question": "Why do Americans want a third party but almost never vote for one?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "sit": "If your vote could never be wasted, who would you vote for?",
+        "related": "a-president-who-understands-how-systems-feel",
+        "voices": ["Maurice Duverger", "Richard Hofstadter"],
+    },
+    "a-rest-from-happiness": {
+        "question": "Is the pressure to be happy making us less happy?",
+        "theme": "Mind and how to live",
+        "kind": "Essay",
+        "sit": "Where in your week are you performing a feeling you don't have, and who is it for?",
+        "related": "how-great-thinkers-are-made",
+        "voices": ["Arlie Hochschild"],
+    },
+    "how-great-thinkers-are-made": {
+        "question": "How does anyone learn to think well?",
+        "theme": "Mind and how to live",
+        "kind": "Essay",
+        "sit": "What is the one problem you could spend twenty years thinking about?",
+        "related": "a-rest-from-happiness",
+        "voices": ["Aristotle", "Hobbes", "Madison", "Arendt", "Rawls"],
+    },
+}
+
+# The question each episode works on, by episode slug (optional).
+EPISODE_QUESTIONS = {
+    "a-study-on-happiness": "What makes a life feel full?",
+}
+
+# Start here: three doors into what is already live.
+DOORS = [
+    ("How do I think better?", "/blog/how-great-thinkers-are-made/", "Essay", "how-great-thinkers-are-made"),
+    ("What should school feel like?", "/blog/a-school-should-be-a-harbor/", "Essay", "a-school-should-be-a-harbor"),
+    ("What makes a life feel full?", "/podcasts/#a-study-on-happiness", "Podcast", "a-study-on-happiness"),
+]
+
+# Open questions: topics still being thought through. No essay yet, no deadline.
+OPEN_QUESTIONS = [
+    ("Who pays the paperwork tax?", "Forms, deadlines and repeat documents make people spend hours just to reach help. Which step could we remove?"),
+    ("Can a bus route decide who gets care?", "A service only helps the people who can actually reach it."),
+    ("Who gets heard at a public meeting?", "Meeting times, childcare, transit, disability access and language decide who is in the room."),
+    ("Is the public library part of the safety net?", "Internet, job searches, a cool room and company, without pretending it can replace housing or health care."),
+    ("Who does the hidden second shift?", "School forms, appointments and office hours quietly assume someone has time for unpaid care."),
+    ("What does a second chance need?", "One practical barrier after incarceration, like a housing application, without reducing anyone to their record."),
+]
+
+RULES = [
+    ("Opinion is labeled.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
+    ("Claims get sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
+    ("Disagreement is welcome.", "The strongest fair objection belongs inside the essay, not outside it."),
+    ("Errors get fixed.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
+]
+
+NAV = [("/blog/#start", "Start here"), ("/blog/", "Questions"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
+
+BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
+         "If a post stirs up something heavy, you can stop reading any time.")
+
+UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Project Hoto is a personal project. It is not affiliated with, "
+              "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
+              "Essays are opinion. Sourced claims are linked where they appear.")
+
 
 def esc(s):
     return html.escape(s, quote=True)
 
 
+def q(text):
+    """Escape a question and color its closing question mark."""
+    t = esc(text)
+    if t.endswith("?"):
+        return t[:-1] + '<span class="qm">?</span>'
+    return t
+
+
 def page(path, title, description, body, script=""):
     def cur(href):
-        if href == "/index.html#start":
+        if "#" in href:
             return ""
-        return ' aria-current="page"' if (href == path or (href != "/" and path.startswith(href))) else ""
+        on = path == href or (href == "/blog/" and path == "/") or (href != "/" and path.startswith(href) and href != "/blog/")
+        return ' aria-current="page"' if on else ""
 
     nav = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
-    full_title = SITE if title is None else f"{title} · {SITE}"
+    full_title = f"{SITE}: hard questions about how we live together" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -111,20 +232,25 @@ def page(path, title, description, body, script=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
+<meta name="theme-color" content="#f0f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10121b" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="crisis" role="note">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</div>
 <header class="top">
-<a class="wordmark" href="/">Project <span>Hoto</span></a>
+<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>
 <nav class="main" aria-label="Main">{nav}</nav>
 </header>
 <main id="main" tabindex="-1">
 {body}
 </main>
 <footer>
+<p class="foot-mark">Project Hoto</p>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
@@ -149,14 +275,191 @@ def nice(d):
     return f"{MONTHS[int(m) - 1]} {int(dd)}, {y}"
 
 
-def post_list(posts):
-    items = "".join(
-        f'<li><time datetime="{p["date"]}">{nice(p["date"])}</time><br>'
-        f'<a class="title" href="/blog/{p["slug"]}/">{esc(p["title"])}</a>'
-        f'<p>{esc(p["summary"])}</p></li>'
-        for p in posts
-    )
-    return f'<ul class="list">{items}</ul>'
+def balance_sections(html):
+    """Some post files carry a closing </section> with no opening tag, and leave the
+    sources section open. Drop unmatched closers and close anything left open, so the
+    page nests cleanly. The post text itself is never changed."""
+    out, depth, pos = [], 0, 0
+    for m in re.finditer(r"<(/?)section\b[^>]*>", html):
+        out.append(html[pos:m.start()])
+        if m.group(1):
+            if depth:
+                depth -= 1
+                out.append(m.group(0))
+        else:
+            depth += 1
+            out.append(m.group(0))
+        pos = m.end()
+    out.append(html[pos:])
+    return "".join(out).rstrip() + "\n" + "</section>\n" * depth
+
+
+def body_of(slug):
+    return balance_sections((ROOT / "content" / "posts" / f"{slug}.html").read_text(encoding="utf-8"))
+
+
+def minutes(slug):
+    """Reading time for the essay text, not counting the sources list."""
+    text = body_of(slug).split('id="sources"')[0]
+    words = len(re.sub(r"<[^>]+>", " ", html.unescape(text)).split())
+    return max(1, math.ceil(words / 230))
+
+
+def post(slug):
+    return next(p for p in POSTS if p["slug"] == slug)
+
+
+def frame(slug):
+    """Framing for a post. Posts added without framing still build."""
+    return {"question": None, "theme": THEMES[-1], "kind": "Essay", "sit": None, "related": None, "voices": [],
+            "note": "", "corrections": [], **FRAMING.get(slug, {})}
+
+
+def question_item(p):
+    f = frame(p["slug"])
+    headline = q(f["question"]) if f["question"] else esc(p["title"])
+    note = f' <em>{esc(f["note"])}</em>' if f["note"] else ""
+    title = f'<cite>{esc(p["title"])}</cite> · ' if f["question"] else ""
+    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/"><span class="q-text">{headline}</span></a>'
+            f'<p class="q-meta">{title}{esc(f["kind"])} · <time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</p>'
+            f'<p class="q-sum">{esc(p["summary"])}{note}</p></li>')
+
+
+def front_page():
+    doors = []
+    for question, href, kind, slug in DOORS:
+        if kind == "Podcast":
+            e = next(x for x in EPISODES if x["slug"] == slug)
+            meta, name = f"Podcast · {esc(e['length'])}", esc(e["title"])
+        else:
+            meta, name = f"{kind} · {minutes(slug)} min read", esc(post(slug)["title"])
+        doors.append(f'<li class="door"><a href="{href}"><span class="door-q">{q(question)}</span>'
+                     f'<span class="door-meta">{meta}<b>{name}</b></span></a></li>')
+
+    themes = []
+    for t in THEMES:
+        items = [p for p in POSTS if frame(p["slug"])["theme"] == t]
+        if not items:
+            continue
+        themes.append(f'<div class="theme"><h3><span class="label">{esc(t)}</span></h3>'
+                      f'<ul class="qlist">{"".join(question_item(p) for p in items)}</ul></div>')
+
+    shelf = "".join(f"<li><h3>{q(a)}</h3><p>{esc(b)}</p></li>" for a, b in OPEN_QUESTIONS)
+    rules = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in RULES)
+
+    return f"""<div class="frame">
+<section class="hero" aria-labelledby="hero-h">
+<div class="hero-text">
+<p class="kicker">An independent journal of hard questions about society</p>
+<h1 id="hero-h">Ask the <span class="hl">hard questions.</span> Argue them fairly.</h1>
+<p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
+<div class="actions"><a class="cta" href="#start">Start here</a><a class="cta-quiet" href="#questions">See every question</a></div>
+<p class="unofficial">{UNOFFICIAL}</p>
+</div>
+<p class="emblem" aria-hidden="true">?</p>
+</section>
+
+<section class="section" id="start" aria-labelledby="start-h">
+<div class="section-head"><h2 id="start-h">Start here</h2><p>Three doors in. Pick the question that pulls at you.</p></div>
+<ul class="doors">{"".join(doors)}</ul>
+<p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
+</section>
+
+<section class="section" id="questions" aria-labelledby="questions-h">
+<div class="section-head"><h2 id="questions-h">The questions</h2><p>Every essay starts from one hard question. Newest first in each theme.</p></div>
+{"".join(themes)}
+<p class="aside-note">{BLUNT}</p>
+</section>
+
+<section class="section" id="open" aria-labelledby="open-h">
+<div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I am still thinking through. No essay yet, and no deadline.</p></div>
+<ul class="shelf">{shelf}</ul>
+</section>
+
+<section class="section" id="how" aria-labelledby="how-h">
+<div class="section-head"><h2 id="how-h">How I argue here</h2><p>Rules I hold myself to, so you can see where fact ends and opinion begins.</p></div>
+<ul class="rules">{rules}</ul>
+<a class="more" href="/how-i-argue/">The full method →</a>
+</section>
+</div>
+"""
+
+
+def slugify(text):
+    t = re.sub(r"<[^>]+>", "", html.unescape(text)).lower()
+    t = re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+    return t or "part"
+
+
+def with_outline(body):
+    """Give each h2 an id and return (body, outline items). The source files stay untouched."""
+    items, seen = [], set(re.findall(r'id="([^"]+)"', body))
+
+    def tag(m):
+        attrs, inner = m.group(1), m.group(2)
+        if "id=" in attrs:
+            hid = re.search(r'id="([^"]+)"', attrs).group(1)
+        else:
+            hid = base = slugify(inner)
+            n = 2
+            while hid in seen:
+                hid, n = f"{base}-{n}", n + 1
+            attrs = f'{attrs} id="{hid}"'
+        seen.add(hid)
+        items.append((hid, html.unescape(re.sub(r"<[^>]+>", "", inner)).strip()))
+        return f"<h2{attrs}>{inner}</h2>"
+
+    return re.sub(r"<h2([^>]*)>(.*?)</h2>", tag, body, flags=re.S), items
+
+
+def essay_page(p):
+    f = frame(p["slug"])
+    slug = p["slug"]
+    question = f'<p class="essay-q">{q(f["question"])}</p>' if f["question"] else ""
+    voices = (f'<p class="voices">In conversation with <b>{esc(", ".join(f["voices"]))}</b></p>' if f["voices"] else "")
+    corrections = ""
+    if f["corrections"]:
+        items = "".join(f'<li><time datetime="{d}">{nice(d)}</time>: {esc(t)}</li>' for d, t in f["corrections"])
+        corrections = f'<div class="corrections"><p class="label">Corrections</p><ul>{items}</ul></div>'
+    after = []
+    if f["sit"]:
+        after.append(f'<aside class="sit-with" aria-labelledby="sit-h"><p class="label" id="sit-h">Sit with this</p>'
+                     f'<p class="sit-q">{q(f["sit"])}</p></aside>')
+    if f["related"]:
+        r = post(f["related"])
+        rq = frame(r["slug"])["question"] or r["title"]
+        after.append(f'<nav class="read-next" aria-label="Read next"><p class="label">Read next</p>'
+                     f'<a href="/blog/{r["slug"]}/"><span class="q-text">{q(rq)}</span><cite>{esc(r["title"])}</cite></a></nav>')
+    after.append('<p class="disagree"><strong>Disagree? Good.</strong> Read the other side\'s best case too.</p>')
+    body, parts = with_outline(body_of(slug))
+    outline = ""
+    if len(parts) >= 3:
+        links = "".join(f'<li><a href="#{hid}">{html.escape(text)}</a></li>' for hid, text in parts)
+        outline = f'<nav class="outline" aria-label="The argument"><p class="label">The argument</p><ol>{links}</ol></nav>'
+
+    return f"""<div class="read-progress" aria-hidden="true"></div>
+<article class="essay">
+<header class="essay-head">
+<a class="back" href="/blog/">← All questions</a>
+<p class="label essay-kind">{esc(f["theme"])} · {esc(f["kind"])}</p>
+{question}
+<h1>{esc(p['title'])}</h1>
+<p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
+{voices}
+{corrections}
+</header>
+<div class="essay-body">
+<div class="prose">
+{body}
+</div>
+{outline}
+</div>
+<div class="after">
+{"".join(after)}
+<p class="essay-end"><a class="back" href="/blog/">← All questions</a><a class="back" href="/how-i-argue/">How I argue here</a></p>
+</div>
+</article>
+"""
 
 
 def episode_card(e, full=True):
@@ -164,13 +467,28 @@ def episode_card(e, full=True):
     if full and e["overview"]:
         paras = "".join(f"<p>{esc(x)}</p>" for x in e["overview"])
         overview = f"<details><summary>Read the episode overview</summary>{paras}</details>"
+    question = EPISODE_QUESTIONS.get(e["slug"])
+    asks = f'<p class="label">The question</p><p class="ep-q">{q(question)}</p>' if question else ""
     return f"""<section class="episode" id="{e['slug']}" aria-labelledby="{e['slug']}-h">
+{asks}
+<h2 id="{e['slug']}-h">{esc(e['title'])}</h2>
 <p class="meta"><time datetime="{e['date']}">{nice(e['date'])}</time> · {e['length']}</p>
-<h3 id="{e['slug']}-h">{esc(e['title'])}</h3>
 <p>{esc(e['summary'])}</p>
 <div class="player"><audio controls preload="none" src="{e['audio']}" aria-label="{esc(e['title'])}"></audio></div>
 {overview}
 </section>"""
+
+
+def simple(kicker, h1, lede, inner):
+    k = f'<p class="kicker">{kicker}</p>' if kicker else ""
+    l = f'<p class="lede">{lede}</p>' if lede else ""
+    return f"""<div class="page">
+<header class="page-head">{k}<h1>{h1}</h1>{l}</header>
+<div class="page-body">
+{inner}
+</div>
+</div>
+"""
 
 
 def build():
@@ -180,82 +498,54 @@ def build():
     shutil.copy(ROOT / "site.css", OUT / "site.css")
     shutil.copy(ROOT / "favicon.svg", OUT / "favicon.svg")
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
+    shutil.copytree(ROOT / "fonts", OUT / "fonts")
     (OUT / "CNAME").write_text("hoto.lol\n")
     (OUT / ".nojekyll").write_text("")
     (OUT / "ads.txt").write_text("google.com, pub-2462240112532447, DIRECT, f08c47fec0942fa0\n")
     (OUT / "robots.txt").write_text("User-agent: Mediapartners-Google\nAllow: /\n\nUser-agent: *\nDisallow: /\n")
 
-    # Home
-    def card(slug, kind, note=""):
-        p = next(x for x in POSTS if x["slug"] == slug)
-        return (f'<li><span class="kind">{nice(p["date"])} · {kind}</span><br>'
-                f'<a class="t" href="/blog/{slug}/">{esc(p["title"])}</a>'
-                f'<p>{esc(p["summary"])}{note}</p></li>')
+    for slug, f in FRAMING.items():
+        assert any(p["slug"] == slug for p in POSTS), f"framing for unknown post {slug}"
+        assert f["theme"] in THEMES, f"unknown theme for {slug}"
+        assert not f.get("related") or any(p["slug"] == f["related"] for p in POSTS), f"bad related link in {slug}"
 
-    ep = EPISODES[0]
-    write("index.html", page("/", None, "An independent, personal civic blog: plain-spoken essays, a podcast, and a private civic self-check.", f"""
-<p class="kicker">An independent, personal civic blog</p>
-<h1>Ask the hard questions. Argue them fairly.</h1>
-<p class="lede">Plain-spoken essays, a podcast, and a private civic self-check on schools, politics, and how we live together. One person's views, with sources, and room for you to disagree.</p>
-<div class="band"><strong>Independent and unofficial.</strong> Project Hoto is a personal project. It is not affiliated with, endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. Essays are opinion. Sourced claims are linked where they appear.</div>
+    desc = "An independent, personal journal of hard questions about society: essays, a podcast, and a private civic self-check."
+    # The home page and /blog/ are the same front page. hoto.lol/ currently redirects to /blog/.
+    write("index.html", page("/", None, desc, front_page()))
+    write("blog/index.html", page("/blog/", "Questions", desc, front_page()))
 
-<h2 id="start">Start here</h2>
-<p>New? Take these three in order. About 30 minutes total.</p>
-<ol class="steps">
-<li><div><span class="kind">Civic guide · private tool</span><br><a class="t" href="/civic/">Where do my political views sit?</a><p>Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p></div></li>
-<li><div><span class="kind">Essay · sourced explainer</span><br><a class="t" href="/blog/what-im-learning-about-third-parties/">What I'm Learning About Third Parties</a><p>Most Americans say they want a third major party and almost none vote for one. Why third parties lose, what they win anyway, and the reforms already changing the rules.</p></div></li>
-<li><div><span class="kind">Podcast · {ep['length']}</span><br><a class="t" href="/podcasts/#{ep['slug']}">{esc(ep['title'])}</a><p>{esc(ep['summary'])}</p></div></li>
-</ol>
-
-<h2>Politics and civic life</h2>
-<ul class="cards">
-{card("a-president-who-understands-how-systems-feel", "Opinion", " <em>Personal opinion; not affiliated with her or any campaign.</em>")}
-{card("a-most-agreeable-war", "Essay")}
-{card("what-im-learning-about-third-parties", "Sourced explainer")}
-</ul>
-<h2>Schools</h2>
-<ul class="cards">
-{card("when-watching-students-becomes-the-lesson", "Essay")}
-{card("a-school-should-be-a-harbor", "Essay")}
-</ul>
-<h2>Mind and how to live</h2>
-<ul class="cards">
-{card("a-rest-from-happiness", "Essay")}
-{card("how-great-thinkers-are-made", "Essay")}
-</ul>
-<div class="band"><strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. If a post stirs up something heavy, you can stop reading any time. Disagree? Good. Read the other side's best case too.</div>
-<p><a href="/blog/">All essays →</a> &nbsp; <a href="/podcasts/">All episodes →</a></p>
-"""))
-
-    # Blog index
-    write("blog/index.html", page("/blog/", "Essays", "Plain-spoken essays. Education and opinion only.", f"""
-<h1>Essays</h1>
-<div class="note"><p><strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you.</p>
-<p>If a post stirs up something heavy, you can stop reading any time.</p></div>
-{post_list(POSTS)}
-"""))
-
-    # Posts
     for p in POSTS:
-        body = (ROOT / "content" / "posts" / f"{p['slug']}.html").read_text(encoding="utf-8")
-        write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], f"""
-<article>
-<a class="back" href="/blog/">← Back to essays</a>
-<h1>{esc(p['title'])}</h1>
-<p><time datetime="{p['date']}">{nice(p['date'])}</time></p>
-{body}
-<p><a class="back" href="/blog/">← Back to essays</a></p>
-</article>
-"""))
+        write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p)))
 
-    # Podcasts
     cards = "".join(episode_card(e) for e in EPISODES)
-    write("podcasts/index.html", page("/podcasts/", "Podcasts", "Podcast episodes, starting with a study on happiness.", f"""
-<h1>Podcasts</h1>
-<div class="note"><p>These episodes are personal reflections and opinions. They are conversation, not therapy.</p>
-<p>Nothing plays until you press Play.</p></div>
-{cards}
-"""))
+    write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
+        "Project Hoto podcast", "Podcast",
+        "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play.",
+        cards)))
+
+    shape = "".join(f"<li><div><b>{esc(a)}</b><span>{esc(b)}</span></div></li>" for a, b in [
+        ("Why it matters", "Why this question is worth your time, and mine."),
+        ("What we know", "What is documented, what is uncertain, and what I think, kept apart."),
+        ("Who decides", "Who has the power to change it."),
+        ("Who pays", "Who benefits, and who bears the costs."),
+        ("The best objection", "The strongest fair case against my view."),
+        ("One change", "A specific proposal, its trade-offs, and how we would know if it helped."),
+        ("Sources and corrections", "Every source, plus a dated note on anything I fixed."),
+    ])
+    rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
+    write("how-i-argue/index.html", page("/how-i-argue/", "How I argue here", "The rules this blog holds itself to.", simple(
+        "The method", "How I argue here",
+        "Project Hoto is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
+        f"""<h2>Four commitments</h2>
+<div class="rules-page">{rules}</div>
+<h2>The shape of a question</h2>
+<p>This is the order I am building new essays around. Each step answers something a fair reader would ask.</p>
+<ol class="shape">{shape}</ol>
+<h2>What this is not</h2>
+<p>{UNOFFICIAL}</p>
+<p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
+<p class="aside-note">{BLUNT}</p>
+<p><a class="more" href="/blog/">← Back to the questions</a></p>""")))
 
     # Civic guide: a standalone page, deliberately NOT built with page(), so it never
     # loads the AdSense script. Its own CSP blocks all network requests. Political and
@@ -266,22 +556,22 @@ def build():
     write("civic/index.html", quiz)
 
     # Privacy
-    write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", """
-<h1>Privacy</h1>
-<p>No accounts. No forms. Nothing you type here is sent to this site.</p>
+    write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
+        None, "Privacy", None, """<p>No accounts. No forms. Nothing you type here is sent to this site.</p>
 <h2>Ads</h2>
 <p>This site does not currently show ads. If that changes, this page will be updated before any ads appear.</p>
 <h2>Civic guide</h2>
 <p>The <a href="/civic/">civic guide</a> has no ads, trackers, or analytics. It blocks all network requests, so your answers cannot be sent anywhere. Answers are kept only in the open page, never saved to your browser, and disappear when you leave or press “Reset all answers.” Your political answers are never used for ads, accounts, or retargeting.</p>
 <h2>Podcast audio</h2>
 <p>Episodes are hosted on this site and only load when you press Play.</p>
-"""))
+<h2>Fonts</h2>
+<p>The fonts are stored on this site too. Showing text never contacts a font service or any other outside server.</p>""")))
 
     # 404
-    write("404.html", page("/404", "Not found", "Page not found.", """
-<h1>Nothing here.</h1>
-<p>That page does not exist. <a href="/">Go home</a>.</p>
-"""))
+    write("404.html", page("/404", "Not found", "Page not found.", simple(
+        None, 'Nothing here<span class="qm">?</span>', None,
+        '<p>That page does not exist, or it moved.</p>'
+        '<p class="actions"><a class="cta" href="/blog/">Go to the questions</a></p>')))
 
 
 if __name__ == "__main__":
