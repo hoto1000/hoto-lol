@@ -432,7 +432,7 @@ def essay_page(p):
     f = frame(p["slug"])
     slug = p["slug"]
     question = f'<p class="essay-q">{q(f["question"])}</p>' if f["question"] else ""
-    voices = (f'<p class="voices">In conversation with <b>{esc(", ".join(f["voices"]))}</b></p>' if f["voices"] else "")
+    voices = (f'<p class="voices">Ideas from <b>{esc(", ".join(f["voices"]))}</b></p>' if f["voices"] else "")
     corrections = ""
     if f["corrections"]:
         items = "".join(f'<li><time datetime="{d}">{nice(d)}</time>: {esc(t)}</li>' for d, t in f["corrections"])
