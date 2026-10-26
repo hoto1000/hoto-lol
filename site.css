@@ -21,6 +21,7 @@
   --mark-ink: #111214;
   --ring: #111214;
   --halo: #ffe14a;
+  --hl-orange: #ffb066;
 
   --display: "Archivo Condensed", "Avenir Next Condensed", "Bahnschrift Condensed", "Bahnschrift", "Roboto Condensed", "Arial Narrow", sans-serif;
   --serif: Charter, "Iowan Old Style", "Sitka Text", Cambria, Georgia, serif;
@@ -43,6 +44,7 @@
     --mark-ink: #111214;
     --ring: #ffe14a;
     --halo: transparent;
+    --hl-orange: #9a3f08;
   }
 }
 @media (max-width: 640px) {
@@ -460,3 +462,29 @@ footer p a { display: inline-flex; align-items: center; min-height: 44px; }
   .actions .cta { flex: 1 1 100%; }
   .door a { min-height: 0; gap: 1.25rem; }
 }
+
+/* Look: one orange highlighter underline on the h1 phrase, one tilted Unofficial stamp. */
+.hero h1 .hl { background: linear-gradient(transparent 62%, var(--hl-orange) 62% 94%, transparent 94%); color: var(--ink); }
+.brand { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.stamp {
+  display: inline-block; transform: rotate(-4deg);
+  border: 2px solid var(--ink); padding: 2px 8px;
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.2;
+  color: var(--mark-ink); background: var(--mark);
+}
+
+/* Home notice, Start here labels, Opinion and Audio tags */
+.unofficial.notice { background: var(--card); border: 2px solid var(--rule); padding: 14px 16px; margin: 0 0 1.6rem; color: var(--ink); }
+.doors.start .door a::before { display: none; }
+.doors.start .door a { min-height: 0; gap: 0.9rem; justify-content: flex-start; }
+.door-label {
+  align-self: flex-start; background: var(--mark); color: var(--mark-ink);
+  font-family: var(--display); font-weight: 800; font-stretch: condensed; font-size: 1.25rem; line-height: 1; text-transform: uppercase;
+  padding: 6px 10px;
+}
+.tag {
+  display: inline-block; margin-right: 0.7em; vertical-align: 0.06em;
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.2;
+  color: var(--ink); border: 1px solid var(--ink-2); border-radius: 2px; padding: 1px 6px;
+}
+.door-meta b .tag { margin-right: 0.6em; }

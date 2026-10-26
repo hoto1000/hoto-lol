@@ -164,12 +164,12 @@ EPISODES = [
 #   voices:   thinkers the essay itself names (never add names it doesn't use)
 #   corrections: optional list of ("YYYY-MM-DD", "what changed"), shown at the top
 # ---------------------------------------------------------------------------
-THEMES = ["Politics and civic life", "Schools", "Mind and how to live"]
+THEMES = ["Politics and elections", "Schools and education", "Mind and ideas"]
 
 FRAMING = {
     "the-watcher-in-your-pocket": {
         "question": 'Do you act differently when you think someone might be watching?',
-        "theme": "Mind and how to live",
+        "theme": "Mind and ideas",
         "kind": "Sourced explainer",
         "sit": 'Which of your habits would change if nobody could see them?',
         "related": "when-watching-students-becomes-the-lesson",
@@ -177,7 +177,7 @@ FRAMING = {
     },
     "you-are-not-the-problem-but-the-label-might-be": {
         "question": 'Who decides what counts as normal?',
-        "theme": "Mind and how to live",
+        "theme": "Mind and ideas",
         "kind": "Sourced explainer",
         "sit": 'Which labels do you carry, and what do they leave out?',
         "related": "when-watching-students-becomes-the-lesson",
@@ -185,7 +185,7 @@ FRAMING = {
     },
     "fearless-speech-for-regular-people": {
         "question": 'What does it cost you to say the true thing, and is it worth it?',
-        "theme": "Mind and how to live",
+        "theme": "Mind and ideas",
         "kind": "Sourced explainer",
         "sit": 'What is one sentence you have been rehearsing, and what would it cost to say it?',
         "related": "when-watching-students-becomes-the-lesson",
@@ -193,7 +193,7 @@ FRAMING = {
     },
     "a-president-who-understands-how-systems-feel": {
         "question": "Can where a leader comes from shape what they see?",
-        "theme": "Politics and civic life",
+        "theme": "Politics and elections",
         "kind": "Opinion",
         "note": "Personal opinion; not affiliated with her or any campaign.",
         "sit": "Which parts of your own life shape what you notice about how the country works, and what might they hide from you?",
@@ -202,7 +202,7 @@ FRAMING = {
     },
     "when-watching-students-becomes-the-lesson": {
         "question": "What do students learn when someone is always watching?",
-        "theme": "Schools",
+        "theme": "Schools and education",
         "kind": "Essay",
         "sit": "Who should get to decide what counts as a warning sign in a student's life?",
         "related": "a-school-should-be-a-harbor",
@@ -210,7 +210,7 @@ FRAMING = {
     },
     "a-school-should-be-a-harbor": {
         "question": "What should school feel like?",
-        "theme": "Schools",
+        "theme": "Schools and education",
         "kind": "Essay",
         "sit": "Think of a school you went to. What small thing made you feel wanted, or unwanted, and did anyone in charge know?",
         "related": "when-watching-students-becomes-the-lesson",
@@ -218,7 +218,7 @@ FRAMING = {
     },
     "a-most-agreeable-war": {
         "question": "Who starts wars, and who pays for them?",
-        "theme": "Politics and civic life",
+        "theme": "Politics and elections",
         "kind": "Essay",
         "sit": "When did you last change your mind about people you had judged from far away, and what changed it?",
         "related": "when-watching-students-becomes-the-lesson",
@@ -226,7 +226,7 @@ FRAMING = {
     },
     "what-im-learning-about-third-parties": {
         "question": "Why do Americans want a third party but almost never vote for one?",
-        "theme": "Politics and civic life",
+        "theme": "Politics and elections",
         "kind": "Sourced explainer",
         "sit": "If your vote could never be wasted, who would you vote for?",
         "related": "a-president-who-understands-how-systems-feel",
@@ -234,7 +234,7 @@ FRAMING = {
     },
     "a-rest-from-happiness": {
         "question": "Is the pressure to be happy making us less happy?",
-        "theme": "Mind and how to live",
+        "theme": "Mind and ideas",
         "kind": "Essay",
         "sit": "Where in your week are you performing a feeling you don't have, and who is it for?",
         "related": "how-great-thinkers-are-made",
@@ -242,7 +242,7 @@ FRAMING = {
     },
     "how-great-thinkers-are-made": {
         "question": "How does anyone learn to think well?",
-        "theme": "Mind and how to live",
+        "theme": "Mind and ideas",
         "kind": "Essay",
         "sit": "What is the one problem you could spend twenty years thinking about?",
         "related": "a-rest-from-happiness",
@@ -255,12 +255,9 @@ EPISODE_QUESTIONS = {
     "a-study-on-happiness": "What makes a life feel full?",
 }
 
-# Start here: three doors into what is already live.
-DOORS = [
-    ("How do I think better?", "/blog/how-great-thinkers-are-made/", "Essay", "how-great-thinkers-are-made"),
-    ("What should school feel like?", "/blog/a-school-should-be-a-harbor/", "Essay", "a-school-should-be-a-harbor"),
-    ("What makes a life feel full?", "/podcasts/#a-study-on-happiness", "Podcast", "a-study-on-happiness"),
-]
+# Start here: one thing to try, one to read, one to listen to. Read and Listen use the newest POSTS and EPISODES entries.
+CIVIC_DESC = ("A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. "
+              "Your answers never leave your device, and the guide has no ads.")
 
 # Open questions: topics still being thought through. No essay yet, no deadline.
 OPEN_QUESTIONS = [
@@ -294,7 +291,20 @@ IDEALS = [
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
                  "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
 
-NAV = [("/blog/#start", "Start here"), ("/blog/", "Questions"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
+NAV = [("/", "Start here"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide"), ("/about/", "About")]
+
+HOME_DESC = "An independent civic blog: essays, podcasts, and a private civic guide. Unofficial, not affiliated with any politician, party, or campaign."
+DISCLAIMER = ("Independent and unofficial. This site is not affiliated with Alexandria Ocasio-Cortez, any other politician, any party, "
+              "or any campaign, and nothing here is endorsed by or written for one. When an essay says who the author might support, "
+              "that is his own opinion.")
+
+# Home "How I argue here": short versions, exact wording. The full RULES stay on /how-i-argue/.
+HOME_RULES = [
+    ("Opinion is labeled", "Essays are one person's view, tagged as opinion."),
+    ("Claims get sources", "Factual claims link to where they come from."),
+    ("Disagreement is welcome", "Challenge the idea, not the person."),
+    ("Errors get fixed", "Corrections are noted on the page."),
+]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
@@ -316,17 +326,19 @@ def q(text):
     return t
 
 
+OPINION_TAG = '<span class="tag">Opinion</span>'
+AUDIO_TAG = '<span class="tag">Audio</span>'
+
+
 def kind_badge(kind):
     """Type label coded by shape as well as words: Opinion is filled, Sourced explainer is boxed, Essay has a square bullet."""
     cls = {"Opinion": "opinion", "Sourced explainer": "sourced"}.get(kind, "essay")
     return f'<span class="kind kind-{cls}">{esc(kind)}</span>'
 
 
-def page(path, title, description, body, script=""):
+def page(path, title, description, body, script="", og=False):
     def cur(href):
-        if "#" in href:
-            return ""
-        on = path == href or (href == "/blog/" and path == "/") or (href != "/" and path.startswith(href) and href != "/blog/")
+        on = path == href or (href != "/" and path.startswith(href))
         return ' aria-current="page"' if on else ""
 
     nav = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
@@ -339,7 +351,7 @@ def page(path, title, description, body, script=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(description)}">
-<meta name="robots" content="noindex, nofollow">
+{f'<meta property="og:description" content="{esc(description)}">' + chr(10) if og else ""}<meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
 <meta name="theme-color" content="#f2f3f0" media="(prefers-color-scheme: light)">
@@ -352,7 +364,7 @@ def page(path, title, description, body, script=""):
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
 <header class="top">
-<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>
+<div class="brand"><a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a><span class="stamp">Unofficial</span></div>
 <nav class="main" aria-label="Main">{nav}</nav>
 </header>
 <main id="main" tabindex="-1">
@@ -362,6 +374,7 @@ def page(path, title, description, body, script=""):
 <p class="foot-mark">Ask the hard questions. Argue them fairly.</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
+<p>Independent and unofficial. Not affiliated with any politician, party, campaign, or government.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -435,20 +448,20 @@ def question_item(p):
     title = f'<cite>{esc(p["title"])}</cite> · ' if f["question"] else ""
     return (f'<li><a class="q-link" href="/blog/{p["slug"]}/">'
             f'<h4 class="q-text-wrap"><span class="q-text">{headline}</span></h4>'
-            f'<span class="q-meta">{kind_badge(f["kind"])}{title}<time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</span>'
+            f'<span class="q-meta">{kind_badge(f["kind"])}{"" if f["kind"] == "Opinion" else OPINION_TAG}{title}<time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</span>'
             f'<span class="q-sum">{esc(p["summary"])}{note}</span></a></li>')
 
 
 def front_page():
-    doors = []
-    for question, href, kind, slug in DOORS:
-        if kind == "Podcast":
-            e = next(x for x in EPISODES if x["slug"] == slug)
-            meta, name = f"Podcast · {esc(e['length'])}", esc(e["title"])
-        else:
-            meta, name = f"{kind_badge(kind)}{minutes(slug)} min read", esc(post(slug)["title"])
-        doors.append(f'<li class="door"><a href="{href}"><h3 class="door-q">{q(question)}</h3>'
-                     f'<span class="door-meta">{meta}<b>{name}</b></span></a></li>')
+    newest, ep = POSTS[0], EPISODES[0]
+    start = [
+        ("Try", "/civic/", "Find where your own views sit", esc(CIVIC_DESC)),
+        ("Read", f'/blog/{newest["slug"]}/', esc(newest["title"]), esc(newest["summary"])),
+        ("Listen", f'/podcasts/#{ep["slug"]}', esc(ep["title"]),
+         f'{esc(ep["summary"])}<b>{AUDIO_TAG}{esc(ep["length"])} · Nothing autoplays.</b>'),
+    ]
+    doors = [f'<li class="door"><a href="{href}"><span class="door-label">{label}</span><h3 class="door-q">{name}</h3>'
+             f'<span class="door-meta">{text}</span></a></li>' for label, href, name, text in start]
 
     themes = []
     for t in THEMES:
@@ -459,7 +472,7 @@ def front_page():
                       f'<ul class="qlist">{"".join(question_item(p) for p in items)}</ul></div>')
 
     shelf = "".join(f"<li><h3>{q(a)}</h3><p>{esc(b)}</p></li>" for a, b in OPEN_QUESTIONS)
-    rules = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in RULES)
+    rules = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in HOME_RULES)
     ideals = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in IDEALS)
 
     return f"""<div class="frame">
@@ -468,16 +481,15 @@ def front_page():
 <p class="kicker">An independent journal of hard questions about society</p>
 <h1 id="hero-h">Ask the <span class="hl">hard questions.</span> Argue them fairly.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
+<p class="unofficial notice" role="note">{esc(DISCLAIMER)}</p>
 <div class="actions"><a class="cta" href="#start">Start here</a><a class="cta-quiet" href="#questions">See every question</a></div>
-<p class="unofficial">{UNOFFICIAL}</p>
 </div>
 <p class="emblem" aria-hidden="true">?</p>
 </section>
 
 <section class="section" id="start" aria-labelledby="start-h">
-<div class="section-head"><h2 id="start-h">Start here</h2><p>Three doors in. Pick the question that pulls at you.</p></div>
-<ul class="doors">{"".join(doors)}</ul>
-<p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
+<div class="section-head"><h2 id="start-h">Start here</h2><p>One to try, one to read, one to hear.</p></div>
+<ul class="doors start">{"".join(doors)}</ul>
 </section>
 
 <section class="section" id="questions" aria-labelledby="questions-h">
@@ -599,7 +611,7 @@ def episode_card(e, full=True):
     return f"""<section class="episode" id="{e['slug']}" aria-labelledby="{e['slug']}-h">
 {asks}
 <h2 id="{e['slug']}-h">{esc(e['title'])}</h2>
-<p class="meta"><time datetime="{e['date']}">{nice(e['date'])}</time> · {e['length']}</p>
+<p class="meta">{AUDIO_TAG}<time datetime="{e['date']}">{nice(e['date'])}</time> · {e['length']}</p>
 <p>{esc(e['summary'])}</p>
 {player}{note}
 {overview}
@@ -638,11 +650,14 @@ def build():
 
     desc = "An independent, personal journal of hard questions about society: essays, a podcast, and a private civic self-check."
     # The home page and /blog/ are the same front page. hoto.lol/ currently redirects to /blog/.
-    write("index.html", page("/", None, desc, front_page()))
+    write("index.html", page("/", None, HOME_DESC, front_page(), og=True))
     write("blog/index.html", page("/blog/", "Questions", desc, front_page()))
 
     for p in POSTS:
         write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p)))
+
+    write("about/index.html", page("/about/", "About", "About this site.", simple(
+        "About", "About", None, "<p>[Owner to write: a few sentences on who writes this site and why.]</p>")))
 
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
@@ -712,6 +727,7 @@ def build():
 CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
 FOOTER_LINES = [
     "Independent and unofficial. Not affiliated with AOC or any campaign.",
+    "Independent and unofficial. Not affiliated with any politician, party, campaign, or government.",
     "Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.",
     'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
 ]
