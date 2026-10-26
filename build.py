@@ -61,6 +61,15 @@ POSTS = [
 
 EPISODES = [
     {
+        "slug": "is-toxic-happiness-making-us-miserable",
+        "title": "Is Toxic Happiness Making Us Miserable?",
+        "date": "2026-10-24",
+        "length": "7 min",
+        "summary": "Is the pressure to always be happy making us miserable? An audio episode.",
+        "audio": "/podcasts/is-toxic-happiness-making-us-miserable.m4a",
+        "overview": [],
+    },
+    {
         "slug": "a-study-on-happiness",
         "title": "A Study on Happiness",
         "date": "2026-10-23",
@@ -150,7 +159,7 @@ def post_list(posts):
 
 def episode_card(e, full=True):
     overview = ""
-    if full:
+    if full and e["overview"]:
         paras = "".join(f"<p>{esc(x)}</p>" for x in e["overview"])
         overview = f"<details><summary>Read the episode overview</summary>{paras}</details>"
     return f"""<section class="episode" id="{e['slug']}" aria-labelledby="{e['slug']}-h">
