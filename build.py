@@ -231,6 +231,11 @@ FRAMING = {
         "sit": "If your vote could never be wasted, who would you vote for?",
         "related": "a-president-who-understands-how-systems-feel",
         "voices": ["Maurice Duverger", "Richard Hofstadter"],
+        "corrections": [
+            ("2026-10-26", "I wrote that ranked-choice voting makes the spoiler problem mostly disappear. That was too strong. The instant-runoff version can drop the candidate most voters prefer when three are close, as in Burlington in 2009 and Alaska in 2022. I added that."),
+            ("2026-10-26", "I left out approval voting, which St. Louis uses, Fargo used until North Dakota banned it in 2025, and Greece used for decades. It is now in the reforms section."),
+            ("2026-10-26", "Added that the vote-for-one ballot, not just winner-take-all seats, drives the two-party habit, and added a Vermont example of how fusion rules can hand a nomination to a few party insiders."),
+        ],
     },
     "a-rest-from-happiness": {
         "question": "Is the pressure to be happy making us less happy?",
