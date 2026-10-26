@@ -373,7 +373,6 @@ def page(path, title, description, body, script="", og=False):
 <footer>
 <p class="foot-mark">Ask the hard questions. Argue them fairly.</p>
 <nav aria-label="Footer">{foot_nav}</nav>
-<p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>Independent and unofficial. Not affiliated with any politician, party, campaign, or government.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
@@ -726,7 +725,6 @@ def build():
 
 CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
 FOOTER_LINES = [
-    "Independent and unofficial. Not affiliated with AOC or any campaign.",
     "Independent and unofficial. Not affiliated with any politician, party, campaign, or government.",
     "Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.",
     'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
