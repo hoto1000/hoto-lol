@@ -109,6 +109,13 @@ def page(path, title, description, body, script=""):
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(description)}">
 <meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://hoto.lol{esc(path)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Project Hoto">
+<meta property="og:title" content="{esc(full_title)}">
+<meta property="og:description" content="{esc(description)}">
+<meta property="og:url" content="https://hoto.lol{esc(path)}">
+<meta name="twitter:card" content="summary">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
