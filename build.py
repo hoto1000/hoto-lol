@@ -78,7 +78,7 @@ EPISODES = [
     },
 ]
 
-NAV = [("/", "Home"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
+NAV = [("/#start", "Start here"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
 
 def esc(s):
     return html.escape(s, quote=True)
@@ -86,6 +86,8 @@ def esc(s):
 
 def page(path, title, description, body, script=""):
     def cur(href):
+        if href == "/#start":
+            return ""
         return ' aria-current="page"' if (href == path or (href != "/" and path.startswith(href))) else ""
 
     nav = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
@@ -114,7 +116,7 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p>Essays, episodes, and questions worth sitting with.</p>
+<p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -175,20 +177,45 @@ def build():
     (OUT / "robots.txt").write_text("User-agent: Mediapartners-Google\nAllow: /\n\nUser-agent: *\nDisallow: /\n")
 
     # Home
-    latest = EPISODES[0]
-    write("index.html", page("/", None, "Plain-spoken essays and podcast episodes on happiness, schools, thinking, and civic life.", f"""
-<p class="kicker">Essays · Episodes · Questions</p>
-<h1>Big questions, asked plainly.</h1>
-<p class="lede">Short essays and podcast episodes about happiness, schools, how to think, and how we live together.</p>
-<p class="actions"><a class="home-action" href="/blog/">Read the essays</a><a class="home-action" href="/podcasts/">Listen to episodes</a></p>
-<h2>Latest writing</h2>
-{post_list(POSTS[:3])}
-<p><a class="back" href="/blog/">All essays →</a></p>
-<h2>Latest episode</h2>
-{episode_card(latest, full=False)}
-<p><a class="back" href="/podcasts/">All episodes →</a></p>
-<h2>Civic guide: where do my political views sit?</h2>
-<p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads. <a href="/civic/">Try the civic guide →</a></p>
+    def card(slug, kind, note=""):
+        p = next(x for x in POSTS if x["slug"] == slug)
+        return (f'<li><span class="kind">{nice(p["date"])} · {kind}</span><br>'
+                f'<a class="t" href="/blog/{slug}/">{esc(p["title"])}</a>'
+                f'<p>{esc(p["summary"])}{note}</p></li>')
+
+    ep = EPISODES[0]
+    write("index.html", page("/", None, "An independent, personal civic blog: plain-spoken essays, a podcast, and a private civic self-check.", f"""
+<p class="kicker">An independent, personal civic blog</p>
+<h1>Ask the hard questions. Argue them fairly.</h1>
+<p class="lede">Plain-spoken essays, a podcast, and a private civic self-check on schools, politics, and how we live together. One person's views, with sources, and room for you to disagree.</p>
+<div class="band"><strong>Independent and unofficial.</strong> Project Hoto is a personal project. It is not affiliated with, endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. Essays are opinion. Sourced claims are linked where they appear.</div>
+
+<h2 id="start">Start here</h2>
+<p>New? Take these three in order. About 30 minutes total.</p>
+<ol class="steps">
+<li><div><span class="kind">Civic guide · private tool</span><br><a class="t" href="/civic/">Where do my political views sit?</a><p>Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p></div></li>
+<li><div><span class="kind">Essay · sourced explainer</span><br><a class="t" href="/blog/what-im-learning-about-third-parties/">What I'm Learning About Third Parties</a><p>Most Americans say they want a third major party and almost none vote for one. Why third parties lose, what they win anyway, and the reforms already changing the rules.</p></div></li>
+<li><div><span class="kind">Podcast · {ep['length']}</span><br><a class="t" href="/podcasts/#{ep['slug']}">{esc(ep['title'])}</a><p>{esc(ep['summary'])}</p></div></li>
+</ol>
+
+<h2>Politics and civic life</h2>
+<ul class="cards">
+{card("a-president-who-understands-how-systems-feel", "Opinion", " <em>Personal opinion; not affiliated with her or any campaign.</em>")}
+{card("a-most-agreeable-war", "Essay")}
+{card("what-im-learning-about-third-parties", "Sourced explainer")}
+</ul>
+<h2>Schools</h2>
+<ul class="cards">
+{card("when-watching-students-becomes-the-lesson", "Essay")}
+{card("a-school-should-be-a-harbor", "Essay")}
+</ul>
+<h2>Mind and how to live</h2>
+<ul class="cards">
+{card("a-rest-from-happiness", "Essay")}
+{card("how-great-thinkers-are-made", "Essay")}
+</ul>
+<div class="band"><strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. If a post stirs up something heavy, you can stop reading any time. Disagree? Good. Read the other side's best case too.</div>
+<p><a href="/blog/">All essays →</a> &nbsp; <a href="/podcasts/">All episodes →</a></p>
 """))
 
     # Blog index
