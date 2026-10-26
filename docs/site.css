@@ -10,6 +10,7 @@
   --accent-soft: #f6dccb;
   --on-accent: #ffffff;
   --card: #fffaf1;
+  --hl: #f9c28f;
   --shadow: 0 1px 2px rgb(29 27 24 / 6%), 0 8px 24px -12px rgb(29 27 24 / 18%);
   --radius: 14px;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
@@ -29,6 +30,7 @@
     --accent-soft: #3a2414;
     --on-accent: #1d1b18;
     --card: #211d17;
+    --hl: #7a3a0e;
     --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 10px 28px -14px rgb(0 0 0 / 70%);
     color-scheme: dark;
   }
@@ -299,3 +301,31 @@ footer p { margin: 0.45em 0; max-width: 44rem; }
 .post-card .meta, .tile .kicker { font-size: 0.8rem; line-height: 1.4; }
 .post-card .meta { color: var(--muted); }
 .tile .kicker { color: var(--accent); }
+
+/* Unofficial stamp and highlighter underline (the one risk) */
+.brand { display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.stamp {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  padding: 2px 8px;
+  transform: rotate(-4deg);
+}
+h1 em { font-style: normal; background: linear-gradient(transparent 60%, var(--hl) 60% 92%, transparent 92%); -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 0.08em; }
+
+/* Home: notice, start here, themes, how I argue */
+.disclaimer { margin: 24px 0 0; max-width: 40rem; }
+.tag { display: inline-block; font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--muted); border-radius: 999px; padding: 0 8px; margin-right: 6px; }
+.start, .argue { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.start-item, .argue li { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px; }
+.start-item p, .argue p { margin: 0 0 6px; color: var(--muted); font-size: 1rem; line-height: 1.55; }
+.start-item .kicker { margin-bottom: 6px; }
+.start-item h3 a { color: var(--ink); display: inline-flex; align-items: center; min-height: 44px; }
+.argue h3 { margin-bottom: 6px; }
+.theme h3 { margin: 1.6rem 0 0.7rem; font-size: 1.15rem; }
+.theme:first-of-type h3 { margin-top: 0.6rem; }
