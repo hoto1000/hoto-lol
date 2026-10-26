@@ -76,7 +76,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, main:focus-visible
 }
 main:focus { outline: none; }
 .skip { position: absolute; left: -999px; top: 0; }
-.skip:focus { left: 1rem; top: 1rem; z-index: 20; background: var(--raised); color: var(--ink); padding: 0.6rem 1rem; font-family: var(--sans); display: inline-flex; align-items: center; min-height: 2.75rem; box-sizing: border-box; }
+.skip:focus { left: 1rem; top: 1rem; z-index: 20; background: var(--raised); color: var(--ink); padding: 0.6rem 1rem; font-family: var(--sans); display: inline-flex; align-items: center; min-height: 44px; box-sizing: border-box; }
 
 /* Crisis strip: wording never changes. */
 .crisis {
@@ -269,6 +269,7 @@ main { display: block; }
 }
 .door a:hover { transform: translateY(-3px); box-shadow: 0 10px 24px -14px rgba(20, 22, 42, 0.45); }
 .door-q {
+  margin: 0;
   font-family: var(--display);
   font-stretch: 105%;
   font-weight: 800;
@@ -293,8 +294,11 @@ main { display: block; }
 .qlist { list-style: none; margin: 0; padding: 0; }
 .qlist li { padding: 0.4rem 0 1.6rem; }
 .qlist li + li { border-top: 1px dashed var(--rule); padding-top: 1.3rem; }
-.q-link { display: block; color: var(--ink); text-decoration: none; padding: 0.3rem 0; min-height: 2.75rem; box-sizing: border-box; }
+.q-link { display: block; color: var(--ink); text-decoration: none; padding: 0.5rem 0.75rem; margin: 0 -0.75rem; min-height: 44px; box-sizing: border-box; border-left: 4px solid transparent; }
+.q-link:hover { border-left-color: var(--ultra); }
+.q-text-wrap { margin: 0; font: inherit; }
 .q-text {
+  display: inline;
   font-family: var(--display);
   font-weight: 760;
   font-size: clamp(1.4rem, 2.6vw, 2rem);
@@ -310,10 +314,34 @@ main { display: block; }
   transition: background-size 0.35s ease;
 }
 .q-link:hover .q-text, .q-link:focus-visible .q-text { background-size: 100% 0.3em; }
-.q-meta { font-family: var(--sans); font-size: 0.95rem; color: var(--slate); margin: 0.55rem 0 0.35rem; }
+.q-meta { display: block; font-family: var(--sans); font-size: 0.95rem; color: var(--slate); margin: 0.55rem 0 0.35rem; }
 .q-meta cite { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--ink); }
-.q-sum { margin: 0; color: var(--slate); max-width: 44rem; font-size: 1.05rem; }
+.q-sum { display: block; margin: 0; color: var(--slate); max-width: 44rem; font-size: 1.05rem; }
 .q-sum em { color: var(--ink); }
+
+/* Type labels: coded by shape as well as words, never by color alone.
+   Opinion = filled label, Sourced explainer = boxed outline, Essay = square bullet. */
+.kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  margin-right: 0.7em;
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-stretch: 112%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--ink);
+  vertical-align: 0.06em;
+}
+.kind-opinion { background: var(--ink); color: var(--paper); padding: 0.2em 0.55em; }
+.kind-sourced { border: 2px solid var(--ink); padding: 0.1em 0.5em; }
+.kind-essay::before { content: ""; width: 0.55em; height: 0.55em; background: var(--ink); flex: none; }
+.essay-kind { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.9rem; }
+.essay-kind .kind { margin: 0; vertical-align: baseline; }
+.door-meta .kind { margin: 0 0.7em 0 0; }
 
 /* Open questions shelf */
 .shelf { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
@@ -562,4 +590,14 @@ header.top, footer {
   .q-text { background-position: 0 98%; }
   .q-link:hover .q-text, .q-link:focus-visible .q-text,
   .read-next a:hover .q-text, .read-next a:focus-visible .q-text { background-size: 100% 0.12em; }
+}
+
+/* Phones: the five nav links sit in a 2-column grid of boxed 44px targets, the last one full width */
+@media (max-width: 639.98px) {
+  header.top { gap: 0.25rem; padding-bottom: 1rem; }
+  nav.main { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; width: 100%; margin-top: 0.25rem; }
+  nav.main a { justify-content: center; text-align: center; min-height: 44px; padding: 0 0.5rem; border: 2px solid var(--ink); border-radius: 4px; }
+  nav.main a:hover { border-bottom-color: var(--ink); background: var(--raised); }
+  nav.main a[aria-current="page"] { border-color: var(--ultra); border-bottom-color: var(--ultra); box-shadow: inset 0 -4px 0 var(--ultra); }
+  nav.main a:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
