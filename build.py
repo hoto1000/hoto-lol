@@ -5,6 +5,7 @@ To add a blog post: write the body HTML in content/posts/<slug>.html,
 then add an entry to POSTS below (newest first).
 To add an episode: put the audio in podcasts/ and add an entry to EPISODES.
 """
+import hashlib
 import html
 import math
 import pathlib
@@ -15,6 +16,11 @@ ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "docs"  # GitHub Pages serves main:/docs
 
 SITE = "Project Hoto"
+# Versioned stylesheet link. Cloudflare tells browsers to keep site.css for 4 hours,
+# while pages are kept for 10 minutes. Putting a hash of the CSS in the link means a
+# new page always loads the matching styles, and an unchanged stylesheet stays cached.
+CSS_VERSION = hashlib.sha256((ROOT / "site.css").read_bytes()).hexdigest()[:10]
+CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
@@ -237,7 +243,7 @@ def page(path, title, description, body, script=""):
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/site.css">
+{CSS_LINK}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -553,7 +559,9 @@ def build():
     quiz = (ROOT / "civic" / "quiz.html").read_text(encoding="utf-8")
     assert "googlesyndication" not in quiz and "adsbygoogle" not in quiz, "civic guide must not load ads"
     assert "connect-src 'none'" in quiz, "civic guide must keep its no-network CSP"
-    write("civic/index.html", quiz)
+    plain_link = '<link rel="stylesheet" href="/site.css">'
+    assert quiz.count(plain_link) == 1, "civic guide should link /site.css exactly once"
+    write("civic/index.html", quiz.replace(plain_link, CSS_LINK))
 
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(

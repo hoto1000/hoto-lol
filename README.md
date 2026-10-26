@@ -17,3 +17,4 @@ Static blog + podcast site. No framework, no trackers.
 - Fonts are self-hosted in `fonts/` (Archivo for headings, Literata for reading), trimmed to Latin and served from this site only. Both are SIL Open Font License; the license texts sit next to the files. No font CDN, no third-party requests.
 - Colors and type sizes are CSS variables at the top of `site.css`. Light and dark mode follow the reader's device setting.
 - The front page is written to both `/` and `/blog/`, so it works whether or not the home redirect is on.
+- The stylesheet link carries a short hash of `site.css` (`/site.css?v=...`, set by `CSS_VERSION` in `build.py`). Cloudflare tells browsers to keep the CSS for 4 hours, so the hash makes a style change show up as soon as the new pages load. Always rebuild after editing `site.css`.
