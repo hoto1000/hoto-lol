@@ -90,7 +90,7 @@ EPISODES = [
         "slug": "the-watcher-in-your-pocket-audio",
         "title": 'Why You Police Your Own Behavior',
         "date": "2026-10-26",
-        "length": "6 min",
+        "length": "4 min",
         "summary": 'The panopticon meets social media: why we edit ourselves when we might be watched. Audio version of the essay The Watcher in Your Pocket.',
         "listen_url": "https://speechify.app.link/1ZBUHMzzx7b",
         "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
@@ -110,7 +110,7 @@ EPISODES = [
         "slug": "fearless-speech-audio",
         "title": 'The Courage of Fearless Speech',
         "date": "2026-10-26",
-        "length": "6 min",
+        "length": "4 min",
         "summary": "Foucault's parrhesia, what it is not, and four short boundary sentences. Audio version of the essay.",
         "listen_url": "https://speechify.app.link/2JKZh9xzx7b",
         "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
@@ -270,6 +270,8 @@ OPEN_QUESTIONS = [
     ("Is the public library part of the safety net?", "Internet, job searches, a cool room and company, without pretending it can replace housing or health care."),
     ("Who does the hidden second shift?", "School forms, appointments and office hours quietly assume someone has time for unpaid care."),
     ("What does a second chance need?", "One practical barrier after incarceration, like a housing application, without reducing anyone to their record."),
+    ("Who shows up after the storm?", "When a tornado or ice storm hits, how much rests on neighbors and local volunteers, and how should everyone else back them up?"),
+    ("Can getting help include giving it?", "One Ozarks charity's holiday program has parents pick gifts for their kids and kids pick gifts for their parents, so everyone has something to give. Could public programs protect dignity that way?"),
 ]
 
 RULES = [
@@ -278,6 +280,19 @@ RULES = [
     ("Disagreement is welcome.", "The strongest fair objection belongs inside the essay, not outside it."),
     ("Errors get fixed.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
 ]
+
+# Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
+# nonprofit in Springfield, Missouri. Project Hoto is not affiliated with them.
+IDEALS = [
+    ("Neighbors look after neighbors.", "Storms, layoffs, hunger and family crises hit whole towns at once. I start from the belief that we owe each other help when they do."),
+    ("Help now, and a way forward.", "Good help meets the urgent need today and leaves people more able to run their own lives tomorrow. I try to judge policies by both."),
+    ("Watch for who falls through the cracks.", "Every rule and program misses someone. I try to name who, and why."),
+    ("Everyone has something to give.", "Nobody is only a receiver. A good system leaves room for people to give back, in time, skill or care."),
+    ("Start local.", "Big questions land on real streets. Neighbors, local businesses, libraries, faith groups and volunteers are often the first to show up, and I want to learn from them."),
+]
+
+IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
+                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
 
 NAV = [("/blog/#start", "Start here"), ("/blog/", "Questions"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
 
@@ -315,6 +330,7 @@ def page(path, title, description, body, script=""):
         return ' aria-current="page"' if on else ""
 
     nav = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
+    foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = f"{SITE}: hard questions about how we live together" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
@@ -326,11 +342,10 @@ def page(path, title, description, body, script=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
-<meta name="theme-color" content="#f0f1ec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#10121b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f3f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/literata-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/archivo-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
 {CSS_LINK}
 </head>
 <body>
@@ -344,7 +359,8 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">Project Hoto</p>
+<p class="foot-mark">Ask the hard questions. Argue them fairly.</p>
+<nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
@@ -417,9 +433,8 @@ def question_item(p):
     headline = q(f["question"]) if f["question"] else esc(p["title"])
     note = f' <em>{esc(f["note"])}</em>' if f["note"] else ""
     title = f'<cite>{esc(p["title"])}</cite> · ' if f["question"] else ""
-    hid = f'q-{p["slug"]}'
-    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/" aria-labelledby="{hid}">'
-            f'<h4 class="q-text-wrap"><span class="q-text" id="{hid}">{headline}</span></h4>'
+    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/">'
+            f'<h4 class="q-text-wrap"><span class="q-text">{headline}</span></h4>'
             f'<span class="q-meta">{kind_badge(f["kind"])}{title}<time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</span>'
             f'<span class="q-sum">{esc(p["summary"])}{note}</span></a></li>')
 
@@ -445,6 +460,7 @@ def front_page():
 
     shelf = "".join(f"<li><h3>{q(a)}</h3><p>{esc(b)}</p></li>" for a, b in OPEN_QUESTIONS)
     rules = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in RULES)
+    ideals = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in IDEALS)
 
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
@@ -473,6 +489,12 @@ def front_page():
 <section class="section" id="open" aria-labelledby="open-h">
 <div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I am still thinking through. No essay yet, and no deadline.</p></div>
 <ul class="shelf">{shelf}</ul>
+</section>
+
+<section class="section" id="ideals" aria-labelledby="ideals-h">
+<div class="section-head"><h2 id="ideals-h">Where I start from</h2><p>Five ideals behind the questions. When hard times hit, neighbors help each other through.</p></div>
+<ul class="rules">{ideals}</ul>
+<a class="more" href="/how-i-argue/#ideals">Why these ideals →</a>
 </section>
 
 <section class="section" id="how" aria-labelledby="how-h">
@@ -633,15 +655,21 @@ def build():
         ("What we know", "What is documented, what is uncertain, and what I think, kept apart."),
         ("Who decides", "Who has the power to change it."),
         ("Who pays", "Who benefits, and who bears the costs."),
+        ("Who gets missed", "Who falls through the cracks, and what it would take to reach them."),
         ("The best objection", "The strongest fair case against my view."),
         ("One change", "A specific proposal, its trade-offs, and how we would know if it helped."),
         ("Sources and corrections", "Every source, plus a dated note on anything I fixed."),
     ])
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
+    ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
     write("how-i-argue/index.html", page("/how-i-argue/", "How I argue here", "The rules this blog holds itself to.", simple(
         "The method", "How I argue here",
         "Project Hoto is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
-        f"""<h2>Four commitments</h2>
+        f"""<h2 id="ideals">Where I start from</h2>
+<p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
+<div class="rules-page">{ideals}</div>
+<p>{IDEALS_CREDIT}</p>
+<h2>Four commitments</h2>
 <div class="rules-page">{rules}</div>
 <h2>The shape of a question</h2>
 <p>This is the order I am building new essays around. Each step answers something a fair reader would ask.</p>
