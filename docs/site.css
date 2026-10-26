@@ -69,7 +69,7 @@ header.top {
 nav.main { font-family: var(--sans); font-size: 0.95rem; display: flex; gap: 4px 18px; flex-wrap: wrap; }
 nav.main a { color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
 nav.main a[aria-current="page"] { color: var(--accent); border-bottom: 3px solid var(--accent); }
-nav.main a[href="/#start"] { font-weight: 700; color: var(--accent); }
+nav.main a[href="/index.html#start"] { font-weight: 700; color: var(--accent); }
 
 main { padding-top: 32px; padding-bottom: 48px; }
 h1 { font-size: clamp(2rem, 6vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; }
