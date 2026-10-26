@@ -16,10 +16,40 @@ SITE = "Project Hoto"
 
 POSTS = [
     {
+        "slug": "a-president-who-understands-how-systems-feel",
+        "title": "A President Who Understands How Systems Feel",
+        "date": "2026-10-25",
+        "summary": "Why I might support Alexandria Ocasio-Cortez if she runs for president in 2028: social location, her record, and a politics that connects housing, health, climate, and daily costs.",
+    },
+    {
+        "slug": "when-watching-students-becomes-the-lesson",
+        "title": "When Watching Students Becomes the Lesson",
+        "date": "2026-10-24",
+        "summary": "Schools collect more data on students than ever. They should have to show it helps, explain it, and let people push back when it is wrong.",
+    },
+    {
         "slug": "a-school-should-be-a-harbor",
         "title": "A school should be a harbor, not a sorting machine",
         "date": "2026-10-24",
         "summary": "Eight small, testable ways to make a school feel safe: private help, a calm start, a quiet room, meals without shame, and rules that listen.",
+    },
+    {
+        "slug": "a-most-agreeable-war",
+        "title": "A Most Agreeable War",
+        "date": "2026-10-23",
+        "summary": "An essay in the manner of an old drawing-room novel: on the pride of the men who start wars and the prejudice of the people asked to cheer them on.",
+    },
+    {
+        "slug": "what-im-learning-about-third-parties",
+        "title": "What I'm Learning About Third Parties",
+        "date": "2026-10-23",
+        "summary": "Most Americans say they want a third major party and almost none vote for one. A sourced explainer on why third parties lose, what they win anyway, and the reforms already changing the rules.",
+    },
+    {
+        "slug": "a-rest-from-happiness",
+        "title": "A Rest From Happiness",
+        "date": "2026-10-23",
+        "summary": "Being happy is good. Being expected to be happy all the time is work, and work needs breaks. On giving yourself permission to just be okay.",
     },
     {
         "slug": "how-great-thinkers-are-made",
@@ -48,7 +78,7 @@ EPISODES = [
     },
 ]
 
-NAV = [("/", "Home"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide"), ("https://blog.hoto.lol/", "Mental health guides ↗")]
+NAV = [("/", "Home"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
 
 def esc(s):
     return html.escape(s, quote=True)
@@ -159,8 +189,6 @@ def build():
 <p><a class="back" href="/podcasts/">All episodes →</a></p>
 <h2>Civic guide: where do my political views sit?</h2>
 <p>A neutral, privacy-first self-reflection tool. Seven policy areas, each on its own line, no labels and no voting advice. Your answers never leave your device, and the guide has no ads. <a href="/civic/">Try the civic guide →</a></p>
-<h2>Looking for mental health help?</h2>
-<p>That lives on our separate educational site, Planet Hoto: plain-language help with finding care, paying for it, work, housing, and asking for help. <a href="https://blog.hoto.lol/">Visit Planet Hoto →</a></p>
 """))
 
     # Blog index
