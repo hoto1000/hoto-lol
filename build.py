@@ -159,6 +159,7 @@ FRAMING = {
         "sit": "If your vote could never be wasted, who would you vote for?",
         "related": "a-president-who-understands-how-systems-feel",
         "voices": ["Maurice Duverger", "Richard Hofstadter"],
+        "corrections": [("2026-10-25", "Added approval voting to the list of reforms. I had left it out.")],
     },
     "a-rest-from-happiness": {
         "question": "Is the pressure to be happy making us less happy?",
