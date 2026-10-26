@@ -385,7 +385,7 @@ nav.main a[aria-current="page"] { border-bottom-color: var(--rule); background: 
 .page-body { max-width: var(--read); }
 .page-body h2 { font-size: 2rem; line-height: 1.05; margin: 1.8em 0 0.4em; }
 .page-body h2:first-child { margin-top: 0; }
-.page-body p a { display: inline-flex; align-items: center; min-height: 44px; }
+.page-body p a { display: inline-block; padding: 10px 0; margin: -10px 0; }
 .page-body .more, .page-body .cta { margin-top: 0; }
 .page-body .actions { margin-bottom: 0; }
 .page:has(.episode) .page-body { max-width: none; display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); align-items: start; }
