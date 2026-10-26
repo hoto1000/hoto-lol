@@ -229,6 +229,12 @@ def q(text):
     return t
 
 
+def kind_badge(kind):
+    """Type label coded by shape as well as words: Opinion is filled, Sourced explainer is boxed, Essay has a square bullet."""
+    cls = {"Opinion": "opinion", "Sourced explainer": "sourced"}.get(kind, "essay")
+    return f'<span class="kind kind-{cls}">{esc(kind)}</span>'
+
+
 def page(path, title, description, body, script=""):
     def cur(href):
         if "#" in href:
@@ -257,7 +263,7 @@ def page(path, title, description, body, script=""):
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="crisis" role="note">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</div>
+<aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
 <header class="top">
 <a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>
 <nav class="main" aria-label="Main">{nav}</nav>
@@ -275,6 +281,9 @@ def page(path, title, description, body, script=""):
 </body>
 </html>
 """
+
+
+POST_BODIES = []  # essay bodies as written into pages; they are the author's text and are exempt from the em dash check
 
 
 def write(rel, text):
@@ -336,9 +345,11 @@ def question_item(p):
     headline = q(f["question"]) if f["question"] else esc(p["title"])
     note = f' <em>{esc(f["note"])}</em>' if f["note"] else ""
     title = f'<cite>{esc(p["title"])}</cite> · ' if f["question"] else ""
-    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/"><span class="q-text">{headline}</span></a>'
-            f'<p class="q-meta">{title}{esc(f["kind"])} · <time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</p>'
-            f'<p class="q-sum">{esc(p["summary"])}{note}</p></li>')
+    hid = f'q-{p["slug"]}'
+    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/" aria-labelledby="{hid}">'
+            f'<h4 class="q-text-wrap"><span class="q-text" id="{hid}">{headline}</span></h4>'
+            f'<span class="q-meta">{kind_badge(f["kind"])}{title}<time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</span>'
+            f'<span class="q-sum">{esc(p["summary"])}{note}</span></a></li>')
 
 
 def front_page():
@@ -348,8 +359,8 @@ def front_page():
             e = next(x for x in EPISODES if x["slug"] == slug)
             meta, name = f"Podcast · {esc(e['length'])}", esc(e["title"])
         else:
-            meta, name = f"{kind} · {minutes(slug)} min read", esc(post(slug)["title"])
-        doors.append(f'<li class="door"><a href="{href}"><span class="door-q">{q(question)}</span>'
+            meta, name = f"{kind_badge(kind)}{minutes(slug)} min read", esc(post(slug)["title"])
+        doors.append(f'<li class="door"><a href="{href}"><h3 class="door-q">{q(question)}</h3>'
                      f'<span class="door-meta">{meta}<b>{name}</b></span></a></li>')
 
     themes = []
@@ -448,6 +459,7 @@ def essay_page(p):
                      f'<a href="/blog/{r["slug"]}/"><span class="q-text">{q(rq)}</span><cite>{esc(r["title"])}</cite></a></nav>')
     after.append('<p class="disagree"><strong>Disagree? Good.</strong> Read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
+    POST_BODIES.append(body)
     outline = ""
     if len(parts) >= 3:
         links = "".join(f'<li><a href="#{hid}">{html.escape(text)}</a></li>' for hid, text in parts)
@@ -457,7 +469,7 @@ def essay_page(p):
 <article class="essay">
 <header class="essay-head">
 <a class="back" href="/blog/">← All questions</a>
-<p class="label essay-kind">{esc(f["theme"])} · {esc(f["kind"])}</p>
+<p class="label essay-kind">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
 {question}
 <h1>{esc(p['title'])}</h1>
 <p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
@@ -597,6 +609,42 @@ def build():
         '<p class="actions"><a class="cta" href="/blog/">Go to the questions</a></p>')))
 
 
+CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
+FOOTER_LINES = [
+    "Independent and unofficial. Not affiliated with AOC or any campaign.",
+    "Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.",
+    'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
+]
+# The civic guide is a standalone page with its own two-line footer, written for its no-ads, no-network promise.
+OWN_FOOTER = {"civic/index.html"}
+EXTERNAL_ASSET = re.compile(r'<(?:link|script|img)\b[^>]*?\b(?:src|href)\s*=\s*["\']?(?:https?:)?//', re.I)
+PLACEHOLDER = re.compile(r"\[(?:[A-Z]|\d+|TODO|TBD|XX+|\.\.\.|insert[^\]]*|placeholder[^\]]*)\]", re.I)
+
+
+def check_output():
+    """Fail the build on mistakes that are easy to ship and hard to see."""
+    errors = []
+    for f in sorted(OUT.rglob("*.html")):
+        rel = f.relative_to(OUT).as_posix()
+        text = f.read_text(encoding="utf-8")
+        rest = text
+        for b in POST_BODIES:
+            rest = rest.replace(b, "")
+        if "\u2014" in rest:
+            errors.append(f"{rel}: em dash outside an essay body")
+        if m := EXTERNAL_ASSET.search(text):
+            errors.append(f"{rel}: external URL in a link, script or img tag: {m.group(0)[:80]}")
+        if CRISIS not in text:
+            errors.append(f"{rel}: crisis strip text is missing or changed")
+        if rel not in OWN_FOOTER:
+            errors += [f"{rel}: footer line missing: {line[:40]}" for line in FOOTER_LINES if f"<p>{line}</p>" not in text]
+        if m := PLACEHOLDER.search(re.sub(r"<(script|style)\b.*?</\1>", "", rest, flags=re.S)):
+            errors.append(f"{rel}: leftover placeholder text {m.group(0)}")
+    if errors:
+        raise SystemExit("Build checks failed:\n  " + "\n  ".join(errors))
+
+
 if __name__ == "__main__":
     build()
+    check_output()
     print("Built", sum(1 for _ in OUT.rglob("*.html")), "pages into", OUT)
