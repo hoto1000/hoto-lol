@@ -87,7 +87,7 @@ EPISODES = [
     },
 ]
 
-NAV = [("/#start", "Start here"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
+NAV = [("/index.html#start", "Start here"), ("/blog/", "Essays"), ("/podcasts/", "Podcasts"), ("/civic/", "Civic guide")]
 
 def esc(s):
     return html.escape(s, quote=True)
@@ -95,7 +95,7 @@ def esc(s):
 
 def page(path, title, description, body, script=""):
     def cur(href):
-        if href == "/#start":
+        if href == "/index.html#start":
             return ""
         return ' aria-current="page"' if (href == path or (href != "/" and path.startswith(href))) else ""
 
