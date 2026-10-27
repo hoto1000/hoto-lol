@@ -43,7 +43,7 @@ POSTS = [
     },
     {
         "slug": "you-are-not-the-problem-but-the-label-might-be",
-        "title": 'You are not the problem, but the label might be: power/knowledge meets diagnosis',
+        "title": 'When a label becomes the problem: power/knowledge meets diagnosis',
         "date": "2026-10-27",
         "summary": 'Foucault on power, knowledge and norms: labels can help people, and it is still fair to ask who decided where the line goes.',
     },
@@ -67,7 +67,7 @@ POSTS = [
     },
     {
         "slug": "a-school-should-be-a-harbor",
-        "title": "A school should be a harbor, not a sorting machine",
+        "title": "A school should be a harbor",
         "date": "2026-10-24",
         "summary": "Eight small, testable ways to make a school feel safe: private help, a calm start, a quiet room, meals without shame, and rules that listen.",
     },
