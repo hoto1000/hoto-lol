@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "what-we-teach-men-about-pain",
+        "title": 'What we teach men about pain: stigma, silence, and the help that misses them',
+        "date": "2026-10-27",
+        "summary": "Why help so often fails to reach men: what the CDC and NIMH numbers show, what may be missed, and the rules many of us inherit.",
+    },
+    {
         "slug": "fearless-speech-for-regular-people",
         "title": 'Fearless speech for regular people: parrhesia meets boundary scripts',
         "date": "2026-10-28",
@@ -167,6 +173,14 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live"]
 
 FRAMING = {
+    "what-we-teach-men-about-pain": {
+        "question": "Why does help so often fail to reach men?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": "What did you learn, growing up, about what to do with a hard feeling?",
+        "related": "you-are-not-the-problem-but-the-label-might-be",
+        "voices": [],
+    },
     "the-watcher-in-your-pocket": {
         "question": 'Do you act differently when you think someone might be watching?',
         "theme": "Mind and how to live",
