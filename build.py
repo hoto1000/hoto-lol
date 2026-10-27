@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "philly-protests-and-rallies-this-week",
+        "title": 'Philadelphia protests and rallies, late October to early November',
+        "date": "2026-10-27",
+        "summary": "A sourced, plain list of public protests, rallies, and vigils in Philadelphia through November 7, with what is uncertain.",
+    },
+    {
         "slug": "what-we-teach-men-about-pain",
         "title": 'What we teach men about pain: stigma, silence, and the help that misses them',
         "date": "2026-10-27",
@@ -173,6 +179,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "philly-protests-and-rallies-this-week": {
+        "question": "What does taking part in public life look like in my city this week?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "A list, not an endorsement; not affiliated with any group listed.",
+        "sit": "What is one way you take part in your community, and what would it take to try another?",
+        "related": "what-im-learning-about-third-parties",
+        "voices": [],
+    },
     "what-we-teach-men-about-pain": {
         "question": "Why does help so often fail to reach men?",
         "theme": "Mental health",
