@@ -170,12 +170,12 @@ EPISODES = [
 #   voices:   thinkers the essay itself names (never add names it doesn't use)
 #   corrections: optional list of ("YYYY-MM-DD", "what changed"), shown at the top
 # ---------------------------------------------------------------------------
-THEMES = ["Politics and civic life", "Schools", "Mind and how to live"]
+THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
     "what-we-teach-men-about-pain": {
         "question": "Why does help so often fail to reach men?",
-        "theme": "Mind and how to live",
+        "theme": "Mental health",
         "kind": "Sourced explainer",
         "sit": "What did you learn, growing up, about what to do with a hard feeling?",
         "related": "you-are-not-the-problem-but-the-label-might-be",
