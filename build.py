@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "what-therapy-ethics-codes-miss-about-culture",
+        "title": "What therapy ethics codes get right and miss about culture",
+        "date": "2026-10-27",
+        "summary": "A student's read of the AAMFT and CAMFT codes of ethics through a multicultural lens: where they ask for respect and awareness, and where they stop short on power, privilege and systems.",
+    },
+    {
         "slug": "is-there-a-perfect-income",
         "title": "Is there a perfect income? Why happiness seems to level off",
         "date": "2026-10-27",
