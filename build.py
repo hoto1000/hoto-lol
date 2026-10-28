@@ -1000,6 +1000,19 @@ def with_outline(body):
     return re.sub(r"<h2([^>]*)>(.*?)</h2>", tag, body, flags=re.S), items
 
 
+def narration(p):
+    """Player for an essay's AI voice file. Shown only when docs/audio/<slug>.opus exists."""
+    if not (OUT / "audio" / f"{p['slug']}.opus").is_file():
+        return ""
+    src = f"/audio/{p['slug']}.opus"
+    return (f'<section class="narration" aria-label="Listen to this essay">'
+            f'<p class="label">Listen · AI-generated voice (Kokoro)</p>'
+            f'<div class="player"><audio controls preload="none" aria-label="Listen to: {esc(p["title"])}">'
+            f'<source src="{src}" type="audio/ogg; codecs=opus">'
+            f'Your browser cannot play this audio. The full text is below.</audio></div>'
+            f'<p class="aside-note">The essay below is the transcript.</p></section>')
+
+
 def essay_page(p):
     f = frame(p["slug"])
     slug = p["slug"]
@@ -1042,7 +1055,7 @@ def essay_page(p):
 <p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
 {voices}
 {corrections}
-{toc_phone}
+{toc_phone}{narration(p)}
 </header>
 <div class="essay-body">
 <div class="prose">
@@ -1099,6 +1112,8 @@ def build():
     shutil.copy(ROOT / "site.css", OUT / "site.css")
     shutil.copy(ROOT / "favicon.svg", OUT / "favicon.svg")
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
+    if (ROOT / "audio").is_dir():  # essay narrations made by scripts/make_audio.py
+        shutil.copytree(ROOT / "audio", OUT / "audio")
     shutil.copytree(ROOT / "fonts", OUT / "fonts")
     (OUT / "CNAME").write_text("hoto.lol\n")
     (OUT / ".nojekyll").write_text("")
