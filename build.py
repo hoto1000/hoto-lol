@@ -1030,6 +1030,8 @@ def build():
 <h2>The shape of a question</h2>
 <p>This is the order I am building new essays around. Each step answers something a fair reader would ask.</p>
 <ol class="shape">{shape}</ol>
+<h2>Try it yourself</h2>
+<p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
