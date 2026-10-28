@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Privacy: this page may not load or send anything over the network, and it stores nothing. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>How would this ballot count? · Project Hoto</title>
+<meta name="description" content="Rank made-up candidates and see how plurality, ranked-choice, approval and head-to-head counting can pick different winners. Runs in your browser; nothing is sent or saved.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/site.css?v=97fae53508">
+<style>
+:root{--line:var(--border);--ok:#1e6b3a;--gap:16px}
+@media (prefers-color-scheme: dark){:root{--ok:#6fcf8f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text);font:1.0625rem/1.6 var(--sans)}
+main.wrap{max-width:52rem;margin:0 auto;padding:16px 16px 64px}
+h1{font-size:clamp(2.25rem,6vw,3rem);line-height:1.05;margin:.2em 0 .4em}
+h2{font-size:1.6rem;line-height:1.15;margin:1.4em 0 .5em}
+h3{font-size:1.2rem;line-height:1.2;margin:0 0 .3em}
+.note{background:var(--surface);border-radius:var(--radius);padding:12px 16px}
+.muted{color:var(--muted)}
+button{font-family:var(--display);font-weight:800;font-stretch:condensed;font-size:1.0625rem;line-height:1.1;cursor:pointer;border-radius:2px;padding:8px 16px;min-height:44px;border:2px solid var(--text);background:var(--text);color:var(--canvas)}
+button.secondary{background:transparent;color:var(--text)}
+button[aria-pressed="true"]{outline:3px solid var(--ring);outline-offset:2px}
+button:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+button.sm{min-width:44px;padding:4px 10px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.group{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:14px 16px;margin:0 0 var(--gap)}
+.group ol{list-style:none;margin:8px 0 0;padding:0}
+.group li{display:flex;gap:8px;align-items:center;padding:2px 0;flex-wrap:wrap}
+.group li .name{min-width:7rem;font-weight:650}
+.group li .rk{width:1.6rem;color:var(--muted)}
+label.count{display:inline-flex;gap:8px;align-items:center;font-weight:650}
+input[type=number]{font:inherit;width:6rem;min-height:44px;padding:4px 8px;border:2px solid var(--text);border-radius:2px;background:var(--canvas);color:var(--text)}
+.results{display:grid;gap:var(--gap);grid-template-columns:1fr}
+@media (min-width:720px){.results{grid-template-columns:1fr 1fr}}
+.card{border:2px solid var(--text);border-radius:var(--radius);background:var(--surface);padding:16px}
+.win{font-size:1.5rem;font-weight:800;margin:.1em 0 .3em}
+.bar{display:grid;grid-template-columns:5.5rem 1fr 3.4rem;gap:8px;align-items:center;font-size:.95rem;margin:3px 0}
+.bar .track{height:14px;background:var(--line);border-radius:7px;overflow:hidden}
+.bar .fill{height:100%;background:var(--text)}
+.bar .num{text-align:right}
+.rounds{margin:6px 0 0;padding-left:20px;font-size:.95rem}
+.explain{margin:.6em 0 0;color:var(--muted);font-size:.95rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.diff{border-left:4px solid var(--text);padding:8px 14px;margin:var(--gap) 0}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
+<header class="top">
+<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>
+<nav class="main nav-wide" aria-label="Main"><a href="/blog/">Blog</a><a href="/podcasts/">Podcast</a><a href="/civic/">Civic guide</a><a href="/how-i-argue/">How I argue</a></nav>
+<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main"><a href="/blog/">Blog</a><a href="/podcasts/">Podcast</a><a href="/civic/">Civic guide</a><a href="/how-i-argue/">How I argue</a></nav></details>
+</header>
+<main id="main" class="wrap" tabindex="-1">
+  <h1>How would this ballot count?</h1>
+  <p class="note">Independent and unofficial. The candidates here are made up, and nothing on this page recommends a party, candidate, or vote. It runs in your browser. Nothing is sent anywhere or saved. No ads on this page.</p>
+  <p>The same votes can produce different winners under different counting rules. Pick an example, or change the voter groups, and watch four methods count the same ballots.</p>
+
+  <h2>1. Pick an example</h2>
+  <div class="row" id="presets" role="group" aria-label="Example elections"></div>
+  <p id="presetNote" class="muted"></p>
+
+  <h2>2. Voter groups</h2>
+  <p class="muted">Each group is a set of voters who ranked the candidates the same way. Change the number of voters, or use the move buttons to reorder a group's ranking (top is first choice).</p>
+  <div id="groups"></div>
+  <div class="row"><button type="button" class="secondary" id="addGroup">Add a voter group</button></div>
+  <p id="live" class="sr-only" aria-live="polite"></p>
+
+  <h2>3. How each method counts it</h2>
+  <p id="summary" aria-live="polite"></p>
+  <div class="results" id="results"></div>
+
+  <h2>About these methods</h2>
+  <ul>
+    <li><b>Plurality</b> (first past the post): each voter's first choice gets one vote. Most votes wins, even without a majority.</li>
+    <li><b>Ranked-choice</b> (instant runoff): count first choices. If nobody has a majority, drop the last-place candidate and move those ballots to their next choice. Repeat. If candidates tie for last, the first in alphabetical order is dropped.</li>
+    <li><b>Approval</b>: each voter approves their top two choices in this demo, and the most-approved candidate wins. Real approval ballots let voters approve any number.</li>
+    <li><b>Head-to-head</b> (Condorcet, with Copeland scoring as a tiebreak when there is a cycle): compare every pair of candidates. A candidate who beats everyone one-on-one wins.</li>
+  </ul>
+  <p class="muted">Sources to read further: <a href="https://en.wikipedia.org/wiki/Instant-runoff_voting" rel="noopener">Instant-runoff voting</a>, <a href="https://en.wikipedia.org/wiki/Condorcet_method" rel="noopener">Condorcet method</a>, <a href="https://en.wikipedia.org/wiki/Approval_voting" rel="noopener">Approval voting</a>. The first example follows the well-known Tennessee capital illustration from the Wikipedia articles, with made-up names. This tool shows how counting rules work. It does not say which rule a place should use.</p>
+</main>
+<footer>
+<p>This page has no ads, trackers, or analytics, and it cannot send anything anywhere. <a href="/privacy/">Privacy</a>.</p>
+<p>Education only. It does not recommend any party, candidate, or vote.</p>
+<p>These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU.</p>
+</footer>
+<script>
+// Voting method counters for the hoto.lol demo. Pure functions, no dependencies.
+// A ballot profile: [{ count: number, ranking: [candidate,...] (best first, may be partial) }]
+(function (root) {
+  function candidatesOf(profile) {
+    const s = new Set();
+    profile.forEach(b => b.ranking.forEach(c => s.add(c)));
+    return [...s];
+  }
+  function total(profile) { return profile.reduce((a, b) => a + b.count, 0); }
+
+  function plurality(profile) {
+    const tally = {};
+    candidatesOf(profile).forEach(c => (tally[c] = 0));
+    profile.forEach(b => { if (b.ranking.length) tally[b.ranking[0]] += b.count; });
+    return { tally, winners: top(tally), rounds: null };
+  }
+
+  // Instant runoff. Ties for last are eliminated together only if all remaining tie; otherwise
+  // the alphabetically-first of the lowest is eliminated (deterministic, documented in the UI).
+  function irv(profile) {
+    let alive = new Set(candidatesOf(profile));
+    const rounds = [];
+    while (alive.size) {
+      const tally = {};
+      alive.forEach(c => (tally[c] = 0));
+      let active = 0;
+      profile.forEach(b => {
+        const first = b.ranking.find(c => alive.has(c));
+        if (first !== undefined) { tally[first] += b.count; active += b.count; }
+      });
+      rounds.push({ tally: { ...tally }, active });
+      const leaders = top(tally);
+      if (tally[leaders[0]] * 2 > active || alive.size === 1) return { winners: [leaders[0]], rounds };
+      const min = Math.min(...Object.values(tally));
+      const lows = Object.keys(tally).filter(c => tally[c] === min).sort();
+      if (lows.length === alive.size) return { winners: lows, rounds };
+      alive.delete(lows[0]);
+      rounds[rounds.length - 1].eliminated = lows[0];
+    }
+    return { winners: [], rounds };
+  }
+
+  // Approval: each ballot approves its top `k` ranked candidates unless it has an explicit `approved` list.
+  function approval(profile, k = 2) {
+    const tally = {};
+    candidatesOf(profile).forEach(c => (tally[c] = 0));
+    profile.forEach(b => {
+      const set = b.approved || b.ranking.slice(0, k);
+      set.forEach(c => (tally[c] += b.count));
+    });
+    return { tally, winners: top(tally) };
+  }
+
+  // Pairwise comparisons. Unranked candidates count as below all ranked ones.
+  function pairwise(profile) {
+    const cs = candidatesOf(profile), m = {};
+    cs.forEach(a => { m[a] = {}; cs.forEach(b => { if (a !== b) m[a][b] = 0; }); });
+    profile.forEach(bl => {
+      const pos = c => { const i = bl.ranking.indexOf(c); return i === -1 ? Infinity : i; };
+      cs.forEach(a => cs.forEach(b => { if (a !== b && pos(a) < pos(b)) m[a][b] += bl.count; }));
+    });
+    return m;
+  }
+  function condorcet(profile) {
+    const m = pairwise(profile), cs = Object.keys(m);
+    const wins = {};
+    cs.forEach(a => (wins[a] = cs.filter(b => b !== a && m[a][b] > m[b][a]).length));
+    const winner = cs.find(a => wins[a] === cs.length - 1) || null;
+    // Copeland fallback if no Condorcet winner (wins + 0.5 per tie)
+    const score = {};
+    cs.forEach(a => (score[a] = wins[a] + 0.5 * cs.filter(b => b !== a && m[a][b] === m[b][a]).length));
+    return { pairwise: m, condorcetWinner: winner, copeland: score, winners: winner ? [winner] : top(score) };
+  }
+
+  function top(tally) {
+    const max = Math.max(...Object.values(tally));
+    return Object.keys(tally).filter(c => tally[c] === max).sort();
+  }
+
+  const api = { plurality, irv, approval, condorcet, pairwise, total };
+  if (typeof module !== 'undefined') module.exports = api; else root.Voting = api;
+})(this);
+
+(function () {
+  var PRESETS = [
+    { id: 'split', label: 'A close four-way race', note: 'A familiar illustration: the biggest group is not a majority, and the other three groups disagree about who comes next.',
+      groups: [
+        { count: 42, ranking: ['Alder', 'Birch', 'Cedar', 'Dune'] },
+        { count: 26, ranking: ['Birch', 'Cedar', 'Dune', 'Alder'] },
+        { count: 15, ranking: ['Cedar', 'Dune', 'Birch', 'Alder'] },
+        { count: 17, ranking: ['Dune', 'Cedar', 'Birch', 'Alder'] }] },
+    { id: 'spoiler', label: 'The spoiler effect', note: 'Two similar candidates split a vote. Under plurality the one with fewer total supporters can win.',
+      groups: [
+        { count: 45, ranking: ['Alder', 'Birch', 'Cedar'] },
+        { count: 40, ranking: ['Birch', 'Alder', 'Cedar'] },
+        { count: 15, ranking: ['Cedar', 'Birch', 'Alder'] }] },
+    { id: 'cycle', label: 'A circle with no clear winner', note: 'Each candidate beats one rival and loses to another, so there is no head-to-head winner. Counting rules have to break the tie somehow.',
+      groups: [
+        { count: 10, ranking: ['Alder', 'Birch', 'Cedar'] },
+        { count: 10, ranking: ['Birch', 'Cedar', 'Alder'] },
+        { count: 10, ranking: ['Cedar', 'Alder', 'Birch'] }] }
+  ];
+  var CANDS = ['Alder', 'Birch', 'Cedar', 'Dune'];
+  var state = { groups: [], cands: [] };
+
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    for (var k in (attrs || {})) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+  function announce(msg) { $('live').textContent = msg; }
+
+  function load(p) {
+    state.groups = JSON.parse(JSON.stringify(p.groups));
+    state.cands = p.groups[0].ranking.slice().sort();
+    $('presetNote').textContent = p.note;
+    Array.prototype.forEach.call($('presets').children, function (b) { b.setAttribute('aria-pressed', String(b.dataset.id === p.id)); });
+    render();
+  }
+
+  function renderGroups() {
+    var box = $('groups'); box.textContent = '';
+    state.groups.forEach(function (g, gi) {
+      var fs = el('fieldset', { 'class': 'group' });
+      fs.appendChild(el('legend', {}, 'Voter group ' + (gi + 1)));
+      var lab = el('label', { 'class': 'count' }, 'Voters ');
+      var inp = el('input', { type: 'number', min: '0', max: '100000', step: '1', value: String(g.count) });
+      inp.addEventListener('input', function () {
+        var n = Math.max(0, Math.min(100000, Math.floor(Number(inp.value) || 0)));
+        g.count = n; renderResults();
+      });
+      lab.appendChild(inp); fs.appendChild(lab);
+      var ol = el('ol', { 'aria-label': 'Ranking for voter group ' + (gi + 1) });
+      g.ranking.forEach(function (c, i) {
+        var li = el('li');
+        li.appendChild(el('span', { 'class': 'rk' }, (i + 1) + '.'));
+        li.appendChild(el('span', { 'class': 'name' }, c));
+        var up = el('button', { type: 'button', 'class': 'secondary sm', 'aria-label': 'Move ' + c + ' up in group ' + (gi + 1) }, 'Up');
+        var dn = el('button', { type: 'button', 'class': 'secondary sm', 'aria-label': 'Move ' + c + ' down in group ' + (gi + 1) }, 'Down');
+        if (i === 0) up.disabled = true;
+        if (i === g.ranking.length - 1) dn.disabled = true;
+        function move(d) {
+          var j = i + d, t = g.ranking[i]; g.ranking[i] = g.ranking[j]; g.ranking[j] = t;
+          render();
+          var btns = $('groups').querySelectorAll('ol')[gi].querySelectorAll('li')[j].querySelectorAll('button');
+          var tgt = btns[d < 0 ? 0 : 1]; if (tgt.disabled) tgt = btns[d < 0 ? 1 : 0]; tgt.focus();
+          announce(c + ' is now choice ' + (j + 1) + ' in group ' + (gi + 1));
+        }
+        up.addEventListener('click', function () { move(-1); });
+        dn.addEventListener('click', function () { move(1); });
+        li.appendChild(up); li.appendChild(dn); ol.appendChild(li);
+      });
+      fs.appendChild(ol);
+      if (state.groups.length > 1) {
+        var rm = el('button', { type: 'button', 'class': 'secondary', style: 'margin-top:10px' }, 'Remove group ' + (gi + 1));
+        rm.addEventListener('click', function () { state.groups.splice(gi, 1); render(); announce('Group removed'); $('addGroup').focus(); });
+        fs.appendChild(rm);
+      }
+      box.appendChild(fs);
+    });
+  }
+
+  function bars(tally, winners) {
+    var wrap = el('div'); var max = Math.max.apply(null, Object.keys(tally).map(function (k) { return tally[k]; }).concat([1]));
+    Object.keys(tally).sort(function (a, b) { return tally[b] - tally[a] || (a < b ? -1 : 1); }).forEach(function (c) {
+      var r = el('div', { 'class': 'bar' });
+      r.appendChild(el('span', {}, c + (winners.indexOf(c) > -1 ? ' (win)' : '')));
+      var t = el('span', { 'class': 'track', 'aria-hidden': 'true' }); var f = el('span', { 'class': 'fill' }); f.style.display = 'block'; f.style.width = (100 * tally[c] / max) + '%'; t.appendChild(f);
+      r.appendChild(t); r.appendChild(el('span', { 'class': 'num' }, String(tally[c])));
+      wrap.appendChild(r);
+    });
+    return wrap;
+  }
+  function names(w) { return w.length ? w.join(' and ') : 'nobody'; }
+  function card(title, winners, body, explain) {
+    var c = el('section', { 'class': 'card' });
+    c.appendChild(el('h3', {}, title));
+    c.appendChild(el('p', { 'class': 'win' }, winners.length > 1 ? 'Tie: ' + names(winners) : 'Winner: ' + names(winners)));
+    c.appendChild(body); c.appendChild(el('p', { 'class': 'explain' }, explain));
+    return c;
+  }
+
+  function renderResults() {
+    var res = $('results'); res.textContent = '';
+    var profile = state.groups.filter(function (g) { return g.count > 0; });
+    var total = Voting.total(profile);
+    if (!total) { $('summary').textContent = 'Add at least one voter to see results.'; return; }
+    var P = Voting.plurality(profile), I = Voting.irv(profile), A = Voting.approval(profile, 2), C = Voting.condorcet(profile);
+    res.appendChild(card('Plurality', P.winners, bars(P.tally, P.winners),
+      'Counts only first choices. ' + (P.tally[P.winners[0]] * 2 > total ? 'The winner has a majority.' : 'The winner does not have a majority of the ' + total + ' voters.')));
+    var rl = el('ol', { 'class': 'rounds' });
+    I.rounds.forEach(function (r) {
+      var parts = Object.keys(r.tally).sort().map(function (k) { return k + ' ' + r.tally[k]; }).join(', ');
+      rl.appendChild(el('li', {}, parts + (r.eliminated ? '. ' + r.eliminated + ' is dropped.' : '.')));
+    });
+    res.appendChild(card('Ranked-choice (instant runoff)', I.winners, rl, 'Each round counts the highest-ranked candidate still in the race on every ballot.'));
+    res.appendChild(card('Approval (top two choices)', A.winners, bars(A.tally, A.winners), 'Each voter approves their first and second choice. Numbers add up to more than the voter count.'));
+    var cb = el('div');
+    var cs = Object.keys(C.pairwise).sort(), lines = [];
+    cs.forEach(function (a, i) { cs.slice(i + 1).forEach(function (b) {
+      var x = C.pairwise[a][b], y = C.pairwise[b][a];
+      lines.push(x === y ? a + ' and ' + b + ' tie, ' + x + ' to ' + y : (x > y ? a : b) + ' beats ' + (x > y ? b : a) + ', ' + Math.max(x, y) + ' to ' + Math.min(x, y));
+    }); });
+    var ul = el('ul', { 'class': 'rounds' }); lines.forEach(function (l) { ul.appendChild(el('li', {}, l)); }); cb.appendChild(ul);
+    res.appendChild(card('Head-to-head (Condorcet)', C.winners, cb, C.condorcetWinner ? C.condorcetWinner + ' beats every other candidate one-on-one.' : 'No candidate beats all the others, so the winner above comes from Copeland scores (pairwise wins, with ties counting half).'));
+    var set = {}; [P, I, A, C].forEach(function (m) { set[m.winners.join('+')] = 1; });
+    var n = Object.keys(set).length;
+    $('summary').textContent = n === 1 ? 'All four methods agree here. ' + total + ' voters.' : 'The four methods pick ' + n + ' different winners from the same ' + total + ' ballots.';
+  }
+  function render() { renderGroups(); renderResults(); }
+
+  PRESETS.forEach(function (p) {
+    var b = el('button', { type: 'button', 'class': 'secondary', 'data-id': p.id, 'aria-pressed': 'false' }, p.label);
+    b.addEventListener('click', function () { load(p); announce('Loaded example: ' + p.label); });
+    $('presets').appendChild(b);
+  });
+  $('addGroup').addEventListener('click', function () {
+    state.groups.push({ count: 10, ranking: state.cands.slice() }); render(); announce('Group added');
+  });
+  load(PRESETS[0]);
+})();
+</script>
+</body>
+</html>
