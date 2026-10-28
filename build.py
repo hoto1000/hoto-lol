@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "the-queue-is-the-policy",
+        "title": "The queue is the policy: who pays the hidden time tax?",
+        "date": "2026-10-27",
+        "summary": "A student's argument that waiting quietly decides who can use a system: Social Security phone wait times, who can afford to hold, my own disability insurance paperwork, and one redesign.",
+    },
+    {
         "slug": "is-there-a-perfect-income",
         "title": "Is there a perfect income? Why happiness seems to level off",
         "date": "2026-10-27",
