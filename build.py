@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "social-location-where-you-stand",
+        "title": 'Social location: where you stand decides what you see',
+        "date": "2026-10-27",
+        "summary": "A blunt student take on social location: the stack of race, class, family and culture that decides what you notice, what you miss, and what you call normal.",
+    },
+    {
         "slug": "what-a-freudian-slip-can-and-cannot-tell-us",
         "title": 'What a Freudian slip can and cannot tell us',
         "date": "2026-10-27",
