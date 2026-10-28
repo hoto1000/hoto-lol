@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "privilege-is-everything-you-never-had-to-think-about",
+        "title": 'Privilege is everything you never had to think about',
+        "date": "2026-10-27",
+        "summary": "A blunt student take on privilege: the list of things that were easy that you never noticed were easy, and how to start seeing your own.",
+    },
+    {
         "slug": "we-didnt-all-start-at-the-same-line",
         "title": "Social privilege: we didn't all start at the same line",
         "date": "2026-10-27",
