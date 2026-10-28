@@ -604,6 +604,8 @@ UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Project Hoto is a pe
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
+TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers."
+
 
 def esc(s):
     return html.escape(s, quote=True)
@@ -664,6 +666,7 @@ def page(path, title, description, body, script=""):
 <p class="foot-mark">Ask the hard questions. Argue them fairly.</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
+<p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -991,6 +994,7 @@ def build():
 <ol class="shape">{shape}</ol>
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
+<p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p class="aside-note">{BLUNT}</p>
 <p><a class="more" href="/blog/">← Back to the questions</a></p>""")))
