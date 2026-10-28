@@ -330,47 +330,51 @@ nav.main a[aria-current="page"],
 .aside-note strong { color: var(--text); font-weight: 700; }
 .more { font-family: var(--interface); font-size: var(--fs-nav); font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--s4); }
 
-/* Essay pages */
-.read-progress { display: none; }
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .read-progress {
-      display: block; position: fixed; inset: 0 0 auto 0; height: 3px;
-      background: var(--accent);
-      transform-origin: 0 50%; transform: scaleX(0);
-      animation: read-grow linear both; animation-timeline: scroll(root block);
-      z-index: 30;
-    }
-  }
-}
-@keyframes read-grow { to { transform: scaleX(1); } }
-
-.essay { width: min(var(--wide), 100% - 2 * var(--gutter)); margin-inline: auto; }
-.essay-head { max-width: 56rem; padding: var(--s4) 0 var(--s6); }
+/* Essay pages: header and body share one reading column; the outline sits beside it on wide screens */
+.essay { width: min(var(--wide), 100% - 2 * var(--gutter)); margin-inline: auto; --col: var(--read); }
+.essay-head { max-width: var(--col); padding: var(--s4) 0 var(--s5); }
 .back { font-family: var(--interface); font-size: var(--fs-nav); display: inline-flex; align-items: center; min-height: 44px; }
-.essay-kind { margin-top: var(--s4); }
-.essay-q {
-  font-size: var(--fs-post-h1);
-  line-height: 1.15;
-  margin: var(--s3) 0 var(--s4);
-  text-wrap: balance;
-}
+.essay-kind { margin-top: var(--s3); }
 .essay-head h1 {
-  font-style: italic; font-weight: 400;
-  font-size: var(--fs-lead); line-height: 1.35; color: var(--muted);
-  margin: 0 0 var(--s3);
+  font-size: clamp(2rem, 1.2rem + 3vw, 3rem); font-weight: 400; line-height: 1.15;
+  margin: var(--s4) 0 var(--s3); text-wrap: balance;
 }
+.essay-q { font-size: var(--fs-lead); font-style: italic; line-height: 1.4; color: var(--muted); margin: 0 0 var(--s3); max-width: 38rem; }
 .essay-meta { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: 0; }
 .voices { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: var(--s2) 0 0; }
 .voices b { color: var(--text); font-weight: 700; }
-.corrections { font-family: var(--interface); font-size: var(--fs-nav); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s3) var(--s4); margin: var(--s4) 0 0; max-width: var(--read); }
+.corrections { font-family: var(--interface); font-size: var(--fs-nav); background: var(--surface); border-left: 3px solid var(--accent); padding: var(--s3) var(--s4); margin: var(--s4) 0 0; }
 .corrections ul { margin: var(--s2) 0 0; padding-left: var(--s4); }
 
-.prose { max-width: var(--read); border-top: 1px solid var(--border); padding-top: var(--s6); }
+/* The argument: one list, two presentations. Only one is displayed (and exposed) at each width. */
+.toc-phone { margin: var(--s5) 0 0; border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--interface); }
+.toc-phone summary { padding: 0 var(--s4); }
+.toc-phone[open] summary { margin-bottom: 0; border-bottom: 1px solid var(--border); }
+.toc-wide { display: none; }
+.toc-phone ol, .toc-wide ol { list-style: none; counter-reset: part; margin: 0; padding: 0; }
+.toc-phone li, .toc-wide li { counter-increment: part; display: grid; grid-template-columns: 2rem minmax(0, 1fr); align-items: start; }
+.toc-phone li::before, .toc-wide li::before { content: counter(part) "."; padding: 0.8rem 0 0 var(--s4); font-size: var(--fs-meta); color: var(--muted); }
+.toc-wide li::before { padding-left: 0; }
+.toc-phone a, .toc-wide a { display: block; padding: var(--s3) var(--s4) var(--s3) 0; min-height: 44px; color: var(--text); text-decoration: none; font-size: var(--fs-nav); line-height: 1.35; }
+.toc-phone li + li a { border-top: 0; }
+.toc-phone a:hover, .toc-wide a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.toc-title { font-size: var(--fs-h3); line-height: 1.2; margin: 0 0 var(--s2); }
+
+.essay-body { display: block; }
+.prose { max-width: var(--col); border-top: 1px solid var(--border); padding-top: var(--s5); }
+@media (min-width: 48rem) {
+  .essay-body { display: grid; grid-template-columns: minmax(0, var(--col)) minmax(13.75rem, 15rem); gap: 0 clamp(2rem, 5vw, 4rem); align-items: start; }
+  .toc-phone { display: none; }
+  .toc-wide {
+    display: block; position: sticky; top: var(--s5); max-height: calc(100vh - 2 * var(--s5)); overflow-y: auto;
+    margin-top: -1px; border-top: 2px solid var(--accent); padding-top: var(--s4); font-family: var(--interface);
+  }
+}
 .prose p, .prose li { line-height: var(--lh-body); }
 .prose p { margin: 0 0 1.1em; }
 .prose h2 { font-size: var(--fs-h2); line-height: 1.2; margin: 2em 0 0.5em; }
 .prose section:first-child > h2:first-child { margin-top: 0; }
+.prose h2[id] { scroll-margin-top: var(--s5); }
 .prose h3 { font-size: var(--fs-h3); line-height: 1.25; margin: 1.6em 0 0.4em; }
 .prose ul, .prose ol { padding-left: 1.3em; margin: 0 0 1.2em; }
 .prose li { margin-bottom: 0.5em; }
@@ -383,26 +387,36 @@ nav.main a[aria-current="page"],
 .prose .eyebrow + h2 { margin-top: 0; }
 .prose img { max-width: 100%; height: auto; }
 .prose table { display: block; max-width: 100%; overflow-x: auto; }
-/* Sources: a visibly separate block */
-.prose #sources { margin-top: var(--s7); padding: var(--s5) var(--s5) var(--s2); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--interface); font-size: var(--fs-nav); }
-.prose #sources h2 { margin-top: 0; font-size: var(--fs-h3); }
-.prose #sources ul.plain > li { border-left: 0; padding: var(--s3) 0; margin: 0; line-height: 1.55; border-bottom: 1px solid var(--border); }
-.prose #sources ul.plain > li:last-child { border-bottom: 0; }
 
-.after { max-width: var(--read); margin: var(--s7) 0 0; }
-.sit-with { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius); padding: var(--s5); }
-.sit-with p.sit-q { font-size: var(--fs-list); line-height: 1.2; margin: var(--s3) 0 0; }
-.read-next { margin-top: var(--s5); }
+/* Sources: a rule above, a small label, readable citations. Keyed to the Sources h2 id, never to position. */
+.prose h2#sources, .prose section#sources {
+  margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid var(--border);
+}
+.prose section#sources > h2 { margin-top: 0; }
+.prose #sources h2, .prose h2#sources {
+  font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; line-height: 1.4; color: var(--muted); margin-bottom: var(--s3);
+}
+.prose h2#sources { margin-bottom: var(--s3); }
+.prose ul.sources { font-size: 1rem; line-height: 1.55; overflow-wrap: anywhere; }
+.prose ul.sources > li { border-left: 0; padding-left: 0; margin: 0 0 var(--s3); }
+
+/* End matter */
+.after { max-width: var(--col); margin: var(--s7) 0 0; }
+.sit-with { background: var(--surface); border-left: 3px solid var(--accent); padding: var(--s4) var(--s5); }
+.sit-with p.sit-q { font-size: var(--fs-h3); line-height: 1.25; margin: var(--s2) 0 0; }
+.read-next { margin-top: var(--s6); }
 .read-next a {
-  display: block; margin-top: var(--s2); padding: var(--s4) var(--s5); min-height: 44px;
-  border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  display: block; margin-top: var(--s2); padding: var(--s4) 0; min-height: 44px;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
   color: var(--text); text-decoration: none;
 }
-.read-next .q-text { font-size: var(--fs-h3); }
+.read-next .q-text { font-size: var(--fs-h3); line-height: 1.25; }
 .read-next a:hover .q-text, .read-next a:focus-visible .q-text { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.read-next cite { display: block; font-style: italic; color: var(--muted); margin-top: var(--s2); }
+.read-next cite { display: block; font-size: 1rem; font-style: italic; color: var(--muted); margin-top: var(--s2); }
 .disagree { font-family: var(--interface); color: var(--muted); font-size: var(--fs-nav); margin: var(--s5) 0 0; }
-.essay-end { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: var(--s5) 0 var(--s8); }
+.disagree strong { color: var(--text); }
+.essay-end { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: var(--s4) 0 var(--s6); }
 
 /* Simple pages (podcast, method, privacy, 404) */
 .page { width: min(var(--wide), 100% - 2 * var(--gutter)); margin-inline: auto; padding: var(--s6) 0 var(--s7); }
@@ -460,20 +474,6 @@ footer .foot-mark { font-family: var(--editorial); font-size: 1.125rem; line-hei
 footer nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); margin-bottom: var(--s3); }
 footer nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 footer p a { display: inline-flex; align-items: center; min-height: 44px; }
-
-/* Essay layout: reading column plus a sticky outline of the argument on wide screens */
-.essay-body { display: block; }
-.outline { display: none; }
-@media (min-width: 68rem) {
-  .essay-body { display: grid; grid-template-columns: minmax(0, var(--read)) minmax(12rem, 17rem); gap: 0 clamp(3rem, 7vw, 7rem); align-items: start; }
-  .outline { display: block; position: sticky; top: var(--s5); border-top: 2px solid var(--accent); padding-top: var(--s4); font-family: var(--interface); }
-  .outline ol { list-style: none; margin: var(--s2) 0 0; padding: 0; counter-reset: part; }
-  .outline li { counter-increment: part; display: grid; grid-template-columns: 1.6rem 1fr; }
-  .outline li::before { content: counter(part) "."; padding-top: 0.6rem; font-size: var(--fs-meta); color: var(--muted); }
-  .outline a { display: block; padding: var(--s2) 0; min-height: 44px; color: var(--muted); text-decoration: none; font-size: var(--fs-nav); line-height: 1.35; }
-  .outline a:hover { color: var(--text); text-decoration: underline; text-decoration-thickness: 1px; }
-}
-.prose h2[id] { scroll-margin-top: var(--s5); }
 
 @media (max-width: 640px) {
   .actions .cta { flex: 1 1 100%; }

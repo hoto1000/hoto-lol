@@ -622,31 +622,32 @@ def essay_page(p):
     after.append('<p class="disagree"><strong>Disagree? Good.</strong> Read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
-    outline = ""
+    toc_phone = toc_wide = ""
     if len(parts) >= 3:
         links = "".join(f'<li><a href="#{hid}">{html.escape(text)}</a></li>' for hid, text in parts)
-        outline = f'<nav class="outline" aria-label="The argument"><p class="label">The argument</p><ol>{links}</ol></nav>'
+        toc_phone = f'<details class="toc-phone"><summary>The argument</summary><ol>{links}</ol></details>'
+        toc_wide = f'<nav class="toc-wide" aria-label="The argument"><p class="toc-title">The argument</p><ol>{links}</ol></nav>'
 
-    return f"""<div class="read-progress" aria-hidden="true"></div>
-<article class="essay">
+    return f"""<article class="essay">
 <header class="essay-head">
-<a class="back" href="/blog/">← All questions</a>
+<a class="back" href="/blog/">← All writing</a>
 <p class="label essay-kind">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
-{question}
 <h1>{esc(p['title'])}</h1>
+{question}
 <p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
 {voices}
 {corrections}
+{toc_phone}
 </header>
 <div class="essay-body">
 <div class="prose">
 {body}
 </div>
-{outline}
+{toc_wide}
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All questions</a><a class="back" href="/how-i-argue/">How I argue here</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">How I argue here</a></p>
 </div>
 </article>
 """
