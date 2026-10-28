@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "the-rules-nobody-said-out-loud",
+        "title": "The rules nobody said out loud",
+        "date": "2026-10-27",
+        "summary": "A student on the unspoken rules families run on: a quick test to find yours, why they made sense once, where I caught myself running mine, and three ways to spot your own.",
+    },
+    {
         "slug": "what-therapy-ethics-codes-miss-about-culture",
         "title": "What therapy ethics codes get right and miss about culture",
         "date": "2026-10-27",
