@@ -484,15 +484,19 @@ def frame(slug):
             "note": "", "corrections": [], **FRAMING.get(slug, {})}
 
 
-def question_item(p):
+def latest_row(p):
     f = frame(p["slug"])
-    headline = q(f["question"]) if f["question"] else esc(p["title"])
-    note = f' <em>{esc(f["note"])}</em>' if f["note"] else ""
-    title = f'<cite>{esc(p["title"])}</cite> · ' if f["question"] else ""
-    return (f'<li><a class="q-link" href="/blog/{p["slug"]}/">'
-            f'<h4 class="q-text-wrap"><span class="q-text">{headline}</span></h4>'
-            f'<span class="q-meta">{kind_badge(f["kind"])}{title}<time datetime="{p["date"]}">{nice(p["date"])}</time> · {minutes(p["slug"])} min read</span>'
-            f'<span class="q-sum">{esc(p["summary"])}{note}</span></a></li>')
+    ask = f'<p class="row-q">{esc(f["question"])}</p>' if f["question"] else ""
+    return (f'<li class="row"><div class="row-meta">{kind_badge(f["kind"])}<span>{esc(f["theme"])}</span>'
+            f'<time datetime="{p["date"]}">{nice(p["date"])}</time><span>{minutes(p["slug"])} min read</span></div>'
+            f'<h3 class="row-title"><a href="/blog/{p["slug"]}/">{esc(p["title"])}</a></h3>'
+            f'{ask}<p class="row-sum">{esc(p["summary"])}</p></li>')
+
+
+def archive_row(p):
+    f = frame(p["slug"])
+    return (f'<li class="arow"><a href="/blog/{p["slug"]}/">{esc(p["title"])}</a>'
+            f'<span class="row-meta">{kind_badge(f["kind"])}<time datetime="{p["date"]}">{nice(p["date"])}</time></span></li>')
 
 
 def front_page():
@@ -506,17 +510,16 @@ def front_page():
         doors.append(f'<li class="door"><a href="{href}"><h3 class="door-q">{q(question)}</h3>'
                      f'<span class="door-meta">{meta}<b>{name}</b></span></a></li>')
 
-    themes = []
+    latest = "".join(latest_row(p) for p in POSTS[:6])
+    themes, side = [], []
     for t in THEMES:
         items = [p for p in POSTS if frame(p["slug"])["theme"] == t]
-        if not items:
-            continue
-        themes.append(f'<div class="theme"><h3><span class="label">{esc(t)}</span></h3>'
-                      f'<ul class="qlist">{"".join(question_item(p) for p in items)}</ul></div>')
+        tid = "subject-" + slugify(t)
+        themes.append(f'<div class="theme"><h3 id="{tid}">{esc(t)}</h3>'
+                      f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul></div>')
+        side.append(f'<li><a href="#{tid}">{esc(t)} ({len(items)})</a></li>')
 
     shelf = "".join(f"<li><h3>{q(a)}</h3><p>{esc(b)}</p></li>" for a, b in OPEN_QUESTIONS)
-    rules = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in RULES)
-    ideals = "".join(f"<li><h3>{esc(a)}</h3><p>{esc(b)}</p></li>" for a, b in IDEALS)
 
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
@@ -524,22 +527,34 @@ def front_page():
 <p class="kicker">An independent journal of hard questions about society</p>
 <h1 id="hero-h">Ask the <span class="hl">hard questions.</span> Argue them fairly.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
-<div class="actions"><a class="cta" href="#start">Start here</a><a class="cta-quiet" href="#questions">See every question</a></div>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
-<p class="emblem" aria-hidden="true">?</p>
 </section>
 
+<div class="index-grid">
+<div class="index-main">
+<section class="section" id="latest" aria-labelledby="latest-h">
+<div class="section-head"><h2 id="latest-h">Latest writing</h2><a class="jump" href="#questions">Browse by subject</a></div>
+<ul class="rows">{latest}</ul>
+</section>
+
+<section class="section" id="questions" aria-labelledby="questions-h">
+<div class="section-head"><h2 id="questions-h">By subject</h2></div>
+{"".join(themes)}
+<p class="aside-note">{BLUNT}</p>
+</section>
+</div>
+<aside class="index-side" aria-labelledby="side-h">
+<h2 id="side-h">Browse by subject</h2>
+<ul>{"".join(side)}</ul>
+</aside>
+</div>
+
+<div class="index-main">
 <section class="section" id="start" aria-labelledby="start-h">
 <div class="section-head"><h2 id="start-h">Start here</h2><p>Three doors in. Pick the question that pulls at you.</p></div>
 <ul class="doors">{"".join(doors)}</ul>
 <p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
-</section>
-
-<section class="section" id="questions" aria-labelledby="questions-h">
-<div class="section-head"><h2 id="questions-h">The questions</h2><p>Every essay starts from one hard question. Newest first in each theme.</p></div>
-{"".join(themes)}
-<p class="aside-note">{BLUNT}</p>
 </section>
 
 <section class="section" id="open" aria-labelledby="open-h">
@@ -547,17 +562,14 @@ def front_page():
 <ul class="shelf">{shelf}</ul>
 </section>
 
-<section class="section" id="ideals" aria-labelledby="ideals-h">
-<div class="section-head"><h2 id="ideals-h">Where I start from</h2><p>Five ideals behind the questions. When hard times hit, neighbors help each other through.</p></div>
-<ul class="rules">{ideals}</ul>
-<a class="more" href="/how-i-argue/#ideals">Why these ideals →</a>
+<section class="section" id="about" aria-labelledby="about-h">
+<div class="section-head"><h2 id="about-h">About this journal</h2></div>
+<ul class="about">
+<li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">How I argue here</span><span class="about-d">Rules I hold myself to, so you can see where fact ends and opinion begins.</span></a></li>
+</ul>
 </section>
-
-<section class="section" id="how" aria-labelledby="how-h">
-<div class="section-head"><h2 id="how-h">How I argue here</h2><p>Rules I hold myself to, so you can see where fact ends and opinion begins.</p></div>
-<ul class="rules">{rules}</ul>
-<a class="more" href="/how-i-argue/">The full method →</a>
-</section>
+</div>
 </div>
 """
 
@@ -695,7 +707,7 @@ def build():
     desc = "An independent, personal journal of hard questions about society: essays, a podcast, and a private civic self-check."
     # The home page and /blog/ are the same front page. hoto.lol/ currently redirects to /blog/.
     write("index.html", page("/", None, desc, front_page()))
-    write("blog/index.html", page("/blog/", "Questions", desc, front_page()))
+    write("blog/index.html", page("/blog/", "Writing", desc, front_page()))
 
     for p in POSTS:
         write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p)))
