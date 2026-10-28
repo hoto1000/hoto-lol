@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "what-money-cant-buy",
+        "title": "What money can't buy (and what it can, if you spend it right)",
+        "date": "2026-10-27",
+        "summary": "A follow-up to the perfect income post: what the research says about time, close relationships, and spending on others and on experiences.",
+    },
+    {
         "slug": "the-rules-nobody-said-out-loud",
         "title": "The rules nobody said out loud",
         "date": "2026-10-27",
@@ -465,6 +471,14 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "what-money-cant-buy": {
+        "question": "If more money helps less and less, what does help?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": "The next time you have a little extra, would you spend it on time, on someone else, or on a thing?",
+        "related": "is-there-a-perfect-income",
+        "voices": ["Hal Hershfield", "Cassie Mogilner", "Ashley Whillans", "Robert Waldinger", "Elizabeth Dunn", "Leaf Van Boven", "Thomas Gilovich"],
+    },
     "is-there-a-perfect-income": {
         "question": "Is there an amount of money after which more stops making us happier?",
         "theme": "Mind and how to live",
