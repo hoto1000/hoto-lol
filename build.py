@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "who-gets-measured-and-who-does-the-measuring",
+        "title": "Who Gets Measured, and Who Does the Measuring",
+        "date": "2026-10-28",
+        "summary": "A reading of two school debates, behavior scores and AI glasses at exams, through Michel Foucault's idea of the examination. My own reading, not his voice.",
+    },
+    {
         "slug": "the-rules-nobody-said-out-loud",
         "title": "The rules nobody said out loud",
         "date": "2026-10-27",
