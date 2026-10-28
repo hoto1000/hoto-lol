@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "the-rules-nobody-said-out-loud",
+        "title": 'The rules nobody said out loud',
+        "date": "2026-10-27",
+        "summary": "A blunt student take on the unspoken rules families run on, where they come from, and how to find your own.",
+    },
+    {
         "slug": "privilege-is-everything-you-never-had-to-think-about",
         "title": 'Privilege is everything you never had to think about',
         "date": "2026-10-27",
