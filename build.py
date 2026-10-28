@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "why-we-should-listen-to-more-stevie-wonder",
+        "title": "Why we should listen to more songs like Stevie Wonder's",
+        "date": "2026-10-27",
+        "summary": "A student's take on why Stevie Wonder's music is worth more time: joy with something to say, a voice that helped win a national holiday, and the kind of love my family mostly showed quietly.",
+    },
+    {
         "slug": "is-there-a-perfect-income",
         "title": "Is there a perfect income? Why happiness seems to level off",
         "date": "2026-10-27",
@@ -453,6 +459,14 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "why-we-should-listen-to-more-stevie-wonder": {
+        "question": "Can a song be joyful and still tell the truth?",
+        "theme": "Mind and how to live",
+        "kind": "Essay",
+        "sit": "Which song makes you feel like someone is in your corner? What does it say that the people around you don't?",
+        "related": "love-that-showed-up-as-food",
+        "voices": ["Stevie Wonder"],
+    },
     "is-there-a-perfect-income": {
         "question": "Is there an amount of money after which more stops making us happier?",
         "theme": "Mind and how to live",
