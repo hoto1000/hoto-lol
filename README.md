@@ -18,3 +18,14 @@ Static blog + podcast site. No framework, no trackers.
 - Colors are CSS variables at the top of `site.css`. Light and dark mode follow the reader's device setting.
 - The front page is written to both `/` and `/blog/`, so it works whether or not the home redirect is on.
 - The stylesheet link carries a short hash of `site.css` (`/site.css?v=...`, set by `CSS_VERSION` in `build.py`). Cloudflare tells browsers to keep the CSS for 4 hours, so the hash makes a style change show up as soon as the new pages load. Always rebuild after editing `site.css`.
+
+## Checks
+
+After editing anything, rebuild and check:
+
+```
+python3 build.py
+python3 scripts/check_site.py
+```
+
+`build.py` writes `docs/`. `scripts/check_site.py` reads `docs/` (standard library only, no network) and exits non-zero on any failure: crisis strip text, robots/referrer/AdSense meta, scripts and off-site loads, one `h1` and `main` per page, heading levels, unique ids, internal links and fragments, the stylesheet hash, and each post's title, date and summary against `POSTS`. Warnings (for example a future-dated post) are printed but do not fail the run.
