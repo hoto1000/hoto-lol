@@ -13,10 +13,10 @@
 <link rel="stylesheet" href="/site.css?v=cf87736046">
 <style>
 :root{
-  --bg:var(--paper); --surface:var(--card); --text:var(--ink); --muted:var(--ink-2); --line:var(--hair);
-  --accent:var(--ink); --accent-ink:var(--paper); --band:var(--mark); --dot:var(--ink); --focus:var(--ring);
-  --warn-bg:var(--card); --ok:#1e6b3a; --bad:#a1261c;
-  --radius:2px; --gap:16px;
+  --bg:var(--canvas); --line:var(--border);
+  --accent-ink:var(--canvas); --band:var(--accent); --dot:var(--text); --focus:var(--ring);
+  --warn-bg:var(--surface); --ok:#1e6b3a; --bad:#a1261c;
+  --gap:16px;
 }
 @media (prefers-color-scheme: dark){
   :root{ --ok:#6fcf8f; --bad:#f08a80; }
@@ -31,13 +31,13 @@ h1{font-size:clamp(2.25rem,6vw,3rem);line-height:1.05;margin:.2em 0 .4em}
 h2{font-size:1.75rem;line-height:1.1;margin:0 0 .5em}
 h3{font-size:1.4rem;line-height:1.15;margin:0 0 .4em}
 h2:focus{outline:none}
-.card{background:var(--surface);border:2px solid var(--ink);border-radius:var(--radius);padding:20px;margin:0 0 var(--gap)}
+.card{background:var(--surface);border:2px solid var(--text);border-radius:var(--radius);padding:20px;margin:0 0 var(--gap)}
 .muted{color:var(--muted)}
 .note{background:var(--warn-bg);border-radius:var(--radius);padding:12px 16px}
-button,.btn{font-family:var(--display);font-weight:800;font-stretch:condensed;font-size:1.1875rem;line-height:1.1;cursor:pointer;border-radius:2px;padding:8px 20px;min-height:44px;border:2px solid var(--ink);background:var(--ink);color:var(--paper)}
-button.secondary{background:transparent;color:var(--ink)}
+button,.btn{font-family:var(--display);font-weight:800;font-stretch:condensed;font-size:1.1875rem;line-height:1.1;cursor:pointer;border-radius:2px;padding:8px 20px;min-height:44px;border:2px solid var(--text);background:var(--text);color:var(--canvas)}
+button.secondary{background:transparent;color:var(--text)}
 button:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
-button.link{border:none;background:none;color:var(--ink);text-decoration:underline;padding:4px 8px;min-height:44px}
+button.link{border:none;background:none;color:var(--text);text-decoration:underline;padding:4px 8px;min-height:44px}
 .nav{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:8px}
 .progress{font-size:.95rem;color:var(--muted);margin:0 0 12px}
 fieldset{border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 0 var(--gap);background:var(--surface)}
@@ -58,8 +58,8 @@ legend{font-weight:650;padding:0 6px}
 .mid{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line)}
 .poles{display:flex;justify-content:space-between;gap:12px;font-size:.9rem;color:var(--muted)}
 .poles span:last-child{text-align:right}
-details{margin:8px 0}
-summary{cursor:pointer;color:var(--ink);min-height:44px;display:flex;align-items:center}
+main details{margin:8px 0}
+main summary{cursor:pointer;color:var(--text);min-height:44px;display:flex;align-items:center}
 ul.answers{padding-left:20px;margin:6px 0}
 li>a[target]{display:inline-flex;align-items:center;min-height:44px}
 .toggle{display:flex;gap:10px;align-items:flex-start}
@@ -73,8 +73,9 @@ li>a[target]{display:inline-flex;align-items:center;min-height:44px}
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
 <header class="top">
-<a class="wordmark" href="/">Project <span>Hoto</span></a>
-<nav class="main" aria-label="Main"><a href="/blog/#start">Start here</a><a href="/blog/">Questions</a><a href="/podcasts/">Podcast</a><a href="/civic/" aria-current="page">Civic guide</a><a href="/how-i-argue/">How I argue</a></nav>
+<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>
+<nav class="main nav-wide" aria-label="Main"><a href="/blog/">Blog</a><a href="/podcasts/">Podcast</a><a href="/civic/" aria-current="page">Civic guide</a><a href="/how-i-argue/">How I argue</a></nav>
+<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main"><a href="/blog/">Blog</a><a href="/podcasts/">Podcast</a><a href="/civic/" aria-current="page">Civic guide</a><a href="/how-i-argue/">How I argue</a></nav></details>
 </header>
 <main id="main" class="wrap" tabindex="-1">
   <div class="tool-bar">
