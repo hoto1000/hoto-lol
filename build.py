@@ -616,7 +616,7 @@ UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Project Hoto is a pe
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
-TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers."
+TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU."
 
 
 def esc(s):
