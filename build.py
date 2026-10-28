@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "one-roll-of-toilet-paper",
+        "title": "One roll of toilet paper: what a week of scarcity taught me",
+        "date": "2026-10-27",
+        "summary": "A student's honest look at a class assignment where one roll had to last a week: how scarcity takes up headspace, why my frugality is a choice, and what it means for the clients I want to help.",
+    },
+    {
         "slug": "the-i-am-poem-who-we-say-we-are",
         "title": 'The "I Am" poem and who we say we are',
         "date": "2026-10-27",
