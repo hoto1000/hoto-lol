@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "what-arendt-meant-by-the-banality-of-evil",
+        "title": 'What Arendt meant by the banality of evil',
+        "date": "2026-10-27",
+        "summary": "Hannah Arendt watched Adolf Eichmann's trial and coined a phrase people still misread. What she claimed, what critics say, and why thinking matters.",
+    },
+    {
         "slug": "philly-protests-and-rallies-this-week",
         "title": 'Philadelphia protests and rallies, late October to early November',
         "date": "2026-10-27",
@@ -179,6 +185,14 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "what-arendt-meant-by-the-banality-of-evil": {
+        "question": "How do ordinary people take part in terrible things without deciding anything?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": "When did you last repeat a phrase from your workplace or school without checking what it meant?",
+        "related": "the-watcher-in-your-pocket",
+        "voices": ["Hannah Arendt", "Bettina Stangneth"],
+    },
     "philly-protests-and-rallies-this-week": {
         "question": "What does taking part in public life look like in my city this week?",
         "theme": "Politics and civic life",
