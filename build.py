@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "we-didnt-all-start-at-the-same-line",
+        "title": "Social privilege: we didn't all start at the same line",
+        "date": "2026-10-27",
+        "summary": "A student's honest take on social privilege: a privilege-walk video, the statement that caught me off guard, why effort isn't the whole story, and a short exercise to find your own line.",
+    },
+    {
         "slug": "social-location-where-you-stand",
         "title": 'Social location: where you stand decides what you see',
         "date": "2026-10-27",
