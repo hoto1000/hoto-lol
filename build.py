@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "is-there-a-perfect-income",
+        "title": "Is there a perfect income? Why happiness seems to level off",
+        "date": "2026-10-27",
+        "summary": "A student reads the research on money and happiness: the famous $75,000 plateau, the studies that challenged it, and why more income matters less the more you have.",
+    },
+    {
         "slug": "love-that-showed-up-as-food",
         "title": "Love that showed up as food: growing up in a quiet Vietnamese American home",
         "date": "2026-10-27",
@@ -447,6 +453,14 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "is-there-a-perfect-income": {
+        "question": "Is there an amount of money after which more stops making us happier?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": "If you have a number in your head, what would it actually protect you from?",
+        "related": "one-roll-of-toilet-paper",
+        "voices": ["Daniel Kahneman", "Angus Deaton", "Matthew Killingsworth", "Barbara Mellers", "Andrew Jebb", "Erzo Luttmer"],
+    },
     "what-a-freudian-slip-can-and-cannot-tell-us": {
         "question": "When a word slips out, does it mean anything?",
         "theme": "Mind and how to live",
