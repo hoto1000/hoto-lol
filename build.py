@@ -1053,6 +1053,16 @@ def build():
     assert 'href="/blog/#start"' not in civic_html and 'aria-current="page">Civic guide</a>' in civic_html, "civic guide header is out of date"
     write("civic/index.html", civic_html)
 
+    # Voting demo: a standalone page like the civic guide (own no-network CSP, one inline script,
+    # no AdSense). vote/voting.js holds the counting code and is tested by vote/test.js (node).
+    demo = (ROOT / "vote" / "demo.html").read_text(encoding="utf-8")
+    assert "googlesyndication" not in demo and "connect-src 'none'" in demo, "voting demo must stay ad-free and no-network"
+    assert demo.count("<!--SITE_HEADER-->") == 1 and demo.count("/*VOTING_JS*/") == 1 and demo.count(plain_link) == 1
+    vote_html = (demo.replace("<!--SITE_HEADER-->", site_header("/vote/"))
+                 .replace(plain_link, CSS_LINK)
+                 .replace("/*VOTING_JS*/", (ROOT / "vote" / "voting.js").read_text(encoding="utf-8")))
+    write("vote/index.html", vote_html)
+
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
         None, "Privacy", None, """<p>No accounts. No forms. Nothing you type here is sent to this site.</p>
@@ -1079,7 +1089,7 @@ FOOTER_LINES = [
     'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
 ]
 # The civic guide is a standalone page with its own two-line footer, written for its no-ads, no-network promise.
-OWN_FOOTER = {"civic/index.html"}
+OWN_FOOTER = {"civic/index.html", "vote/index.html"}
 EXTERNAL_ASSET = re.compile(r'<(?:link|script|img)\b[^>]*?\b(?:src|href)\s*=\s*["\']?(?:https?:)?//', re.I)
 PLACEHOLDER = re.compile(r"\[(?:[A-Z]|\d+|TODO|TBD|XX+|\.\.\.|insert[^\]]*|placeholder[^\]]*)\]", re.I)
 
