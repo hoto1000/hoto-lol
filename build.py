@@ -351,7 +351,7 @@ IDEALS = [
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
                  "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
 
-NAV = [("/blog/#start", "Start here"), ("/blog/", "Questions"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
+NAV = [("/blog/", "Writing"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
@@ -381,12 +381,11 @@ def kind_badge(kind):
 
 def page(path, title, description, body, script=""):
     def cur(href):
-        if "#" in href:
-            return ""
-        on = path == href or (href == "/blog/" and path == "/") or (href != "/" and path.startswith(href) and href != "/blog/")
+        # Writing covers the front page, /blog/ and every post; the others cover their own section.
+        on = path.startswith("/blog/") or path == "/" if href == "/blog/" else path.startswith(href)
         return ' aria-current="page"' if on else ""
 
-    nav = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
+    links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = f"{SITE}: hard questions about how we live together" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
@@ -399,10 +398,9 @@ def page(path, title, description, body, script=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
-<meta name="theme-color" content="#f2f3f0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151a1e" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/fonts/archivo-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
 {CSS_LINK}
 </head>
 <body>
@@ -410,7 +408,8 @@ def page(path, title, description, body, script=""):
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
 <header class="top">
 <a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>
-<nav class="main" aria-label="Main">{nav}</nav>
+<nav class="main nav-wide" aria-label="Main">{links}</nav>
+<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>
 </header>
 <main id="main" tabindex="-1">
 {body}
