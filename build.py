@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "we-made-it-okay-to-talk",
+        "title": "We made it okay to talk. We never made it possible to get help.",
+        "date": "2026-10-28",
+        "summary": "A student on the gap between talking about mental health and finding care: 137 million people in shortage areas, providers with full caseloads, and four small things to do this week.",
+    },
+    {
         "slug": "the-rules-nobody-said-out-loud",
         "title": "The rules nobody said out loud",
         "date": "2026-10-27",
