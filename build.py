@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "the-policy-nobody-voted-on",
+        "title": 'The policy nobody voted on',
+        "date": "2026-10-27",
+        "summary": "A blunt student take on I am fine as an unwritten family policy: why it got passed, why it made sense once, and how to review it.",
+    },
+    {
         "slug": "is-there-a-perfect-income",
         "title": "Is there a perfect income? Why happiness seems to level off",
         "date": "2026-10-27",
