@@ -25,7 +25,9 @@
   --fs-body: 1.125rem;    /* body 18 */
   --fs-lead: 1.25rem;     /* lead 20 */
   --fs-nav: 1rem;         /* nav 16 */
-  --fs-meta: 0.875rem;    /* metadata 14 */
+  --fs-meta: 0.9375rem;   /* metadata 15 on phones, 14 from 48rem */
+  --fs-kind: 0.875rem;    /* type label 14 on phones, 13 from 48rem */
+  --fs-desc: 1rem;        /* short descriptions 16 on phones, 14 from 48rem */
   --lh-body: 1.65;
   --lh-title: 1.15;
 
@@ -72,6 +74,9 @@
     --gutter: 32px;
     --fs-h1: 3rem;
     --fs-body: 1.1875rem;
+    --fs-meta: 0.875rem;
+    --fs-desc: 0.875rem;
+    --fs-kind: 0.8125rem;
   }
 }
 
@@ -226,9 +231,12 @@ nav.main a[aria-current="page"],
 }
 .lede { font-size: var(--fs-lead); line-height: 1.55; max-width: 38rem; margin: 0 0 var(--s4); }
 .page-head .lede { margin-bottom: 0; }
+/* Phone only: the Start here block sits far down the page, so the hero links to it. */
+.start-jump { margin: 0 0 var(--s4); }
+@media (min-width: 48rem) { .start-jump { display: none; } }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); margin: 0 0 var(--s5); }
 .unofficial {
-  font-family: var(--interface); font-size: var(--fs-meta); line-height: 1.55; color: var(--muted);
+  font-family: var(--interface); font-size: var(--fs-desc); line-height: 1.55; color: var(--muted);
   max-width: 44rem; margin: 0; padding: var(--s2) 0 var(--s2) var(--s4);
   border-left: 3px solid var(--accent);
 }
@@ -238,7 +246,7 @@ nav.main a[aria-current="page"],
 .section { padding: var(--s5) 0 var(--s6); border-top: 1px solid var(--border); }
 .section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s1) var(--s6); margin-bottom: var(--s3); }
 .section-head h2 { font-size: var(--fs-h2); line-height: 1.2; margin: 0; }
-.section-head p { font-family: var(--interface); color: var(--muted); margin: 0; max-width: 34rem; font-size: var(--fs-meta); line-height: 1.5; }
+.section-head p { font-family: var(--interface); color: var(--muted); margin: 0; max-width: 34rem; font-size: var(--fs-desc); line-height: 1.5; }
 
 /* Start here: three compact doors, each a whole-row link */
 .doors { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--s5); }
@@ -295,7 +303,7 @@ nav.main a[aria-current="page"],
 .kind {
   display: inline-flex; align-items: center; gap: 0.5em;
   margin-right: 0.7em;
-  font-family: var(--interface); font-size: 0.8125rem; font-weight: 600;
+  font-family: var(--interface); font-size: var(--fs-kind); font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.2;
   color: var(--text);
   vertical-align: 0.06em;
