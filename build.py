@@ -815,6 +815,7 @@ def front_page():
 <h1 id="hero-h">Ask the hard questions. Argue them fairly.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
 <p class="unofficial">{UNOFFICIAL}</p>
+<p class="unofficial">{TEACHERS}</p>
 </div>
 </section>
 
