@@ -24,6 +24,18 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "what-a-freudian-slip-can-and-cannot-tell-us",
+        "title": 'What a Freudian slip can and cannot tell us',
+        "date": "2026-10-27",
+        "summary": "A student's look at Freud, slips of the tongue, and the unconscious: what Freud claimed, what researchers found since, and where schemas and attachment theory fit.",
+    },
+    {
+        "slug": "what-arendt-meant-by-the-banality-of-evil",
+        "title": 'What Arendt meant by the banality of evil',
+        "date": "2026-10-27",
+        "summary": "Hannah Arendt watched Adolf Eichmann's trial and coined a phrase people still misread. What she claimed, what critics say, and why thinking matters.",
+    },
+    {
         "slug": "philly-protests-and-rallies-this-week",
         "title": 'Philadelphia protests and rallies, late October to early November',
         "date": "2026-10-27",
@@ -179,6 +191,22 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "what-a-freudian-slip-can-and-cannot-tell-us": {
+        "question": "When a word slips out, does it mean anything?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": "Think of a time a word slipped out. Were you tired or rushing, or was something else on your mind?",
+        "related": "what-arendt-meant-by-the-banality-of-evil",
+        "voices": ["Sigmund Freud", "John Bowlby", "Mary Ainsworth"],
+    },
+    "what-arendt-meant-by-the-banality-of-evil": {
+        "question": "How do ordinary people take part in terrible things without deciding anything?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "sit": "When did you last repeat a phrase from your workplace or school without checking what it meant?",
+        "related": "the-watcher-in-your-pocket",
+        "voices": ["Hannah Arendt", "Bettina Stangneth"],
+    },
     "philly-protests-and-rallies-this-week": {
         "question": "What does taking part in public life look like in my city this week?",
         "theme": "Politics and civic life",
