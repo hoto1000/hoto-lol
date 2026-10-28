@@ -19,7 +19,6 @@
 
   /* Phone sizes; the desktop sizes are set at 48rem below. */
   --fs-h1: 2.25rem;       /* blog H1 36 / 48 */
-  --fs-post-h1: 2.25rem;  /* post H1 36 / 52 */
   --fs-h2: 1.6875rem;     /* section H2 27 */
   --fs-list: 1.5rem;      /* list title 24 */
   --fs-h3: 1.375rem;      /* article H3 22 */
@@ -30,23 +29,22 @@
   --lh-body: 1.65;
   --lh-title: 1.15;
 
-  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
   --radius: 2px;
   --read: 41rem;   /* about 65ch, 656px */
   --wide: 70rem;   /* 1120px */
   --gutter: 16px;
   color-scheme: light dark;
 
-  /* Legacy names, still used by the standalone civic guide page (civic/quiz.html). */
-  --paper: var(--canvas);
-  --card: var(--surface);
-  --ink: var(--text);
-  --ink-2: var(--muted);
-  --rule: var(--border);
-  --hair: var(--border);
-  --mark: var(--accent);
-  --mark-ink: var(--canvas);
-  --serif: var(--editorial);
+  /* Legacy names, still used by the standalone civic guide page (civic/quiz.html). That page defines
+     --text, --surface, --muted and --accent from these names, so they must hold literal values here.
+     Pointing them at --text, --surface, --muted or --accent makes a reference cycle and the page loses its colors. */
+  --paper: #f7f6f2;
+  --card: #e9e7df;
+  --ink: #20262a;
+  --ink-2: #515d61;
+  --hair: #c5c7c2;
+  --mark: #b95b3f;
   --sans: var(--interface);
   --display: var(--interface);
 }
@@ -60,6 +58,12 @@
     --accent: #f0a382;
     --border: #465057;
     --ring: #f3f1eb;
+    --paper: #151a1e;
+    --card: #252d32;
+    --ink: #f3f1eb;
+    --ink-2: #b8c2c6;
+    --hair: #465057;
+    --mark: #f0a382;
   }
 }
 @media (min-width: 360px) { :root { --gutter: 20px; } }
@@ -67,7 +71,6 @@
   :root {
     --gutter: 32px;
     --fs-h1: 3rem;
-    --fs-post-h1: 3.25rem;
     --fs-body: 1.1875rem;
   }
 }
@@ -133,8 +136,6 @@ h1, h2, h3, h4 { font-family: var(--editorial); font-weight: 400; line-height: v
   color: var(--muted);
   margin: 0;
 }
-.hl, .qm { background: none; color: inherit; padding: 0; }
-
 main { display: block; }
 .frame { width: min(var(--wide), 100% - 2 * var(--gutter)); margin-inline: auto; }
 
@@ -356,7 +357,6 @@ nav.main a[aria-current="page"],
 .toc-phone li::before, .toc-wide li::before { content: counter(part) "."; padding: 0.8rem 0 0 var(--s4); font-size: var(--fs-meta); color: var(--muted); }
 .toc-wide li::before { padding-left: 0; }
 .toc-phone a, .toc-wide a { display: block; padding: var(--s3) var(--s4) var(--s3) 0; min-height: 44px; color: var(--text); text-decoration: none; font-size: var(--fs-nav); line-height: 1.35; }
-.toc-phone li + li a { border-top: 0; }
 .toc-phone a:hover, .toc-wide a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
 .toc-title { font-size: var(--fs-h3); line-height: 1.2; margin: 0 0 var(--s2); }
 
@@ -367,7 +367,8 @@ nav.main a[aria-current="page"],
   .toc-phone { display: none; }
   .toc-wide {
     display: block; position: sticky; top: var(--s5); max-height: calc(100vh - 2 * var(--s5)); overflow-y: auto;
-    margin-top: -1px; border-top: 2px solid var(--accent); padding-top: var(--s4); font-family: var(--interface);
+    margin: -1px -6px 0; padding: calc(var(--s4) + 2px) 6px 6px; font-family: var(--interface);
+    background: linear-gradient(var(--accent) 0 0) 6px 0 / calc(100% - 12px) 2px no-repeat;
   }
 }
 .prose p, .prose li { line-height: var(--lh-body); }
@@ -478,4 +479,12 @@ footer p a { display: inline-flex; align-items: center; min-height: 44px; }
 @media (max-width: 640px) {
   .actions .cta { flex: 1 1 100%; }
 
+}
+
+/* Print: black on white, no menu or outline sidebar. The crisis strip stays. */
+@media print {
+  :root { --canvas: #fff; --surface: #fff; --text: #000; --muted: #000; --link: #000; --accent: #000; --border: #000; }
+  body { background: #fff; color: #000; }
+  .skip, .menu, nav.nav-wide, .toc-phone, .toc-wide, .index-side { display: none !important; }
+  .crisis { background: none; border: 1px solid #000; }
 }

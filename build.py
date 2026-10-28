@@ -366,11 +366,8 @@ def esc(s):
 
 
 def q(text):
-    """Escape a question and color its closing question mark."""
-    t = esc(text)
-    if t.endswith("?"):
-        return t[:-1] + '<span class="qm">?</span>'
-    return t
+    """Escape a question."""
+    return esc(text)
 
 
 def kind_badge(kind):
@@ -525,7 +522,7 @@ def front_page():
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
 <p class="kicker">An independent journal of hard questions about society</p>
-<h1 id="hero-h">Ask the <span class="hl">hard questions.</span> Argue them fairly.</h1>
+<h1 id="hero-h">Ask the hard questions. Argue them fairly.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
@@ -773,7 +770,7 @@ def build():
 
     # 404
     write("404.html", page("/404", "Not found", "Page not found.", simple(
-        None, 'Nothing here<span class="qm">?</span>', None,
+        None, "Nothing here?", None,
         '<p>That page does not exist, or it moved.</p>'
         '<p class="actions"><a class="cta" href="/blog/">Go to the questions</a></p>')))
 
