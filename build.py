@@ -645,6 +645,111 @@ UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Project Hoto is a pe
 TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU."
 
 
+# Related reading: picked offline with the open model sentence-transformers/all-MiniLM-L6-v2 (title, summary and
+# first 250 words of each essay, cosine similarity), then filtered to matches scoring 0.30 or more. No code runs for visitors.
+RELATED = {
+    "the-rules-nobody-said-out-loud": [
+        "love-that-showed-up-as-food",
+        "we-didnt-all-start-at-the-same-line",
+        "what-we-teach-men-about-pain"
+    ],
+    "what-therapy-ethics-codes-miss-about-culture": [
+        "what-we-teach-men-about-pain",
+        "what-a-freudian-slip-can-and-cannot-tell-us",
+        "we-didnt-all-start-at-the-same-line"
+    ],
+    "is-there-a-perfect-income": [
+        "a-rest-from-happiness",
+        "we-didnt-all-start-at-the-same-line",
+        "what-we-teach-men-about-pain"
+    ],
+    "love-that-showed-up-as-food": [
+        "the-rules-nobody-said-out-loud",
+        "social-location-where-you-stand",
+        "we-didnt-all-start-at-the-same-line"
+    ],
+    "privilege-is-everything-you-never-had-to-think-about": [
+        "we-didnt-all-start-at-the-same-line",
+        "when-watching-students-becomes-the-lesson",
+        "one-roll-of-toilet-paper"
+    ],
+    "one-roll-of-toilet-paper": [
+        "we-didnt-all-start-at-the-same-line",
+        "a-school-should-be-a-harbor",
+        "privilege-is-everything-you-never-had-to-think-about"
+    ],
+    "the-i-am-poem-who-we-say-we-are": [
+        "social-location-where-you-stand",
+        "how-great-thinkers-are-made"
+    ],
+    "we-didnt-all-start-at-the-same-line": [
+        "privilege-is-everything-you-never-had-to-think-about",
+        "social-location-where-you-stand",
+        "is-there-a-perfect-income"
+    ],
+    "social-location-where-you-stand": [
+        "we-didnt-all-start-at-the-same-line",
+        "a-president-who-understands-how-systems-feel",
+        "the-i-am-poem-who-we-say-we-are"
+    ],
+    "what-a-freudian-slip-can-and-cannot-tell-us": [
+        "the-rules-nobody-said-out-loud",
+        "what-we-teach-men-about-pain",
+        "how-great-thinkers-are-made"
+    ],
+    "what-arendt-meant-by-the-banality-of-evil": [
+        "how-great-thinkers-are-made",
+        "what-a-freudian-slip-can-and-cannot-tell-us"
+    ],
+    "what-we-teach-men-about-pain": [
+        "the-rules-nobody-said-out-loud",
+        "we-didnt-all-start-at-the-same-line",
+        "what-therapy-ethics-codes-miss-about-culture"
+    ],
+    "fearless-speech-for-regular-people": [
+        "you-are-not-the-problem-but-the-label-might-be",
+        "what-a-freudian-slip-can-and-cannot-tell-us",
+        "the-rules-nobody-said-out-loud"
+    ],
+    "you-are-not-the-problem-but-the-label-might-be": [
+        "how-great-thinkers-are-made",
+        "fearless-speech-for-regular-people",
+        "what-a-freudian-slip-can-and-cannot-tell-us"
+    ],
+    "the-watcher-in-your-pocket": [
+        "when-watching-students-becomes-the-lesson",
+        "how-great-thinkers-are-made"
+    ],
+    "a-president-who-understands-how-systems-feel": [
+        "social-location-where-you-stand",
+        "we-didnt-all-start-at-the-same-line",
+        "how-great-thinkers-are-made"
+    ],
+    "when-watching-students-becomes-the-lesson": [
+        "a-school-should-be-a-harbor",
+        "the-watcher-in-your-pocket",
+        "privilege-is-everything-you-never-had-to-think-about"
+    ],
+    "a-school-should-be-a-harbor": [
+        "when-watching-students-becomes-the-lesson",
+        "the-rules-nobody-said-out-loud",
+        "one-roll-of-toilet-paper"
+    ],
+    "a-most-agreeable-war": [
+        "how-great-thinkers-are-made"
+    ],
+    "a-rest-from-happiness": [
+        "is-there-a-perfect-income",
+        "what-we-teach-men-about-pain"
+    ],
+    "how-great-thinkers-are-made": [
+        "you-are-not-the-problem-but-the-label-might-be",
+        "what-arendt-meant-by-the-banality-of-evil",
+        "what-a-freudian-slip-can-and-cannot-tell-us"
+    ]
+}
+
+
 def esc(s):
     return html.escape(s, quote=True)
 
@@ -906,6 +1011,12 @@ def essay_page(p):
         rq = frame(r["slug"])["question"] or r["title"]
         after.append(f'<nav class="read-next" aria-label="Read next"><p class="label">Read next</p>'
                      f'<a href="/blog/{r["slug"]}/"><span class="q-text">{q(rq)}</span><cite>{esc(r["title"])}</cite></a></nav>')
+    rel = [s for s in RELATED.get(slug, []) if s != f["related"]]
+    if rel:
+        links = "".join(f'<a href="/blog/{s}/"><span class="q-text">{q(frame(s)["question"] or post(s)["title"])}</span>'
+                        f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
+        after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
+                     f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
     after.append('<p class="disagree"><strong>Disagree? Good.</strong> Read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
