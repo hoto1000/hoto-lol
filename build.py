@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "love-that-showed-up-as-food",
+        "title": "Love that showed up as food: growing up in a quiet Vietnamese American home",
+        "date": "2026-10-27",
+        "summary": "A student's story about a home where love came through cooking and fixing things instead of words, where that came from, and what I'm still working on as a future therapist.",
+    },
+    {
         "slug": "privilege-is-everything-you-never-had-to-think-about",
         "title": 'Privilege is everything you never had to think about',
         "date": "2026-10-27",
