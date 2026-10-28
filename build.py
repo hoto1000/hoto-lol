@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "the-i-am-poem-who-we-say-we-are",
+        "title": 'The "I Am" poem and who we say we are',
+        "date": "2026-10-27",
+        "summary": "A student on writing an \"I Am\" poem for a capstone class: where people start, why heritage lines carry so much, and why reading it out loud was the hard part.",
+    },
+    {
         "slug": "we-didnt-all-start-at-the-same-line",
         "title": "Social privilege: we didn't all start at the same line",
         "date": "2026-10-27",
