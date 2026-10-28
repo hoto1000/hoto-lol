@@ -379,13 +379,22 @@ def kind_badge(kind):
     return f'<span class="kind kind-{cls}">{esc(kind)}</span>'
 
 
-def page(path, title, description, body, script=""):
+def site_header(path):
+    """The shared desktop and phone header, used by page() and by the standalone civic guide."""
     def cur(href):
         # Writing covers the front page, /blog/ and every post; the others cover their own section.
         on = path.startswith("/blog/") or path == "/" if href == "/blog/" else path.startswith(href)
         return ' aria-current="page"' if on else ""
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
+    return (f'<header class="top">\n'
+            f'<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>\n'
+            f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
+            f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>\n'
+            f'</header>')
+
+
+def page(path, title, description, body, script=""):
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = f"{SITE}: hard questions about how we live together" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
@@ -406,11 +415,7 @@ def page(path, title, description, body, script=""):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
-<header class="top">
-<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>
-<nav class="main nav-wide" aria-label="Main">{links}</nav>
-<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>
-</header>
+{site_header(path)}
 <main id="main" tabindex="-1">
 {body}
 </main>
@@ -757,7 +762,13 @@ def build():
     assert "connect-src 'none'" in quiz, "civic guide must keep its no-network CSP"
     plain_link = '<link rel="stylesheet" href="/site.css">'
     assert quiz.count(plain_link) == 1, "civic guide should link /site.css exactly once"
-    write("civic/index.html", quiz.replace(plain_link, CSS_LINK))
+    placeholder = "<!--SITE_HEADER-->"
+    assert quiz.count(placeholder) == 1, "civic guide must have exactly one header placeholder"
+    civic_html = quiz.replace(placeholder, site_header("/civic/")).replace(plain_link, CSS_LINK)
+    assert 'class="menu"' in civic_html, "civic guide must include the phone menu"
+    assert not any(f'>{label}</a>' in civic_html for label in ("Start here", "Questions")), "civic guide has a stale menu link"
+    assert 'href="/blog/#start"' not in civic_html and 'aria-current="page">Civic guide</a>' in civic_html, "civic guide header is out of date"
+    write("civic/index.html", civic_html)
 
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
