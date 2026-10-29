@@ -765,6 +765,11 @@ def q(text):
     return esc(text)
 
 
+def sc(text):
+    """Class for labels longer than two words: they read as sentence case; shorter ones stay uppercase."""
+    return " sc" if len(text.split()) > 2 else ""
+
+
 def kind_badge(kind):
     """Type label coded by shape as well as words: Opinion is filled, Sourced explainer is boxed, Essay has a square bullet."""
     cls = {"Opinion": "opinion", "Sourced explainer": "sourced"}.get(kind, "essay")
@@ -913,7 +918,7 @@ def front_page():
     for t in THEMES:
         items = [p for p in POSTS if frame(p["slug"])["theme"] == t]
         tid = "subject-" + slugify(t)
-        themes.append(f'<div class="theme"><h3 id="{tid}">{esc(t)}</h3>'
+        themes.append(f'<div class="theme"><h3 id="{tid}"{' class="sc"' if sc(t) else ""}>{esc(t)}</h3>'
                       f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul></div>')
         side.append(f'<li><a href="#{tid}">{esc(t)} ({len(items)})</a></li>')
 
@@ -922,7 +927,7 @@ def front_page():
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<p class="kicker">An independent journal of hard questions about society</p>
+<p class="kicker sc">An independent journal of hard questions about society</p>
 <h1 id="hero-h">Ask the hard questions. Argue them fairly.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
 <p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
@@ -1006,7 +1011,7 @@ def narration(p):
         return ""
     src = f"/audio/{p['slug']}.opus"
     return (f'<section class="narration" aria-label="Listen to this essay">'
-            f'<p class="label">Listen · AI-generated voice (Kokoro)</p>'
+            f'<p class="label sc">Listen · AI-generated voice (Kokoro)</p>'
             f'<div class="player"><audio controls preload="none" aria-label="Listen to: {esc(p["title"])}">'
             f'<source src="{src}" type="audio/ogg; codecs=opus">'
             f'Your browser cannot play this audio. The full text is below.</audio></div>'
@@ -1024,7 +1029,7 @@ def essay_page(p):
         corrections = f'<div class="corrections"><p class="label">Corrections</p><ul>{items}</ul></div>'
     after = []
     if f["sit"]:
-        after.append(f'<aside class="sit-with" aria-labelledby="sit-h"><p class="label" id="sit-h">Sit with this</p>'
+        after.append(f'<aside class="sit-with" aria-labelledby="sit-h"><p class="label sc" id="sit-h">Sit with this</p>'
                      f'<p class="sit-q">{q(f["sit"])}</p></aside>')
     if f["related"]:
         r = post(f["related"])
@@ -1049,7 +1054,7 @@ def essay_page(p):
     return f"""<article class="essay">
 <header class="essay-head">
 <a class="back" href="/blog/">← All writing</a>
-<p class="label essay-kind">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
+<p class="label essay-kind{sc(f["theme"])}">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
 <h1>{esc(p['title'])}</h1>
 {question}
 <p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
@@ -1094,7 +1099,7 @@ def episode_card(e, full=True):
 
 
 def simple(kicker, h1, lede, inner):
-    k = f'<p class="kicker">{kicker}</p>' if kicker else ""
+    k = f'<p class="kicker{sc(kicker)}">{kicker}</p>' if kicker else ""
     l = f'<p class="lede">{lede}</p>' if lede else ""
     return f"""<div class="page">
 <header class="page-head">{k}<h1>{h1}</h1>{l}</header>
