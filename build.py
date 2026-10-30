@@ -776,6 +776,31 @@ def kind_badge(kind):
     return f'<span class="kind kind-{cls}">{esc(kind)}</span>'
 
 
+# Planet Hoto: one small planet mark for the header and footer, lit blue on the day side and red on the dusk side.
+# Decorative only (aria-hidden), so screen readers hear the same names as before.
+GLYPH = ('<svg class="glyph" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">'
+         '<circle class="g-body" cx="12" cy="12" r="9"/>'
+         '<path class="g-day" d="M12 3a9 9 0 0 0 0 18"/><path class="g-dusk" d="M12 3a9 9 0 0 1 0 18"/></svg>')
+
+# The hero horizon: the top of one large planet, seen from orbit, with a thin orbit and a small moon.
+# It sits below the hero text, never behind it. Colors come from the --planet-* tokens in site.css.
+HORIZON = """<div class="horizon" aria-hidden="true">
+<svg viewBox="0 0 1200 260" focusable="false">
+<defs>
+<linearGradient id="ph-rim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="s-day"/><stop offset=".42" class="s-day s-fade"/><stop offset=".58" class="s-dusk s-fade"/><stop offset="1" class="s-dusk"/></linearGradient>
+<linearGradient id="ph-body" x1="0" x2="0" y1="0" y2="1"><stop offset="0" class="s-top"/><stop offset="1" class="s-bottom"/></linearGradient>
+</defs>
+<g class="stars"><circle cx="140" cy="62" r="1.6"/><circle cx="250" cy="150" r="1.2"/><circle cx="470" cy="28" r="1.4"/><circle cx="742" cy="60" r="1.2"/><circle cx="1012" cy="34" r="1.6"/><circle cx="1120" cy="150" r="1.2"/></g>
+<path class="orbit" d="M40 230Q600-190 1160 230"/>
+<path class="body" d="M28 260A1000 1000 0 0 1 1172 260Z"/>
+<path class="halo" d="M28 260A1000 1000 0 0 1 1172 260"/>
+<path class="rim" d="M28 260A1000 1000 0 0 1 1172 260"/>
+<path class="lat" d="M200 260Q600 172 1000 260"/>
+<circle class="moon" cx="914" cy="86" r="6"/>
+</svg>
+</div>"""
+
+
 def site_header(path):
     """The shared desktop and phone header, used by page() and by the standalone civic guide."""
     def cur(href):
@@ -785,7 +810,7 @@ def site_header(path):
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>\n'
+            f'<a class="wordmark" href="/" aria-label="Project Hoto, home">{GLYPH}Project <span>Hoto</span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>\n'
             f'</header>')
@@ -804,8 +829,8 @@ def page(path, title, description, body, script=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
-<meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#151a1e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#05070d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {CSS_LINK}
 </head>
@@ -817,7 +842,7 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">Ask the hard questions. Argue them fairly.</p>
+<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
@@ -929,11 +954,12 @@ def front_page():
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
 <p class="kicker sc">An independent journal of hard questions about society</p>
-<h1 id="hero-h">Ask the hard questions. Argue them fairly.</h1>
+<h1 id="hero-h">Welcome to Planet Hoto.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
 <p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
+{HORIZON}
 </section>
 
 <div class="index-grid">
