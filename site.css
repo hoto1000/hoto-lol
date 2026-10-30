@@ -1,20 +1,28 @@
-/* Project Hoto: Margin. A quiet editorial journal: warm paper, one terracotta accent, serif for reading.
-   Light is the default; dark comes from prefers-color-scheme: dark.
+/* Project Hoto: Planet Hoto. One planet, lit blue on its day side and red on its dusk side, on a black sky.
+   Dark (black) is the primary look; light is a pale "daylight" version of the same identity, from prefers-color-scheme: light.
+   Red and blue are light and atmosphere: the planet, rules, borders, the current-page underline and the wordmark.
+   Body text is off-white (dark) or ink (light). Blue carries links because it passes AA in both themes.
+   The planet is the only gradient on the site, and it never sits behind text.
    Fonts: system stacks only. Editorial serif for titles, headings and body; interface sans for nav, metadata, labels, buttons.
-   The light accent (#B95B3F) is about 4.19:1 on the canvas. Use it for rules, borders, the current-page underline
-   and large text (the wordmark) only, never for small text.
    Type tokens (families, scale, line heights, rhythm, measure, tracking) follow review/type-tokens, DRAFT v0.1.
    Everything is in rem or em so user font settings scale the whole system. */
 
 :root {
-  --canvas: #f7f6f2;
-  --surface: #e9e7df;
-  --text: #20262a;
-  --muted: #515d61;
-  --link: #24546a;
-  --accent: #b95b3f;
-  --border: #c5c7c2;
-  --ring: #20262a;
+  /* Dark first: Void, Night panel, Starlight, Haze, Day blue, Dusk red. */
+  --canvas: #05070d;
+  --surface: #111a2e;
+  --text: #eceff5;
+  --muted: #a6b1c6;
+  --link: #8cc4ff;
+  --accent: #ff5c63;
+  --border: #2b3654;
+  --ring: #eceff5;
+  --planet-day: #5aa9ff;
+  --planet-dusk: #ff5c63;
+  --planet-top: #182a63;
+  --planet-bottom: #05070d;
+  --planet-line: #2b3654;
+  --star: #c9d3e6;
 
   /* Families: system fonts only, no web fonts. */
   --font-serif: Georgia, Cambria, "Noto Serif", "Droid Serif", "Times New Roman",
@@ -66,36 +74,43 @@
   --read: var(--measure);
   --wide: 70rem;   /* 1120px */
   --gutter: 16px;
-  color-scheme: light dark;
+  color-scheme: dark light;
 
   /* Legacy names, still used by the standalone civic guide page (civic/quiz.html). That page defines
      --text, --surface, --muted and --accent from these names, so they must hold literal values here.
      Pointing them at --text, --surface, --muted or --accent makes a reference cycle and the page loses its colors. */
-  --paper: #f7f6f2;
-  --card: #e9e7df;
-  --ink: #20262a;
-  --ink-2: #515d61;
-  --hair: #c5c7c2;
-  --mark: #b95b3f;
+  --paper: #05070d;
+  --card: #111a2e;
+  --ink: #eceff5;
+  --ink-2: #a6b1c6;
+  --hair: #2b3654;
+  --mark: #ff5c63;
   --sans: var(--interface);
   --display: var(--interface);
 }
-@media (prefers-color-scheme: dark) {
+/* Daylight: the same planet under a pale sky. Ink text, a deeper blue for links, a darker red for rules. */
+@media (prefers-color-scheme: light) {
   :root {
-    --canvas: #151a1e;
-    --surface: #252d32;
-    --text: #f3f1eb;
-    --muted: #b8c2c6;
-    --link: #9fd4e5;
-    --accent: #f0a382;
-    --border: #465057;
-    --ring: #f3f1eb;
-    --paper: #151a1e;
-    --card: #252d32;
-    --ink: #f3f1eb;
-    --ink-2: #b8c2c6;
-    --hair: #465057;
-    --mark: #f0a382;
+    --canvas: #f5f7fb;
+    --surface: #e6ebf4;
+    --text: #0a1020;
+    --muted: #4a5470;
+    --link: #1d4fb8;
+    --accent: #c8102e;
+    --border: #c4cbdb;
+    --ring: #0a1020;
+    --planet-day: #2f7bff;
+    --planet-dusk: #e0283c;
+    --planet-top: #cdd7ea;
+    --planet-bottom: #f5f7fb;
+    --planet-line: #aab4ca;
+    --star: transparent;
+    --paper: #f5f7fb;
+    --card: #e6ebf4;
+    --ink: #0a1020;
+    --ink-2: #4a5470;
+    --hair: #c4cbdb;
+    --mark: #c8102e;
   }
 }
 @media (min-width: 360px) { :root { --gutter: 20px; } }
@@ -189,6 +204,13 @@ header.top {
 .wordmark:hover { text-decoration: underline; text-decoration-thickness: 2px; }
 .wordmark span { color: var(--accent); margin-left: 0.25em; }
 
+/* Planet mark: header and footer. Day rim blue, dusk rim red. */
+.glyph { flex: none; width: 1em; height: 1em; margin-right: 0.45em; overflow: visible; }
+.glyph .g-body { fill: var(--planet-top); }
+.glyph .g-day, .glyph .g-dusk { fill: none; stroke-width: 2.25; }
+.glyph .g-day { stroke: var(--planet-day); }
+.glyph .g-dusk { stroke: var(--planet-dusk); }
+
 nav.main { display: flex; flex-wrap: wrap; gap: 0 var(--s2); }
 nav.main a {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s3);
@@ -257,6 +279,24 @@ nav.main a[aria-current="page"],
   margin: var(--s2) 0 var(--s3);
   text-wrap: balance;
 }
+/* The signature: a planet horizon under the hero text. Fixed aspect ratio, so the arc never distorts.
+   Strokes keep their pixel width at every size. */
+.horizon { margin: var(--s5) 0 0; aspect-ratio: 1200 / 260; }
+.horizon svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.horizon path, .horizon circle { vector-effect: non-scaling-stroke; }
+.horizon .s-day { stop-color: var(--planet-day); }
+.horizon .s-dusk { stop-color: var(--planet-dusk); }
+.horizon .s-fade { stop-opacity: 0.25; }
+.horizon .s-top { stop-color: var(--planet-top); }
+.horizon .s-bottom { stop-color: var(--planet-bottom); }
+.horizon .body { fill: url(#ph-body); }
+.horizon .halo { fill: none; stroke: url(#ph-rim); stroke-width: 9; stroke-opacity: 0.22; }
+.horizon .rim { fill: none; stroke: url(#ph-rim); stroke-width: 2; }
+.horizon .lat { fill: none; stroke: var(--planet-line); stroke-width: 1; }
+.horizon .orbit { fill: none; stroke: var(--planet-line); stroke-width: 1; }
+.horizon .moon { fill: var(--planet-dusk); }
+.horizon .stars circle { fill: var(--star); }
+.hero + .index-grid #latest { border-top: 0; }
 .lede { font-size: var(--fs-lead); line-height: var(--lh-lede); max-width: 38rem; margin: 0 0 var(--s4); }
 .page-head .lede { margin-bottom: 0; }
 /* Phone only: the Start here block sits far down the page, so the hero links to it. */
@@ -511,7 +551,7 @@ footer {
   font-family: var(--interface); font-size: 1rem; line-height: 1.55; color: var(--muted);
 }
 footer p { margin: 0 0 var(--s2); max-width: 46rem; }
-footer .foot-mark { font-family: var(--editorial); font-size: 1.125rem; line-height: 1.3; color: var(--text); margin: 0 0 var(--s2); max-width: none; }
+footer .foot-mark { display: flex; align-items: center; font-family: var(--editorial); font-size: 1.125rem; line-height: 1.3; color: var(--text); margin: 0 0 var(--s2); max-width: none; }
 footer nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); margin-bottom: var(--s3); }
 footer nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 footer p a { display: inline-flex; align-items: center; min-height: 44px; }
@@ -520,6 +560,11 @@ footer p a { display: inline-flex; align-items: center; min-height: 44px; }
   .actions .cta { flex: 1 1 100%; }
 
 }
+
+/* Civic guide (civic/quiz.html) draws a left-to-right policy line. Red and blue read as US parties there,
+   so its result band and answer controls stay neutral instead of taking the red accent. */
+.track > .band { background: var(--muted); }
+.opts label input { accent-color: var(--text); }
 
 /* Non-Latin scripts: no faux caps or tracking, looser leading. */
 :is(:lang(zh), :lang(ja), :lang(ko)) :is(.kicker, .label, .eyebrow) { text-transform: none; letter-spacing: 0; }
