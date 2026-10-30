@@ -842,7 +842,7 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">{GLYPH}Ask the hard questions. Argue them fairly.</p>
+<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
@@ -954,7 +954,7 @@ def front_page():
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
 <p class="kicker sc">An independent journal of hard questions about society</p>
-<h1 id="hero-h">Ask the hard questions. Argue them fairly.</h1>
+<h1 id="hero-h">Welcome to Planet Hoto.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
 <p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
