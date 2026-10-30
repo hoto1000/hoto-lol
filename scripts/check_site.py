@@ -183,7 +183,7 @@ def main():
             err(rel, "post page missing")
             continue
         text, p = pages[rel]
-        want_title = f"{build.esc(post['title'])} · {build.SITE}"
+        want_title = f"{build.esc(post['title'])} · {build.TITLE_SUFFIX}"
         m = re.search(r"<title>(.*?)</title>", text, re.S)
         if not m or m.group(1) != want_title:
             err(rel, f"title {m.group(1) if m else None!r} != {want_title!r}")
