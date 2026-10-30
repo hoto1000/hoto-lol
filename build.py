@@ -818,7 +818,7 @@ def site_header(path):
 
 def page(path, title, description, body, script=""):
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
-    full_title = f"{SITE}: hard questions about how we live together" if title is None else f"{title} · {SITE}"
+    full_title = "Planet Hoto" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
 <head>
