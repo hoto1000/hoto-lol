@@ -16,6 +16,7 @@ ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "docs"  # GitHub Pages serves main:/docs
 
 SITE = "Project Hoto"
+TITLE_SUFFIX = "Planet Hoto"
 # Versioned stylesheet link. Cloudflare tells browsers to keep site.css for 4 hours,
 # while pages are kept for 10 minutes. Putting a hash of the CSS in the link means a
 # new page always loads the matching styles, and an unchanged stylesheet stays cached.
@@ -818,7 +819,7 @@ def site_header(path):
 
 def page(path, title, description, body, script=""):
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
-    full_title = "Planet Hoto" if title is None else f"{title} · {SITE}"
+    full_title = "Planet Hoto" if title is None else f"{title} · {TITLE_SUFFIX}"
     return f"""<!doctype html>
 <html lang="en">
 <head>
