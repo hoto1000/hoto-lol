@@ -12,7 +12,7 @@ Static blog + podcast site. No framework, no trackers.
 ## Look and editorial framing (question-journal redesign)
 
 - Every essay is framed by a question. Add or edit that in `FRAMING` in `build.py`, keyed by the post slug: `question`, `theme` (one of `THEMES`), `kind` (Essay, Opinion, Sourced explainer), `sit` (the closing "Sit with this" question), `related` (slug of one "Read next" piece), `voices` (thinkers the piece talks with), and optional `note` and `corrections` (dated fixes shown at the top of the post). `build.py` refuses to build if a slug, theme or related link is wrong.
-- Front-page sections live in `DOORS` (Start here), `OPEN_QUESTIONS` (unwritten questions) and `RULES` (How I argue here). The full method page is `/how-i-argue/`.
+- Front-page sections live in `DOORS` (Start here), `OPEN_QUESTIONS` (unwritten questions) and `RULES` (Where my thoughts come from). The full method page is `/how-i-argue/`.
 - Podcast episodes can carry a question in `EPISODE_QUESTIONS`.
 - Look: "Pamphlet 1.1". Paper, ink and one yellow highlighter; reading text uses the reader's system serif. Fonts are self-hosted in `fonts/` (Archivo Condensed 800 for headings, labels and buttons), trimmed to Latin and served from this site only. SIL Open Font License; the license text sits next to the file. No font CDN, no third-party requests.
 - Colors are CSS variables at the top of `site.css`. Light and dark mode follow the reader's device setting.

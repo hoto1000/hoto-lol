@@ -639,7 +639,7 @@ IDEALS = [
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
                  "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
+NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Where my thoughts come from")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
@@ -965,7 +965,7 @@ def front_page():
 <div class="section-head"><h2 id="about-h">About this journal</h2></div>
 <ul class="about">
 <li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
-<li><a href="/how-i-argue/"><span class="about-t">How I argue here</span><span class="about-d">Rules I hold myself to, so you can see where fact ends and opinion begins.</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">Where my thoughts come from</span><span class="about-d">Rules I hold myself to, so you can see where fact ends and opinion begins.</span></a></li>
 </ul>
 </section>
 </div>
@@ -1065,7 +1065,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">How I argue here</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Where my thoughts come from</a></p>
 </div>
 </article>
 """
@@ -1151,8 +1151,8 @@ def build():
     ])
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
-    write("how-i-argue/index.html", page("/how-i-argue/", "How I argue here", "The rules this blog holds itself to.", simple(
-        "The method", "How I argue here",
+    write("how-i-argue/index.html", page("/how-i-argue/", "Where my thoughts come from", "The rules this blog holds itself to.", simple(
+        "The method", "Where my thoughts come from",
         "Project Hoto is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
         f"""<h2 id="ideals">Where I start from</h2>
 <p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
