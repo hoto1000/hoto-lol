@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "where-power-and-identity-cross",
+        "title": "Where power and identity cross: intersectionality through Foucault",
+        "date": "2026-11-02",
+        "summary": "A student reads Kimberl\u00e9 Crenshaw's intersectionality next to Michel Foucault's ideas about power, knowledge and categories. Foucault never used the word. Putting them together is my own reading.",
+    },
+    {
         "slug": "who-gets-measured-and-who-does-the-measuring",
         "title": "Who Gets Measured, and Who Does the Measuring",
         "date": "2026-10-28",
@@ -471,6 +477,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "where-power-and-identity-cross": {
+        "question": "Who decides which boxes a person gets sorted into?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from published sources and my earlier posts, then reviewed by me.",
+        "sit": "Which parts of your life cross in a way no form has ever asked about?",
+        "related": "social-location-where-you-stand",
+        "voices": ["Kimberl\u00e9 Crenshaw", "Michel Foucault", "Nancy Fraser"],
+    },
     "is-there-a-perfect-income": {
         "question": "Is there an amount of money after which more stops making us happier?",
         "theme": "Mind and how to live",
@@ -654,6 +669,11 @@ TEACHERS = "These are not my original ideas. I post what I have learned from my 
 # Related reading: picked offline with the open model sentence-transformers/all-MiniLM-L6-v2 (title, summary and
 # first 250 words of each essay, cosine similarity), then filtered to matches scoring 0.30 or more. No code runs for visitors.
 RELATED = {
+    "where-power-and-identity-cross": [
+        "social-location-where-you-stand",
+        "you-are-not-the-problem-but-the-label-might-be",
+        "we-didnt-all-start-at-the-same-line"
+    ],
     "the-rules-nobody-said-out-loud": [
         "love-that-showed-up-as-food",
         "we-didnt-all-start-at-the-same-line",
