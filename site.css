@@ -577,3 +577,6 @@ footer p a { display: inline-flex; align-items: center; min-height: 44px; }
   .skip, .menu, nav.nav-wide, .toc-phone, .toc-wide, .index-side { display: none !important; }
   .crisis { background: none; border: 1px solid #000; }
 }
+
+/* Links page: stacked buttons for the TikTok bio */
+.links-list { flex-direction: column; align-items: stretch; max-width: 28rem; }
