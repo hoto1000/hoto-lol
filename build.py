@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "somewhere-to-put-it",
+        "title": "Somewhere to put it: what society owes kids with nowhere to go",
+        "date": "2026-11-03",
+        "summary": "Why so many kids have nowhere to put their anger: who public space is for, how Bronx kids invented hip hop as their own outlet, and what we choose to pay for.",
+    },
+    {
         "slug": "where-power-and-identity-cross",
         "title": "Where power and identity cross: intersectionality through Foucault",
         "date": "2026-11-02",
@@ -477,6 +483,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "somewhere-to-put-it": {
+        "question": "Where is a kid supposed to put the anger?",
+        "theme": "Mental health",
+        "kind": "Essay",
+        "note": "Drafted with AI help from my voice memo and published sources, then reviewed by me.",
+        "sit": "When you were a teenager and had nowhere to be, where did you go, and who was there?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": ["Henri Lefebvre", "Robert Merton", "Elijah Anderson", "Avery Gordon", "\u00c9mile Durkheim"],
+    },
     "where-power-and-identity-cross": {
         "question": "Who decides which boxes a person gets sorted into?",
         "theme": "Mind and how to live",
