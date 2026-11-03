@@ -9,6 +9,12 @@ Static blog + podcast site. No framework, no trackers.
 
 - Civic guide: edit `civic/quiz.html` (standalone page, no ads, no-network CSP). `build.py` copies it to `docs/civic/index.html` and refuses to build if ads are added to it. Review notes: `civic/REVIEW.md`, `civic/PHILOSOPHY-GUIDE.md`.
 
+## Essay audio
+
+- Every essay gets a Listen player from a file in `audio/`, hosted on this site. Speechify is not used (the build fails if a page mentions it; the old Speechify episodes are listed in `review/speechify-retired.md`).
+- Default voice: Kokoro, made offline with `python3 scripts/make_audio.py <slug>` into `audio/<slug>.opus`.
+- Nick's ElevenLabs voice: export the narration as MP3 and save it as `audio/<slug>.mp3`. It replaces the Kokoro player for that essay, labeled as an AI clone of Nick's voice. `python3 scripts/make_audio.py <slug> --dry-run` prints the text to paste into ElevenLabs.
+
 ## Search engines
 
 - Blog, podcast, method and privacy pages are open to search engines (`index, follow`, a canonical link, and an RSS link to `/feed.xml`).

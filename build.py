@@ -828,14 +828,23 @@ def with_outline(body):
 
 
 def narration(p):
-    """Player for an essay's AI voice file. Shown only when docs/audio/<slug>.opus exists."""
-    if not (OUT / "audio" / f"{p['slug']}.opus").is_file():
+    """Player for an essay's AI voice file.
+
+    Nick's own ElevenLabs voice clone wins when audio/<slug>.mp3 exists; otherwise the Kokoro
+    file audio/<slug>.opus made by scripts/make_audio.py. No player when neither exists."""
+    slug = p["slug"]
+    if (OUT / "audio" / f"{slug}.mp3").is_file():
+        src, kind = f"/audio/{slug}.mp3", "audio/mpeg"
+        label = "Listen · AI clone of my own voice (ElevenLabs)"
+    elif (OUT / "audio" / f"{slug}.opus").is_file():
+        src, kind = f"/audio/{slug}.opus", "audio/ogg; codecs=opus"
+        label = "Listen · AI-generated voice (Kokoro)"
+    else:
         return ""
-    src = f"/audio/{p['slug']}.opus"
     return (f'<section class="narration" aria-label="Listen to this essay">'
-            f'<p class="label sc">Listen · AI-generated voice (Kokoro)</p>'
+            f'<p class="label sc">{label}</p>'
             f'<div class="player"><audio controls preload="none" aria-label="Listen to: {esc(p["title"])}">'
-            f'<source src="{src}" type="audio/ogg; codecs=opus">'
+            f'<source src="{src}" type="{kind}">'
             f'Your browser cannot play this audio. The full text is below.</audio></div>'
             f'<p class="aside-note">The essay below is the transcript.</p></section>')
 
