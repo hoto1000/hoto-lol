@@ -635,10 +635,10 @@ OPEN_QUESTIONS = [
 ]
 
 RULES = [
-    ("Opinion is labeled.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
-    ("Claims get sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
-    ("Disagreement is welcome.", "The strongest fair objection belongs inside the essay, not outside it."),
-    ("Errors get fixed.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
+    ("I label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
+    ("I link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
+    ("I make room for disagreement.", "The strongest fair objection belongs inside the essay, not outside it."),
+    ("I fix my mistakes in the open.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
 ]
 
 # Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
@@ -676,14 +676,14 @@ WHO_I_AM = """<h2 id="who">Who I am</h2>
 
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am and where I come from")]
 
-BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
-         "If a post stirs up something heavy, you can stop reading any time.")
+BLUNT = ("<strong>Heads up: I write bluntly.</strong> My frustration is with systems, and never with you. "
+         "If a post brings up something heavy, it's okay to stop reading any time.")
 
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
-TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU."
+TEACHERS = "Most of these ideas aren't mine. I'm passing on what I learned from my professors at San Diego State."
 
 
 # Related reading: picked offline with the open model sentence-transformers/all-MiniLM-L6-v2 (title, summary and
@@ -882,7 +882,7 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
+<p class="foot-mark">{GLYPH}Thanks for reading. Nick</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
@@ -993,9 +993,9 @@ def front_page():
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<p class="kicker sc">An independent journal of hard questions about society</p>
+<p class="kicker sc">Nick's blog about the questions I can't stop asking</p>
 <h1 id="hero-h">Welcome to otohay blog.</h1>
-<p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
+<p class="lede">Hi, I'm Nick. I'm a Vietnamese American grad student training to be a marriage and family therapist. I write about the things in our society that frustrate me, why they might be that way, and what could help. I could be wrong, so I link my sources and leave room for you to disagree.</p>
 <p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
@@ -1023,21 +1023,21 @@ def front_page():
 
 <div class="index-main">
 <section class="section" id="start" aria-labelledby="start-h">
-<div class="section-head"><h2 id="start-h">Start here</h2><p>Three doors in. Pick the question that pulls at you.</p></div>
+<div class="section-head"><h2 id="start-h">Start here</h2><p>If you're new, these are three good places to start. Pick whichever one pulls at you.</p></div>
 <ul class="doors">{"".join(doors)}</ul>
 <p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
 </section>
 
 <section class="section" id="open" aria-labelledby="open-h">
-<div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I am still thinking through. No essay yet, and no deadline.</p></div>
+<div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I'm still chewing on. I haven't written about them yet, and I'm taking my time.</p></div>
 <ul class="shelf">{shelf}</ul>
 </section>
 
 <section class="section" id="about" aria-labelledby="about-h">
-<div class="section-head"><h2 id="about-h">About this journal</h2></div>
+<div class="section-head"><h2 id="about-h">About me</h2></div>
 <ul class="about">
 <li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
-<li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">A Vietnamese American therapist in training, what shaped me, and the rules I hold myself to.</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">My family, my time at San Diego State, and why I write the way I do.</span></a></li>
 </ul>
 </section>
 </div>
@@ -1109,7 +1109,7 @@ def essay_page(p):
                         f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
         after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
                      f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
-    after.append('<p class="disagree"><strong>Disagree? Good.</strong> Read the other side\'s best case too.</p>')
+    after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
     toc_phone = toc_wide = ""
@@ -1208,7 +1208,7 @@ def build():
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
         "otohay blog podcast", "Podcast",
-        "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play.",
+        "These episodes are my reflections on the same questions I write about. They're my opinion, and they aren't therapy. Nothing plays until you press Play.",
         cards)))
 
     shape = "".join(f"<li><div><b>{esc(a)}</b><span>{esc(b)}</span></div></li>" for a, b in [
@@ -1225,7 +1225,7 @@ def build():
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
     write("how-i-argue/index.html", page("/how-i-argue/", "Who I am and where I come from", "Who writes otohay blog, where I come from, and the rules this blog holds itself to.", simple(
         "About me", "Who I am and where I come from",
-        "otohay blog is one person thinking in public about hard questions. Here is who that person is, where I come from, and the rules I hold myself to, so you can tell where fact ends and opinion begins.",
+        "I'm Nick. This page is about my family, what I believe, and the rules I try to hold myself to, so you can tell where the facts end and my opinion begins.",
         f"""{WHO_I_AM}
 <h2 id="ideals">Where I start from</h2>
 <p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
@@ -1273,7 +1273,7 @@ def build():
 
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
-        None, "Privacy", None, """<p>No accounts. No forms. Nothing you type here is sent to this site.</p>
+        None, "Privacy", None, """<p>I don't want your data. There are no accounts and no forms, and nothing you type here is sent to this site.</p>
 <h2>Ads</h2>
 <p>This site does not currently show ads. If that changes, this page will be updated before any ads appear.</p>
 <h2>Civic guide</h2>
@@ -1285,9 +1285,9 @@ def build():
 
     # 404
     write("404.html", page("/404", "Not found", "Page not found.", simple(
-        None, "Nothing here?", None,
-        '<p>That page does not exist, or it moved.</p>'
-        '<p class="actions"><a class="cta" href="/blog/">Go to the questions</a></p>')))
+        None, "Sorry, I can't find that page.", None,
+        '<p>It may have moved, or the link might be off.</p>'
+        '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
 CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
