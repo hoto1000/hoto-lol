@@ -497,6 +497,8 @@ nav.main a[aria-current="page"],
 .read-next cite { display: block; font-size: 1rem; font-style: italic; color: var(--muted); margin-top: var(--s2); }
 .disagree { font-family: var(--interface); color: var(--muted); font-size: var(--fs-nav); margin: var(--s5) 0 0; }
 .disagree strong { color: var(--text); }
+.support { font-family: var(--interface); color: var(--muted); font-size: var(--fs-nav); margin: var(--s3) 0 0; }
+.support a { color: var(--text); }
 .essay-end { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: var(--s4) 0 var(--s6); }
 
 /* Simple pages (podcast, method, privacy, 404) */
