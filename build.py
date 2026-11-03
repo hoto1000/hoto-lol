@@ -654,6 +654,20 @@ IDEALS = [
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
                  "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
 
+# /links/ page for the hotolosophy TikTok bio (TikTok allows one bio link).
+# Add the toy shop here once the store is live.
+LINKS = [("https://hotolosophy.com", "Hotolosophy"), ("/blog/", "The blog"), ("/podcasts/", "The podcast")]
+# Essays the TikTok series links to, in the order the videos post.
+LINK_ESSAYS = [
+    "social-location-where-you-stand",
+    "love-that-showed-up-as-food",
+    "we-didnt-all-start-at-the-same-line",
+    "a-rest-from-happiness",
+    "privilege-is-everything-you-never-had-to-think-about",
+    "you-are-not-the-problem-but-the-label-might-be",
+    "what-therapy-ethics-codes-miss-about-culture",
+    "how-great-thinkers-are-made",
+]
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Where my thoughts come from")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
@@ -1261,6 +1275,19 @@ def build():
 <p>Episodes are hosted on this site and only load when you press Play.</p>
 <h2>Fonts</h2>
 <p>The fonts are stored on this site too. Showing text never contacts a font service or any other outside server.</p>""")))
+
+    # Links: the one page the hotolosophy TikTok bio points to. Not in NAV.
+    # LINKS are the main buttons; LINK_ESSAYS are the essays the videos point to.
+    buttons = "".join(f'<a class="cta" href="{href}">{esc(label)}</a>' for href, label in LINKS)
+    essays = "".join(f'<li><a href="/blog/{s}/">{esc(frame(s)["question"] or post(s)["title"])}</a></li>' for s in LINK_ESSAYS)
+    write("links/index.html", page("/links/", "Links", "Where the hotolosophy videos lead: the blog, the podcast and the essays behind each video.", simple(
+        "From TikTok", "Links",
+        "Philosophy, mental health and honest life writing. Here is where the videos lead.",
+        f"""<div class="actions links-list">{buttons}</div>
+<h2>Essays from the videos</h2>
+<p>Each video points to one of these.</p>
+<ul class="plain">{essays}</ul>
+<p>Student reflection, not therapy or advice. Hotolosophy is not a crisis service. In the U.S., call or text <a href="tel:988">988</a>.</p>""")))
 
     # 404
     write("404.html", page("/404", "Not found", "Page not found.", simple(
