@@ -177,266 +177,6 @@ POSTS = [
 
 EPISODES = [
     {
-        "slug": "the-watcher-in-your-pocket-audio",
-        "title": 'Why You Police Your Own Behavior',
-        "date": "2026-10-28",
-        "length": "4 min",
-        "summary": 'The panopticon meets social media: why we edit ourselves when we might be watched. Audio version of the essay The Watcher in Your Pocket.',
-        "listen_url": "https://speechify.app.link/1ZBUHMzzx7b",
-        "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "you-are-not-the-problem-audio",
-        "title": 'Who Built Your Diagnostic Labels?',
-        "date": "2026-10-27",
-        "length": "6 min",
-        "summary": 'Foucault on power, knowledge and norms. Labels can help, and it is still fair to ask who decided where the line goes. Audio version of the essay.',
-        "listen_url": "https://speechify.app.link/Atf111yzx7b",
-        "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-your-memory-is-constantly-editing",
-        "title": "Why Your Memory Is Constantly Editing",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "How memory works, from sensory and working memory to long-term storage, sleep and forgetting.",
-        "listen_url": "https://speechify.app.link/efY5swmUv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-your-brain-deletes-memories",
-        "title": "Why Your Brain Deletes Memories",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Why forgetting is a normal part of how memory works.",
-        "listen_url": "https://speechify.app.link/geO23fZUv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-winning-the-lottery-ruins-your-brain",
-        "title": "Why Winning The Lottery Ruins Your Brain",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "The hedonic treadmill and why big wins fade fast.",
-        "listen_url": "https://speechify.app.link/Y13QLmNuv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-you-can-never-be-satisfied",
-        "title": "Why You Can Never Be Satisfied",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Why wanting keeps moving the goalposts.",
-        "listen_url": "https://speechify.app.link/iVrayivUv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "is-toxic-positivity-making-us-miserable",
-        "title": "Is Toxic Positivity Making Us Miserable?",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "When forced cheer backfires.",
-        "listen_url": "https://speechify.app.link/TgDv4BvUv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-modern-happiness-is-broken",
-        "title": "Why Modern Happiness Is Broken",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Why chasing happiness can leave us emptier.",
-        "listen_url": "https://speechify.app.link/hQGMfYvUv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "mastering-the-5-am-club",
-        "title": "Mastering the 5 AM Club",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "A look at early-morning routines and whether they work for everyone.",
-        "listen_url": "https://speechify.app.link/GoqC8AZUv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "the-hidden-rules-of-belonging",
-        "title": "The Hidden Rules of Belonging",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "The unwritten rules about who counts as professional or respectful, and how to make them fairer.",
-        "listen_url": "https://speechify.app.link/8lsvG7vXv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "who-gets-believed-at-the-front-desk",
-        "title": "Who Gets Believed at the Front Desk",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "How schools and agencies treat people who ask for help, and what a clear appeal path could look like.",
-        "listen_url": "https://speechify.app.link/fkLQ8CwXv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "the-invisible-cost-of-commuting",
-        "title": "The Invisible Cost of Commuting",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "The travel time, fares, transfers and care duties behind getting to a service.",
-        "listen_url": "https://speechify.app.link/QKmyY5wXv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "translation-is-a-form-of-welcome",
-        "title": "Translation Is a Form of Welcome",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Who gets clear information, and why language access should be community reviewed and paid.",
-        "listen_url": "https://speechify.app.link/iVeJExxXv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-your-feedback-gets-ignored",
-        "title": "Why Your Feedback Gets Ignored",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "How people can reach their representatives, see what happened to their input, and disagree without being dismissed.",
-        "listen_url": "https://speechify.app.link/nhbkp0xXv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-you-are-always-exhausted",
-        "title": "Why You Are Always Exhausted",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "A look at burnout, how modern work culture keeps us on edge, and what Stoic thinking says about the choices we do have.",
-        "listen_url": "https://speechify.app.link/6Sy6Eemux7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-you-feel-lonely-online",
-        "title": "Why You Feel Lonely Online",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Why being constantly connected can still leave us feeling alone, and how social media shapes isolation.",
-        "listen_url": "https://speechify.app.link/FtKZTlkux7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-authenticity-is-not-performance",
-        "title": "Why Authenticity Is Not Performance",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "What existentialist ideas about authenticity can tell us about the curated selves we present online.",
-        "listen_url": "https://speechify.app.link/gNqjItjux7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "who-are-you-really",
-        "title": "Who Are You, Really?",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "What philosophers like Locke and Parfit, and psychology research on self-concept, say about who we are over time.",
-        "listen_url": "https://speechify.app.link/pk4H5KnBx7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-chasing-happiness-keeps-you-unhappy",
-        "title": "Why Chasing Happiness Keeps You Unhappy",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Should happiness be the goal of a life? A look at utilitarianism, hedonism, and positive psychology.",
-        "listen_url": "https://speechify.app.link/MH7H33nBx7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "rewriting-your-personal-narrative",
-        "title": "Rewriting Your Personal Narrative",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "How narrative ideas and existentialist thought place meaning-making at the center of how people understand hard experiences.",
-        "listen_url": "https://speechify.app.link/SyAdSppBx7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "are-you-really-in-control",
-        "title": "Are You Really In Control?",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "What brain science does and does not show about free will, and what that could mean for responsibility.",
-        "listen_url": "https://speechify.app.link/z64n6IpBx7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-you-are-not-your-peers",
-        "title": "Why You Are Not Your Peers",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Social comparison theory meets the philosophy of envy, and why measuring ourselves against others is so hard to stop.",
-        "listen_url": "https://speechify.app.link/L5kjMxrBx7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-smart-people-believe-nonsense",
-        "title": "Why Smart People Believe Nonsense",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "Cognitive bias and the philosophy of knowledge: why sharp people can still hold beliefs that do not hold up.",
-        "listen_url": "https://speechify.app.link/47R5FAPBx7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "why-death-makes-life-meaningful",
-        "title": "Why Death Makes Life Meaningful",
-        "date": "2026-10-27",
-        "length": "",
-        "summary": "What Epicurus and Buddhist thought say about mortality and grief. Gentle pace.",
-        "listen_url": "https://speechify.app.link/H1csxbPBx7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "fearless-speech-audio",
-        "title": 'The Courage of Fearless Speech',
-        "date": "2026-10-26",
-        "length": "4 min",
-        "summary": "Foucault's parrhesia, what it is not, and four short boundary sentences. Audio version of the essay.",
-        "listen_url": "https://speechify.app.link/2JKZh9xzx7b",
-        "note": "AI-generated audio made with Speechify from the essay text, for general education and opinion. Not therapy. In the US, call or text 988 if you are in crisis.",
-        "overview": [],
-    },
-    {
-        "slug": "aoc-does-background-dictate-governance",
-        "title": "AOC: Does Background Dictate Governance?",
-        "date": "2026-10-24",
-        "length": "8 min",
-        "summary": "A look at how a leader's social location might shape the questions they ask in power, using Alexandria Ocasio-Cortez's possible 2028 run as the example.",
-        "listen_url": "https://speechify.app.link/RnX8Xf1Vv7b",
-        "note": "AI-generated audio overview made with Speechify, for general education and opinion. Personal opinion; not affiliated with her or any campaign.",
-        "overview": [],
-    },
-    {
         "slug": "is-toxic-happiness-making-us-miserable",
         "title": "Is Toxic Happiness Making Us Miserable?",
         "date": "2026-10-24",
@@ -1143,10 +883,9 @@ def episode_card(e, full=True):
     if full and e["overview"]:
         paras = "".join(f"<p>{esc(x)}</p>" for x in e["overview"])
         overview = f"<details><summary>Read the episode overview</summary>{paras}</details>"
-    if e.get("listen_url"):
-        player = f'<p class="player"><a href="{e["listen_url"]}" target="_blank" rel="noopener noreferrer">Listen on Speechify (opens in a new tab)</a></p>'
-    else:
-        player = f"""<div class="player"><audio controls preload="none" src="{e['audio']}" aria-label="{esc(e['title'])}"></audio></div>"""
+    # Every episode is hosted on this site (podcasts/). Outside players such as Speechify are not used.
+    assert e["audio"].startswith("/podcasts/") and (ROOT / e["audio"].lstrip("/")).is_file(), f"episode audio missing: {e['slug']}"
+    player = f"""<div class="player"><audio controls preload="none" src="{e['audio']}" aria-label="{esc(e['title'])}"></audio></div>"""
     note = f'<p class="meta">{esc(e["note"])}</p>' if e.get("note") else ""
     question = EPISODE_QUESTIONS.get(e["slug"])
     asks = f'<p class="label">The question</p><p class="ep-q">{q(question)}</p>' if question else ""
@@ -1206,7 +945,8 @@ def build():
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
         "Project Hoto podcast", "Podcast",
-        "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play.",
+        "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play. "
+        "Every essay also has its own Listen player at the top of the page.",
         cards)))
 
     shape = "".join(f"<li><div><b>{esc(a)}</b><span>{esc(b)}</span></div></li>" for a, b in [
@@ -1351,6 +1091,8 @@ def check_output():
             errors.append(f"{rel}: external URL in a link, script or img tag: {m.group(0)[:80]}")
         if CRISIS not in text:
             errors.append(f"{rel}: crisis strip text is missing or changed")
+        if "speechify" in text.lower():
+            errors.append(f"{rel}: links to Speechify; host the audio on this site instead")
         if rel not in OWN_FOOTER:
             errors += [f"{rel}: footer line missing: {line[:40]}" for line in FOOTER_LINES if f"<p>{line}</p>" not in text]
         if m := PLACEHOLDER.search(re.sub(r"<(script|style)\b.*?</\1>", "", rest, flags=re.S)):
