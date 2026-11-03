@@ -674,7 +674,7 @@ WHO_I_AM = """<h2 id="who">Who I am</h2>
 <p>I also keep finding good. Parents work long hours so their kids have more choices. Teachers, neighbors and volunteers show up before any program does. So I try to name what's wrong, why it might happen, and one thing that could help, knowing I could be wrong.</p>
 <p>I want to keep learning from my family, my classmates, my teachers and the people I'll work with, and keep asking before I assume.</p>"""
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am and where I come from")]
+NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
@@ -1137,7 +1137,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am and where I come from</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am</a></p>
 </div>
 </article>
 """
