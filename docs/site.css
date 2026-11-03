@@ -1,4 +1,4 @@
-/* Otohay: Planet Hoto look. One planet, lit blue on its day side and red on its dusk side, on a black sky.
+/* Project Hoto: Planet Hoto. One planet, lit blue on its day side and red on its dusk side, on a black sky.
    Dark (black) is the primary look; light is a pale "daylight" version of the same identity, from prefers-color-scheme: light.
    Red and blue are light and atmosphere: the planet, rules, borders, the current-page underline and the wordmark.
    Body text is off-white (dark) or ink (light). Blue carries links because it passes AA in both themes.
@@ -198,7 +198,7 @@ header.top {
   grid-area: 1 / 1; z-index: 1; justify-self: start; align-self: start;
   display: inline-flex; align-items: center; min-height: 60px;
   font-family: var(--editorial); font-weight: 700; font-size: var(--step-2); line-height: 1;
-  letter-spacing: var(--track-wordmark); text-transform: uppercase;
+  letter-spacing: 0; text-transform: none;
   color: var(--text); text-decoration: none;
 }
 .wordmark:hover { text-decoration: underline; text-decoration-thickness: 2px; }

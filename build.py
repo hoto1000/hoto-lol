@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds the Otohay site (hoto.lol) into ./docs. Run: python3 build.py
+"""Builds the otohay blog site (hoto.lol) into ./docs. Run: python3 build.py
 
 To add a blog post: write the body HTML in content/posts/<slug>.html,
 then add an entry to POSTS below (newest first).
@@ -15,7 +15,7 @@ import shutil
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "docs"  # GitHub Pages serves main:/docs
 
-SITE = "Otohay"
+SITE = "otohay blog"
 # Versioned stylesheet link. Cloudflare tells browsers to keep site.css for 4 hours,
 # while pages are kept for 10 minutes. Putting a hash of the CSS in the link means a
 # new page always loads the matching styles, and an unchanged stylesheet stays cached.
@@ -642,7 +642,7 @@ RULES = [
 ]
 
 # Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
-# nonprofit in Springfield, Missouri. Otohay is not affiliated with them.
+# nonprofit in Springfield, Missouri. otohay blog is not affiliated with them.
 IDEALS = [
     ("Neighbors look after neighbors.", "Storms, layoffs, hunger and family crises hit whole towns at once. I start from the belief that we owe each other help when they do."),
     ("Help now, and a way forward.", "Good help meets the urgent need today and leaves people more able to run their own lives tomorrow. I try to judge policies by both."),
@@ -652,14 +652,34 @@ IDEALS = [
 ]
 
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
-                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. Otohay is not affiliated with them.")
+                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. otohay blog is not affiliated with them.")
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Where my thoughts come from")]
+# Who I am: built only from facts Nick has already published in his own posts.
+# Nick confirms or rewrites this text before it merges. Never invent his stories here.
+WHO_I_AM = """<h2 id="who">Who I am</h2>
+<p>I'm Nick. I'm Vietnamese American, I live in San Diego, and I'm a graduate student training to become a marriage and family therapist.</p>
+<p>This blog is where I think out loud about the questions I can't stop asking. I'm a student sharing what I'm learning, so none of it is therapy or clinical advice.</p>
+<h2 id="roots">Where I come from</h2>
+<p>My parents are both immigrants from Vietnam. My grandfather did construction work, and my mom worked hard enough to become a pharmacist. I grew up with my parents and siblings under one roof, in a family that valued school.</p>
+<p>In my house, love looked like food on the table and long work hours. Hard feelings stayed quiet and private. I don't blame my parents, and context helps me understand their habits, but it doesn't erase how the silence felt to me.</p>
+<p>My Vietnamese American background grounds me the most and gives me the most direction. Being Christian is part of who I am too, and I'm still grappling with what that means.</p>
+<h2 id="minor">Counseling and Social Change</h2>
+<p>I studied psychology at San Diego State University and minored in Counseling and Social Change there. The minor put my own family next to everyone else's and gave me words for things I had only felt.</p>
+<p>In my capstone class, we each wrote an &ldquo;I Am&rdquo; poem and read it out loud to the room. Writing mine was easy. Reading it in front of everyone was the hard part, and I'm still learning how much of who I am I leave unsaid.</p>
+<p>The minor also got me looking at the systems around a person, along with the person. I'm still early in understanding that, and I get it wrong sometimes.</p>
+<p>My mentors in philosophy taught me to ask the bigger questions behind everyday ones, like who decides what counts as normal. Most of what you read here, I learned from my professors at SDSU. These are not my original ideas.</p>
+<h2 id="why">Why I write the way I do</h2>
+<p>Some of what I write comes from frustration. I see families carrying pain they were taught not to talk about, and systems that miss people who need help. I've also been on the side that missed things.</p>
+<p>When I dig into why something is broken, I usually find people doing their best under pressure, with only the view from their own seat. I have a seat too, and it has blind spots.</p>
+<p>I also keep finding good. Parents work long hours so their kids have more choices. Teachers, neighbors and volunteers show up before any program does. So I try to name what's wrong, why it might happen, and one thing that could help, knowing I could be wrong.</p>
+<p>I want to keep learning from my family, my classmates, my teachers and the people I'll work with, and keep asking before I assume.</p>"""
+
+NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am and where I come from")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
 
-UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Otohay is a personal project. It is not affiliated with, "
+UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
@@ -830,7 +850,7 @@ def site_header(path):
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="Otohay, home">{GLYPH}Otohay</a>\n'
+            f'<a class="wordmark" href="/" aria-label="otohay blog, home">{GLYPH}otohay <span>blog</span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>\n'
             f'</header>')
@@ -838,7 +858,7 @@ def site_header(path):
 
 def page(path, title, description, body, script=""):
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
-    full_title = SITE if title is None else f"{title} · {SITE}"
+    full_title = "otohay blog" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -862,7 +882,7 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">{GLYPH}Otohay</p>
+<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
@@ -974,7 +994,7 @@ def front_page():
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
 <p class="kicker sc">An independent journal of hard questions about society</p>
-<h1 id="hero-h">Welcome to Otohay.</h1>
+<h1 id="hero-h">Welcome to otohay blog.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
 <p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
@@ -1017,7 +1037,7 @@ def front_page():
 <div class="section-head"><h2 id="about-h">About this journal</h2></div>
 <ul class="about">
 <li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
-<li><a href="/how-i-argue/"><span class="about-t">Where my thoughts come from</span><span class="about-d">Rules I hold myself to, so you can see where fact ends and opinion begins.</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">A Vietnamese American therapist in training, what shaped me, and the rules I hold myself to.</span></a></li>
 </ul>
 </section>
 </div>
@@ -1117,7 +1137,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Where my thoughts come from</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am and where I come from</a></p>
 </div>
 </article>
 """
@@ -1187,7 +1207,7 @@ def build():
 
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
-        "Otohay podcast", "Podcast",
+        "otohay blog podcast", "Podcast",
         "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play.",
         cards)))
 
@@ -1203,10 +1223,11 @@ def build():
     ])
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
-    write("how-i-argue/index.html", page("/how-i-argue/", "Where my thoughts come from", "The rules this blog holds itself to.", simple(
-        "The method", "Where my thoughts come from",
-        "Otohay is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
-        f"""<h2 id="ideals">Where I start from</h2>
+    write("how-i-argue/index.html", page("/how-i-argue/", "Who I am and where I come from", "Who writes otohay blog, where I come from, and the rules this blog holds itself to.", simple(
+        "About me", "Who I am and where I come from",
+        "otohay blog is one person thinking in public about hard questions. Here is who that person is, where I come from, and the rules I hold myself to, so you can tell where fact ends and opinion begins.",
+        f"""{WHO_I_AM}
+<h2 id="ideals">Where I start from</h2>
 <p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
 <div class="rules-page">{ideals}</div>
 <p>{IDEALS_CREDIT}</p>
