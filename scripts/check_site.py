@@ -99,8 +99,10 @@ def main():
         if CRISIS not in text:
             err(rel, "crisis strip text missing or not byte-exact")
         # meta
-        if "noindex, nofollow" not in p.meta("robots"):
-            err(rel, 'robots meta "noindex, nofollow" missing')
+        # Standalone pages (civic guide, voting demo) and the 404 stay out of search; the rest may be listed.
+        want_robots = "noindex, nofollow" if rel in STANDALONES or rel == "404.html" else "index, follow"
+        if want_robots not in p.meta("robots"):
+            err(rel, f'robots meta "{want_robots}" missing')
         if not p.meta("referrer"):
             err(rel, "referrer meta missing")
         if not p.meta("google-adsense-account"):
@@ -210,6 +212,25 @@ def main():
             t = pages[idx][0]
             if f'href="/blog/{post["slug"]}/"' not in t:
                 err(idx, f"does not list {post['slug']}")
+
+    # robots.txt, sitemap and feed: crawlable, every post listed, private pages never listed
+    import xml.etree.ElementTree as ET
+    robots = (DOCS / "robots.txt").read_text()
+    if "Disallow: /\n" in robots or "Sitemap: https://hoto.lol/sitemap.xml" not in robots:
+        err("robots.txt", "must allow crawling and point to the sitemap")
+    locs = [e.text for e in ET.parse(DOCS / "sitemap.xml").iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
+    for post in build.POSTS:
+        if f"https://hoto.lol/blog/{post['slug']}/" not in locs:
+            err("sitemap.xml", f"missing {post['slug']}")
+    for loc in locs:
+        if "/civic/" in loc or "/vote/" in loc:
+            err("sitemap.xml", f"lists a private page: {loc}")
+        rel = loc.replace("https://hoto.lol/", "") + "index.html"
+        if rel not in pages:
+            err("sitemap.xml", f"lists a page that does not exist: {loc}")
+    feed_links = [e.text for e in ET.parse(DOCS / "feed.xml").iter("link")]
+    if len(feed_links) != len(build.POSTS) + 1:
+        err("feed.xml", f"{len(feed_links) - 1} items, expected {len(build.POSTS)}")
 
     for w in warns:
         print("WARN", w)

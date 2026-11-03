@@ -836,7 +836,21 @@ def site_header(path):
             f'</header>')
 
 
+SITE_URL = "https://hoto.lol"
+# Pages search engines may list. The civic guide and voting demo are standalone pages with their
+# own "noindex" tag and are never listed; the 404 page is noindex too.
+NOINDEX_PATHS = {"/404"}
+
+
+def canonical(path):
+    """The one address search engines should use. The home page and /blog/ are the same page."""
+    return "/blog/" if path == "/" else path
+
+
 def page(path, title, description, body, script=""):
+    hidden = path in NOINDEX_PATHS
+    robots = "noindex, nofollow" if hidden else "index, follow"
+    canon = "" if hidden else f'<link rel="canonical" href="{canonical(path)}">\n'
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = "Planet Hoto" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
@@ -846,7 +860,8 @@ def page(path, title, description, body, script=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(description)}">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="{robots}">
+{canon}<link rel="alternate" type="application/rss+xml" title="{SITE}" href="/feed.xml">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
 <meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)">
@@ -1170,7 +1185,10 @@ def build():
     (OUT / "CNAME").write_text("hoto.lol\n")
     (OUT / ".nojekyll").write_text("")
     (OUT / "ads.txt").write_text("google.com, pub-2462240112532447, DIRECT, f08c47fec0942fa0\n")
-    (OUT / "robots.txt").write_text("User-agent: Mediapartners-Google\nAllow: /\n\nUser-agent: *\nDisallow: /\n")
+    # Search engines may crawl the site. The civic guide and voting demo stay out of search
+    # through their own "noindex" tag (crawlers must be allowed in to read it), and are left
+    # out of the sitemap.
+    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n")
 
     for slug, f in FRAMING.items():
         assert any(p["slug"] == slug for p in POSTS), f"framing for unknown post {slug}"
@@ -1262,11 +1280,48 @@ def build():
 <h2>Fonts</h2>
 <p>The fonts are stored on this site too. Showing text never contacts a font service or any other outside server.</p>""")))
 
+    write_sitemap()
+    write_feed()
+
     # 404
     write("404.html", page("/404", "Not found", "Page not found.", simple(
         None, "Nothing here?", None,
         '<p>That page does not exist, or it moved.</p>'
         '<p class="actions"><a class="cta" href="/blog/">Go to the questions</a></p>')))
+
+
+SITEMAP_PAGES = ["/blog/", "/podcasts/", "/how-i-argue/", "/privacy/"]
+
+
+def write_sitemap():
+    """sitemap.xml: every page search engines may list. Never the civic guide or voting demo."""
+    newest = max(p["date"] for p in POSTS)
+    rows = [(path, newest if path == "/blog/" else None) for path in SITEMAP_PAGES]
+    rows += [(f"/blog/{p['slug']}/", p["date"]) for p in POSTS]
+    urls = "".join(f"<url><loc>{SITE_URL}{html.escape(path)}</loc>" + (f"<lastmod>{d}</lastmod>" if d else "") + "</url>\n"
+                   for path, d in rows)
+    (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
+                                     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n",
+                                     encoding="utf-8")
+
+
+def rfc822(d):
+    import datetime
+    return datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%a, %d %b %Y 12:00:00 +0000")
+
+
+def write_feed():
+    """feed.xml: RSS 2.0 for the essays, newest first, so readers and newsletter tools can follow."""
+    items = "".join(
+        f"<item><title>{html.escape(p['title'])}</title>"
+        f"<link>{SITE_URL}/blog/{p['slug']}/</link><guid>{SITE_URL}/blog/{p['slug']}/</guid>"
+        f"<pubDate>{rfc822(p['date'])}</pubDate><description>{html.escape(p['summary'])}</description></item>\n"
+        for p in sorted(POSTS, key=lambda p: p["date"], reverse=True))
+    (OUT / "feed.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n'
+        f"<title>{SITE}</title><link>{SITE_URL}/blog/</link>"
+        "<description>An independent, personal journal of hard questions about society. Education and opinion, not therapy or advice.</description>"
+        "<language>en-us</language>\n" + items + "</channel></rss>\n", encoding="utf-8")
 
 
 CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
