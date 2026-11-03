@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds the Project Hoto site (hoto.lol) into ./docs. Run: python3 build.py
+"""Builds the Otohay site (hoto.lol) into ./docs. Run: python3 build.py
 
 To add a blog post: write the body HTML in content/posts/<slug>.html,
 then add an entry to POSTS below (newest first).
@@ -15,7 +15,7 @@ import shutil
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "docs"  # GitHub Pages serves main:/docs
 
-SITE = "Project Hoto"
+SITE = "Otohay"
 # Versioned stylesheet link. Cloudflare tells browsers to keep site.css for 4 hours,
 # while pages are kept for 10 minutes. Putting a hash of the CSS in the link means a
 # new page always loads the matching styles, and an unchanged stylesheet stays cached.
@@ -642,7 +642,7 @@ RULES = [
 ]
 
 # Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
-# nonprofit in Springfield, Missouri. Project Hoto is not affiliated with them.
+# nonprofit in Springfield, Missouri. Otohay is not affiliated with them.
 IDEALS = [
     ("Neighbors look after neighbors.", "Storms, layoffs, hunger and family crises hit whole towns at once. I start from the belief that we owe each other help when they do."),
     ("Help now, and a way forward.", "Good help meets the urgent need today and leaves people more able to run their own lives tomorrow. I try to judge policies by both."),
@@ -652,14 +652,14 @@ IDEALS = [
 ]
 
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
-                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
+                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. Otohay is not affiliated with them.")
 
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Where my thoughts come from")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
 
-UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Project Hoto is a personal project. It is not affiliated with, "
+UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Otohay is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
@@ -830,7 +830,7 @@ def site_header(path):
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="Project Hoto, home">{GLYPH}Project <span>Hoto</span></a>\n'
+            f'<a class="wordmark" href="/" aria-label="Otohay, home">{GLYPH}Otohay</a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>\n'
             f'</header>')
@@ -838,7 +838,7 @@ def site_header(path):
 
 def page(path, title, description, body, script=""):
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
-    full_title = "Planet Hoto" if title is None else f"{title} · {SITE}"
+    full_title = SITE if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -862,7 +862,7 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
+<p class="foot-mark">{GLYPH}Otohay</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
@@ -974,7 +974,7 @@ def front_page():
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
 <p class="kicker sc">An independent journal of hard questions about society</p>
-<h1 id="hero-h">Welcome to Planet Hoto.</h1>
+<h1 id="hero-h">Welcome to Otohay.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
 <p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
@@ -1187,7 +1187,7 @@ def build():
 
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
-        "Project Hoto podcast", "Podcast",
+        "Otohay podcast", "Podcast",
         "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play.",
         cards)))
 
@@ -1205,7 +1205,7 @@ def build():
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
     write("how-i-argue/index.html", page("/how-i-argue/", "Where my thoughts come from", "The rules this blog holds itself to.", simple(
         "The method", "Where my thoughts come from",
-        "Project Hoto is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
+        "Otohay is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
         f"""<h2 id="ideals">Where I start from</h2>
 <p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
 <div class="rules-page">{ideals}</div>

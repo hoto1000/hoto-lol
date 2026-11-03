@@ -1,4 +1,4 @@
-# Project Hoto (hoto.lol)
+# Otohay (hoto.lol)
 
 Static blog + podcast site. No framework, no trackers.
 
