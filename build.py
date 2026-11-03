@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "two-piles-what-epictetus-meant-by-up-to-us",
+        "title": 'Two piles: what Epictetus meant by "up to us"',
+        "date": "2026-11-08",
+        "summary": "A student reading of the Stoic split between what is up to us and what is not: how I use it on heavy days, its line into cognitive therapy, and where it stops working.",
+    },
+    {
         "slug": "where-power-and-identity-cross",
         "title": "Where power and identity cross: intersectionality through Foucault",
         "date": "2026-11-02",
@@ -477,6 +483,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "two-piles-what-epictetus-meant-by-up-to-us": {
+        "question": "What is actually up to me today?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from published sources and my earlier posts, then reviewed by me.",
+        "sit": "What's one thing today that isn't up to you?",
+        "related": "a-rest-from-happiness",
+        "voices": ["Epictetus", "Albert Ellis", "Aaron Beck"],
+    },
     "where-power-and-identity-cross": {
         "question": "Who decides which boxes a person gets sorted into?",
         "theme": "Mind and how to live",
