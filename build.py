@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "somewhere-to-put-it",
+        "title": "Somewhere to put it: what society owes kids with nowhere to go",
+        "date": "2026-11-03",
+        "summary": "Why so many kids have nowhere to put their anger: who public space is for, how Bronx kids invented hip hop as their own outlet, and what we choose to pay for.",
+    },
+    {
         "slug": "where-power-and-identity-cross",
         "title": "Where power and identity cross: intersectionality through Foucault",
         "date": "2026-11-02",
@@ -217,6 +223,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "somewhere-to-put-it": {
+        "question": "Where is a kid supposed to put the anger?",
+        "theme": "Mental health",
+        "kind": "Essay",
+        "note": "Drafted with AI help from my voice memo and published sources, then reviewed by me.",
+        "sit": "When you were a teenager and had nowhere to be, where did you go, and who was there?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": ["Henri Lefebvre", "Robert Merton", "Elijah Anderson", "Avery Gordon", "\u00c9mile Durkheim"],
+    },
     "where-power-and-identity-cross": {
         "question": "Who decides which boxes a person gets sorted into?",
         "theme": "Mind and how to live",
@@ -414,7 +429,7 @@ WHO_I_AM = """<h2 id="who">Who I am</h2>
 <p>I also keep finding good. Parents work long hours so their kids have more choices. Teachers, neighbors and volunteers show up before any program does. So I try to name what's wrong, why it might happen, and one thing that could help, knowing I could be wrong.</p>
 <p>I want to keep learning from my family, my classmates, my teachers and the people I'll work with, and keep asking before I assume.</p>"""
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am and where I come from")]
+NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
@@ -901,7 +916,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am and where I come from</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am</a></p>
 </div>
 </article>
 """
