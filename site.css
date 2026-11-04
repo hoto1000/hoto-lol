@@ -535,6 +535,8 @@ nav.main a[aria-current="page"],
 .episode .meta { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: 0 0 var(--s3); }
 .episode p { color: var(--text); }
 .player { margin: var(--s4) 0; }
+.essay-video { margin: var(--s4) 0; }
+.essay-video video { display: block; width: 100%; max-width: 360px; aspect-ratio: 9 / 16; height: auto; background: #1c2a4a; border-radius: 8px; }
 .player audio { display: block; width: 100%; min-height: 54px; }
 .player a { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--interface); font-size: var(--fs-nav); font-weight: 600; }
 .episode details { border-top: 1px solid var(--border); margin-top: var(--s2); }
