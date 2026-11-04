@@ -689,6 +689,11 @@ WHO_I_AM = """<h2 id="who">Who I am</h2>
 <p>I also keep finding good. Parents work long hours so their kids have more choices. Teachers, neighbors and volunteers show up before any program does. So I try to name what's wrong, why it might happen, and one thing that could help, knowing I could be wrong.</p>
 <p>I want to keep learning from my family, my classmates, my teachers and the people I'll work with, and keep asking before I assume.</p>"""
 
+# Reader support. A plain link only: no Ko-fi widget, script or image, so pages stay script-free.
+# Shown at the end of essays, but never on political essays, the civic guide or the voting demo.
+KOFI_URL = "https://ko-fi.com/hoto1000"
+NO_SUPPORT_THEMES = {"Politics and civic life"}
+
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
@@ -1108,6 +1113,13 @@ def narration(p):
             f'<p class="aside-note">The essay below is the transcript.</p></section>')
 
 
+def support_line(theme):
+    if theme in NO_SUPPORT_THEMES:
+        return ""
+    return (f'<p class="support">If something here helped you, you can <a href="{KOFI_URL}">buy me a coffee on Ko-fi</a>. '
+            'It helps keep this blog free to read.</p>\n')
+
+
 def essay_page(p):
     f = frame(p["slug"])
     slug = p["slug"]
@@ -1160,7 +1172,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am</a></p>
+{support_line(f["theme"])}<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am</a></p>
 </div>
 </article>
 """
@@ -1301,6 +1313,8 @@ def build():
         None, "Privacy", None, """<p>No accounts. No forms. Nothing you type here is sent to this site.</p>
 <h2>Ads</h2>
 <p>This site does not currently show ads. If that changes, this page will be updated before any ads appear.</p>
+<h2>Ko-fi</h2>
+<p>Some essays end with a link to my Ko-fi page, where you can leave a tip if you want to. It is a plain link. Nothing from Ko-fi loads on this site, and Ko-fi only sees you if you click it. Ko-fi has its own privacy policy. Tips are never asked for on the civic guide or political essays.</p>
 <h2>Civic guide</h2>
 <p>The <a href="/civic/">civic guide</a> has no ads, trackers, or analytics. It blocks all network requests, so your answers cannot be sent anywhere. Answers are kept only in the open page, never saved to your browser, and disappear when you leave or press “Reset all answers.” Your political answers are never used for ads, accounts, or retargeting.</p>
 <h2>Podcast audio</h2>
