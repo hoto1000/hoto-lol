@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "somewhere-to-put-it",
+        "title": "Somewhere to put it: what society owes kids with nowhere to go",
+        "date": "2026-11-03",
+        "summary": "Why so many kids have nowhere to put their anger: who public space is for, how Bronx kids invented hip hop as their own outlet, and what we choose to pay for.",
+    },
+    {
         "slug": "where-power-and-identity-cross",
         "title": "Where power and identity cross: intersectionality through Foucault",
         "date": "2026-11-02",
@@ -477,6 +483,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "somewhere-to-put-it": {
+        "question": "Where is a kid supposed to put the anger?",
+        "theme": "Mental health",
+        "kind": "Essay",
+        "note": "Drafted with AI help from my voice memo and published sources, then reviewed by me.",
+        "sit": "When you were a teenager and had nowhere to be, where did you go, and who was there?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": ["Henri Lefebvre", "Robert Merton", "Elijah Anderson", "Avery Gordon", "\u00c9mile Durkheim"],
+    },
     "where-power-and-identity-cross": {
         "question": "Who decides which boxes a person gets sorted into?",
         "theme": "Mind and how to live",
@@ -674,7 +689,7 @@ WHO_I_AM = """<h2 id="who">Who I am</h2>
 <p>I also keep finding good. Parents work long hours so their kids have more choices. Teachers, neighbors and volunteers show up before any program does. So I try to name what's wrong, why it might happen, and one thing that could help, knowing I could be wrong.</p>
 <p>I want to keep learning from my family, my classmates, my teachers and the people I'll work with, and keep asking before I assume.</p>"""
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am and where I come from")]
+NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
@@ -682,6 +697,13 @@ BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choi
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
+
+AI_NOTE = ("I made this site with help from AI. I'm still trying to understand what AI means for writing, "
+           "and I want to be honest with you about it while I figure that out.")
+
+AI_NOTE_LONG = ("I built this site with AI tools, and some of the writing here was organized and edited with them too. "
+                "I'm still learning what that means for honesty, for craft, and for the people who read this. "
+                "I'll keep updating this note as my thinking changes.")
 
 TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU."
 
@@ -886,6 +908,7 @@ def page(path, title, description, body, script=""):
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
+<p>{esc(AI_NOTE)}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -1137,7 +1160,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am and where I come from</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am</a></p>
 </div>
 </article>
 """
@@ -1238,6 +1261,8 @@ def build():
 <ol class="shape">{shape}</ol>
 <h2>Try it yourself</h2>
 <p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
+<h2 id="ai">A note on AI</h2>
+<p>{esc(AI_NOTE_LONG)}</p>
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
