@@ -24,7 +24,8 @@ spec.loader.exec_module(build)  # build() only runs under __main__, so this just
 
 CRISIS = 'In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.'
 STANDALONE = "civic/index.html"  # copied from civic/quiz.html: own CSP, own styles, no site.css
-SCRIPTS_ALLOWED = {STANDALONE: 1}  # script tags that already exist; anything else fails
+STANDALONES = {STANDALONE, "vote/index.html"}  # vote/ is the voting demo: same pattern, static h1
+SCRIPTS_ALLOWED = {STANDALONE: 1, "vote/index.html": 1}  # script tags that already exist; anything else fails
 VOID = {"meta", "link", "br", "img", "hr", "input", "source", "area", "base", "col", "embed", "wbr", "track", "param"}
 
 
@@ -103,8 +104,8 @@ def main():
         if not p.meta("referrer"):
             err(rel, "referrer meta missing")
         if not p.meta("google-adsense-account"):
-            (warns if rel == STANDALONE else errors).append(f"{rel}: google-adsense-account meta missing"
-                                                            + (" (standalone civic page; reported, not changed)" if rel == STANDALONE else ""))
+            (warns if rel in STANDALONES else errors).append(f"{rel}: google-adsense-account meta missing"
+                                                            + (" (standalone page; reported, not changed)" if rel in STANDALONES else ""))
         # scripts, off-site loads, iframes
         n = p.tags.get("script", 0)
         if n != SCRIPTS_ALLOWED.get(rel, 0):
@@ -120,7 +121,7 @@ def main():
         # structure
         if p.tags.get("main", 0) != 1:
             err(rel, f"{p.tags.get('main', 0)} main elements, expected 1")
-        if rel == STANDALONE:
+        if rel in STANDALONES:
             # the quiz writes its headings from a script, so count them in the source instead
             n1 = len(re.findall(r"<h1\b", text))
             if n1 != 1:
@@ -129,7 +130,7 @@ def main():
                 warns.append(f"{rel}: its one h1 is written by the page script, not present in static HTML (reported, not changed)")
         elif p.headings.count(1) != 1:
             err(rel, f"{p.headings.count(1)} h1 elements, expected 1")
-        for prev, cur in zip(p.headings, p.headings[1:] if rel != STANDALONE else []):
+        for prev, cur in zip(p.headings, p.headings[1:] if rel not in STANDALONES else []):
             if cur > prev + 1:
                 err(rel, f"heading level skips from h{prev} to h{cur}")
                 break
@@ -138,7 +139,7 @@ def main():
             err(rel, f"duplicate ids: {', '.join(dup)}")
         # stylesheet
         sheets = [l for l in p.links if l.get("rel") == "stylesheet"]
-        if rel == STANDALONE:
+        if rel in STANDALONES:
             hrefs = [l.get("href", "") for l in sheets]
             if "/site.css" not in hrefs and want_link.split('href="')[1].rstrip('">') not in hrefs:
                 err(rel, "civic page does not link the shared stylesheet")

@@ -15,7 +15,7 @@ import shutil
 ROOT = pathlib.Path(__file__).parent
 OUT = ROOT / "docs"  # GitHub Pages serves main:/docs
 
-SITE = "Project Hoto"
+SITE = "otohay blog"
 # Versioned stylesheet link. Cloudflare tells browsers to keep site.css for 4 hours,
 # while pages are kept for 10 minutes. Putting a hash of the CSS in the link means a
 # new page always loads the matching styles, and an unchanged stylesheet stays cached.
@@ -26,8 +26,38 @@ POSTS = [
     {
         "slug": "the-queue-is-the-policy",
         "title": "The queue is the policy: who pays the hidden time tax?",
-        "date": "2026-10-27",
+        "date": "2026-11-04",
         "summary": "A student's argument that waiting quietly decides who can use a system: Social Security phone wait times, who can afford to hold, my own disability insurance paperwork, and one redesign.",
+    },
+    {
+        "slug": "somewhere-to-put-it",
+        "title": "Somewhere to put it: what society owes kids with nowhere to go",
+        "date": "2026-11-03",
+        "summary": "Why so many kids have nowhere to put their anger: who public space is for, how Bronx kids invented hip hop as their own outlet, and what we choose to pay for.",
+    },
+    {
+        "slug": "where-power-and-identity-cross",
+        "title": "Where power and identity cross: intersectionality through Foucault",
+        "date": "2026-11-02",
+        "summary": "A student reads Kimberl\u00e9 Crenshaw's intersectionality next to Michel Foucault's ideas about power, knowledge and categories. Foucault never used the word. Putting them together is my own reading.",
+    },
+    {
+        "slug": "who-gets-measured-and-who-does-the-measuring",
+        "title": "Who Gets Measured, and Who Does the Measuring",
+        "date": "2026-10-28",
+        "summary": "A reading of two school debates, behavior scores and AI glasses at exams, through Michel Foucault's idea of the examination. My own reading, not his voice.",
+    },
+    {
+        "slug": "the-rules-nobody-said-out-loud",
+        "title": "The rules nobody said out loud",
+        "date": "2026-10-27",
+        "summary": "A student on the unspoken rules families run on: a quick test to find yours, why they made sense once, where I caught myself running mine, and three ways to spot your own.",
+    },
+    {
+        "slug": "what-therapy-ethics-codes-miss-about-culture",
+        "title": "What therapy ethics codes get right and miss about culture",
+        "date": "2026-10-27",
+        "summary": "A student's read of the AAMFT and CAMFT codes of ethics through a multicultural lens: where they ask for respect and awareness, and where they stop short on power, privilege and systems.",
     },
     {
         "slug": "is-there-a-perfect-income",
@@ -459,6 +489,33 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "the-queue-is-the-policy": {
+        "question": "Who gets screened out when the only way in is a long wait?",
+        "theme": "Politics and civic life",
+        "kind": "Essay",
+        "note": "My own argument and experience, organized with AI help and checked against published sources.",
+        "sit": "What wait, form or phone line has worn you down, and who could afford to skip it?",
+        "related": "privilege-is-everything-you-never-had-to-think-about",
+        "voices": ["Annie Lowrey"],
+    },
+    "somewhere-to-put-it": {
+        "question": "Where is a kid supposed to put the anger?",
+        "theme": "Mental health",
+        "kind": "Essay",
+        "note": "Drafted with AI help from my voice memo and published sources, then reviewed by me.",
+        "sit": "When you were a teenager and had nowhere to be, where did you go, and who was there?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": ["Henri Lefebvre", "Robert Merton", "Elijah Anderson", "Avery Gordon", "\u00c9mile Durkheim"],
+    },
+    "where-power-and-identity-cross": {
+        "question": "Who decides which boxes a person gets sorted into?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from published sources and my earlier posts, then reviewed by me.",
+        "sit": "Which parts of your life cross in a way no form has ever asked about?",
+        "related": "social-location-where-you-stand",
+        "voices": ["Kimberl\u00e9 Crenshaw", "Michel Foucault", "Nancy Fraser"],
+    },
     "is-there-a-perfect-income": {
         "question": "Is there an amount of money after which more stops making us happier?",
         "theme": "Mind and how to live",
@@ -625,18 +682,155 @@ IDEALS = [
 ]
 
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
-                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. Project Hoto is not affiliated with them.")
+                 "in Springfield, Missouri, that pairs emergency help with tools for the long run. otohay blog is not affiliated with them.")
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "How I argue")]
+# Who I am: built only from facts Nick has already published in his own posts.
+# Nick confirms or rewrites this text before it merges. Never invent his stories here.
+WHO_I_AM = """<h2 id="who">Who I am</h2>
+<p>I'm Nick. I'm Vietnamese American, I live in San Diego, and I'm a graduate student training to become a marriage and family therapist.</p>
+<p>This blog is where I think out loud about the questions I can't stop asking. I'm a student sharing what I'm learning, so none of it is therapy or clinical advice.</p>
+<h2 id="roots">Where I come from</h2>
+<p>My parents are both immigrants from Vietnam. My grandfather did construction work, and my mom worked hard enough to become a pharmacist. I grew up with my parents and siblings under one roof, in a family that valued school.</p>
+<p>In my house, love looked like food on the table and long work hours. Hard feelings stayed quiet and private. I don't blame my parents, and context helps me understand their habits, but it doesn't erase how the silence felt to me.</p>
+<p>My Vietnamese American background grounds me the most and gives me the most direction. Being Christian is part of who I am too, and I'm still grappling with what that means.</p>
+<h2 id="minor">Counseling and Social Change</h2>
+<p>I studied psychology at San Diego State University and minored in Counseling and Social Change there. The minor put my own family next to everyone else's and gave me words for things I had only felt.</p>
+<p>In my capstone class, we each wrote an &ldquo;I Am&rdquo; poem and read it out loud to the room. Writing mine was easy. Reading it in front of everyone was the hard part, and I'm still learning how much of who I am I leave unsaid.</p>
+<p>The minor also got me looking at the systems around a person, along with the person. I'm still early in understanding that, and I get it wrong sometimes.</p>
+<p>My mentors in philosophy taught me to ask the bigger questions behind everyday ones, like who decides what counts as normal. Most of what you read here, I learned from my professors at SDSU. These are not my original ideas.</p>
+<h2 id="why">Why I write the way I do</h2>
+<p>Some of what I write comes from frustration. I see families carrying pain they were taught not to talk about, and systems that miss people who need help. I've also been on the side that missed things.</p>
+<p>When I dig into why something is broken, I usually find people doing their best under pressure, with only the view from their own seat. I have a seat too, and it has blind spots.</p>
+<p>I also keep finding good. Parents work long hours so their kids have more choices. Teachers, neighbors and volunteers show up before any program does. So I try to name what's wrong, why it might happen, and one thing that could help, knowing I could be wrong.</p>
+<p>I want to keep learning from my family, my classmates, my teachers and the people I'll work with, and keep asking before I assume.</p>"""
+
+NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am")]
 
 BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
          "If a post stirs up something heavy, you can stop reading any time.")
 
-UNOFFICIAL = ("<strong>Independent and unofficial.</strong> Project Hoto is a personal project. It is not affiliated with, "
+UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
+AI_NOTE = ("I made this site with help from AI. I'm still trying to understand what AI means for writing, "
+           "and I want to be honest with you about it while I figure that out.")
+
+AI_NOTE_LONG = ("I built this site with AI tools, and some of the writing here was organized and edited with them too. "
+                "I'm still learning what that means for honesty, for craft, and for the people who read this. "
+                "I'll keep updating this note as my thinking changes.")
+
 TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU."
+
+
+# Related reading: picked offline with the open model sentence-transformers/all-MiniLM-L6-v2 (title, summary and
+# first 250 words of each essay, cosine similarity), then filtered to matches scoring 0.30 or more. No code runs for visitors.
+RELATED = {
+    "where-power-and-identity-cross": [
+        "social-location-where-you-stand",
+        "you-are-not-the-problem-but-the-label-might-be",
+        "we-didnt-all-start-at-the-same-line"
+    ],
+    "the-rules-nobody-said-out-loud": [
+        "love-that-showed-up-as-food",
+        "we-didnt-all-start-at-the-same-line",
+        "what-we-teach-men-about-pain"
+    ],
+    "what-therapy-ethics-codes-miss-about-culture": [
+        "what-we-teach-men-about-pain",
+        "what-a-freudian-slip-can-and-cannot-tell-us",
+        "we-didnt-all-start-at-the-same-line"
+    ],
+    "is-there-a-perfect-income": [
+        "a-rest-from-happiness",
+        "we-didnt-all-start-at-the-same-line",
+        "what-we-teach-men-about-pain"
+    ],
+    "love-that-showed-up-as-food": [
+        "the-rules-nobody-said-out-loud",
+        "social-location-where-you-stand",
+        "we-didnt-all-start-at-the-same-line"
+    ],
+    "privilege-is-everything-you-never-had-to-think-about": [
+        "we-didnt-all-start-at-the-same-line",
+        "when-watching-students-becomes-the-lesson",
+        "one-roll-of-toilet-paper"
+    ],
+    "one-roll-of-toilet-paper": [
+        "we-didnt-all-start-at-the-same-line",
+        "a-school-should-be-a-harbor",
+        "privilege-is-everything-you-never-had-to-think-about"
+    ],
+    "the-i-am-poem-who-we-say-we-are": [
+        "social-location-where-you-stand",
+        "how-great-thinkers-are-made"
+    ],
+    "we-didnt-all-start-at-the-same-line": [
+        "privilege-is-everything-you-never-had-to-think-about",
+        "social-location-where-you-stand",
+        "is-there-a-perfect-income"
+    ],
+    "social-location-where-you-stand": [
+        "we-didnt-all-start-at-the-same-line",
+        "a-president-who-understands-how-systems-feel",
+        "the-i-am-poem-who-we-say-we-are"
+    ],
+    "what-a-freudian-slip-can-and-cannot-tell-us": [
+        "the-rules-nobody-said-out-loud",
+        "what-we-teach-men-about-pain",
+        "how-great-thinkers-are-made"
+    ],
+    "what-arendt-meant-by-the-banality-of-evil": [
+        "how-great-thinkers-are-made",
+        "what-a-freudian-slip-can-and-cannot-tell-us"
+    ],
+    "what-we-teach-men-about-pain": [
+        "the-rules-nobody-said-out-loud",
+        "we-didnt-all-start-at-the-same-line",
+        "what-therapy-ethics-codes-miss-about-culture"
+    ],
+    "fearless-speech-for-regular-people": [
+        "you-are-not-the-problem-but-the-label-might-be",
+        "what-a-freudian-slip-can-and-cannot-tell-us",
+        "the-rules-nobody-said-out-loud"
+    ],
+    "you-are-not-the-problem-but-the-label-might-be": [
+        "how-great-thinkers-are-made",
+        "fearless-speech-for-regular-people",
+        "what-a-freudian-slip-can-and-cannot-tell-us"
+    ],
+    "the-watcher-in-your-pocket": [
+        "when-watching-students-becomes-the-lesson",
+        "how-great-thinkers-are-made"
+    ],
+    "a-president-who-understands-how-systems-feel": [
+        "social-location-where-you-stand",
+        "we-didnt-all-start-at-the-same-line",
+        "how-great-thinkers-are-made"
+    ],
+    "when-watching-students-becomes-the-lesson": [
+        "a-school-should-be-a-harbor",
+        "the-watcher-in-your-pocket",
+        "privilege-is-everything-you-never-had-to-think-about"
+    ],
+    "a-school-should-be-a-harbor": [
+        "when-watching-students-becomes-the-lesson",
+        "the-rules-nobody-said-out-loud",
+        "one-roll-of-toilet-paper"
+    ],
+    "a-most-agreeable-war": [
+        "how-great-thinkers-are-made"
+    ],
+    "a-rest-from-happiness": [
+        "is-there-a-perfect-income",
+        "what-we-teach-men-about-pain"
+    ],
+    "how-great-thinkers-are-made": [
+        "you-are-not-the-problem-but-the-label-might-be",
+        "what-arendt-meant-by-the-banality-of-evil",
+        "what-a-freudian-slip-can-and-cannot-tell-us"
+    ]
+}
 
 
 def esc(s):
@@ -648,10 +842,40 @@ def q(text):
     return esc(text)
 
 
+def sc(text):
+    """Class for labels longer than two words: they read as sentence case; shorter ones stay uppercase."""
+    return " sc" if len(text.split()) > 2 else ""
+
+
 def kind_badge(kind):
     """Type label coded by shape as well as words: Opinion is filled, Sourced explainer is boxed, Essay has a square bullet."""
     cls = {"Opinion": "opinion", "Sourced explainer": "sourced"}.get(kind, "essay")
     return f'<span class="kind kind-{cls}">{esc(kind)}</span>'
+
+
+# Planet Hoto: one small planet mark for the header and footer, lit blue on the day side and red on the dusk side.
+# Decorative only (aria-hidden), so screen readers hear the same names as before.
+GLYPH = ('<svg class="glyph" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">'
+         '<circle class="g-body" cx="12" cy="12" r="9"/>'
+         '<path class="g-day" d="M12 3a9 9 0 0 0 0 18"/><path class="g-dusk" d="M12 3a9 9 0 0 1 0 18"/></svg>')
+
+# The hero horizon: the top of one large planet, seen from orbit, with a thin orbit and a small moon.
+# It sits below the hero text, never behind it. Colors come from the --planet-* tokens in site.css.
+HORIZON = """<div class="horizon" aria-hidden="true">
+<svg viewBox="0 0 1200 260" focusable="false">
+<defs>
+<linearGradient id="ph-rim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="s-day"/><stop offset=".42" class="s-day s-fade"/><stop offset=".58" class="s-dusk s-fade"/><stop offset="1" class="s-dusk"/></linearGradient>
+<linearGradient id="ph-body" x1="0" x2="0" y1="0" y2="1"><stop offset="0" class="s-top"/><stop offset="1" class="s-bottom"/></linearGradient>
+</defs>
+<g class="stars"><circle cx="140" cy="62" r="1.6"/><circle cx="250" cy="150" r="1.2"/><circle cx="470" cy="28" r="1.4"/><circle cx="742" cy="60" r="1.2"/><circle cx="1012" cy="34" r="1.6"/><circle cx="1120" cy="150" r="1.2"/></g>
+<path class="orbit" d="M40 230Q600-190 1160 230"/>
+<path class="body" d="M28 260A1000 1000 0 0 1 1172 260Z"/>
+<path class="halo" d="M28 260A1000 1000 0 0 1 1172 260"/>
+<path class="rim" d="M28 260A1000 1000 0 0 1 1172 260"/>
+<path class="lat" d="M200 260Q600 172 1000 260"/>
+<circle class="moon" cx="914" cy="86" r="6"/>
+</svg>
+</div>"""
 
 
 def site_header(path):
@@ -663,7 +887,7 @@ def site_header(path):
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="Project Hoto, home">Project <span>Hoto</span></a>\n'
+            f'<a class="wordmark" href="/" aria-label="otohay blog, home">{GLYPH}otohay <span>blog</span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>\n'
             f'</header>')
@@ -671,7 +895,7 @@ def site_header(path):
 
 def page(path, title, description, body, script=""):
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
-    full_title = f"{SITE}: hard questions about how we live together" if title is None else f"{title} · {SITE}"
+    full_title = "otohay blog" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -682,8 +906,8 @@ def page(path, title, description, body, script=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
-<meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#151a1e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#05070d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {CSS_LINK}
 </head>
@@ -695,10 +919,11 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">Ask the hard questions. Argue them fairly.</p>
+<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
+<p>{esc(AI_NOTE)}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -796,7 +1021,8 @@ def front_page():
     for t in THEMES:
         items = [p for p in POSTS if frame(p["slug"])["theme"] == t]
         tid = "subject-" + slugify(t)
-        themes.append(f'<div class="theme"><h3 id="{tid}">{esc(t)}</h3>'
+        cls = ' class="sc"' if sc(t) else ""
+        themes.append(f'<div class="theme"><h3 id="{tid}"{cls}>{esc(t)}</h3>'
                       f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul></div>')
         side.append(f'<li><a href="#{tid}">{esc(t)} ({len(items)})</a></li>')
 
@@ -805,11 +1031,13 @@ def front_page():
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<p class="kicker">An independent journal of hard questions about society</p>
-<h1 id="hero-h">Ask the hard questions. Argue them fairly.</h1>
+<p class="kicker sc">An independent journal of hard questions about society</p>
+<h1 id="hero-h">Welcome to otohay blog.</h1>
 <p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
+<p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
+{HORIZON}
 </section>
 
 <div class="index-grid">
@@ -847,7 +1075,7 @@ def front_page():
 <div class="section-head"><h2 id="about-h">About this journal</h2></div>
 <ul class="about">
 <li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
-<li><a href="/how-i-argue/"><span class="about-t">How I argue here</span><span class="about-d">Rules I hold myself to, so you can see where fact ends and opinion begins.</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">A Vietnamese American therapist in training, what shaped me, and the rules I hold myself to.</span></a></li>
 </ul>
 </section>
 </div>
@@ -882,6 +1110,19 @@ def with_outline(body):
     return re.sub(r"<h2([^>]*)>(.*?)</h2>", tag, body, flags=re.S), items
 
 
+def narration(p):
+    """Player for an essay's AI voice file. Shown only when docs/audio/<slug>.opus exists."""
+    if not (OUT / "audio" / f"{p['slug']}.opus").is_file():
+        return ""
+    src = f"/audio/{p['slug']}.opus"
+    return (f'<section class="narration" aria-label="Listen to this essay">'
+            f'<p class="label sc">Listen · AI-generated voice (Kokoro)</p>'
+            f'<div class="player"><audio controls preload="none" aria-label="Listen to: {esc(p["title"])}">'
+            f'<source src="{src}" type="audio/ogg; codecs=opus">'
+            f'Your browser cannot play this audio. The full text is below.</audio></div>'
+            f'<p class="aside-note">The essay below is the transcript.</p></section>')
+
+
 def essay_page(p):
     f = frame(p["slug"])
     slug = p["slug"]
@@ -893,13 +1134,19 @@ def essay_page(p):
         corrections = f'<div class="corrections"><p class="label">Corrections</p><ul>{items}</ul></div>'
     after = []
     if f["sit"]:
-        after.append(f'<aside class="sit-with" aria-labelledby="sit-h"><p class="label" id="sit-h">Sit with this</p>'
+        after.append(f'<aside class="sit-with" aria-labelledby="sit-h"><p class="label sc" id="sit-h">Sit with this</p>'
                      f'<p class="sit-q">{q(f["sit"])}</p></aside>')
     if f["related"]:
         r = post(f["related"])
         rq = frame(r["slug"])["question"] or r["title"]
         after.append(f'<nav class="read-next" aria-label="Read next"><p class="label">Read next</p>'
                      f'<a href="/blog/{r["slug"]}/"><span class="q-text">{q(rq)}</span><cite>{esc(r["title"])}</cite></a></nav>')
+    rel = [s for s in RELATED.get(slug, []) if s != f["related"]]
+    if rel:
+        links = "".join(f'<a href="/blog/{s}/"><span class="q-text">{q(frame(s)["question"] or post(s)["title"])}</span>'
+                        f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
+        after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
+                     f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
     after.append('<p class="disagree"><strong>Disagree? Good.</strong> Read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
@@ -912,13 +1159,13 @@ def essay_page(p):
     return f"""<article class="essay">
 <header class="essay-head">
 <a class="back" href="/blog/">← All writing</a>
-<p class="label essay-kind">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
+<p class="label essay-kind{sc(f["theme"])}">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
 <h1>{esc(p['title'])}</h1>
 {question}
 <p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
 {voices}
 {corrections}
-{toc_phone}
+{toc_phone}{narration(p)}
 </header>
 <div class="essay-body">
 <div class="prose">
@@ -928,7 +1175,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">How I argue here</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am</a></p>
 </div>
 </article>
 """
@@ -957,7 +1204,7 @@ def episode_card(e, full=True):
 
 
 def simple(kicker, h1, lede, inner):
-    k = f'<p class="kicker">{kicker}</p>' if kicker else ""
+    k = f'<p class="kicker{sc(kicker)}">{kicker}</p>' if kicker else ""
     l = f'<p class="lede">{lede}</p>' if lede else ""
     return f"""<div class="page">
 <header class="page-head">{k}<h1>{h1}</h1>{l}</header>
@@ -975,6 +1222,8 @@ def build():
     shutil.copy(ROOT / "site.css", OUT / "site.css")
     shutil.copy(ROOT / "favicon.svg", OUT / "favicon.svg")
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
+    if (ROOT / "audio").is_dir():  # essay narrations made by scripts/make_audio.py
+        shutil.copytree(ROOT / "audio", OUT / "audio")
     shutil.copytree(ROOT / "fonts", OUT / "fonts")
     (OUT / "CNAME").write_text("hoto.lol\n")
     (OUT / ".nojekyll").write_text("")
@@ -996,7 +1245,7 @@ def build():
 
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
-        "Project Hoto podcast", "Podcast",
+        "otohay blog podcast", "Podcast",
         "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play.",
         cards)))
 
@@ -1012,10 +1261,11 @@ def build():
     ])
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
-    write("how-i-argue/index.html", page("/how-i-argue/", "How I argue here", "The rules this blog holds itself to.", simple(
-        "The method", "How I argue here",
-        "Project Hoto is one person thinking in public about hard questions. These are the rules I hold myself to, so you can tell where fact ends and opinion begins.",
-        f"""<h2 id="ideals">Where I start from</h2>
+    write("how-i-argue/index.html", page("/how-i-argue/", "Who I am and where I come from", "Who writes otohay blog, where I come from, and the rules this blog holds itself to.", simple(
+        "About me", "Who I am and where I come from",
+        "otohay blog is one person thinking in public about hard questions. Here is who that person is, where I come from, and the rules I hold myself to, so you can tell where fact ends and opinion begins.",
+        f"""{WHO_I_AM}
+<h2 id="ideals">Where I start from</h2>
 <p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
 <div class="rules-page">{ideals}</div>
 <p>{IDEALS_CREDIT}</p>
@@ -1024,6 +1274,10 @@ def build():
 <h2>The shape of a question</h2>
 <p>This is the order I am building new essays around. Each step answers something a fair reader would ask.</p>
 <ol class="shape">{shape}</ol>
+<h2>Try it yourself</h2>
+<p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
+<h2 id="ai">A note on AI</h2>
+<p>{esc(AI_NOTE_LONG)}</p>
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
@@ -1046,6 +1300,16 @@ def build():
     assert not any(f'>{label}</a>' in civic_html for label in ("Start here", "Questions")), "civic guide has a stale menu link"
     assert 'href="/blog/#start"' not in civic_html and 'aria-current="page">Civic guide</a>' in civic_html, "civic guide header is out of date"
     write("civic/index.html", civic_html)
+
+    # Voting demo: a standalone page like the civic guide (own no-network CSP, one inline script,
+    # no AdSense). vote/voting.js holds the counting code and is tested by vote/test.js (node).
+    demo = (ROOT / "vote" / "demo.html").read_text(encoding="utf-8")
+    assert "googlesyndication" not in demo and "connect-src 'none'" in demo, "voting demo must stay ad-free and no-network"
+    assert demo.count("<!--SITE_HEADER-->") == 1 and demo.count("/*VOTING_JS*/") == 1 and demo.count(plain_link) == 1
+    vote_html = (demo.replace("<!--SITE_HEADER-->", site_header("/vote/"))
+                 .replace(plain_link, CSS_LINK)
+                 .replace("/*VOTING_JS*/", (ROOT / "vote" / "voting.js").read_text(encoding="utf-8")))
+    write("vote/index.html", vote_html)
 
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
@@ -1073,7 +1337,7 @@ FOOTER_LINES = [
     'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
 ]
 # The civic guide is a standalone page with its own two-line footer, written for its no-ads, no-network promise.
-OWN_FOOTER = {"civic/index.html"}
+OWN_FOOTER = {"civic/index.html", "vote/index.html"}
 EXTERNAL_ASSET = re.compile(r'<(?:link|script|img)\b[^>]*?\b(?:src|href)\s*=\s*["\']?(?:https?:)?//', re.I)
 PLACEHOLDER = re.compile(r"\[(?:[A-Z]|\d+|TODO|TBD|XX+|\.\.\.|insert[^\]]*|placeholder[^\]]*)\]", re.I)
 

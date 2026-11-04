@@ -1,77 +1,123 @@
-/* Project Hoto: Margin. A quiet editorial journal: warm paper, one terracotta accent, serif for reading.
-   Light is the default; dark comes from prefers-color-scheme: dark.
+/* Project Hoto: Planet Hoto. One planet, lit blue on its day side and red on its dusk side, on a black sky.
+   Dark (black) is the primary look; light is a pale "daylight" version of the same identity, from prefers-color-scheme: light.
+   Red and blue are light and atmosphere: the planet, rules, borders, the current-page underline and the wordmark.
+   Body text is off-white (dark) or ink (light). Blue carries links because it passes AA in both themes.
+   The planet is the only gradient on the site, and it never sits behind text.
    Fonts: system stacks only. Editorial serif for titles, headings and body; interface sans for nav, metadata, labels, buttons.
-   The light accent (#B95B3F) is about 4.19:1 on the canvas. Use it for rules, borders, the current-page underline
-   and large text (the wordmark) only, never for small text. */
+   Type tokens (families, scale, line heights, rhythm, measure, tracking) follow review/type-tokens, DRAFT v0.1.
+   Everything is in rem or em so user font settings scale the whole system. */
 
 :root {
-  --canvas: #f7f6f2;
-  --surface: #e9e7df;
-  --text: #20262a;
-  --muted: #515d61;
-  --link: #24546a;
-  --accent: #b95b3f;
-  --border: #c5c7c2;
-  --ring: #20262a;
+  /* Dark first: Void, Night panel, Starlight, Haze, Day blue, Dusk red. */
+  --canvas: #05070d;
+  --surface: #111a2e;
+  --text: #eceff5;
+  --muted: #a6b1c6;
+  --link: #8cc4ff;
+  --accent: #ff5c63;
+  --border: #2b3654;
+  --ring: #eceff5;
+  --planet-day: #5aa9ff;
+  --planet-dusk: #ff5c63;
+  --planet-top: #182a63;
+  --planet-bottom: #05070d;
+  --planet-line: #2b3654;
+  --star: #c9d3e6;
 
-  --editorial: Georgia, Cambria, "Times New Roman", serif;
-  --interface: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Families: system fonts only, no web fonts. */
+  --font-serif: Georgia, Cambria, "Noto Serif", "Droid Serif", "Times New Roman",
+    "Noto Serif CJK SC", "Songti SC", "Noto Naskh Arabic", "Noto Serif Devanagari", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial,
+    "PingFang SC", "Hiragino Sans", "Noto Sans CJK SC", "Apple SD Gothic Neo", "Noto Sans Arabic", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  --editorial: var(--font-serif);
+  --interface: var(--font-sans);
 
-  /* Phone sizes; the desktop sizes are set at 48rem below. */
-  --fs-h1: 2.25rem;       /* blog H1 36 / 48 */
-  --fs-h2: 1.6875rem;     /* section H2 27 */
-  --fs-list: 1.5rem;      /* list title 24 */
-  --fs-h3: 1.375rem;      /* article H3 22 */
-  --fs-body: 1.125rem;    /* body 18 */
-  --fs-lead: 1.25rem;     /* lead 20 */
-  --fs-nav: 1rem;         /* nav 16 */
-  --fs-meta: 0.875rem;    /* metadata 14 */
+  /* Scale (px at 1rem = 16px), about 1.25 from a 19px body. Fluid steps use clamp(rem + vw) so zoom still works. */
+  --step--1: 0.875rem;                                        /* 14  eyebrow, meta, labels (floor) */
+  --step-0: clamp(1.125rem, 1.0625rem + 0.25vw, 1.1875rem);   /* 18 to 19  body */
+  --step-1: 1.3125rem;                                        /* 21  lede, blockquote */
+  --step-2: 1.5rem;                                           /* 24  H3, wordmark */
+  --step-3: clamp(1.5rem, 1.3rem + 1vw, 1.75rem);             /* 24 to 28  H2 */
+  --step-4: clamp(2.125rem, 1.6rem + 2.4vw, 3rem);            /* 34 to 48  H1 */
+
   --lh-body: 1.65;
-  --lh-title: 1.15;
+  --lh-lede: 1.5;
+  --lh-h1: 1.12;
+  --lh-h2: 1.18;
+  --lh-h3: 1.22;
+  --lh-ui: 1.4;           /* eyebrow, meta, nav */
+
+  --space-paragraph: 1em;
+  --space-before-h2: 2.2em;
+  --space-before-h3: 1.6em;
+  --space-after-heading: 0.45em;
+  --measure: 34em;        /* about 62 to 66 characters of Georgia; em of the text column */
+  --track-caps: 0.06em;
+  --track-wordmark: 0.04em;
+
+  /* Existing component names, now pointing at the scale. */
+  --fs-h1: var(--step-4);
+  --fs-h2: var(--step-3);
+  --fs-list: var(--step-2);   /* list title 24 */
+  --fs-h3: var(--step-2);     /* article H3 24 */
+  --fs-body: var(--step-0);
+  --fs-lead: var(--step-1);
+  --fs-nav: 1rem;             /* nav and buttons 16 */
+  --fs-meta: var(--step--1);
+  --fs-kind: var(--step--1);
+  --fs-desc: 1rem;            /* short descriptions 16 on phones, 14 from 48rem */
+  --lh-title: var(--lh-h1);
 
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
   --radius: 2px;
-  --read: 41rem;   /* about 65ch, 656px */
+  --read: var(--measure);
   --wide: 70rem;   /* 1120px */
   --gutter: 16px;
-  color-scheme: light dark;
+  color-scheme: dark light;
 
   /* Legacy names, still used by the standalone civic guide page (civic/quiz.html). That page defines
      --text, --surface, --muted and --accent from these names, so they must hold literal values here.
      Pointing them at --text, --surface, --muted or --accent makes a reference cycle and the page loses its colors. */
-  --paper: #f7f6f2;
-  --card: #e9e7df;
-  --ink: #20262a;
-  --ink-2: #515d61;
-  --hair: #c5c7c2;
-  --mark: #b95b3f;
+  --paper: #05070d;
+  --card: #111a2e;
+  --ink: #eceff5;
+  --ink-2: #a6b1c6;
+  --hair: #2b3654;
+  --mark: #ff5c63;
   --sans: var(--interface);
   --display: var(--interface);
 }
-@media (prefers-color-scheme: dark) {
+/* Daylight: the same planet under a pale sky. Ink text, a deeper blue for links, a darker red for rules. */
+@media (prefers-color-scheme: light) {
   :root {
-    --canvas: #151a1e;
-    --surface: #252d32;
-    --text: #f3f1eb;
-    --muted: #b8c2c6;
-    --link: #9fd4e5;
-    --accent: #f0a382;
-    --border: #465057;
-    --ring: #f3f1eb;
-    --paper: #151a1e;
-    --card: #252d32;
-    --ink: #f3f1eb;
-    --ink-2: #b8c2c6;
-    --hair: #465057;
-    --mark: #f0a382;
+    --canvas: #f5f7fb;
+    --surface: #e6ebf4;
+    --text: #0a1020;
+    --muted: #4a5470;
+    --link: #1d4fb8;
+    --accent: #c8102e;
+    --border: #c4cbdb;
+    --ring: #0a1020;
+    --planet-day: #2f7bff;
+    --planet-dusk: #e0283c;
+    --planet-top: #cdd7ea;
+    --planet-bottom: #f5f7fb;
+    --planet-line: #aab4ca;
+    --star: transparent;
+    --paper: #f5f7fb;
+    --card: #e6ebf4;
+    --ink: #0a1020;
+    --ink-2: #4a5470;
+    --hair: #c4cbdb;
+    --mark: #c8102e;
   }
 }
 @media (min-width: 360px) { :root { --gutter: 20px; } }
 @media (min-width: 48rem) {
   :root {
     --gutter: 32px;
-    --fs-h1: 3rem;
-    --fs-body: 1.1875rem;
+    --fs-desc: 0.875rem;
   }
 }
 
@@ -112,7 +158,7 @@ main:focus { outline: none; }
 .crisis {
   font-family: var(--interface);
   font-size: 1rem;
-  line-height: 1.4;
+  line-height: var(--lh-ui);
   text-align: center;
   padding: var(--s3) var(--gutter);
   background: var(--surface);
@@ -130,12 +176,14 @@ h1, h2, h3, h4 { font-family: var(--editorial); font-weight: 400; line-height: v
   font-family: var(--interface);
   font-size: var(--fs-meta);
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--track-caps);
   text-transform: uppercase;
-  line-height: 1.4;
+  line-height: var(--lh-ui);
   color: var(--muted);
   margin: 0;
 }
+/* One or two word labels stay uppercase; longer ones (class "sc", set in build.py) read as sentences. */
+.kicker.sc, .label.sc { text-transform: none; letter-spacing: 0.01em; }
 main { display: block; }
 .frame { width: min(var(--wide), 100% - 2 * var(--gutter)); margin-inline: auto; }
 
@@ -149,12 +197,19 @@ header.top {
 .wordmark {
   grid-area: 1 / 1; z-index: 1; justify-self: start; align-self: start;
   display: inline-flex; align-items: center; min-height: 60px;
-  font-family: var(--editorial); font-weight: 700; font-size: 1.5rem; line-height: 1;
-  letter-spacing: 0.01em; text-transform: uppercase;
+  font-family: var(--editorial); font-weight: 700; font-size: var(--step-2); line-height: 1;
+  letter-spacing: 0; text-transform: none;
   color: var(--text); text-decoration: none;
 }
 .wordmark:hover { text-decoration: underline; text-decoration-thickness: 2px; }
 .wordmark span { color: var(--accent); margin-left: 0.25em; }
+
+/* Planet mark: header and footer. Day rim blue, dusk rim red. */
+.glyph { flex: none; width: 1em; height: 1em; margin-right: 0.45em; overflow: visible; }
+.glyph .g-body { fill: var(--planet-top); }
+.glyph .g-day, .glyph .g-dusk { fill: none; stroke-width: 2.25; }
+.glyph .g-day { stroke: var(--planet-day); }
+.glyph .g-dusk { stroke: var(--planet-dusk); }
 
 nav.main { display: flex; flex-wrap: wrap; gap: 0 var(--s2); }
 nav.main a {
@@ -220,15 +275,36 @@ nav.main a[aria-current="page"],
 .hero-text { max-width: 52rem; }
 .hero h1 {
   font-size: var(--fs-h1);
-  line-height: 1.15;
+  line-height: var(--lh-h1);
   margin: var(--s2) 0 var(--s3);
   text-wrap: balance;
 }
-.lede { font-size: var(--fs-lead); line-height: 1.55; max-width: 38rem; margin: 0 0 var(--s4); }
+/* The signature: a planet horizon under the hero text. Fixed aspect ratio, so the arc never distorts.
+   Strokes keep their pixel width at every size. */
+.horizon { margin: var(--s5) 0 0; aspect-ratio: 1200 / 260; }
+.horizon svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.horizon path, .horizon circle { vector-effect: non-scaling-stroke; }
+.horizon .s-day { stop-color: var(--planet-day); }
+.horizon .s-dusk { stop-color: var(--planet-dusk); }
+.horizon .s-fade { stop-opacity: 0.25; }
+.horizon .s-top { stop-color: var(--planet-top); }
+.horizon .s-bottom { stop-color: var(--planet-bottom); }
+.horizon .body { fill: url(#ph-body); }
+.horizon .halo { fill: none; stroke: url(#ph-rim); stroke-width: 9; stroke-opacity: 0.22; }
+.horizon .rim { fill: none; stroke: url(#ph-rim); stroke-width: 2; }
+.horizon .lat { fill: none; stroke: var(--planet-line); stroke-width: 1; }
+.horizon .orbit { fill: none; stroke: var(--planet-line); stroke-width: 1; }
+.horizon .moon { fill: var(--planet-dusk); }
+.horizon .stars circle { fill: var(--star); }
+.hero + .index-grid #latest { border-top: 0; }
+.lede { font-size: var(--fs-lead); line-height: var(--lh-lede); max-width: 38rem; margin: 0 0 var(--s4); }
 .page-head .lede { margin-bottom: 0; }
+/* Phone only: the Start here block sits far down the page, so the hero links to it. */
+.start-jump { margin: 0 0 var(--s4); }
+@media (min-width: 48rem) { .start-jump { display: none; } }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); margin: 0 0 var(--s5); }
 .unofficial {
-  font-family: var(--interface); font-size: var(--fs-meta); line-height: 1.55; color: var(--muted);
+  font-family: var(--interface); font-size: var(--fs-desc); line-height: 1.55; color: var(--muted);
   max-width: 44rem; margin: 0; padding: var(--s2) 0 var(--s2) var(--s4);
   border-left: 3px solid var(--accent);
 }
@@ -237,8 +313,8 @@ nav.main a[aria-current="page"],
 /* Sections: a thin rule, a regular-weight serif heading */
 .section { padding: var(--s5) 0 var(--s6); border-top: 1px solid var(--border); }
 .section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s1) var(--s6); margin-bottom: var(--s3); }
-.section-head h2 { font-size: var(--fs-h2); line-height: 1.2; margin: 0; }
-.section-head p { font-family: var(--interface); color: var(--muted); margin: 0; max-width: 34rem; font-size: var(--fs-meta); line-height: 1.5; }
+.section-head h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); margin: 0; }
+.section-head p { font-family: var(--interface); color: var(--muted); margin: 0; max-width: 34rem; font-size: var(--fs-desc); line-height: 1.5; }
 
 /* Start here: three compact doors, each a whole-row link */
 .doors { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--s5); }
@@ -269,7 +345,8 @@ nav.main a[aria-current="page"],
 /* By subject: the full archive, compact */
 .theme { padding: var(--s4) 0 var(--s2); }
 .theme:first-of-type { padding-top: var(--s2); }
-.theme h3 { margin: 0 0 var(--s1); font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.theme h3 { margin: 0 0 var(--s1); font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--muted); }
+.theme h3.sc { text-transform: none; letter-spacing: 0.01em; }
 .arow { position: relative; display: flex; flex-direction: column; justify-content: center; gap: var(--s1); padding: 0 0 var(--s2); border-top: 1px solid var(--border); }
 .arow a { font-size: 1.125rem; line-height: 1.3; align-self: flex-start; }
 .theme h3[id] { scroll-margin-top: var(--s5); }
@@ -295,8 +372,8 @@ nav.main a[aria-current="page"],
 .kind {
   display: inline-flex; align-items: center; gap: 0.5em;
   margin-right: 0.7em;
-  font-family: var(--interface); font-size: 0.8125rem; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.2;
+  font-family: var(--interface); font-size: var(--fs-kind); font-weight: 600;
+  letter-spacing: var(--track-caps); text-transform: uppercase; line-height: 1.2;
   color: var(--text);
   vertical-align: 0.06em;
 }
@@ -337,10 +414,10 @@ nav.main a[aria-current="page"],
 .back { font-family: var(--interface); font-size: var(--fs-nav); display: inline-flex; align-items: center; min-height: 44px; }
 .essay-kind { margin-top: var(--s3); }
 .essay-head h1 {
-  font-size: clamp(2rem, 1.2rem + 3vw, 3rem); font-weight: 400; line-height: 1.15;
+  font-size: var(--fs-h1); font-weight: 400; line-height: var(--lh-h1);
   margin: var(--s4) 0 var(--s3); text-wrap: balance;
 }
-.essay-q { font-size: var(--fs-lead); font-style: italic; line-height: 1.4; color: var(--muted); margin: 0 0 var(--s3); max-width: 38rem; }
+.essay-q { font-size: var(--fs-lead); font-style: italic; line-height: var(--lh-lede); color: var(--muted); margin: 0 0 var(--s3); max-width: 38rem; }
 .essay-meta { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: 0; }
 .voices { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: var(--s2) 0 0; }
 .voices b { color: var(--text); font-weight: 700; }
@@ -371,20 +448,23 @@ nav.main a[aria-current="page"],
     background: linear-gradient(var(--accent) 0 0) 6px 0 / calc(100% - 12px) 2px no-repeat;
   }
 }
+.prose { text-wrap: pretty; }
 .prose p, .prose li { line-height: var(--lh-body); }
-.prose p { margin: 0 0 1.1em; }
-.prose h2 { font-size: var(--fs-h2); line-height: 1.2; margin: 2em 0 0.5em; }
+.prose p { margin: 0 0 var(--space-paragraph); }
+.prose h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); margin: var(--space-before-h2) 0 var(--space-after-heading); text-wrap: balance; }
 .prose section:first-child > h2:first-child { margin-top: 0; }
 .prose h2[id] { scroll-margin-top: var(--s5); }
-.prose h3 { font-size: var(--fs-h3); line-height: 1.25; margin: 1.6em 0 0.4em; }
+.prose h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); margin: var(--space-before-h3) 0 var(--space-after-heading); text-wrap: balance; }
 .prose ul, .prose ol { padding-left: 1.3em; margin: 0 0 1.2em; }
 .prose li { margin-bottom: 0.5em; }
 .prose ul.plain { list-style: none; padding-left: 0; }
 .prose ul.plain > li { padding-left: var(--s4); border-left: 1px solid var(--border); }
 .prose strong { font-weight: 700; }
 .prose a { text-decoration-thickness: 1px; overflow-wrap: anywhere; }
-.prose blockquote { margin: 1.6em 0; padding: 4px 0 4px var(--s5); border-left: 3px solid var(--accent); font-size: var(--fs-lead); font-style: italic; line-height: 1.5; }
-.prose .eyebrow { font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 2.2em 0 0.3em; }
+.prose blockquote { margin: 1.6em 0; padding: 4px 0 4px var(--s5); border-left: 3px solid var(--accent); font-size: var(--fs-lead); font-style: italic; line-height: var(--lh-lede); }
+/* Post eyebrows are all longer than two words, so they read as sentence case. Add class "caps" to force uppercase on a short one. */
+.prose .eyebrow { font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; line-height: var(--lh-ui); letter-spacing: 0.01em; color: var(--muted); margin: 2.2em 0 0.3em; }
+.prose .eyebrow.caps { letter-spacing: var(--track-caps); text-transform: uppercase; }
 .prose .eyebrow + h2 { margin-top: 0; }
 .prose img { max-width: 100%; height: auto; }
 .prose table { display: block; max-width: 100%; overflow-x: auto; }
@@ -395,8 +475,8 @@ nav.main a[aria-current="page"],
 }
 .prose section#sources > h2 { margin-top: 0; }
 .prose #sources h2, .prose h2#sources {
-  font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.06em;
-  text-transform: uppercase; line-height: 1.4; color: var(--muted); margin-bottom: var(--s3);
+  font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; letter-spacing: var(--track-caps);
+  text-transform: uppercase; line-height: var(--lh-ui); color: var(--muted); margin-bottom: var(--s3);
 }
 .prose h2#sources { margin-bottom: var(--s3); }
 .prose ul.sources { font-size: 1rem; line-height: 1.55; overflow-wrap: anywhere; }
@@ -422,9 +502,9 @@ nav.main a[aria-current="page"],
 /* Simple pages (podcast, method, privacy, 404) */
 .page { width: min(var(--wide), 100% - 2 * var(--gutter)); margin-inline: auto; padding: var(--s6) 0 var(--s7); }
 .page-head { max-width: 50rem; margin-bottom: var(--s6); }
-.page-head h1 { font-size: var(--fs-h1); line-height: 1.15; margin: var(--s3) 0 var(--s4); }
+.page-head h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); text-wrap: balance; margin: var(--s3) 0 var(--s4); }
 .page-body { max-width: var(--read); }
-.page-body h2 { font-size: var(--fs-h2); line-height: 1.2; margin: 1.8em 0 0.4em; }
+.page-body h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); margin: 1.8em 0 0.4em; }
 .page-body h2:first-child { margin-top: 0; }
 .page-body p a { display: inline-block; padding: 10px 0; margin: -10px 0; }
 .page-body .more, .page-body .cta { margin-top: 0; }
@@ -471,7 +551,7 @@ footer {
   font-family: var(--interface); font-size: 1rem; line-height: 1.55; color: var(--muted);
 }
 footer p { margin: 0 0 var(--s2); max-width: 46rem; }
-footer .foot-mark { font-family: var(--editorial); font-size: 1.125rem; line-height: 1.3; color: var(--text); margin: 0 0 var(--s2); max-width: none; }
+footer .foot-mark { display: flex; align-items: center; font-family: var(--editorial); font-size: 1.125rem; line-height: 1.3; color: var(--text); margin: 0 0 var(--s2); max-width: none; }
 footer nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); margin-bottom: var(--s3); }
 footer nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 footer p a { display: inline-flex; align-items: center; min-height: 44px; }
@@ -480,6 +560,15 @@ footer p a { display: inline-flex; align-items: center; min-height: 44px; }
   .actions .cta { flex: 1 1 100%; }
 
 }
+
+/* Civic guide (civic/quiz.html) draws a left-to-right policy line. Red and blue read as US parties there,
+   so its result band and answer controls stay neutral instead of taking the red accent. */
+.track > .band { background: var(--muted); }
+.opts label input { accent-color: var(--text); }
+
+/* Non-Latin scripts: no faux caps or tracking, looser leading. */
+:is(:lang(zh), :lang(ja), :lang(ko)) :is(.kicker, .label, .eyebrow) { text-transform: none; letter-spacing: 0; }
+:is(:lang(zh), :lang(ja), :lang(ko), :lang(ar)) { --lh-body: 1.8; }
 
 /* Print: black on white, no menu or outline sidebar. The crisis strip stays. */
 @media print {
