@@ -438,6 +438,13 @@ UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a per
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
+AI_NOTE = ("I made this site with help from AI. I'm still trying to understand what AI means for writing, "
+           "and I want to be honest with you about it while I figure that out.")
+
+AI_NOTE_LONG = ("I built this site with AI tools, and some of the writing here was organized and edited with them too. "
+                "I'm still learning what that means for honesty, for craft, and for the people who read this. "
+                "I'll keep updating this note as my thinking changes.")
+
 TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU."
 
 
@@ -656,6 +663,7 @@ def page(path, title, description, body, script=""):
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
+<p>{esc(AI_NOTE)}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -1020,6 +1028,8 @@ def build():
 <ol class="shape">{shape}</ol>
 <h2>Try it yourself</h2>
 <p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
+<h2 id="ai">A note on AI</h2>
+<p>{esc(AI_NOTE_LONG)}</p>
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
