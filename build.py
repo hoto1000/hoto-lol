@@ -1087,6 +1087,21 @@ def with_outline(body):
     return re.sub(r"<h2([^>]*)>(.*?)</h2>", tag, body, flags=re.S), items
 
 
+def video(p):
+    """Vertical video essay (Nick's cloned voice). Shown only when video/<slug>.mp4 exists."""
+    if not (ROOT / "video" / f"{p['slug']}.mp4").is_file():
+        return ""
+    src, poster = f"/video/{p['slug']}.mp4", f"/video/{p['slug']}.jpg"
+    poster_attr = f' poster="{poster}"' if (ROOT / "video" / f"{p['slug']}.jpg").is_file() else ""
+    return (f'<section class="essay-video" aria-label="Watch this essay">'
+            f'<p class="label sc">Watch · AI-generated voice (my own cloned voice)</p>'
+            f'<video controls playsinline preload="none"{poster_attr} aria-label="Video: {esc(p["title"])}">'
+            f'<source src="{src}" type="video/mp4">'
+            f'Your browser cannot play this video. The full text is below.</video>'
+            f'<p class="aside-note">Captions are burned in. The essay below is the full text. '
+            f'More videos: @hotolosophy on TikTok.</p></section>')
+
+
 def narration(p):
     """Player for an essay's AI voice file. Shown only when docs/audio/<slug>.opus exists."""
     if not (OUT / "audio" / f"{p['slug']}.opus").is_file():
@@ -1142,7 +1157,7 @@ def essay_page(p):
 <p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
 {voices}
 {corrections}
-{toc_phone}{narration(p)}
+{toc_phone}{video(p)}{narration(p)}
 </header>
 <div class="essay-body">
 <div class="prose">
@@ -1201,6 +1216,8 @@ def build():
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
     if (ROOT / "audio").is_dir():  # essay narrations made by scripts/make_audio.py
         shutil.copytree(ROOT / "audio", OUT / "audio")
+    if (ROOT / "video").is_dir():  # vertical video essays made from the ElevenLabs recordings
+        shutil.copytree(ROOT / "video", OUT / "video")
     shutil.copytree(ROOT / "fonts", OUT / "fonts")
     (OUT / "CNAME").write_text("hoto.lol\n")
     (OUT / ".nojekyll").write_text("")
