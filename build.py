@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds the Project Hoto site (hoto.lol) into ./docs. Run: python3 build.py
+"""Builds the otohay blog site (hoto.lol) into ./docs. Run: python3 build.py
 
 To add a blog post: write the body HTML in content/posts/<slug>.html,
 then add an entry to POSTS below (newest first).
@@ -657,7 +657,7 @@ RULES = [
 ]
 
 # Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
-# nonprofit in Springfield, Missouri. Project Hoto is not affiliated with them.
+# nonprofit in Springfield, Missouri. otohay blog is not affiliated with them.
 IDEALS = [
     ("Neighbors look after neighbors.", "Storms, layoffs, hunger and family crises hit whole towns at once. I start from the belief that we owe each other help when they do."),
     ("Help now, and a way forward.", "Good help meets the urgent need today and leaves people more able to run their own lives tomorrow. I try to judge policies by both."),
@@ -904,7 +904,7 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
-<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
+<p class="foot-mark">{GLYPH}otohay blog</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
