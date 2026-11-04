@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "two-piles-what-epictetus-meant-by-up-to-us",
+        "title": 'Two piles: what Epictetus meant by "up to us"',
+        "date": "2026-11-03",
+        "summary": "A student reading of the Stoic split between what is up to us and what is not: how I use it on heavy days, its line into cognitive therapy, and where it stops working.",
+    },
+    {
         "slug": "somewhere-to-put-it",
         "title": "Somewhere to put it: what society owes kids with nowhere to go",
         "date": "2026-11-03",
@@ -483,6 +489,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "two-piles-what-epictetus-meant-by-up-to-us": {
+        "question": "What is actually up to me today?",
+        "theme": "Mind and how to live",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from published sources and my earlier posts, then reviewed by me.",
+        "sit": "What's one thing today that isn't up to you?",
+        "related": "a-rest-from-happiness",
+        "voices": ["Epictetus", "Albert Ellis", "Aaron Beck"],
+    },
     "somewhere-to-put-it": {
         "question": "Where is a kid supposed to put the anger?",
         "theme": "Mental health",
