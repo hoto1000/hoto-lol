@@ -899,6 +899,7 @@ def page(path, title, description, body, script=""):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
+<aside class="ai-note" aria-label="About AI on this site">{esc(AI_NOTE)}</aside>
 {site_header(path)}
 <main id="main" tabindex="-1">
 {body}
@@ -908,7 +909,6 @@ def page(path, title, description, body, script=""):
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
-<p>{esc(AI_NOTE)}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
