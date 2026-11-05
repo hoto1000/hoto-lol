@@ -650,10 +650,10 @@ OPEN_QUESTIONS = [
 ]
 
 RULES = [
-    ("I label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
-    ("I link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
-    ("I make room for disagreement.", "The strongest fair objection belongs inside the essay, not outside it."),
-    ("I fix my mistakes in the open.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
+    ("I try to label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
+    ("I try to link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
+    ("I try to make room for disagreement.", "The strongest fair objection belongs inside the essay, not outside it."),
+    ("I fix mistakes when I catch them.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
 ]
 
 # Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
@@ -1051,7 +1051,7 @@ def front_page():
 <section class="section" id="about" aria-labelledby="about-h">
 <div class="section-head"><h2 id="about-h">About me</h2></div>
 <ul class="about">
-<li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
+<li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">A few beliefs I keep coming back to.</span></a></li>
 <li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">My family, my time at San Diego State, and why I write the way I do.</span></a></li>
 </ul>
 </section>
@@ -1226,31 +1226,18 @@ def build():
         "These episodes are my reflections on the same questions I write about. They're my opinion, and they aren't therapy. Nothing plays until you press Play.",
         cards)))
 
-    shape = "".join(f"<li><div><b>{esc(a)}</b><span>{esc(b)}</span></div></li>" for a, b in [
-        ("Why it matters", "Why this question is worth your time, and mine."),
-        ("What we know", "What is documented, what is uncertain, and what I think, kept apart."),
-        ("Who decides", "Who has the power to change it."),
-        ("Who pays", "Who benefits, and who bears the costs."),
-        ("Who gets missed", "Who falls through the cracks, and what it would take to reach them."),
-        ("The best objection", "The strongest fair case against my view."),
-        ("One change", "A specific proposal, its trade-offs, and how we would know if it helped."),
-        ("Sources and corrections", "Every source, plus a dated note on anything I fixed."),
-    ])
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
-    write("how-i-argue/index.html", page("/how-i-argue/", "Who I am and where I come from", "Who writes otohay blog, where I come from, and the rules this blog holds itself to.", simple(
+    write("how-i-argue/index.html", page("/how-i-argue/", "Who I am and where I come from", "Who I am, where I come from, and a few things I try to do here.", simple(
         "About me", "Who I am and where I come from",
-        "I'm Nick. This page is about my family, what I believe, and the rules I try to hold myself to, so you can tell where the facts end and my opinion begins.",
+        "I'm Nick. This is my personal blog, where I share what I care about in social justice and what I've learned in school. Most of it is my opinion, so here's a little about me and where I come from.",
         f"""{WHO_I_AM}
 <h2 id="ideals">Where I start from</h2>
-<p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
+<p>These are a few beliefs I keep coming back to. I borrowed them from a community nonprofit I look up to.</p>
 <div class="rules-page">{ideals}</div>
 <p>{IDEALS_CREDIT}</p>
-<h2>Four commitments</h2>
+<h2>A few things I try to do</h2>
 <div class="rules-page">{rules}</div>
-<h2>The shape of a question</h2>
-<p>This is the order I am building new essays around. Each step answers something a fair reader would ask.</p>
-<ol class="shape">{shape}</ol>
 <h2>Try it yourself</h2>
 <p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
 <h2>What this is not</h2>
