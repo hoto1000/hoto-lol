@@ -24,6 +24,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "the-queue-is-the-policy",
+        "title": "The queue is the policy: who pays the hidden time tax?",
+        "date": "2026-11-04",
+        "summary": "A student's argument that waiting quietly decides who can use a system: Social Security phone wait times, who can afford to hold, my own disability insurance paperwork, and one redesign.",
+    },
+    {
         "slug": "somewhere-to-put-it",
         "title": "Somewhere to put it: what society owes kids with nowhere to go",
         "date": "2026-11-03",
@@ -483,6 +489,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "the-queue-is-the-policy": {
+        "question": "Who gets screened out when the only way in is a long wait?",
+        "theme": "Politics and civic life",
+        "kind": "Essay",
+        "note": "My own argument and experience, organized with AI help and checked against published sources.",
+        "sit": "What wait, form or phone line has worn you down, and who could afford to skip it?",
+        "related": "privilege-is-everything-you-never-had-to-think-about",
+        "voices": ["Annie Lowrey"],
+    },
     "somewhere-to-put-it": {
         "question": "Where is a kid supposed to put the anger?",
         "theme": "Mental health",
