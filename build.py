@@ -665,6 +665,13 @@ UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a per
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
+AI_NOTE = ("I made this site with help from AI. I'm still trying to understand what AI means for writing, "
+           "and I want to be honest with you about it while I figure that out.")
+
+AI_NOTE_LONG = ("I built this site with AI tools, and some of the writing here was organized and edited with them too. "
+                "I'm still learning what that means for honesty, for craft, and for the people who read this. "
+                "I'll keep updating this note as my thinking changes.")
+
 TEACHERS = "Most of these ideas aren't mine. I'm passing on what I learned from my professors at San Diego State."
 
 
@@ -859,6 +866,7 @@ def page(path, title, description, body, script=""):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
+<aside class="ai-note" aria-label="About AI on this site">{esc(AI_NOTE)}</aside>
 {site_header(path)}
 <main id="main" tabindex="-1">
 {body}
@@ -1198,6 +1206,8 @@ def build():
 <div class="rules-page">{rules}</div>
 <h2>Try it yourself</h2>
 <p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
+<h2 id="ai">A note on AI</h2>
+<p>{esc(AI_NOTE_LONG)}</p>
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
