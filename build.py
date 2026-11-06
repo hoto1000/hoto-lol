@@ -637,18 +637,6 @@ DOORS = [
     ("What makes a life feel full?", "/podcasts/#a-study-on-happiness", "Podcast", "a-study-on-happiness"),
 ]
 
-# Open questions: topics still being thought through. No essay yet, no deadline.
-OPEN_QUESTIONS = [
-    ("Who pays the paperwork tax?", "Forms, deadlines and repeat documents make people spend hours just to reach help. Which step could we remove?"),
-    ("Can a bus route decide who gets care?", "A service only helps the people who can actually reach it."),
-    ("Who gets heard at a public meeting?", "Meeting times, childcare, transit, disability access and language decide who is in the room."),
-    ("Is the public library part of the safety net?", "Internet, job searches, a cool room and company, without pretending it can replace housing or health care."),
-    ("Who does the hidden second shift?", "School forms, appointments and office hours quietly assume someone has time for unpaid care."),
-    ("What does a second chance need?", "One practical barrier after incarceration, like a housing application, without reducing anyone to their record."),
-    ("Who shows up after the storm?", "When a tornado or ice storm hits, how much rests on neighbors and local volunteers, and how should everyone else back them up?"),
-    ("Can getting help include giving it?", "One Ozarks charity's holiday program has parents pick gifts for their kids and kids pick gifts for their parents, so everyone has something to give. Could public programs protect dignity that way?"),
-]
-
 RULES = [
     ("I try to label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
     ("I try to link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
@@ -671,8 +659,7 @@ IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noop
 
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
 
-BLUNT = ("<strong>Heads up: I write bluntly.</strong> My frustration is with systems, and never with you. "
-         "If a post brings up something heavy, it's okay to stop reading any time.")
+BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
 
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
@@ -983,15 +970,12 @@ def front_page():
                       f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul></div>')
         side.append(f'<li><a href="#{tid}">{esc(t)} ({len(items)})</a></li>')
 
-    shelf = "".join(f"<li><h3>{q(a)}</h3><p>{esc(b)}</p></li>" for a, b in OPEN_QUESTIONS)
-
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<p class="kicker sc">Nick's blog about the questions I can't stop asking</p>
 <h1 id="hero-h">Welcome to otohay blog.</h1>
-<p class="lede">Hi, I'm Nick. I'm a Vietnamese American grad student training to be a marriage and family therapist. I write about the things in our society that frustrate me, why they might be that way, and what could help. I could be wrong, so I link my sources and leave room for you to disagree.</p>
-<p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
+<p class="lede">Hi, I'm Nick. This is my blog where I share my compassion for social justice issues and what I've learned in school. I'm a grad student in marriage and family therapy, so I'm still learning, and I link my sources when I can.</p>
+<p class="start-jump"><a class="jump" href="#start">New here? Start here</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
 {HORIZON}
@@ -1018,21 +1002,16 @@ def front_page():
 
 <div class="index-main">
 <section class="section" id="start" aria-labelledby="start-h">
-<div class="section-head"><h2 id="start-h">Start here</h2><p>If you're new, these are three good places to start. Pick whichever one pulls at you.</p></div>
+<div class="section-head"><h2 id="start-h">Start here</h2><p>These are the three I'd read first.</p></div>
 <ul class="doors">{"".join(doors)}</ul>
 <p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
-</section>
-
-<section class="section" id="open" aria-labelledby="open-h">
-<div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I'm still chewing on. I haven't written about them yet, and I'm taking my time.</p></div>
-<ul class="shelf">{shelf}</ul>
 </section>
 
 <section class="section" id="about" aria-labelledby="about-h">
 <div class="section-head"><h2 id="about-h">About me</h2></div>
 <ul class="about">
-<li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">A few beliefs I keep coming back to.</span></a></li>
-<li><a href="/how-i-argue/"><span class="about-t">About this blog</span><span class="about-d">What this blog is, and a few things I try to do here.</span></a></li>
+<li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">About this blog</span></a></li>
 </ul>
 </section>
 </div>
