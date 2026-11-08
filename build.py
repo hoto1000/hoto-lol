@@ -24,10 +24,112 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "why-i-think-everyone-should-try-therapy",
+        "title": "Why I think everyone should try therapy",
+        "date": "2026-11-07",
+        "summary": "A video script: why I think everyone should try therapy at least once, what surprised me in school, and three things I'm trying.",
+    },
+    {
+        "slug": "why-so-many-of-us-feel-lonely",
+        "title": "Why so many of us feel lonely",
+        "date": "2026-11-06",
+        "summary": "A video script: what the Surgeon General's report on loneliness found, what couples therapy says about needing people, and three things I'm trying.",
+    },
+    {
+        "slug": "what-fights-are-really-asking",
+        "title": "What fights are really asking",
+        "date": "2026-11-06",
+        "summary": "A video script on Emotionally Focused Therapy: why many fights are a protest, the negative cycle, what's under the anger, and three things I'm trying.",
+    },
+    {
+        "slug": "who-was-your-secure-base",
+        "title": "Who was your secure base? What attachment theory taught me",
+        "date": "2026-11-06",
+        "summary": "A video script on attachment theory: Bowlby's report, Ainsworth's Strange Situation, the love quiz, earned security, the feminist critique, and three things I'm trying.",
+    },
+    {
+        "slug": "why-mental-health-matters",
+        "title": "Why mental health matters",
+        "date": "2026-11-06",
+        "summary": "A video script: half of mental health conditions start by age 14, many people wait years for help, and three things I'm trying.",
+    },
+    {
+        "slug": "learning-to-apologize-and-move-on",
+        "title": "Learning how to apologize, and how to move on",
+        "date": "2026-11-06",
+        "summary": "A video script on repair: what couples research and restorative justice taught me about apologizing, guilt versus shame, and letting myself move on.",
+    },
+    {
+        "slug": "why-we-blame-the-person-instead-of-the-situation",
+        "title": "Why we blame the person instead of the situation",
+        "date": "2026-11-06",
+        "summary": "A video script on the fundamental attribution error: the Castro essays, the Good Samaritan study, how culture shapes blame, and three things I'm trying.",
+    },
+    {
+        "slug": "how-competition-wears-down-the-people-at-the-bottom",
+        "title": "How competition wears down the people at the bottom",
+        "date": "2026-11-06",
+        "summary": "A video script: survival of the fittest, Adam Smith's sympathy, the Matthew effect, the Whitehall study, mutual aid, and three things I'm trying.",
+    },
+    {
+        "slug": "why-therapists-learn-cultural-humility",
+        "title": "Why therapists learn cultural humility",
+        "date": "2026-11-06",
+        "summary": "A video script with some history: the Tuskegee study, cultural competence, two doctors in Oakland who offered the word humility, and three things I'm trying.",
+    },
+    {
+        "slug": "socialism-starts-with-culture-philadelphia",
+        "title": "Socialism starts with culture: Philadelphia",
+        "date": "2026-11-06",
+        "summary": "A video script: why I think neighbors practice sharing before a country votes for it, Gramsci's war of position, and what Philly has shared since 1731.",
+    },
+    {
+        "slug": "who-raises-a-kid",
+        "title": "Who raises a kid? Bronfenbrenner's circles",
+        "date": "2026-11-05",
+        "summary": "A video script on Urie Bronfenbrenner's map of everything that raises a kid, what it changed about how I think about blame, and three things I'm trying.",
+    },
+    {
+        "slug": "the-person-is-not-the-problem",
+        "title": "The person is not the problem: what narrative therapy taught me",
+        "date": "2026-11-05",
+        "summary": "A video script on Michael White and David Epston's narrative therapy, how it changed the way I talk about homelessness, and three things I'm trying.",
+    },
+    {
+        "slug": "the-identified-patient",
+        "title": "The identified patient: what one struggling kid can be carrying",
+        "date": "2026-11-05",
+        "summary": "A video script on the family therapy idea of the identified patient, where I see it outside the therapy room, and three things I'm trying.",
+    },
+    {
+        "slug": "who-gets-to-be-the-thinker",
+        "title": "Who gets to be called a thinker? Gramsci and Collins",
+        "date": "2026-11-05",
+        "summary": "A short video script: Gramsci on who gets the title of thinker, Patricia Hill Collins on knowledge built outside universities, and three steps I'm trying.",
+    },
+    {
+        "slug": "intergenerational-trauma-vietnamese-americans",
+        "title": "My parents never had a word for it: intergenerational trauma",
+        "date": "2026-11-05",
+        "summary": "A video script about intergenerational trauma as a Vietnamese American: the rules of my house, why they made sense, and three things I'm trying.",
+    },
+    {
         "slug": "somewhere-to-put-it",
         "title": "Somewhere to put it: what society owes kids with nowhere to go",
         "date": "2026-11-03",
         "summary": "Why so many kids have nowhere to put their anger: who public space is for, how Bronx kids invented hip hop as their own outlet, and what we choose to pay for.",
+    },
+    {
+        "slug": "the-story-my-family-handed-me",
+        "title": "The story my family handed me",
+        "date": "2026-11-03",
+        "summary": "A video script telling my story in scenes: growing up Vietnamese American in Pennsylvania, moving to San Diego, a role-play in therapy school, and what's helping me.",
+    },
+    {
+        "slug": "do-you-know-the-number-988",
+        "title": "Do you know the number for a mental health emergency?",
+        "date": "2026-11-03",
+        "summary": "A short video script about 988, the free and confidential crisis line most people still haven't heard of.",
     },
     {
         "slug": "where-power-and-identity-cross",
@@ -214,7 +316,7 @@ EPISODES = [
 # an episode stays a one-place edit. Every essay is led by the question it asks.
 #   question: the hard question the essay works on (shown above the title)
 #   theme:    which shelf it sits on in the question index
-#   kind:     Essay, Opinion, or Sourced explainer (opinion is always labeled)
+#   kind:     Essay, Opinion, Sourced explainer, or Video script (opinion is always labeled)
 #   sit:      one question for the reader to sit with at the end
 #   related:  slug of one essay to read next
 #   voices:   thinkers the essay itself names (never add names it doesn't use)
@@ -363,6 +465,142 @@ FRAMING = {
         "related": "a-rest-from-happiness",
         "voices": ["Aristotle", "Hobbes", "Madison", "Arendt", "Rawls"],
     },
+    "why-i-think-everyone-should-try-therapy": {
+        "question": "What keeps people from trying therapy?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "What's one thing that has kept you from trying therapy?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": ["John Norcross", "Kenneth Howard"],
+    },
+    "why-so-many-of-us-feel-lonely": {
+        "question": "Why do so many of us feel lonely?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "Who's someone you could reach out to today?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": ["Vivek Murthy", "Sue Johnson", "John Bowlby", "James Coan"],
+    },
+    "what-fights-are-really-asking": {
+        "question": "When someone you love yells about the dishes, what are they really asking?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "What do you think your last argument was really asking?",
+        "related": "the-rules-nobody-said-out-loud",
+        "voices": ["Sue Johnson", "Les Greenberg"],
+    },
+    "who-was-your-secure-base": {
+        "question": "Who was a secure base for you?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "Who was a secure base for you?",
+        "related": "what-a-freudian-slip-can-and-cannot-tell-us",
+        "voices": ["John Bowlby", "Mary Ainsworth", "Cindy Hazan", "Phillip Shaver", "Michael Rutter"],
+    },
+    "why-mental-health-matters": {
+        "question": "Why do so many of us wait years to get help?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "What's one thing you wish someone had told you about mental health when you were 14?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": ["Ronald Kessler", "Philip Wang"],
+    },
+    "learning-to-apologize-and-move-on": {
+        "question": "What did your family teach you about saying sorry?",
+        "theme": "Mind and how to live",
+        "kind": "Video script",
+        "sit": "What did your family teach you about saying sorry?",
+        "related": "the-rules-nobody-said-out-loud",
+        "voices": ["John Gottman", "Ed Tronick", "Bren\u00e9 Brown", "Howard Zehr"],
+    },
+    "why-we-blame-the-person-instead-of-the-situation": {
+        "question": "Why do we call other people jerks and ourselves just having a bad day?",
+        "theme": "Mind and how to live",
+        "kind": "Video script",
+        "sit": "When's a time someone gave you the benefit of the doubt?",
+        "related": "you-are-not-the-problem-but-the-label-might-be",
+        "voices": ["Lee Ross", "John Darley", "Daniel Batson", "Joan Miller"],
+    },
+    "how-competition-wears-down-the-people-at-the-bottom": {
+        "question": "If competition makes us better, why does it wear down the people at the bottom?",
+        "theme": "Politics and civic life",
+        "kind": "Video script",
+        "sit": "Where in your life do you feel like you're always competing?",
+        "related": "we-didnt-all-start-at-the-same-line",
+        "voices": ["Herbert Spencer", "Adam Smith", "Robert Merton", "Michael Marmot", "Peter Kropotkin"],
+    },
+    "why-therapists-learn-cultural-humility": {
+        "question": "Can you ever finish learning about someone else's culture?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "What's something you had to unlearn about another culture?",
+        "related": "what-therapy-ethics-codes-miss-about-culture",
+        "voices": ["Melanie Tervalon", "Jann Murray-Garc\u00eda", "Terry Cross"],
+    },
+    "socialism-starts-with-culture-philadelphia": {
+        "question": "Can a culture get more socialist before its politics do?",
+        "theme": "Politics and civic life",
+        "kind": "Video script",
+        "sit": "What does your block already share?",
+        "related": "what-im-learning-about-third-parties",
+        "voices": ["Antonio Gramsci"],
+    },
+    "who-raises-a-kid": {
+        "question": "When a kid struggles, who should we look at?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "Which circle are you part of?",
+        "related": "a-school-should-be-a-harbor",
+        "voices": ["Urie Bronfenbrenner"],
+    },
+    "the-person-is-not-the-problem": {
+        "question": "What changes when we separate a person from their problem?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "Which words do you use for people that make a hard moment sound like who they are?",
+        "related": "you-are-not-the-problem-but-the-label-might-be",
+        "voices": ["Michael White", "David Epston"],
+    },
+    "the-identified-patient": {
+        "question": "What is the person we call the problem carrying for everyone else?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "Who gets called the problem in your family, school or city, and what might they be carrying?",
+        "related": "you-are-not-the-problem-but-the-label-might-be",
+        "voices": ["Don D. Jackson", "Virginia Satir"],
+    },
+    "who-gets-to-be-the-thinker": {
+        "question": "Who gets to be called a thinker?",
+        "theme": "Politics and civic life",
+        "kind": "Video script",
+        "sit": "Whose work in your community deserves more credit?",
+        "related": "where-power-and-identity-cross",
+        "voices": ["Antonio Gramsci", "Patricia Hill Collins"],
+    },
+    "intergenerational-trauma-vietnamese-americans": {
+        "question": "What gets passed down when a family never had a word for it?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "What rule did your family live by?",
+        "related": "love-that-showed-up-as-food",
+        "voices": [],
+    },
+    "the-story-my-family-handed-me": {
+        "question": "What would you name the story your family handed you?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "What would you name the story your family handed you?",
+        "related": "love-that-showed-up-as-food",
+        "voices": ["Michael White"],
+    },
+    "do-you-know-the-number-988": {
+        "question": "What do you call when your mind is the emergency?",
+        "theme": "Mental health",
+        "kind": "Video script",
+        "sit": "Who is one person you could tell about 988 this week?",
+        "related": "what-we-teach-men-about-pain",
+        "voices": [],
+    },
 }
 
 # The question each episode works on, by episode slug (optional).
@@ -390,10 +628,10 @@ OPEN_QUESTIONS = [
 ]
 
 RULES = [
-    ("Opinion is labeled.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
-    ("Claims get sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
-    ("Disagreement is welcome.", "The strongest fair objection belongs inside the essay, not outside it."),
-    ("Errors get fixed.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
+    ("I label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
+    ("I link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
+    ("I make room for disagreement.", "The strongest fair objection belongs inside the essay, not outside it."),
+    ("I fix my mistakes in the open.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
 ]
 
 # Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
@@ -431,8 +669,8 @@ WHO_I_AM = """<h2 id="who">Who I am</h2>
 
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am")]
 
-BLUNT = ("<strong>Heads up: these posts are blunt.</strong> That is a style choice, not a judgment of you. "
-         "If a post stirs up something heavy, you can stop reading any time.")
+BLUNT = ("<strong>Heads up: I write bluntly.</strong> My frustration is with systems, and never with you. "
+         "If a post brings up something heavy, it's okay to stop reading any time.")
 
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
@@ -445,7 +683,7 @@ AI_NOTE_LONG = ("I built this site with AI tools, and some of the writing here w
                 "I'm still learning what that means for honesty, for craft, and for the people who read this. "
                 "I'll keep updating this note as my thinking changes.")
 
-TEACHERS = "These are not my original ideas. I post what I have learned from my past teachers, the professors of SDSU."
+TEACHERS = "Most of these ideas aren't mine. I'm passing on what I learned from my professors at San Diego State."
 
 
 # Related reading: picked offline with the open model sentence-transformers/all-MiniLM-L6-v2 (title, summary and
@@ -654,16 +892,16 @@ def page(path, title, description, body, script=""):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
+<aside class="ai-note" aria-label="About AI on this site">{esc(AI_NOTE)}</aside>
 {site_header(path)}
 <main id="main" tabindex="-1">
 {body}
 </main>
 <footer>
-<p class="foot-mark">{GLYPH}Hoto's thoughts</p>
+<p class="foot-mark">{GLYPH}Thanks for reading. Nick</p>
 <nav aria-label="Footer">{foot_nav}</nav>
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
-<p>{esc(AI_NOTE)}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </footer>
@@ -771,9 +1009,9 @@ def front_page():
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<p class="kicker sc">An independent journal of hard questions about society</p>
+<p class="kicker sc">Nick's blog about the questions I can't stop asking</p>
 <h1 id="hero-h">Welcome to otohay blog.</h1>
-<p class="lede">Essays, a podcast and a private civic self-check about power, school and how to live together. One person thinking in public, with sources, and room for you to disagree.</p>
+<p class="lede">Hi, I'm Nick. I'm a Vietnamese American grad student training to be a marriage and family therapist. I write about the things in our society that frustrate me, why they might be that way, and what could help. I could be wrong, so I link my sources and leave room for you to disagree.</p>
 <p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
@@ -801,21 +1039,21 @@ def front_page():
 
 <div class="index-main">
 <section class="section" id="start" aria-labelledby="start-h">
-<div class="section-head"><h2 id="start-h">Start here</h2><p>Three doors in. Pick the question that pulls at you.</p></div>
+<div class="section-head"><h2 id="start-h">Start here</h2><p>If you're new, these are three good places to start. Pick whichever one pulls at you.</p></div>
 <ul class="doors">{"".join(doors)}</ul>
 <p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
 </section>
 
 <section class="section" id="open" aria-labelledby="open-h">
-<div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I am still thinking through. No essay yet, and no deadline.</p></div>
+<div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I'm still chewing on. I haven't written about them yet, and I'm taking my time.</p></div>
 <ul class="shelf">{shelf}</ul>
 </section>
 
 <section class="section" id="about" aria-labelledby="about-h">
-<div class="section-head"><h2 id="about-h">About this journal</h2></div>
+<div class="section-head"><h2 id="about-h">About me</h2></div>
 <ul class="about">
 <li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
-<li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">A Vietnamese American therapist in training, what shaped me, and the rules I hold myself to.</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">My family, my time at San Diego State, and why I write the way I do.</span></a></li>
 </ul>
 </section>
 </div>
@@ -896,7 +1134,7 @@ def essay_page(p):
                         f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
         after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
                      f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
-    after.append('<p class="disagree"><strong>Disagree? Good.</strong> Read the other side\'s best case too.</p>')
+    after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
     toc_phone = toc_wide = ""
@@ -997,7 +1235,7 @@ def build():
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
         "otohay blog podcast", "Podcast",
-        "These episodes are personal reflections and opinions. They are conversation, not therapy. Nothing plays until you press Play. "
+        "These episodes are my reflections on the same questions I write about. They're my opinion, and they aren't therapy. Nothing plays until you press Play. "
         "Every essay also has its own Listen player at the top of the page.",
         cards)))
 
@@ -1015,7 +1253,7 @@ def build():
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
     write("how-i-argue/index.html", page("/how-i-argue/", "Who I am and where I come from", "Who writes otohay blog, where I come from, and the rules this blog holds itself to.", simple(
         "About me", "Who I am and where I come from",
-        "otohay blog is one person thinking in public about hard questions. Here is who that person is, where I come from, and the rules I hold myself to, so you can tell where fact ends and opinion begins.",
+        "I'm Nick. This page is about my family, what I believe, and the rules I try to hold myself to, so you can tell where the facts end and my opinion begins.",
         f"""{WHO_I_AM}
 <h2 id="ideals">Where I start from</h2>
 <p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
@@ -1065,7 +1303,7 @@ def build():
 
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
-        None, "Privacy", None, """<p>No accounts. No forms. Nothing you type here is sent to this site.</p>
+        None, "Privacy", None, """<p>I don't want your data. There are no accounts and no forms, and nothing you type here is sent to this site.</p>
 <h2>Ads</h2>
 <p>This site does not currently show ads. If that changes, this page will be updated before any ads appear.</p>
 <h2>Civic guide</h2>
@@ -1080,9 +1318,9 @@ def build():
 
     # 404
     write("404.html", page("/404", "Not found", "Page not found.", simple(
-        None, "Nothing here?", None,
-        '<p>That page does not exist, or it moved.</p>'
-        '<p class="actions"><a class="cta" href="/blog/">Go to the questions</a></p>')))
+        None, "Sorry, I can't find that page.", None,
+        '<p>It may have moved, or the link might be off.</p>'
+        '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
 SITEMAP_PAGES = ["/blog/", "/podcasts/", "/how-i-argue/", "/privacy/"]
