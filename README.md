@@ -20,6 +20,7 @@ Static blog + podcast site. No framework, no trackers.
 - Blog, podcast, method and privacy pages are open to search engines (`index, follow`, a canonical link, and an RSS link to `/feed.xml`).
 - The civic guide, voting demo and 404 page stay `noindex` and are never in the sitemap. `robots.txt` allows crawling so search engines can read that `noindex` tag.
 - `build.py` writes `docs/sitemap.xml` (every post plus the main pages) and `docs/feed.xml` (RSS of all essays). `check_site.py` checks both.
+- Link previews: every listed page carries Open Graph and social card tags (title, summary, full canonical address) and the share picture `share.png` (1200 x 630, made by `python3 scripts/make_share_image.py`, needs Pillow). Hidden pages get none. `check_site.py` checks them.
 - After deploying, submit `https://hoto.lol/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
 
 ## Look and editorial framing (question-journal redesign)
