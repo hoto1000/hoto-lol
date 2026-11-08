@@ -118,7 +118,8 @@ def main():
             if external(s):
                 err(rel, f"<{tag} src> goes to another host: {s}")
         for l in p.links:
-            if external(l.get("href")):
+            own_canonical = l.get("rel") == "canonical" and (l.get("href") or "").startswith(build.SITE_URL + "/")
+            if external(l.get("href")) and not own_canonical:
                 err(rel, f"<link href> goes to another host: {l['href']}")
         # structure
         if p.tags.get("main", 0) != 1:
@@ -149,6 +150,24 @@ def main():
                 warns.append(f"{rel}: links /site.css without the ?v= hash (reported, not changed)")
         elif want_link not in text:
             err(rel, f"stylesheet link is not {want_link}")
+        # link previews: listed pages carry Open Graph tags that match the canonical link and
+        # point at this site's own share image; hidden pages carry none
+        og = {m.get("property"): m.get("content", "") for m in p.metas if m.get("property", "").startswith(("og:", "article:"))}
+        canon = [l.get("href", "") for l in p.links if l.get("rel") == "canonical"]
+        if want_robots == "index, follow":
+            for key in ("og:title", "og:description", "og:url", "og:image", "og:image:alt", "og:type"):
+                if not og.get(key):
+                    err(rel, f"{key} meta missing")
+            if canon != [og.get("og:url")] or not og.get("og:url", "").startswith(build.SITE_URL + "/"):
+                err(rel, f"canonical {canon} and og:url {og.get('og:url')!r} should be the same full hoto.lol address")
+            if og.get("og:image") != build.SITE_URL + build.SHARE_IMAGE or not (DOCS / build.SHARE_IMAGE.lstrip("/")).is_file():
+                err(rel, f"og:image should be {build.SITE_URL + build.SHARE_IMAGE} and exist in docs/")
+            if p.meta("twitter:card") != ["summary_large_image"]:
+                err(rel, "twitter:card meta missing")
+            if rel.startswith("blog/") and rel != "blog/index.html" and og.get("og:type") != "article":
+                err(rel, "post should have og:type article")
+        elif og or canon:
+            err(rel, "hidden page should not carry a canonical link or link preview tags")
         # links
         for a in p.a:
             href = a.get("href")
