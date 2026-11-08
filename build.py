@@ -925,12 +925,17 @@ def page(path, title, description, body, script="", published=None):
 {body}
 </main>
 <footer>
+<div class="foot-top">
 <p class="foot-mark">{GLYPH}Thanks for reading. Nick</p>
 <nav aria-label="Footer">{foot_nav}</nav>
+<p class="foot-follow">Follow along with the <a href="/feed.xml">RSS feed</a>.</p>
+</div>
+<div class="foot-fine">
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
+</div>
 </footer>
 {script}
 </body>
@@ -1367,8 +1372,9 @@ def build():
     # 404
     write("404.html", page("/404", "Not found", "Page not found.", simple(
         None, "Sorry, I can't find that page.", None,
-        '<p>It may have moved, or the link might be off.</p>'
-        '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
+        '<p>It may have moved, or the link might be off. Here are some places to start.</p>'
+        + not_found_links()
+        + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
 SITEMAP_PAGES = ["/blog/", "/podcasts/", "/how-i-argue/", "/privacy/"]
@@ -1391,16 +1397,34 @@ def rfc822(d):
     return datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%a, %d %b %Y 12:00:00 +0000")
 
 
+def not_found_links():
+    """The 404 page: the newest posts and the subjects, so a wrong link still leads somewhere.
+    Links are absolute because the 404 page is served at any address."""
+    newest = sorted(POSTS, key=lambda p: p["date"], reverse=True)[:5]
+    posts = "".join(f'<li><a href="/blog/{p["slug"]}/">{esc(p["title"])}</a></li>' for p in newest)
+    subjects = "".join(f'<li><a href="/blog/#subject-{slugify(t)}">{esc(t)}</a></li>' for t in THEMES)
+    return (f'<div class="lost"><section aria-labelledby="lost-new"><h2 id="lost-new">Newest writing</h2><ul>{posts}</ul></section>'
+            f'<section aria-labelledby="lost-sub"><h2 id="lost-sub">Browse by subject</h2><ul>{subjects}</ul></section></div>')
+
+
+def feed_body(slug):
+    """A post's full text for feed readers, with site links made absolute so they work outside hoto.lol."""
+    body = body_of(slug)
+    return re.sub(r'(href|src)="/(?!/)', lambda m: f'{m.group(1)}="{SITE_URL}/', body)
+
+
 def write_feed():
     """feed.xml: RSS 2.0 for the essays, newest first, so readers and newsletter tools can follow."""
     items = "".join(
         f"<item><title>{html.escape(p['title'])}</title>"
         f"<link>{SITE_URL}/blog/{p['slug']}/</link><guid>{SITE_URL}/blog/{p['slug']}/</guid>"
-        f"<pubDate>{rfc822(p['date'])}</pubDate><description>{html.escape(p['summary'])}</description></item>\n"
+        f"<pubDate>{rfc822(p['date'])}</pubDate><description>{html.escape(p['summary'])}</description>"
+        f"<content:encoded>{html.escape(feed_body(p['slug']))}</content:encoded></item>\n"
         for p in sorted(POSTS, key=lambda p: p["date"], reverse=True))
     (OUT / "feed.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n'
+        '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom"><channel>\n'
         f"<title>{SITE}</title><link>{SITE_URL}/blog/</link>"
+        f'<atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>'
         "<description>An independent, personal journal of hard questions about society. Education and opinion, not therapy or advice.</description>"
         "<language>en-us</language>\n" + items + "</channel></rss>\n", encoding="utf-8")
 

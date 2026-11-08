@@ -581,6 +581,21 @@ footer .foot-mark { display: flex; align-items: center; font-family: var(--edito
 footer nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); margin-bottom: var(--s3); }
 footer nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 footer p a { display: inline-flex; align-items: center; min-height: 44px; }
+/* Footer in two parts, like most blogs: name, links and follow on top, small print below. */
+footer .foot-top { padding-bottom: var(--s4); margin-bottom: var(--s4); border-bottom: 1px solid var(--border); }
+footer .foot-follow { margin: 0; }
+footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom: var(--s1); }
+@media (min-width: 48rem) {
+  footer .foot-top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s6); }
+  footer .foot-top .foot-mark, footer .foot-top nav { margin: 0; }
+  footer .foot-follow { margin-left: auto; }
+}
+/* 404: newest posts and subjects side by side on wide screens. */
+.lost { display: grid; gap: var(--s5); margin: var(--s5) 0; }
+.lost h2 { font-size: var(--fs-h3); margin: 0 0 var(--s2); }
+.lost ul { margin: 0; padding-left: 1.2em; }
+.lost li a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (min-width: 48rem) { .lost { grid-template-columns: 1fr 1fr; } }
 
 @media (max-width: 640px) {
   .actions .cta { flex: 1 1 100%; }
