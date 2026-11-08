@@ -9,6 +9,20 @@ Static blog + podcast site. No framework, no trackers.
 
 - Civic guide: edit `civic/quiz.html` (standalone page, no ads, no-network CSP). `build.py` copies it to `docs/civic/index.html` and refuses to build if ads are added to it. Review notes: `civic/REVIEW.md`, `civic/PHILOSOPHY-GUIDE.md`.
 
+## Essay audio
+
+- Every essay gets a Listen player from a file in `audio/`, hosted on this site. Speechify is not used (the build fails if a page mentions it; the old Speechify episodes are listed in `review/speechify-retired.md`).
+- Default voice: Kokoro, made offline with `python3 scripts/make_audio.py <slug>` into `audio/<slug>.opus`.
+- Nick's ElevenLabs voice: export the narration as MP3 and save it as `audio/<slug>.mp3`. It replaces the Kokoro player for that essay, labeled as an AI clone of Nick's voice. `python3 scripts/make_audio.py <slug> --dry-run` prints the text to paste into ElevenLabs.
+
+## Search engines
+
+- Blog, podcast, method and privacy pages are open to search engines (`index, follow`, a canonical link, and an RSS link to `/feed.xml`).
+- The civic guide, voting demo and 404 page stay `noindex` and are never in the sitemap. `robots.txt` allows crawling so search engines can read that `noindex` tag.
+- `build.py` writes `docs/sitemap.xml` (every post plus the main pages) and `docs/feed.xml` (RSS of all essays). `check_site.py` checks both.
+- Link previews: every listed page carries Open Graph and social card tags (title, summary, full canonical address) and the share picture `share.png` (1200 x 630, made by `python3 scripts/make_share_image.py`, needs Pillow). Hidden pages get none. `check_site.py` checks them.
+- After deploying, submit `https://hoto.lol/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
+
 ## Look and editorial framing (question-journal redesign)
 
 - Every essay is framed by a question. Add or edit that in `FRAMING` in `build.py`, keyed by the post slug: `question`, `theme` (one of `THEMES`), `kind` (Essay, Opinion, Sourced explainer), `sit` (the closing "Sit with this" question), `related` (slug of one "Read next" piece), `voices` (thinkers the piece talks with), and optional `note` and `corrections` (dated fixes shown at the top of the post). `build.py` refuses to build if a slug, theme or related link is wrong.
