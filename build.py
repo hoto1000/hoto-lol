@@ -10,6 +10,7 @@ import html
 import math
 import pathlib
 import re
+import difflib
 import shutil
 
 ROOT = pathlib.Path(__file__).parent
@@ -1136,10 +1137,29 @@ def narration(p):
             f'<p class="aside-note">The essay below is the transcript.</p></section>')
 
 
+# A short "written by" card at the end of every post, like the author box on Substack or
+# LinkedIn articles. The words come from the home page intro Nick approved.
+AUTHOR_CARD = ('<aside class="author-card" aria-labelledby="author-h">'
+               '<span class="avatar avatar-lg" aria-hidden="true">N</span>'
+               '<div><p class="label" id="author-h">Written by Nick</p>'
+               '<p class="author-bio">I\'m a Vietnamese American grad student training to be a marriage and family therapist. '
+               'I write about the things in our society that frustrate me, why they might be that way, and what could help.</p>'
+               '<p class="author-more"><a href="/how-i-argue/">More about me</a></p></div></aside>')
+
+
+def echoes_title(title, question):
+    """True when the framing question nearly repeats the post title (for example
+    "Why so many of us feel lonely" and "Why do so many of us feel lonely?")."""
+    words = lambda s: re.sub(r"[^a-z ]", "", s.lower()).split()
+    return difflib.SequenceMatcher(None, words(title), words(question)).ratio() >= 0.8
+
+
 def essay_page(p):
     f = frame(p["slug"])
     slug = p["slug"]
-    question = f'<p class="essay-q">{q(f["question"])}</p>' if f["question"] else ""
+    # The framing question sits under the title, unless it only says the title again.
+    question = (f'<p class="essay-q">{q(f["question"])}</p>'
+                if f["question"] and not echoes_title(p["title"], f["question"]) else "")
     voices = (f'<p class="voices">Ideas from <b>{esc(", ".join(f["voices"]))}</b></p>' if f["voices"] else "")
     corrections = ""
     if f["corrections"]:
@@ -1160,6 +1180,7 @@ def essay_page(p):
                         f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
         after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
                      f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
+    after.append(AUTHOR_CARD)
     after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
@@ -1175,7 +1196,7 @@ def essay_page(p):
 <p class="label essay-kind{sc(f["theme"])}">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
 <h1>{esc(p['title'])}</h1>
 {question}
-<p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
+<div class="byline"><span class="avatar" aria-hidden="true">N</span><p class="byline-text"><span class="byline-name">By Nick</span><span class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</span></p></div>
 {voices}
 {corrections}
 {toc_phone}{narration(p)}
