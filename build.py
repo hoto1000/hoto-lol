@@ -863,14 +863,40 @@ NOINDEX_PATHS = {"/404"}
 
 
 def canonical(path):
-    """The one address search engines should use. The home page and /blog/ are the same page."""
-    return "/blog/" if path == "/" else path
+    """The one full address search engines should use. The home page and /blog/ are the same page."""
+    return SITE_URL + ("/blog/" if path == "/" else path)
 
 
-def page(path, title, description, body, script=""):
+SHARE_IMAGE = "/share.png"  # made by scripts/make_share_image.py, 1200 x 630
+SHARE_ALT = "otohay blog, hoto.lol, above a planet lit blue on one side and red on the other"
+
+
+def share_tags(path, title, description, published=None):
+    """Link preview tags (Open Graph and social cards) for pages search engines may list.
+    They only describe the page; nothing here loads from another site."""
+    og_title = SITE if title is None else title
+    tags = [
+        ("property", "og:site_name", SITE),
+        ("property", "og:type", "article" if published else "website"),
+        ("property", "og:title", og_title),
+        ("property", "og:description", description),
+        ("property", "og:url", canonical(path)),
+        ("property", "og:image", SITE_URL + SHARE_IMAGE),
+        ("property", "og:image:width", "1200"),
+        ("property", "og:image:height", "630"),
+        ("property", "og:image:alt", SHARE_ALT),
+        ("property", "og:locale", "en_US"),
+    ]
+    if published:
+        tags += [("property", "article:published_time", published)]
+    tags.append(("name", "twitter:card", "summary_large_image"))
+    return "".join(f'<meta {k}="{v}" content="{esc(c)}">\n' for k, v, c in tags)
+
+
+def page(path, title, description, body, script="", published=None):
     hidden = path in NOINDEX_PATHS
     robots = "noindex, nofollow" if hidden else "index, follow"
-    canon = "" if hidden else f'<link rel="canonical" href="{canonical(path)}">\n'
+    canon = "" if hidden else f'<link rel="canonical" href="{canonical(path)}">\n' + share_tags(path, title, description, published)
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = "otohay blog" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
@@ -1207,6 +1233,7 @@ def build():
     OUT.mkdir()
     shutil.copy(ROOT / "site.css", OUT / "site.css")
     shutil.copy(ROOT / "favicon.svg", OUT / "favicon.svg")
+    shutil.copy(ROOT / "share.png", OUT / "share.png")
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
     if (ROOT / "audio").is_dir():  # essay narrations made by scripts/make_audio.py
         shutil.copytree(ROOT / "audio", OUT / "audio")
@@ -1230,7 +1257,7 @@ def build():
     write("blog/index.html", page("/blog/", "Writing", desc, front_page()))
 
     for p in POSTS:
-        write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p)))
+        write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p), published=p["date"]))
 
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
@@ -1366,6 +1393,8 @@ FOOTER_LINES = [
 # The civic guide is a standalone page with its own two-line footer, written for its no-ads, no-network promise.
 OWN_FOOTER = {"civic/index.html", "vote/index.html"}
 EXTERNAL_ASSET = re.compile(r'<(?:link|script|img)\b[^>]*?\b(?:src|href)\s*=\s*["\']?(?:https?:)?//', re.I)
+# A canonical link to this site's own full address is a label for search engines, not a load.
+OWN_CANONICAL = re.compile(r'<link rel="canonical" href="https://hoto\.lol/[^"]*">')
 PLACEHOLDER = re.compile(r"\[(?:[A-Z]|\d+|TODO|TBD|XX+|\.\.\.|insert[^\]]*|placeholder[^\]]*)\]", re.I)
 
 
@@ -1380,7 +1409,7 @@ def check_output():
             rest = rest.replace(b, "")
         if "\u2014" in rest:
             errors.append(f"{rel}: em dash outside an essay body")
-        if m := EXTERNAL_ASSET.search(text):
+        if m := EXTERNAL_ASSET.search(OWN_CANONICAL.sub("", text)):
             errors.append(f"{rel}: external URL in a link, script or img tag: {m.group(0)[:80]}")
         if CRISIS not in text:
             errors.append(f"{rel}: crisis strip text is missing or changed")
