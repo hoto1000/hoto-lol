@@ -430,6 +430,21 @@ nav.main a[aria-current="page"],
 }
 .essay-q { font-size: var(--fs-lead); font-style: italic; line-height: var(--lh-lede); color: var(--muted); margin: 0 0 var(--s3); max-width: 38rem; }
 .essay-meta { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: 0; }
+/* Byline and author card, in the style of Substack and LinkedIn articles. The "N" circle uses the
+   planet's day and dusk colors as its ring, like the site glyph. */
+.byline { display: flex; align-items: center; gap: var(--s3); margin: var(--s4) 0 0; padding: var(--s3) 0; border-block: 1px solid var(--border); }
+.byline-text { display: flex; flex-direction: column; margin: 0; font-family: var(--interface); line-height: 1.35; }
+.byline-name { font-size: var(--fs-nav); font-weight: 600; color: var(--text); }
+.avatar { flex: none; display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  border: 2px solid; border-color: var(--planet-day) var(--planet-dusk) var(--planet-dusk) var(--planet-day);
+  background: var(--surface); color: var(--text); font-family: var(--editorial); font-size: 1.125rem; font-weight: 700; }
+.avatar-lg { width: 3.5rem; height: 3.5rem; font-size: 1.5rem; }
+.author-card { display: flex; align-items: flex-start; gap: var(--s4); margin: var(--s6) 0 0; padding: var(--s5); border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.author-card p { margin: 0; }
+.author-card .author-bio { margin-top: var(--s2); font-size: var(--fs-nav); line-height: 1.5; }
+.author-card .author-more { margin-top: var(--s2); font-family: var(--interface); font-size: var(--fs-nav); font-weight: 600; }
+.author-more a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 22rem) { .author-card { flex-direction: column; gap: var(--s3); padding: var(--s4); } }
 .voices { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: var(--s2) 0 0; }
 .voices b { color: var(--text); font-weight: 700; }
 .corrections { font-family: var(--interface); font-size: var(--fs-nav); background: var(--surface); border-left: 3px solid var(--accent); padding: var(--s3) var(--s4); margin: var(--s4) 0 0; }
@@ -566,6 +581,21 @@ footer .foot-mark { display: flex; align-items: center; font-family: var(--edito
 footer nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); margin-bottom: var(--s3); }
 footer nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 footer p a { display: inline-flex; align-items: center; min-height: 44px; }
+/* Footer in two parts, like most blogs: name, links and follow on top, small print below. */
+footer .foot-top { padding-bottom: var(--s4); margin-bottom: var(--s4); border-bottom: 1px solid var(--border); }
+footer .foot-follow { margin: 0; }
+footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom: var(--s1); }
+@media (min-width: 48rem) {
+  footer .foot-top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s6); }
+  footer .foot-top .foot-mark, footer .foot-top nav { margin: 0; }
+  footer .foot-follow { margin-left: auto; }
+}
+/* 404: newest posts and subjects side by side on wide screens. */
+.lost { display: grid; gap: var(--s5); margin: var(--s5) 0; }
+.lost h2 { font-size: var(--fs-h3); margin: 0 0 var(--s2); }
+.lost ul { margin: 0; padding-left: 1.2em; }
+.lost li a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (min-width: 48rem) { .lost { grid-template-columns: 1fr 1fr; } }
 
 @media (max-width: 640px) {
   .actions .cta { flex: 1 1 100%; }

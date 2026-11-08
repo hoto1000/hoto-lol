@@ -10,6 +10,7 @@ import html
 import math
 import pathlib
 import re
+import difflib
 import shutil
 
 ROOT = pathlib.Path(__file__).parent
@@ -863,14 +864,40 @@ NOINDEX_PATHS = {"/404"}
 
 
 def canonical(path):
-    """The one address search engines should use. The home page and /blog/ are the same page."""
-    return "/blog/" if path == "/" else path
+    """The one full address search engines should use. The home page and /blog/ are the same page."""
+    return SITE_URL + ("/blog/" if path == "/" else path)
 
 
-def page(path, title, description, body, script=""):
+SHARE_IMAGE = "/share.png"  # made by scripts/make_share_image.py, 1200 x 630
+SHARE_ALT = "otohay blog, hoto.lol, above a planet lit blue on one side and red on the other"
+
+
+def share_tags(path, title, description, published=None):
+    """Link preview tags (Open Graph and social cards) for pages search engines may list.
+    They only describe the page; nothing here loads from another site."""
+    og_title = SITE if title is None else title
+    tags = [
+        ("property", "og:site_name", SITE),
+        ("property", "og:type", "article" if published else "website"),
+        ("property", "og:title", og_title),
+        ("property", "og:description", description),
+        ("property", "og:url", canonical(path)),
+        ("property", "og:image", SITE_URL + SHARE_IMAGE),
+        ("property", "og:image:width", "1200"),
+        ("property", "og:image:height", "630"),
+        ("property", "og:image:alt", SHARE_ALT),
+        ("property", "og:locale", "en_US"),
+    ]
+    if published:
+        tags += [("property", "article:published_time", published)]
+    tags.append(("name", "twitter:card", "summary_large_image"))
+    return "".join(f'<meta {k}="{v}" content="{esc(c)}">\n' for k, v, c in tags)
+
+
+def page(path, title, description, body, script="", published=None):
     hidden = path in NOINDEX_PATHS
     robots = "noindex, nofollow" if hidden else "index, follow"
-    canon = "" if hidden else f'<link rel="canonical" href="{canonical(path)}">\n'
+    canon = "" if hidden else f'<link rel="canonical" href="{canonical(path)}">\n' + share_tags(path, title, description, published)
     foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = "otohay blog" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
@@ -898,12 +925,17 @@ def page(path, title, description, body, script=""):
 {body}
 </main>
 <footer>
+<div class="foot-top">
 <p class="foot-mark">{GLYPH}Thanks for reading. Nick</p>
 <nav aria-label="Footer">{foot_nav}</nav>
+<p class="foot-follow">Follow along with the <a href="/feed.xml">RSS feed</a>.</p>
+</div>
+<div class="foot-fine">
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
 <p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
+</div>
 </footer>
 {script}
 </body>
@@ -1110,10 +1142,29 @@ def narration(p):
             f'<p class="aside-note">The essay below is the transcript.</p></section>')
 
 
+# A short "written by" card at the end of every post, like the author box on Substack or
+# LinkedIn articles. The words come from the home page intro Nick approved.
+AUTHOR_CARD = ('<aside class="author-card" aria-labelledby="author-h">'
+               '<span class="avatar avatar-lg" aria-hidden="true">N</span>'
+               '<div><p class="label" id="author-h">Written by Nick</p>'
+               '<p class="author-bio">I\'m a Vietnamese American grad student training to be a marriage and family therapist. '
+               'I write about the things in our society that frustrate me, why they might be that way, and what could help.</p>'
+               '<p class="author-more"><a href="/how-i-argue/">More about me</a></p></div></aside>')
+
+
+def echoes_title(title, question):
+    """True when the framing question nearly repeats the post title (for example
+    "Why so many of us feel lonely" and "Why do so many of us feel lonely?")."""
+    words = lambda s: re.sub(r"[^a-z ]", "", s.lower()).split()
+    return difflib.SequenceMatcher(None, words(title), words(question)).ratio() >= 0.8
+
+
 def essay_page(p):
     f = frame(p["slug"])
     slug = p["slug"]
-    question = f'<p class="essay-q">{q(f["question"])}</p>' if f["question"] else ""
+    # The framing question sits under the title, unless it only says the title again.
+    question = (f'<p class="essay-q">{q(f["question"])}</p>'
+                if f["question"] and not echoes_title(p["title"], f["question"]) else "")
     voices = (f'<p class="voices">Ideas from <b>{esc(", ".join(f["voices"]))}</b></p>' if f["voices"] else "")
     corrections = ""
     if f["corrections"]:
@@ -1134,6 +1185,7 @@ def essay_page(p):
                         f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
         after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
                      f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
+    after.append(AUTHOR_CARD)
     after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
@@ -1149,7 +1201,7 @@ def essay_page(p):
 <p class="label essay-kind{sc(f["theme"])}">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
 <h1>{esc(p['title'])}</h1>
 {question}
-<p class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</p>
+<div class="byline"><span class="avatar" aria-hidden="true">N</span><p class="byline-text"><span class="byline-name">By Nick</span><span class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</span></p></div>
 {voices}
 {corrections}
 {toc_phone}{narration(p)}
@@ -1207,6 +1259,7 @@ def build():
     OUT.mkdir()
     shutil.copy(ROOT / "site.css", OUT / "site.css")
     shutil.copy(ROOT / "favicon.svg", OUT / "favicon.svg")
+    shutil.copy(ROOT / "share.png", OUT / "share.png")
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
     if (ROOT / "audio").is_dir():  # essay narrations made by scripts/make_audio.py
         shutil.copytree(ROOT / "audio", OUT / "audio")
@@ -1230,7 +1283,7 @@ def build():
     write("blog/index.html", page("/blog/", "Writing", desc, front_page()))
 
     for p in POSTS:
-        write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p)))
+        write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p), published=p["date"]))
 
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
@@ -1319,8 +1372,9 @@ def build():
     # 404
     write("404.html", page("/404", "Not found", "Page not found.", simple(
         None, "Sorry, I can't find that page.", None,
-        '<p>It may have moved, or the link might be off.</p>'
-        '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
+        '<p>It may have moved, or the link might be off. Here are some places to start.</p>'
+        + not_found_links()
+        + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
 SITEMAP_PAGES = ["/blog/", "/podcasts/", "/how-i-argue/", "/privacy/"]
@@ -1343,16 +1397,34 @@ def rfc822(d):
     return datetime.datetime.strptime(d, "%Y-%m-%d").strftime("%a, %d %b %Y 12:00:00 +0000")
 
 
+def not_found_links():
+    """The 404 page: the newest posts and the subjects, so a wrong link still leads somewhere.
+    Links are absolute because the 404 page is served at any address."""
+    newest = sorted(POSTS, key=lambda p: p["date"], reverse=True)[:5]
+    posts = "".join(f'<li><a href="/blog/{p["slug"]}/">{esc(p["title"])}</a></li>' for p in newest)
+    subjects = "".join(f'<li><a href="/blog/#subject-{slugify(t)}">{esc(t)}</a></li>' for t in THEMES)
+    return (f'<div class="lost"><section aria-labelledby="lost-new"><h2 id="lost-new">Newest writing</h2><ul>{posts}</ul></section>'
+            f'<section aria-labelledby="lost-sub"><h2 id="lost-sub">Browse by subject</h2><ul>{subjects}</ul></section></div>')
+
+
+def feed_body(slug):
+    """A post's full text for feed readers, with site links made absolute so they work outside hoto.lol."""
+    body = body_of(slug)
+    return re.sub(r'(href|src)="/(?!/)', lambda m: f'{m.group(1)}="{SITE_URL}/', body)
+
+
 def write_feed():
     """feed.xml: RSS 2.0 for the essays, newest first, so readers and newsletter tools can follow."""
     items = "".join(
         f"<item><title>{html.escape(p['title'])}</title>"
         f"<link>{SITE_URL}/blog/{p['slug']}/</link><guid>{SITE_URL}/blog/{p['slug']}/</guid>"
-        f"<pubDate>{rfc822(p['date'])}</pubDate><description>{html.escape(p['summary'])}</description></item>\n"
+        f"<pubDate>{rfc822(p['date'])}</pubDate><description>{html.escape(p['summary'])}</description>"
+        f"<content:encoded>{html.escape(feed_body(p['slug']))}</content:encoded></item>\n"
         for p in sorted(POSTS, key=lambda p: p["date"], reverse=True))
     (OUT / "feed.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n'
+        '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom"><channel>\n'
         f"<title>{SITE}</title><link>{SITE_URL}/blog/</link>"
+        f'<atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>'
         "<description>An independent, personal journal of hard questions about society. Education and opinion, not therapy or advice.</description>"
         "<language>en-us</language>\n" + items + "</channel></rss>\n", encoding="utf-8")
 
@@ -1366,6 +1438,8 @@ FOOTER_LINES = [
 # The civic guide is a standalone page with its own two-line footer, written for its no-ads, no-network promise.
 OWN_FOOTER = {"civic/index.html", "vote/index.html"}
 EXTERNAL_ASSET = re.compile(r'<(?:link|script|img)\b[^>]*?\b(?:src|href)\s*=\s*["\']?(?:https?:)?//', re.I)
+# A canonical link to this site's own full address is a label for search engines, not a load.
+OWN_CANONICAL = re.compile(r'<link rel="canonical" href="https://hoto\.lol/[^"]*">')
 PLACEHOLDER = re.compile(r"\[(?:[A-Z]|\d+|TODO|TBD|XX+|\.\.\.|insert[^\]]*|placeholder[^\]]*)\]", re.I)
 
 
@@ -1380,7 +1454,7 @@ def check_output():
             rest = rest.replace(b, "")
         if "\u2014" in rest:
             errors.append(f"{rel}: em dash outside an essay body")
-        if m := EXTERNAL_ASSET.search(text):
+        if m := EXTERNAL_ASSET.search(OWN_CANONICAL.sub("", text)):
             errors.append(f"{rel}: external URL in a link, script or img tag: {m.group(0)[:80]}")
         if CRISIS not in text:
             errors.append(f"{rel}: crisis strip text is missing or changed")
