@@ -1279,6 +1279,8 @@ def build():
 <div class="rules-page">{rules}</div>
 <h2>Try it yourself</h2>
 <p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
+<h2 id="philly">In Philly?</h2>
+<p>I put together a list of <a href="/philly/">places to get organized in Philadelphia</a>, from block captains to tenant unions.</p>
 <h2 id="ai">A note on AI</h2>
 <p>{esc(AI_NOTE_LONG)}</p>
 <h2>What this is not</h2>
@@ -1316,6 +1318,79 @@ def build():
                  .replace("/*VOTING_JS*/", (ROOT / "vote" / "voting.js").read_text(encoding="utf-8")))
     write("vote/index.html", vote_html)
 
+
+    # How to get organized in Philadelphia: a hand-checked list of local groups (no ads, no asks for money).
+    # Every group was checked against its own page or local news in November 2026.
+    write("philly/index.html", page("/philly/", "How to get organized in Philadelphia", "Local groups in Philadelphia where neighbors organize together: blocks, renters, fridges, co-ops, libraries and community groups.", simple(
+        "Philadelphia", "How to get organized in Philadelphia",
+        "I grew up in Philadelphia and live in San Diego now. A lot of what makes the city work is neighbors doing things together, and most of it is easy to miss from the outside.",
+        """<p>I'm still learning how organizing works, so this is the list I wish I'd had. Each section says what the group does, who can join, and one first step you can take this week.</p>
+<p>Every group here is real, and I checked each one against its own page or local news in November 2026. Contacts change, so open the link before you go. Listing a group isn't an endorsement, and nothing on this page asks you for money.</p>
+<h2 id="start">Where to start</h2>
+<ol>
+<li><a href="#block">Become a block captain</a></li>
+<li><a href="#rent">Organize where you rent</a></li>
+<li><a href="#fridges">Stock a community fridge</a></li>
+<li><a href="#coops">Join a food co-op</a></li>
+<li><a href="#library">Get a library card</a></li>
+<li><a href="#community">Find your community</a></li>
+<li><a href="#work">Talk with your coworkers</a></li>
+<li><a href="#political">Learn with a political group</a></li>
+</ol>
+<h2 id="block">Become a block captain</h2>
+<p>A block captain is a neighbor who organizes cleanups, block parties and trash-day reminders, with tools and help from the City's Philadelphia More Beautiful Committee. Any resident can do it.</p>
+<p><strong>First step:</strong> call <a href="tel:+12156853971">(215) 685-3971</a> to ask for a petition or to find out if your block already has a captain. Then get signatures from half your block plus one and mail it back.</p>
+<p class="actions"><a class="cta" href="https://phila.gov/services/trash-recycling-city-upkeep/become-a-block-captain">Become a block captain</a></p>
+<h2 id="rent">Organize where you rent</h2>
+<p>Most tenant organizing starts with neighbors in one building talking to each other about repairs, rent and how they're treated. Tenant unions are growing here. <a href="https://whyy.org/articles/philadelphia-tenant-unions-organizing-landlords-accountability/">WHYY reported</a> that Philly went from about five known tenant associations before the pandemic to more than twenty.</p>
+<p>Philly DSA's Renters' Justice Collective helps tenants organize their buildings to push for repairs, and it holds open monthly meetings.</p>
+<p><strong>First step:</strong> knock on one neighbor's door and ask how repairs have been going for them.</p>
+<p class="actions"><a class="cta" href="https://www.phillydsa.org/tenant_organizing">Meet the Renters' Justice Collective</a></p>
+<h3 id="rent-help">If you need help right now</h3>
+<p>PhillyTenant.org is a free guide made by legal aid and tenant groups in the city, including Community Legal Services, Philadelphia Legal Assistance and the Tenant Union Representative Network (TURN). It covers evictions, repairs, moving out, help paying back rent, and subsidized housing, in English, Spanish and Chinese.</p>
+<p>The same site runs the Philly Tenant Hotline: <a href="tel:+12674432500">(267) 443-2500</a>. You can talk with a housing counselor at TURN, get free legal information, and get connected to free lawyers. TURN also runs free Know Your Rights webinars every day.</p>
+<p>In some zip codes, low-income tenants facing eviction can get a free lawyer through Right to Counsel. The hotline can tell you if you qualify.</p>
+<p class="actions"><a class="cta" href="https://phillytenant.org/">Know your rights as a renter</a></p>
+<p><a href="https://phillytenant.org/legal-help/">Philly Tenant Hotline and legal help</a></p>
+<h2 id="fridges">Stock a community fridge</h2>
+<p>Community fridges are free fridges and pantries on the sidewalk, open all day, stocked by neighbors. Anyone can take food, and anyone can give.</p>
+<p><strong>First step:</strong> drop off food that follows the fridge's posted rules, or sign up to help clean and restock.</p>
+<ul>
+<li><a href="https://www.mamateefridge.com/volunteer">Mama-Tee Community Fridge</a>, about 18 fridges across the city</li>
+<li><a href="https://southphillyfridge.com/take-action">South Philadelphia Community Fridge</a></li>
+<li><a href="https://www.germantowncommunityfridge.com/get-involved">Germantown Community Fridge</a></li>
+<li><a href="https://coralstreetfridge.com/">Coral Street Fridge</a>, Kensington</li>
+<li><a href="https://www.northwestmutualaidcollective.org/volunteerwithus">Northwest Mutual Aid Collective</a>, meal deliveries to older neighbors</li>
+</ul>
+<h2 id="coops">Join a food co-op</h2>
+<p>A food co-op is a grocery store owned by the people who shop there. Anyone can shop. Owning a share is a one-time investment you can pay off slowly, and each of these has a program that lowers the cost if money is tight.</p>
+<p><strong>First step:</strong> shop there once and ask at the register how membership works.</p>
+<ul>
+<li><a href="https://weaversway.coop/membership/membership-opportunities">Weavers Way</a>, Mt. Airy, Chestnut Hill and Germantown. $400 over time, $30 a year.</li>
+<li><a href="https://mariposa.coop/join">Mariposa Food Co-op</a>, West Philly. $200 with payment plans.</li>
+<li><a href="https://southphillyfoodcoop.nationbuilder.com/join">South Philly Food Co-op</a>. $300, and you can start with $5.</li>
+</ul>
+<h2 id="library">Get a library card</h2>
+<p>In 1731, Ben Franklin and his friends started the Library Company so people could share books none of them could afford alone. The Free Library carries that idea today. A card is free if you live, work, pay taxes or go to school in the city, and branches host free programs.</p>
+<p class="actions"><a class="cta" href="https://know.freelibrary.org/MyResearch/register/policy">Get a free library card</a></p>
+<p><a href="https://libwww.freelibrary.org/branches/brnlist.cfm">Find your branch</a></p>
+<h2 id="community">Find your community</h2>
+<p>Some groups organize around who you are and where you're from. As a Vietnamese American, these are the ones I'd look at first.</p>
+<ul>
+<li><a href="https://www.vietlead.org">VietLead</a>, South Philly. Vietnamese and Southeast Asian community organizing: healing, youth leadership, health and civic work.</li>
+<li><a href="https://aaunited.org/">Asian Americans United</a>, Chinatown. Youth leadership, the Mid-Autumn Festival, and know-your-rights help.</li>
+<li><a href="https://phillythrive.nationbuilder.com/campaign">Philly Thrive</a>, Grays Ferry. Neighbors of the old refinery site pushing for clean air and a real say in what gets built there.</li>
+</ul>
+<h2 id="work">Talk with your coworkers</h2>
+<p>If you have a job, the closest group is the people you already work with.</p>
+<p><strong>First step:</strong> if your workplace has a union, go to one meeting. If it doesn't, talk with one coworker about what's hard at work.</p>
+<h2 id="political">Learn with a political group</h2>
+<p>Some people want to organize through politics too. Philly DSA runs a monthly series of New Member 101, Socialism 101 and Organizing 101, and says curious people are welcome. Dues are pay what you can, or you can ask for a waiver. I'm listing it because it's active in the city. I'm not telling anyone how to vote or what to join.</p>
+<p class="actions"><a class="cta" href="https://www.phillydsa.org/getinvolved">See where Philly DSA says to start</a></p>
+<h2 id="hope">What I'm hoping for</h2>
+<p>I'll keep this list updated as I learn more, and fix anything that goes out of date. If you're in Philly, I hope one of these fits your week. Picking one is enough.</p>
+<p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
+
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
         None, "Privacy", None, """<p>I don't want your data. There are no accounts and no forms, and nothing you type here is sent to this site.</p>
@@ -1339,7 +1414,7 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/podcasts/", "/how-i-argue/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
 
 
 def write_sitemap():
