@@ -616,23 +616,11 @@ DOORS = [
     ("What makes a life feel full?", "/podcasts/#a-study-on-happiness", "Podcast", "a-study-on-happiness"),
 ]
 
-# Open questions: topics still being thought through. No essay yet, no deadline.
-OPEN_QUESTIONS = [
-    ("Who pays the paperwork tax?", "Forms, deadlines and repeat documents make people spend hours just to reach help. Which step could we remove?"),
-    ("Can a bus route decide who gets care?", "A service only helps the people who can actually reach it."),
-    ("Who gets heard at a public meeting?", "Meeting times, childcare, transit, disability access and language decide who is in the room."),
-    ("Is the public library part of the safety net?", "Internet, job searches, a cool room and company, without pretending it can replace housing or health care."),
-    ("Who does the hidden second shift?", "School forms, appointments and office hours quietly assume someone has time for unpaid care."),
-    ("What does a second chance need?", "One practical barrier after incarceration, like a housing application, without reducing anyone to their record."),
-    ("Who shows up after the storm?", "When a tornado or ice storm hits, how much rests on neighbors and local volunteers, and how should everyone else back them up?"),
-    ("Can getting help include giving it?", "One Ozarks charity's holiday program has parents pick gifts for their kids and kids pick gifts for their parents, so everyone has something to give. Could public programs protect dignity that way?"),
-]
-
 RULES = [
-    ("I label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
-    ("I link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
-    ("I make room for disagreement.", "The strongest fair objection belongs inside the essay, not outside it."),
-    ("I fix my mistakes in the open.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
+    ("I try to label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
+    ("I try to link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
+    ("I try to make room for disagreement.", "The strongest fair objection belongs inside the essay, not outside it."),
+    ("I fix mistakes when I catch them.", "If something turns out wrong, I correct it at the top of the post, with the date and what changed."),
 ]
 
 # Where I start from: ideals borrowed from Heart of the Ozarks (hoto.org), a community
@@ -648,30 +636,9 @@ IDEALS = [
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
                  "in Springfield, Missouri, that pairs emergency help with tools for the long run. otohay blog is not affiliated with them.")
 
-# Who I am: built only from facts Nick has already published in his own posts.
-# Nick confirms or rewrites this text before it merges. Never invent his stories here.
-WHO_I_AM = """<h2 id="who">Who I am</h2>
-<p>I'm Nick. I'm Vietnamese American, I live in San Diego, and I'm a graduate student training to become a marriage and family therapist.</p>
-<p>This blog is where I think out loud about the questions I can't stop asking. I'm a student sharing what I'm learning, so none of it is therapy or clinical advice.</p>
-<h2 id="roots">Where I come from</h2>
-<p>My parents are both immigrants from Vietnam. My grandfather did construction work, and my mom worked hard enough to become a pharmacist. I grew up with my parents and siblings under one roof, in a family that valued school.</p>
-<p>In my house, love looked like food on the table and long work hours. Hard feelings stayed quiet and private. I don't blame my parents, and context helps me understand their habits, but it doesn't erase how the silence felt to me.</p>
-<p>My Vietnamese American background grounds me the most and gives me the most direction. Being Christian is part of who I am too, and I'm still grappling with what that means.</p>
-<h2 id="minor">Counseling and Social Change</h2>
-<p>I studied psychology at San Diego State University and minored in Counseling and Social Change there. The minor put my own family next to everyone else's and gave me words for things I had only felt.</p>
-<p>In my capstone class, we each wrote an &ldquo;I Am&rdquo; poem and read it out loud to the room. Writing mine was easy. Reading it in front of everyone was the hard part, and I'm still learning how much of who I am I leave unsaid.</p>
-<p>The minor also got me looking at the systems around a person, along with the person. I'm still early in understanding that, and I get it wrong sometimes.</p>
-<p>My mentors in philosophy taught me to ask the bigger questions behind everyday ones, like who decides what counts as normal. Most of what you read here, I learned from my professors at SDSU. These are not my original ideas.</p>
-<h2 id="why">Why I write the way I do</h2>
-<p>Some of what I write comes from frustration. I see families carrying pain they were taught not to talk about, and systems that miss people who need help. I've also been on the side that missed things.</p>
-<p>When I dig into why something is broken, I usually find people doing their best under pressure, with only the view from their own seat. I have a seat too, and it has blind spots.</p>
-<p>I also keep finding good. Parents work long hours so their kids have more choices. Teachers, neighbors and volunteers show up before any program does. So I try to name what's wrong, why it might happen, and one thing that could help, knowing I could be wrong.</p>
-<p>I want to keep learning from my family, my classmates, my teachers and the people I'll work with, and keep asking before I assume.</p>"""
+NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "Who I am")]
-
-BLUNT = ("<strong>Heads up: I write bluntly.</strong> My frustration is with systems, and never with you. "
-         "If a post brings up something heavy, it's okay to stop reading any time.")
+BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
 
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
@@ -1065,15 +1032,12 @@ def front_page():
                       f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul></div>')
         side.append(f'<li><a href="#{tid}">{esc(t)} ({len(items)})</a></li>')
 
-    shelf = "".join(f"<li><h3>{q(a)}</h3><p>{esc(b)}</p></li>" for a, b in OPEN_QUESTIONS)
-
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<p class="kicker sc">Nick's blog about the questions I can't stop asking</p>
 <h1 id="hero-h">Welcome to otohay blog.</h1>
-<p class="lede">Hi, I'm Nick. I'm a Vietnamese American grad student training to be a marriage and family therapist. I write about the things in our society that frustrate me, why they might be that way, and what could help. I could be wrong, so I link my sources and leave room for you to disagree.</p>
-<p class="start-jump"><a class="jump" href="#start">Start here: three questions to begin with</a></p>
+<p class="lede">Hi, I'm Nick. This is my blog where I share my compassion for social justice issues and what I've learned in school. I'm a grad student in marriage and family therapy, so I'm still learning, and I link my sources when I can.</p>
+<p class="start-jump"><a class="jump" href="#start">New here? Start here</a></p>
 <p class="unofficial">{UNOFFICIAL}</p>
 </div>
 {HORIZON}
@@ -1100,21 +1064,16 @@ def front_page():
 
 <div class="index-main">
 <section class="section" id="start" aria-labelledby="start-h">
-<div class="section-head"><h2 id="start-h">Start here</h2><p>If you're new, these are three good places to start. Pick whichever one pulls at you.</p></div>
+<div class="section-head"><h2 id="start-h">Start here</h2><p>These are the three I'd read first.</p></div>
 <ul class="doors">{"".join(doors)}</ul>
 <p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
-</section>
-
-<section class="section" id="open" aria-labelledby="open-h">
-<div class="section-head"><h2 id="open-h">Open questions</h2><p>Things I'm still chewing on. I haven't written about them yet, and I'm taking my time.</p></div>
-<ul class="shelf">{shelf}</ul>
 </section>
 
 <section class="section" id="about" aria-labelledby="about-h">
 <div class="section-head"><h2 id="about-h">About me</h2></div>
 <ul class="about">
-<li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span><span class="about-d">Five ideals behind the questions. When hard times hit, neighbors help each other through.</span></a></li>
-<li><a href="/how-i-argue/"><span class="about-t">Who I am and where I come from</span><span class="about-d">My family, my time at San Diego State, and why I write the way I do.</span></a></li>
+<li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span></a></li>
+<li><a href="/how-i-argue/"><span class="about-t">About this blog</span></a></li>
 </ul>
 </section>
 </div>
@@ -1243,7 +1202,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">Who I am</a></p>
+<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">About</a></p>
 </div>
 </article>
 """
@@ -1325,31 +1284,17 @@ def build():
         "Every essay also has its own Listen player at the top of the page.",
         cards)))
 
-    shape = "".join(f"<li><div><b>{esc(a)}</b><span>{esc(b)}</span></div></li>" for a, b in [
-        ("Why it matters", "Why this question is worth your time, and mine."),
-        ("What we know", "What is documented, what is uncertain, and what I think, kept apart."),
-        ("Who decides", "Who has the power to change it."),
-        ("Who pays", "Who benefits, and who bears the costs."),
-        ("Who gets missed", "Who falls through the cracks, and what it would take to reach them."),
-        ("The best objection", "The strongest fair case against my view."),
-        ("One change", "A specific proposal, its trade-offs, and how we would know if it helped."),
-        ("Sources and corrections", "Every source, plus a dated note on anything I fixed."),
-    ])
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
-    write("how-i-argue/index.html", page("/how-i-argue/", "Who I am and where I come from", "Who writes otohay blog, where I come from, and the rules this blog holds itself to.", simple(
-        "About me", "Who I am and where I come from",
-        "I'm Nick. This page is about my family, what I believe, and the rules I try to hold myself to, so you can tell where the facts end and my opinion begins.",
-        f"""{WHO_I_AM}
-<h2 id="ideals">Where I start from</h2>
-<p>Five ideals sit under every question here. They come from a simple picture of a good community: when hard times hit, neighbors help each other through.</p>
+    write("how-i-argue/index.html", page("/how-i-argue/", "About this blog", "What this blog is, a few things I try to do here, and a note on AI.", simple(
+        "About", "About this blog",
+        "I'm Nick. This is my personal blog, where I share what I care about in social justice and what I've learned in school. Most of it is my opinion.",
+        f"""<h2 id="ideals">Where I start from</h2>
+<p>These are a few beliefs I keep coming back to. I borrowed them from a community nonprofit I look up to.</p>
 <div class="rules-page">{ideals}</div>
 <p>{IDEALS_CREDIT}</p>
-<h2>Four commitments</h2>
+<h2>A few things I try to do</h2>
 <div class="rules-page">{rules}</div>
-<h2>The shape of a question</h2>
-<p>This is the order I am building new essays around. Each step answers something a fair reader would ask.</p>
-<ol class="shape">{shape}</ol>
 <h2>Try it yourself</h2>
 <p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
 <h2 id="ai">A note on AI</h2>
