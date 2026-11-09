@@ -646,7 +646,8 @@ BACKGROUND = """<h2 id="background">My background</h2>
 <li>One summer, I volunteered at a women's resource center in Malvern, Pennsylvania. I kept a list of local resources and helped connect people with shelters.</li>
 <li>In 2026, I joined the Kaiser Permanente Mental Health Scholars Academy for supervised training.</li>
 </ul>
-<p>None of this makes me an expert. It's where I learned most of what I write about, and I'm still learning.</p>"""
+<p>None of this makes me an expert. It's where I learned most of what I write about, and I'm still learning.</p>
+<p>If you want the details, my full resume is on <a href="https://www.linkedin.com/in/nicholastho/" rel="noopener">LinkedIn</a>.</p>"""
 
 
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
