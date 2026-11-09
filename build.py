@@ -1304,6 +1304,8 @@ def build():
 <p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p class="aside-note">{BLUNT}</p>
+<h2 id="contact">Contact</h2>
+<p>You can reach me at <a href="mailto:1000hoto1000@gmail.com">1000hoto1000@gmail.com</a>. I read everything, but I may be slow to reply. If you're in crisis, please call or text 988 instead.</p>
 <p><a class="more" href="/blog/">← Back to the questions</a></p>""")))
 
     # Civic guide: a standalone page, deliberately NOT built with page(), so it never
