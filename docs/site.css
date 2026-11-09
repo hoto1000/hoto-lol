@@ -535,6 +535,8 @@ nav.main a[aria-current="page"],
 .page-body h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); margin: 1.8em 0 0.4em; }
 .page-body h2:first-child { margin-top: 0; }
 .page-body p a { display: inline-block; padding: 10px 0; margin: -10px 0; }
+.page-body p a.cta { display: inline-flex; padding: var(--s2) var(--s5); margin: 0; }
+.page-body .actions + h3 { margin-top: var(--s5); }
 .page-body .more, .page-body .cta { margin-top: 0; }
 .page-body .actions { margin-bottom: 0; }
 .page:has(.episode) .page-body { max-width: none; display: grid; gap: var(--s5); grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); align-items: start; }
