@@ -651,7 +651,7 @@ BACKGROUND = """<h2 id="background">My background</h2>
 
 
 # Nick's TikTok profile. A plain link only: no embed, no script, nothing loads from TikTok.
-TIKTOK_URL = "https://www.tiktok.com/@HANDLE_PENDING"
+TIKTOK_URL = "https://www.tiktok.com/@hotolosophy.com"
 TIKTOK_LINK = f'<a href="{TIKTOK_URL}" rel="noopener">TikTok</a>'
 
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
