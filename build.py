@@ -636,6 +636,19 @@ IDEALS = [
 IDEALS_CREDIT = ('These ideals borrow from <a href="https://hoto.org/" rel="noopener">Heart of the Ozarks</a>, a community nonprofit '
                  "in Springfield, Missouri, that pairs emergency help with tools for the long run. otohay blog is not affiliated with them.")
 
+# My background: taken only from Nick's own resume (shared 2026-11-09). Plain and humble, no hour counts or titles stacked up.
+BACKGROUND = """<h2 id="background">My background</h2>
+<p>Here's a little about where I've been, so you know where my opinions come from.</p>
+<ul>
+<li>I studied psychology at San Diego State University, with a minor in Counseling and Social Change. Now I'm working toward a master's in Marriage and Family Therapy at Alliant International University.</li>
+<li>For almost two years, I worked one on one with kids and their families as a behavior interventionist at Easterseals Southern California.</li>
+<li>At San Diego State, I was a teaching assistant at the Children's Center, a research assistant in a lab that studies stress and bonding, and a student representative on the psychology department's DEI committee.</li>
+<li>One summer, I volunteered at a women's resource center in Malvern, Pennsylvania. I kept a list of local resources and helped connect people with shelters.</li>
+<li>In 2026, I joined the Kaiser Permanente Mental Health Scholars Academy for supervised training.</li>
+</ul>
+<p>None of this makes me an expert. It's where I learned most of what I write about, and I'm still learning.</p>"""
+
+
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
 
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
@@ -1256,7 +1269,8 @@ def build():
     write("how-i-argue/index.html", page("/how-i-argue/", "About this blog", "What this blog is, a few things I try to do here, and a note on AI.", simple(
         "About", "About this blog",
         "I'm Nick. This is my personal blog, where I share what I care about in social justice and what I've learned in school. Most of it is my opinion.",
-        f"""<h2 id="ideals">Where I start from</h2>
+        f"""{BACKGROUND}
+<h2 id="ideals">Where I start from</h2>
 <p>These are a few beliefs I keep coming back to. I borrowed them from a community nonprofit I look up to.</p>
 <div class="rules-page">{ideals}</div>
 <p>{IDEALS_CREDIT}</p>
