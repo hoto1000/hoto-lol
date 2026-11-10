@@ -627,3 +627,14 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
   .skip, .menu, nav.nav-wide, .toc-phone, .toc-wide, .index-side { display: none !important; }
   .crisis { background: none; border: 1px solid #000; }
 }
+
+/* Series: "Part X of Y" under the post byline, Next / Previous at the end, and the series page. */
+.series-line { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: var(--s3) 0 0; }
+.series-line a { display: inline-flex; align-items: center; min-height: 24px; }
+.series-nav { display: grid; gap: var(--s3); margin: 0 0 var(--s5); }
+.series-nav a { display: flex; flex-direction: column; gap: var(--s1); min-height: 44px; padding: var(--s3) var(--s4); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; color: var(--text); }
+.series-nav a:hover .series-t { text-decoration: underline; }
+.series-nav .series-t { font-size: var(--fs-nav); line-height: 1.35; }
+.series-nav .series-next { text-align: right; }
+@media (min-width: 48rem) { .series-nav { grid-template-columns: 1fr 1fr; } .series-nav .series-next { grid-column: 2; } }
+.series-list .part-no { display: block; font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; color: var(--muted); }

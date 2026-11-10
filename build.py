@@ -1008,9 +1008,58 @@ def archive_page():
     return simple(None, "Archive", f"All {len(POSTS)} posts, newest first.", years + subject_links())
 
 
+# A series: posts meant to be read in order. Each part shows "Part X of Y" and Next / Previous,
+# and the series has its own page. Order follows the video episodes; edit "parts" to change it.
+SERIES = {
+    "slug": "therapy-school",
+    "title": "Things therapy school taught me about society",
+    "lede": "Scripts from my video series, in order. Each one is something I learned in my marriage and family therapy program.",
+    "parts": [
+        "the-identified-patient",
+        "the-person-is-not-the-problem",
+        "who-raises-a-kid",
+        "why-therapists-learn-cultural-humility",
+        "why-so-many-of-us-feel-lonely",
+        "how-competition-wears-down-the-people-at-the-bottom",
+        "why-we-blame-the-person-instead-of-the-situation",
+        "what-fights-are-really-asking",
+        "who-was-your-secure-base",
+    ],
+}
+SERIES_PATH = f"/series/{SERIES['slug']}/"
+
+
+def series_page():
+    rows = "".join(f'<li class="arow"><span class="part-no">Part {i}</span><a href="/blog/{s}/">{esc(post(s)["title"])}</a>'
+                   f'<span class="row-meta">{minutes(s)} min read</span></li>'
+                   for i, s in enumerate(SERIES["parts"], 1))
+    return simple("Series", esc(SERIES["title"]), f'{esc(SERIES["lede"])} {len(SERIES["parts"])} parts.',
+                  f'<ol class="alist series-list">{rows}</ol>' + subject_links())
+
+
+def series_bits(slug):
+    """For a post in the series: the "Part X of Y" line for the header and the Next / Previous nav."""
+    parts = SERIES["parts"]
+    if slug not in parts:
+        return "", ""
+    i = parts.index(slug)
+    line = (f'<p class="series-line">Part {i + 1} of {len(parts)} in '
+            f'<a href="{SERIES_PATH}">{esc(SERIES["title"])}</a></p>')
+    links = []
+    if i > 0:
+        links.append(f'<a class="series-prev" href="/blog/{parts[i - 1]}/"><span class="label">Previous, part {i}</span>'
+                     f'<span class="series-t">{esc(post(parts[i - 1])["title"])}</span></a>')
+    if i + 1 < len(parts):
+        links.append(f'<a class="series-next" href="/blog/{parts[i + 1]}/"><span class="label">Next, part {i + 2}</span>'
+                     f'<span class="series-t">{esc(post(parts[i + 1])["title"])}</span></a>')
+    nav = f'<nav class="series-nav" aria-label="More in this series">{"".join(links)}</nav>'
+    return line, nav
+
+
 def subject_links(current=None):
     links = "".join(f'<li><a href="{subject_path(t)}">{esc(t)}</a></li>' for t in THEMES if t != current)
     head = "Other subjects" if current else "Browse by subject"
+    links += f'<li><a href="{SERIES_PATH}">Series: Things therapy school taught me</a></li>'
     return (f'<nav class="subjects" aria-labelledby="subj-h"><h2 id="subj-h">{head}</h2><ul>{links}</ul>'
             f'<p><a href="/blog/archive/">See every post in the archive</a></p></nav>')
 
@@ -1041,6 +1090,7 @@ def front_page():
     subjects = "".join(f'<li><a href="{subject_path(t)}">{esc(t)} ({sum(frame(p["slug"])["theme"] == t for p in POSTS)})</a></li>'
                        for t in THEMES)
     subjects += f'<li><a href="/blog/archive/">All posts ({len(POSTS)})</a></li>'
+    subjects += f'<li><a href="{SERIES_PATH}">Series: Things therapy school taught me ({len(SERIES["parts"])})</a></li>'
 
     # Like most blogs: a short hello, then the newest writing on the first screen. The full lists
     # live on /blog/archive/ and the subject pages; the planet and the notice close the page.
@@ -1186,6 +1236,9 @@ def essay_page(p):
                         f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
         after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
                      f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
+    series_line, series_nav = series_bits(slug)
+    if series_nav:
+        after.insert(0, series_nav)
     after.append(AUTHOR_CARD)
     after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
@@ -1205,6 +1258,7 @@ def essay_page(p):
 <div class="byline"><span class="avatar" aria-hidden="true">N</span><p class="byline-text"><span class="byline-name">By Nick</span><span class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</span></p></div>
 {voices}
 {corrections}
+{series_line}
 {toc_phone}{narration(p)}
 </header>
 <div class="essay-body">
@@ -1287,6 +1341,8 @@ def build():
 
     for p in POSTS:
         write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p), published=p["date"]))
+    assert all(any(p["slug"] == x for p in POSTS) for x in SERIES["parts"]), "series lists an unknown post"
+    write(SERIES_PATH.lstrip("/") + "index.html", page(SERIES_PATH, SERIES["title"], SERIES["lede"], series_page()))
     write("blog/archive/index.html", page("/blog/archive/", "Archive", f"Every post on otohay blog, newest first, grouped by year.", archive_page()))
     for t in THEMES:
         write(subject_path(t).lstrip("/") + "index.html",
@@ -1446,7 +1502,7 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/blog/archive/", "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
 
 
 def write_sitemap():
