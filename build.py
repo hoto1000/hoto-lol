@@ -804,6 +804,10 @@ GLYPH = ('<svg class="glyph" viewBox="0 0 24 24" width="24" height="24" aria-hid
          '<circle class="g-body" cx="12" cy="12" r="9"/>'
          '<path class="g-day" d="M12 3a9 9 0 0 0 0 18"/><path class="g-dusk" d="M12 3a9 9 0 0 1 0 18"/></svg>')
 
+# Nick's own hand-drawn face logo, used in the header next to the name. Made from his ink drawing
+# (black ink on a white disk so it reads on light and dark). Decorative: the link already has a name.
+LOGO = '<img class="logo" src="/logo.png" width="36" height="36" alt="">'
+
 # The hero horizon: the top of one large planet, seen from orbit, with a thin orbit and a small moon.
 # It sits below the hero text, never behind it. Colors come from the --planet-* tokens in site.css.
 HORIZON = """<div class="horizon" aria-hidden="true">
@@ -832,7 +836,7 @@ def site_header(path):
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="otohay blog, home">{GLYPH}otohay <span>blog</span></a>\n'
+            f'<a class="wordmark" href="/" aria-label="otohay blog, home">{LOGO}otohay <span>blog</span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>\n'
             f'</header>')
@@ -895,6 +899,7 @@ def page(path, title, description, body, script="", published=None):
 <meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#05070d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {CSS_LINK}
 </head>
 <body>
@@ -1264,6 +1269,8 @@ def build():
     shutil.copy(ROOT / "site.css", OUT / "site.css")
     shutil.copy(ROOT / "favicon.svg", OUT / "favicon.svg")
     shutil.copy(ROOT / "share.png", OUT / "share.png")
+    shutil.copy(ROOT / "logo.png", OUT / "logo.png")
+    shutil.copy(ROOT / "apple-touch-icon.png", OUT / "apple-touch-icon.png")
     shutil.copytree(ROOT / "podcasts", OUT / "podcasts")
     if (ROOT / "audio").is_dir():  # essay narrations made by scripts/make_audio.py
         shutil.copytree(ROOT / "audio", OUT / "audio")
