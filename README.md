@@ -7,6 +7,8 @@ Static blog + podcast site. No framework, no trackers.
 - Build: `python3 build.py` (writes `docs/`). Commit `docs/` too.
 - Served by GitHub Pages: Settings → Pages → Deploy from branch `main`, folder `/docs`. Custom domain: hoto.lol.
 
+- Handouts: printable PDFs live in `handouts/` and are copied to `docs/handouts/` (for example `/handouts/map-your-social-location.pdf`, linked from `/social-location/`).
+
 - Civic guide: edit `civic/quiz.html` (standalone page, no ads, no-network CSP). `build.py` copies it to `docs/civic/index.html` and refuses to build if ads are added to it. Review notes: `civic/REVIEW.md`, `civic/PHILOSOPHY-GUIDE.md`.
 
 ## Essay audio
