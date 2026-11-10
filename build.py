@@ -654,7 +654,13 @@ BACKGROUND = """<h2 id="background">My background</h2>
 TIKTOK_URL = "https://www.tiktok.com/@hotolosophy.com"
 TIKTOK_LINK = f'<a href="{TIKTOK_URL}" rel="noopener">TikTok</a>'
 
-NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
+NAV = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+       ("/how-i-argue/", "About")]
+# The phone menu has room for more: everything the homepage buttons reach, minus the subject pages
+# (the archive lists those at the top).
+MENU = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
+        ("/philly/", "Get organized in Philly"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+        ("/how-i-argue/", "About")]
 
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
 
@@ -828,14 +834,18 @@ def site_header(path):
     """The shared desktop and phone header, used by page() and by the standalone civic guide."""
     def cur(href):
         # Writing covers the front page, /blog/ and every post; the others cover their own section.
-        on = path.startswith("/blog/") or path == "/" if href == "/blog/" else path.startswith(href)
+        if href == "/blog/":
+            on = (path.startswith("/blog/") and not path.startswith("/blog/archive/")) or path == "/"
+        else:
+            on = path.startswith(href)
         return ' aria-current="page"' if on else ""
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
+    menu_links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in MENU)
     return (f'<header class="top">\n'
             f'<a class="wordmark" href="/" aria-label="otohay blog, home">{LOGO}otohay <span>blog</span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
-            f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{links}</nav></details>\n'
+            f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{menu_links}</nav></details>\n'
             f'</header>')
 
 
@@ -1009,7 +1019,11 @@ def archive_page():
     years = "".join(f'<section class="section" aria-labelledby="y{y}"><h2 id="y{y}">{y}</h2>'
                     f'<ul class="alist">{"".join(archive_row(p) for p in ps)}</ul></section>'
                     for y, ps in by_year.items())
-    return simple(None, "Archive", f"All {len(POSTS)} posts, newest first.", years + subject_links())
+    chips = [(subject_path(t), t) for t in THEMES] + [(SERIES_PATH, "Therapy school series")]
+    chips += [(f"#y{y}", y) for y in by_year] if len(by_year) > 1 else []
+    jump = ('<nav class="btn-grid archive-jump" aria-label="Jump to a subject">'
+            + "".join(f'<a class="btn" href="{h}">{esc(t)}</a>' for h, t in chips) + '</nav>')
+    return simple(None, "Archive", f"All {len(POSTS)} posts, newest first.", jump + years + subject_links())
 
 
 # A series: posts meant to be read in order. Each part shows "Part X of Y" and Next / Previous,
@@ -1038,6 +1052,8 @@ def series_page():
                    f'<span class="row-meta">{minutes(s)} min read</span></li>'
                    for i, s in enumerate(SERIES["parts"], 1))
     return simple("Series", esc(SERIES["title"]), f'{esc(SERIES["lede"])} {len(SERIES["parts"])} parts.',
+                  f'<nav class="btn-grid series-start" aria-label="Start the series"><a class="btn btn-main" href="/blog/{SERIES["parts"][0]}/">Start with Part 1</a>'
+                  f'<a class="btn" href="/blog/{SERIES["parts"][-1]}/">Newest part</a></nav>'
                   f'<ol class="alist series-list">{rows}</ol>' + subject_links())
 
 
@@ -1204,8 +1220,7 @@ def narration(p):
             f'<p class="label sc">{label}</p>'
             f'<div class="player"><audio controls preload="none" aria-label="Listen to: {esc(p["title"])}">'
             f'<source src="{src}" type="{kind}">'
-            f'Your browser cannot play this audio. The full text is below.</audio></div>'
-            f'<p class="aside-note">The essay below is the transcript.</p></section>')
+            f'Your browser cannot play this audio. The full text is below.</audio></div></section>')
 
 
 # A short "written by" card at the end of every post, like the author box on Substack or
@@ -1224,6 +1239,33 @@ def echoes_title(title, question):
     "Why so many of us feel lonely" and "Why do so many of us feel lonely?")."""
     words = lambda s: re.sub(r"[^a-z ]", "", s.lower()).split()
     return difflib.SequenceMatcher(None, words(title), words(question)).ratio() >= 0.8
+
+
+def teaser(question, title):
+    """A link's text in "Read next" and "Related reading": the question, then the title under it,
+    or the title alone when the question only says the title again."""
+    if question == title or echoes_title(title, question):
+        return f'<span class="q-text">{esc(title)}</span>'
+    return f'<span class="q-text">{q(question)}</span><cite>{esc(title)}</cite>'
+
+
+def older_newer(slug):
+    """Older / Newer post links at the end of a post, by date. Series parts already get
+    Previous / Next in series order, so they skip this."""
+    if slug in SERIES["parts"]:
+        return ""
+    order = sorted(POSTS, key=lambda p: p["date"])  # stable, so same-day posts keep their POSTS order
+    i = next(n for n, p in enumerate(order) if p["slug"] == slug)
+    links = []
+    if i > 0:
+        o = order[i - 1]
+        links.append(f'<a class="series-prev" href="/blog/{o["slug"]}/"><span class="label">← Older post</span>'
+                     f'<span class="series-t">{esc(o["title"])}</span></a>')
+    if i + 1 < len(order):
+        n = order[i + 1]
+        links.append(f'<a class="series-next" href="/blog/{n["slug"]}/"><span class="label">Newer post →</span>'
+                     f'<span class="series-t">{esc(n["title"])}</span></a>')
+    return f'<nav class="series-nav post-nav" aria-label="Older and newer posts">{"".join(links)}</nav>'
 
 
 def essay_page(p):
@@ -1245,25 +1287,30 @@ def essay_page(p):
         r = post(f["related"])
         rq = frame(r["slug"])["question"] or r["title"]
         after.append(f'<nav class="read-next" aria-label="Read next"><p class="label">Read next</p>'
-                     f'<a href="/blog/{r["slug"]}/"><span class="q-text">{q(rq)}</span><cite>{esc(r["title"])}</cite></a></nav>')
+                     f'<a href="/blog/{r["slug"]}/">{teaser(rq, r["title"])}</a></nav>')
     rel = [s for s in RELATED.get(slug, []) if s != f["related"]]
     if rel:
-        links = "".join(f'<a href="/blog/{s}/"><span class="q-text">{q(frame(s)["question"] or post(s)["title"])}</span>'
-                        f'<cite>{esc(post(s)["title"])}</cite></a>' for s in rel)
+        links = "".join(f'<a href="/blog/{s}/">{teaser(frame(s)["question"] or post(s)["title"], post(s)["title"])}</a>'
+                        for s in rel)
         after.append(f'<nav class="read-next" aria-label="Related reading"><p class="label">Related reading</p>{links}'
                      f'<p class="aside-note">Matches picked with an open AI model that compares the essays\' text, not by a person.</p></nav>')
     series_line, series_nav = series_bits(slug)
     if series_nav:
         after.insert(0, series_nav)
     after.append(AUTHOR_CARD)
+    after.append(older_newer(slug))
     after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
     toc_phone = toc_wide = ""
     if len(parts) >= 3:
         links = "".join(f'<li><a href="#{hid}">{html.escape(text)}</a></li>' for hid, text in parts)
-        toc_phone = f'<details class="toc-phone"><summary>The argument</summary><ol>{links}</ol></details>'
-        toc_wide = f'<nav class="toc-wide" aria-label="The argument"><p class="toc-title">The argument</p><ol>{links}</ol></nav>'
+        # Headings that already carry their own number ("1. A school should be a harbor") skip the
+        # list's counter, so a number never shows twice.
+        ol = '<ol class="own-numbers">' if any(re.match(r"\d+[.)]\s", t) for _, t in parts) else "<ol>"
+        toc_phone = (f'<details class="toc-phone"><summary>In this post <span class="toc-count">· {len(parts)} sections</span>'
+                     f'</summary>{ol}{links}</ol></details>')
+        toc_wide = f'<nav class="toc-wide" aria-label="In this post"><p class="toc-title">In this post</p>{ol}{links}</ol></nav>'
 
     return f"""<article class="essay">
 <header class="essay-head">
@@ -1285,7 +1332,7 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">About</a></p>
+<p class="essay-end"><a class="back" href="#main">↑ Back to top</a><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">About</a></p>
 </div>
 </article>
 """
