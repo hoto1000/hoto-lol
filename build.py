@@ -33,7 +33,7 @@ POSTS = [
         "slug": "two-piles-what-epictetus-meant-by-up-to-us",
         "title": 'Two piles: what Epictetus meant by "up to us"',
         "date": "2026-11-10",
-        "summary": "A student reading of the Stoic split between what is up to us and what is not: how I use it on heavy days, its line into cognitive therapy, and where it stops working.",
+        "summary": "A student reading of the Stoic split between what is up to us and what is not: what the idea says, its line into cognitive therapy, and where it stops working.",
     },
     {
         "slug": "we-made-it-okay-to-talk",
