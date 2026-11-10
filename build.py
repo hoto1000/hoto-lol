@@ -25,6 +25,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "what-the-panthers-and-king-both-saw-about-poverty",
+        "title": "What the Black Panthers and Dr. King both saw about poverty",
+        "date": "2026-11-10",
+        "summary": "Why I think the Black Panther Party and Martin Luther King Jr. belong in one story: free breakfast, a guaranteed income, why the FBI went after both, and what I'm trying.",
+    },
+    {
         "slug": "why-i-think-everyone-should-try-therapy",
         "title": "Why I think everyone should try therapy",
         "date": "2026-11-07",
@@ -326,6 +332,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "what-the-panthers-and-king-both-saw-about-poverty": {
+        "question": "What did the Black Panthers and Dr. King have in common?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from published sources, then reviewed by me.",
+        "sit": "What need on your block could neighbors meet together?",
+        "related": "socialism-starts-with-culture-philadelphia",
+        "voices": ["Martin Luther King Jr.", "Huey P. Newton", "Bobby Seale", "Fred Hampton", "Alondra Nelson"],
+    },
     "somewhere-to-put-it": {
         "question": "Where is a kid supposed to put the anger?",
         "theme": "Mental health",
@@ -675,6 +690,11 @@ TEACHERS = "Most of these ideas aren't mine. I'm passing on what I learned from 
 # Related reading: picked offline with the open model sentence-transformers/all-MiniLM-L6-v2 (title, summary and
 # first 250 words of each essay, cosine similarity), then filtered to matches scoring 0.30 or more. No code runs for visitors.
 RELATED = {
+    "what-the-panthers-and-king-both-saw-about-poverty": [
+        "social-location-where-you-stand",
+        "we-didnt-all-start-at-the-same-line",
+        "one-roll-of-toilet-paper"
+    ],
     "where-power-and-identity-cross": [
         "social-location-where-you-stand",
         "you-are-not-the-problem-but-the-label-might-be",
