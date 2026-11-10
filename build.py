@@ -659,7 +659,7 @@ NAV = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcas
 # The phone menu has room for more: everything the homepage buttons reach, minus the subject pages
 # (the archive lists those at the top).
 MENU = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
-        ("/philly/", "Get organized in Philly"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+        ("/social-location/", "Map your social location"), ("/philly/", "Get organized in Philly"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
         ("/how-i-argue/", "About")]
 
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
@@ -1119,7 +1119,8 @@ def front_page():
 
     btns = [(f'/blog/{lead["slug"]}/', "Read the newest post", True), ("/blog/archive/", f"All {len(POSTS)} posts", True)]
     btns += [(subject_path(t), t, False) for t in THEMES]
-    btns += [(SERIES_PATH, "Therapy school series", False), ("#start", "Start here", False),
+    btns += [(SERIES_PATH, "Therapy school series", False), ("/social-location/", "Map your social location", False),
+             ("#start", "Start here", False),
              ("/philly/", "Get organized in Philly", False), ("/civic/", "Civic guide", False),
              ("/podcasts/", "Podcasts", False), ("/how-i-argue/", "About", False), ("/feed.xml", "Follow by RSS", False)]
     buttons = "\n".join(f'<a class="btn{" btn-main" if main else ""}" href="{h}">{esc(t)}</a>' for h, t, main in btns)
@@ -1542,6 +1543,43 @@ def build():
 <p>I'll keep this list updated as I learn more, and fix anything that goes out of date. If you're in Philly, I hope one of these fits your week. Picking one is enough.</p>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
+    # Map your social location: a reflection page built on Hays' ADDRESSING framework, Crenshaw's
+    # intersectionality and Bronfenbrenner's circles. Nothing is typed in or saved; no script, no form.
+    write("social-location/index.html", page("/social-location/", "Map your social location", "A quiet reflection page: questions about the parts of who you are, where they overlap, and the circles around you. Nothing is typed in or saved.", simple(
+        "Reflection", "Map your social location",
+        "A quiet page for thinking about where you stand in the world. Nothing here is typed in or saved, and there's no score. You can also print it and write on paper.",
+        """<div class="prose">
+<p>Your social location is the mix of groups you belong to, like your age, your culture, your class, and your gender. Where you stand shapes what you can see easily, and what's hard to see.</p>
+<p>Therapists in training are asked to map their own before they try to understand anyone else's. These questions come from what I'm learning in my program. Go slowly, and skip anything that doesn't feel right today.</p>
+<h2 id="parts">Part 1: The parts of you</h2>
+<p>Psychologist Pamela Hays made a list called ADDRESSING. Each letter is one part of who we are. Read each question and notice what comes up.</p>
+</div>
+<ol class="alist series-list"><li class="arow"><span class="part-no">A · Age and generation</span>What was happening in the world while you grew up, and how did it shape what feels normal to you?</li><li class="arow"><span class="part-no">D · Developmental disability</span>Growing up, were the places around you built for the way your body and mind work?</li><li class="arow"><span class="part-no">D · Disability later in life</span>Has an illness, injury, or change in your body or mind changed how the world treats you?</li><li class="arow"><span class="part-no">R · Religion and spirituality</span>What did your family believe, and what do you believe now?</li><li class="arow"><span class="part-no">E · Ethnic and racial identity</span>How do you describe your ethnicity and race? How do other people describe it?</li><li class="arow"><span class="part-no">S · Socioeconomic status</span>Growing up, did money feel steady or uncertain? What about now?</li><li class="arow"><span class="part-no">S · Sexual orientation</span>When have you felt free, or not free, to be open about who you love?</li><li class="arow"><span class="part-no">I · Indigenous heritage</span>Do you have Indigenous roots? Whose land do you live on now?</li><li class="arow"><span class="part-no">N · National origin</span>Where were you born, where were your parents born, and what language did you hear at home?</li><li class="arow"><span class="part-no">G · Gender</span>What did people expect of you because of your gender?</li></ol>
+<div class="prose">
+<p>Now look back over your answers. Which parts do you think about almost every day? Which ones rarely cross your mind?</p>
+<p>The parts we rarely think about are often the ones where the world was already built for us. Peggy McIntosh wrote about this in 1989 as a kind of invisible backpack of advantages that people don't notice they're carrying.</p>
+<details><summary>A question to sit with</summary><p>Pick one part you rarely think about. What might someone who stands in a different place on that part have to think about every day?</p></details>
+<h2 id="overlap">Part 2: Where the parts overlap</h2>
+<p>In 1989, law professor Kimberlé Crenshaw gave a name to something people had lived for a long time. She called it intersectionality. It means the parts of us overlap, and the overlap can matter more than any one part alone.</p>
+<p>She pointed to a 1976 case where Black women sued General Motors. The court said there was no race discrimination because GM hired Black men, and no sex discrimination because GM hired white women. The women who were both Black and women fell through the gap.</p>
+<details><summary>Questions to sit with</summary><p>Has there been a time when two parts of you together changed how you were treated, more than either one would alone?</p><p>Which of your parts seem to get noticed first by other people? Which ones stay hidden?</p></details>
+<h2 id="circles">Part 3: The circles around you</h2>
+<p>Psychologist Urie Bronfenbrenner pictured a person in the middle of circles. Family and friends are closest. Farther out are things like a parent's job and the local school board. On the outside are culture and laws. Later he added one more layer, time itself.</p>
+<p>I wrote more about his circles in <a href="/blog/who-raises-a-kid/">Who raises a kid?</a></p>
+<details><summary>Closest circle</summary><p>Who was around you every day growing up? Who is around you now?</p></details>
+<details><summary>The circles you never saw</summary><p>What decisions shaped your life that you weren't in the room for, like a parent's work schedule or a school's budget?</p></details>
+<details><summary>The outer circle</summary><p>What did your culture and your country tell you a good life looks like? Do you still believe it?</p></details>
+<details><summary>Time</summary><p>What big events happened during your life, and how old were you when they did?</p></details>
+<h2 id="after">After you finish</h2>
+<p>Some of these questions can bring up heavy things. It's okay to stop. If you're in crisis, you can call or text <a href="tel:988">988</a>.</p>
+<p>This page is for reflection. It isn't a test or a diagnosis, and it can't tell you who you are. Only you can do that, and your answers can change over time.</p>
+<p>If you want to keep going, these posts build on the same ideas:</p>
+<ul><li><a href="/blog/social-location-where-you-stand/">Social location: where you stand decides what you see</a></li><li><a href="/blog/privilege-is-everything-you-never-had-to-think-about/">Privilege is everything you never had to think about</a></li><li><a href="/blog/why-therapists-learn-cultural-humility/">Why therapists learn cultural humility</a></li><li><a href="/blog/what-therapy-ethics-codes-miss-about-culture/">What therapy ethics codes miss about culture</a></li><li><a href="/blog/why-we-blame-the-person-instead-of-the-situation/">Why we blame the person instead of the situation</a></li></ul>
+<h2 id="sources">Sources</h2>
+<ul class="sources"><li>Hays, P. A. (2016). <i>Addressing Cultural Complexities in Practice</i> (3rd ed.). American Psychological Association.</li><li>Crenshaw, K. (1989). Demarginalizing the intersection of race and sex. <i>University of Chicago Legal Forum</i>, 1989(1), 139–167.</li><li><i>DeGraffenreid v. General Motors</i>, 413 F. Supp. 142 (E.D. Mo. 1976).</li><li>McIntosh, P. (1989). White privilege: Unpacking the invisible knapsack. <i>Peace and Freedom</i>.</li><li>Bronfenbrenner, U. (1979). <i>The Ecology of Human Development</i>. Harvard University Press.</li></ul>
+</div>
+<p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
+
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
         None, "Privacy", None, """<p>I don't want your data. There are no accounts and no forms, and nothing you type here is sent to this site.</p>
@@ -1565,7 +1603,7 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/social-location/", "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
 
 
 def write_sitemap():
