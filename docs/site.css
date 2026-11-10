@@ -204,6 +204,9 @@ header.top {
 .wordmark:hover { text-decoration: underline; text-decoration-thickness: 2px; }
 .wordmark span { color: var(--accent); margin-left: 0.25em; }
 
+/* Nick's drawn logo in the header: a small round mark, thin ring so the white disk has an edge in light mode. */
+.logo { flex: none; width: 1.5em; height: 1.5em; margin-right: 0.45em; border-radius: 50%; box-shadow: 0 0 0 1px var(--border); }
+
 /* Planet mark: header and footer. Day rim blue, dusk rim red. */
 .glyph { flex: none; width: 1em; height: 1em; margin-right: 0.45em; overflow: visible; }
 .glyph .g-body { fill: var(--planet-top); }
