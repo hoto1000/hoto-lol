@@ -1551,7 +1551,8 @@ def build():
     write("reading-circle/index.html", page("/reading-circle/", "Start a reading circle", "A simple way to start a small reading group with friends: five steps, four questions for every meeting, and a six-week reading list.", simple(
         "Get organized", "Start a reading circle",
         "A lot of big movements started small, with a few people reading and talking at a kitchen table. You can start one with your friends this week. You don't need to be an expert. I'm still learning too.",
-        """<h2 id="start">Where to start</h2>
+        """<p class="actions"><a class="cta" href="/handouts/reading-circle-packet.pdf">Print the reading circle packet (PDF, 7 pages)</a></p>
+<h2 id="start">Where to start</h2>
 <ol>
 <li><strong>Ask 3 to 5 people you trust.</strong> Friends, classmates, coworkers, family. Small is good, because everyone gets to talk.</li>
 <li><strong>Pick a time and a place.</strong> Once a week for an hour. A living room, a library room or a park bench all work.</li>
@@ -1585,7 +1586,7 @@ def build():
 </ul>
 <h2 id="next">Then do something together</h2>
 <p>When your circle is ready to act, the <a href="/philly/">Philly organizing list</a> has places to plug in, from block captains to tenant groups.</p>
-<p>This page doesn't collect anything. There's no sign-up and no ask for money. To keep a copy, use your browser's Print option, and change anything to fit your group.</p>
+<p>This page doesn't collect anything. There's no sign-up and no ask for money. There's a <a href="/handouts/reading-circle-packet.pdf">printable packet</a> with a one-page handout for each week. Change anything to fit your group.</p>
 <p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
