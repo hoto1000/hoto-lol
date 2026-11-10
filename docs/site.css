@@ -671,14 +671,23 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
 /* Section headings get a short accent mark. */
 .section-head h2::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; margin-right: 0.45em; border-radius: 50%; vertical-align: 0.05em;
   background: conic-gradient(var(--planet-day) 0 50%, var(--planet-dusk) 50% 100%); }
-/* Gentle fade-up when a page opens. */
+/* Homepage buttons: jump straight to something to read. */
+.btn-grid { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s2); margin: var(--s4) 0 0; }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s4); border: 1px solid var(--border); border-radius: 999px;
+  background: var(--surface); color: var(--text); font-family: var(--interface); font-size: var(--fs-nav); font-weight: 600; text-decoration: none;
+  transition: border-color 180ms ease, transform 180ms ease, background-color 180ms ease; }
+.btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+.btn-main { background: var(--text); color: var(--canvas); border-color: var(--text); }
+.btn-main:hover { border-color: var(--accent); }
+.btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+/* Gentle slide-up when a page opens. */
 main > * { animation: rise 450ms ease-out both; }
-@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: reduce) {
   main > *, .hero h1::after { animation: none; }
-  .featured, .row, .row::before, .series-nav a, .subject-chips a { transition: none; }
-  .featured:hover, .series-nav a:hover, .subject-chips a:hover { transform: none; }
+  .featured, .row, .row::before, .series-nav a, .subject-chips a, .btn { transition: none; }
+  .featured:hover, .series-nav a:hover, .subject-chips a:hover, .btn:hover { transform: none; }
 }
 @media print { main > * { animation: none; } }
 
