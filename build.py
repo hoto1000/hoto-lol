@@ -1385,6 +1385,8 @@ def build():
     if (ROOT / "audio").is_dir():  # essay narrations made by scripts/make_audio.py
         shutil.copytree(ROOT / "audio", OUT / "audio")
     shutil.copytree(ROOT / "fonts", OUT / "fonts")
+    # Printable handouts (PDF worksheets), served from this site only.
+    shutil.copytree(ROOT / "handouts", OUT / "handouts")
     (OUT / "CNAME").write_text("hoto.lol\n")
     (OUT / ".nojekyll").write_text("")
     (OUT / "ads.txt").write_text("google.com, pub-2462240112532447, DIRECT, f08c47fec0942fa0\n")
@@ -1592,7 +1594,8 @@ def build():
     write("social-location/index.html", page("/social-location/", "Map your social location", "A quiet reflection page: questions about the parts of who you are, where they overlap, and the circles around you. Nothing is typed in or saved.", simple(
         "Reflection", "Map your social location",
         "A quiet page for thinking about where you stand in the world. Nothing here is typed in or saved, and there's no score. You can also print it and write on paper.",
-        """<div class="prose">
+        """<p class="actions"><a class="cta" href="/handouts/map-your-social-location.pdf">Print the handouts (PDF, 4 pages)</a></p>
+<div class="prose">
 <p>Your social location is the mix of groups you belong to, like your age, your culture, your class, and your gender. Where you stand shapes what you can see easily, and what's hard to see.</p>
 <p>Therapists in training are asked to map their own before they try to understand anyone else's. These questions come from what I'm learning in my program. Go slowly, and skip anything that doesn't feel right today.</p>
 <h2 id="parts">Part 1: The parts of you</h2>
