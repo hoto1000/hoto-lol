@@ -227,10 +227,12 @@ def main():
         if post["date"] > today:
             warns.append(f"{rel}: dated {post['date']}, later than today ({today}); reported, not changed")
         # the index listing should carry the same title and date
+        # every post is listed in the archive, and the front page links to the archive
+        if f'href="/blog/{post["slug"]}/"' not in pages["blog/archive/index.html"][0]:
+            err("blog/archive/index.html", f"does not list {post['slug']}")
         for idx in ("index.html", "blog/index.html"):
-            t = pages[idx][0]
-            if f'href="/blog/{post["slug"]}/"' not in t:
-                err(idx, f"does not list {post['slug']}")
+            if 'href="/blog/archive/"' not in pages[idx][0]:
+                err(idx, "does not link to the archive")
 
     # robots.txt, sitemap and feed: crawlable, every post listed, private pages never listed
     import xml.etree.ElementTree as ET
