@@ -1086,7 +1086,13 @@ def front_page():
                      f'<span class="door-meta">{meta}<b>{name}</b></span></a></li>')
 
     newest = sorted(POSTS, key=lambda p: p["date"], reverse=True)
-    latest = "".join(latest_row(p) for p in newest[:LATEST_ON_HOME])
+    lead = newest[0]
+    lead_q = frame(lead["slug"])["question"] or lead["title"]
+    featured = (f'<article class="featured" aria-labelledby="feat-h"><p class="label">Newest</p>'
+                f'<h3 id="feat-h" class="feat-q"><a href="/blog/{lead["slug"]}/">{q(lead_q)}</a></h3>'
+                f'<p class="feat-t">{esc(lead["title"])}</p><p class="feat-s">{esc(lead["summary"])}</p>'
+                f'<p class="feat-meta">{minutes(lead["slug"])} min read · <span aria-hidden="true">Read the post →</span></p></article>')
+    latest = "".join(latest_row(p) for p in newest[1:LATEST_ON_HOME])
     subjects = "".join(f'<li><a href="{subject_path(t)}">{esc(t)} ({sum(frame(p["slug"])["theme"] == t for p in POSTS)})</a></li>'
                        for t in THEMES)
     subjects += f'<li><a href="/blog/archive/">All posts ({len(POSTS)})</a></li>'
@@ -1107,6 +1113,7 @@ def front_page():
 <div class="index-main">
 <section class="section" id="latest" aria-labelledby="latest-h">
 <div class="section-head"><h2 id="latest-h">Latest writing</h2><a class="jump" href="/blog/archive/">See all {len(POSTS)} posts</a></div>
+{featured}
 <ul class="rows">{latest}</ul>
 <p class="more-row"><a class="more" href="/blog/archive/">See every post in the archive</a></p>
 <p class="aside-note">{BLUNT}</p>
@@ -1223,7 +1230,7 @@ def essay_page(p):
         corrections = f'<div class="corrections"><p class="label">Corrections</p><ul>{items}</ul></div>'
     after = []
     if f["sit"]:
-        after.append(f'<aside class="sit-with" aria-labelledby="sit-h"><p class="label sc" id="sit-h">Sit with this</p>'
+        after.append(f'<aside class="sit-with" aria-labelledby="sit-h"><svg class="bulb" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="label sc" id="sit-h">Sit with this</p>'
                      f'<p class="sit-q">{q(f["sit"])}</p></aside>')
     if f["related"]:
         r = post(f["related"])

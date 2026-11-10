@@ -638,3 +638,47 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
 .series-nav .series-next { text-align: right; }
 @media (min-width: 48rem) { .series-nav { grid-template-columns: 1fr 1fr; } .series-nav .series-next { grid-column: 2; } }
 .series-list .part-no { display: block; font-family: var(--interface); font-size: var(--fs-meta); font-weight: 600; color: var(--muted); }
+
+/* ---- Pizazz pass: a little more life, same colors, CSS only ---- */
+/* Hero: bigger, bolder headline with an accent underline drawn in on load. */
+.hero h1 { font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem); letter-spacing: -0.015em; }
+.hero h1::after { content: ""; display: block; width: 5.5rem; height: 4px; margin-top: var(--s4); border-radius: 2px;
+  background: linear-gradient(90deg, var(--planet-day), var(--planet-dusk)); transform-origin: left; animation: draw 700ms ease-out both; }
+.hero .lede { font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem); }
+/* Featured newest post: its question, big, like a pull quote. */
+.featured { position: relative; margin: var(--s2) 0 var(--s5); padding: var(--s5) var(--s5) var(--s4); border: 1px solid var(--border); border-radius: 10px; background: var(--surface);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
+.featured::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 10px 0 0 10px; background: linear-gradient(180deg, var(--planet-day), var(--planet-dusk)); }
+.featured:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -18px rgba(0,0,0,.45); border-color: var(--muted); }
+.feat-q { font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); line-height: 1.15; font-style: italic; margin: var(--s2) 0 var(--s3); text-wrap: balance; }
+.feat-q a { color: var(--text); text-decoration: none; }
+.feat-q a::after { content: ""; position: absolute; inset: 0; border-radius: 10px; }
+.featured:hover .feat-q a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.feat-t { font-family: var(--interface); font-weight: 600; margin: 0 0 var(--s2); }
+.feat-s { color: var(--muted); margin: 0 0 var(--s3); max-width: 40rem; }
+.feat-meta { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: 0; }
+/* Post rows: a soft highlight and an accent bar on hover. */
+.row { transition: background-color 180ms ease; }
+.row::before { content: ""; position: absolute; left: calc(-1 * var(--s4)); top: var(--s4); bottom: var(--s4); width: 3px; border-radius: 2px; background: var(--accent); transform: scaleY(0); transition: transform 180ms ease; }
+.row:hover::before, .row:focus-within::before { transform: scaleY(1); }
+/* "Sit with this" as a lightbulb moment. */
+.sit-with { position: relative; border-left: 0; border-top: 4px solid var(--accent); border-radius: 0 0 10px 10px; padding: var(--s5) var(--s5) var(--s5) calc(var(--s5) + 40px); }
+.sit-with .bulb { position: absolute; left: var(--s5); top: calc(var(--s5) + 2px); color: var(--accent); }
+.sit-with p.sit-q { font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem); font-style: italic; line-height: 1.25; }
+/* Cards lift a little on hover. */
+.series-nav a, .read-next a, .subject-chips a, .author-card { transition: border-color 180ms ease, transform 180ms ease, background-color 180ms ease; }
+.series-nav a:hover, .subject-chips a:hover { border-color: var(--muted); transform: translateY(-1px); }
+/* Section headings get a short accent mark. */
+.section-head h2::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; margin-right: 0.45em; border-radius: 50%; vertical-align: 0.05em;
+  background: conic-gradient(var(--planet-day) 0 50%, var(--planet-dusk) 50% 100%); }
+/* Gentle fade-up when a page opens. */
+main > * { animation: rise 450ms ease-out both; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) {
+  main > *, .hero h1::after { animation: none; }
+  .featured, .row, .row::before, .series-nav a, .subject-chips a { transition: none; }
+  .featured:hover, .series-nav a:hover, .subject-chips a:hover { transform: none; }
+}
+@media print { main > * { animation: none; } }
+
