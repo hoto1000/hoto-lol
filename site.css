@@ -8,21 +8,21 @@
    Everything is in rem or em so user font settings scale the whole system. */
 
 :root {
-  /* Dark first: Void, Night panel, Starlight, Haze, Day blue, Dusk red. */
-  --canvas: #05070d;
-  --surface: #111a2e;
-  --text: #eceff5;
-  --muted: #a6b1c6;
-  --link: #8cc4ff;
-  --accent: #ff5c63;
-  --border: #2b3654;
-  --ring: #eceff5;
-  --planet-day: #5aa9ff;
-  --planet-dusk: #ff5c63;
-  --planet-top: #182a63;
-  --planet-bottom: #05070d;
-  --planet-line: #2b3654;
-  --star: #c9d3e6;
+  /* Dark first. Black and white, like the ink drawing in the logo: near-black page, white ink, grays for panels and lines. */
+  --canvas: #0b0b0b;
+  --surface: #1a1a1a;
+  --text: #f2f2f2;
+  --muted: #b3b3b3;
+  --link: #f2f2f2;
+  --accent: #f2f2f2;
+  --border: #3a3a3a;
+  --ring: #f2f2f2;
+  --planet-day: #f2f2f2;
+  --planet-dusk: #f2f2f2;
+  --planet-top: #262626;
+  --planet-bottom: #0b0b0b;
+  --planet-line: #3a3a3a;
+  --star: #8a8a8a;
 
   /* Families: system fonts only, no web fonts. */
   --font-serif: Georgia, Cambria, "Noto Serif", "Droid Serif", "Times New Roman",
@@ -79,38 +79,38 @@
   /* Legacy names, still used by the standalone civic guide page (civic/quiz.html). That page defines
      --text, --surface, --muted and --accent from these names, so they must hold literal values here.
      Pointing them at --text, --surface, --muted or --accent makes a reference cycle and the page loses its colors. */
-  --paper: #05070d;
-  --card: #111a2e;
-  --ink: #eceff5;
-  --ink-2: #a6b1c6;
-  --hair: #2b3654;
-  --mark: #ff5c63;
+  --paper: #0b0b0b;
+  --card: #1a1a1a;
+  --ink: #f2f2f2;
+  --ink-2: #b3b3b3;
+  --hair: #3a3a3a;
+  --mark: #f2f2f2;
   --sans: var(--interface);
   --display: var(--interface);
 }
-/* Daylight: the same planet under a pale sky. Ink text, a deeper blue for links, a darker red for rules. */
+/* Light: white paper and black ink, like the logo drawing. Links stay underlined because they share the text color. */
 @media (prefers-color-scheme: light) {
   :root {
-    --canvas: #f5f7fb;
-    --surface: #e6ebf4;
-    --text: #0a1020;
-    --muted: #4a5470;
-    --link: #1d4fb8;
-    --accent: #c8102e;
-    --border: #c4cbdb;
-    --ring: #0a1020;
-    --planet-day: #2f7bff;
-    --planet-dusk: #e0283c;
-    --planet-top: #cdd7ea;
-    --planet-bottom: #f5f7fb;
-    --planet-line: #aab4ca;
+    --canvas: #ffffff;
+    --surface: #f2f2f2;
+    --text: #111111;
+    --muted: #555555;
+    --link: #111111;
+    --accent: #111111;
+    --border: #d4d4d4;
+    --ring: #111111;
+    --planet-day: #111111;
+    --planet-dusk: #111111;
+    --planet-top: #e6e6e6;
+    --planet-bottom: #ffffff;
+    --planet-line: #bdbdbd;
     --star: transparent;
-    --paper: #f5f7fb;
-    --card: #e6ebf4;
-    --ink: #0a1020;
-    --ink-2: #4a5470;
-    --hair: #c4cbdb;
-    --mark: #c8102e;
+    --paper: #ffffff;
+    --card: #f2f2f2;
+    --ink: #111111;
+    --ink-2: #555555;
+    --hair: #d4d4d4;
+    --mark: #111111;
   }
 }
 @media (min-width: 360px) { :root { --gutter: 20px; } }

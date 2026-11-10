@@ -903,8 +903,8 @@ def page(path, title, description, body, script="", published=None):
 {canon}<link rel="alternate" type="application/rss+xml" title="{SITE}" href="/feed.xml">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="google-adsense-account" content="ca-pub-2462240112532447">
-<meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#05070d" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0b" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {CSS_LINK}
