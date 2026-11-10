@@ -393,6 +393,8 @@ nav.main a[aria-current="page"],
 .kind-essay::before { content: ""; width: 0.6em; height: 0.6em; background: var(--text); flex: none; }
 .essay-kind { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s3); }
 .essay-kind .kind { margin: 0; vertical-align: baseline; }
+.essay-kind > a { color: inherit; display: inline-flex; align-items: center; min-height: 24px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.essay-kind > a:hover { color: var(--link); }
 .door-meta .kind { margin: 0 0.7em 0 0; }
 
 /* Open questions: a compact list */
@@ -598,6 +600,12 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
 .lost ul { margin: 0; padding-left: 1.2em; }
 .lost li a { display: inline-flex; align-items: center; min-height: 44px; }
 @media (min-width: 48rem) { .lost { grid-template-columns: 1fr 1fr; } }
+/* Archive and subject pages */
+.page-body .section { margin: 0 0 var(--s6); }
+.subjects { margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid var(--border); font-family: var(--interface); }
+.subjects h2 { font-family: var(--editorial); }
+.subjects ul { display: flex; flex-wrap: wrap; gap: 0 var(--s5); list-style: none; margin: 0; padding: 0; }
+.subjects li a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 
 @media (max-width: 640px) {
   .actions .cta { flex: 1 1 100%; }

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://hoto.lol/blog/</loc><lastmod>2026-11-07</lastmod></url>
+<url><loc>https://hoto.lol/blog/archive/</loc></url>
 <url><loc>https://hoto.lol/podcasts/</loc></url>
 <url><loc>https://hoto.lol/how-i-argue/</loc></url>
 <url><loc>https://hoto.lol/philly/</loc></url>
 <url><loc>https://hoto.lol/privacy/</loc></url>
+<url><loc>https://hoto.lol/topics/politics-and-civic-life/</loc></url>
+<url><loc>https://hoto.lol/topics/schools/</loc></url>
+<url><loc>https://hoto.lol/topics/mind-and-how-to-live/</loc></url>
+<url><loc>https://hoto.lol/topics/mental-health/</loc></url>
 <url><loc>https://hoto.lol/blog/why-i-think-everyone-should-try-therapy/</loc><lastmod>2026-11-07</lastmod></url>
 <url><loc>https://hoto.lol/blog/why-so-many-of-us-feel-lonely/</loc><lastmod>2026-11-06</lastmod></url>
 <url><loc>https://hoto.lol/blog/what-fights-are-really-asking/</loc><lastmod>2026-11-06</lastmod></url>

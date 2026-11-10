@@ -164,7 +164,7 @@ def main():
                 err(rel, f"og:image should be {build.SITE_URL + build.SHARE_IMAGE} and exist in docs/")
             if p.meta("twitter:card") != ["summary_large_image"]:
                 err(rel, "twitter:card meta missing")
-            if rel.startswith("blog/") and rel != "blog/index.html" and og.get("og:type") != "article":
+            if rel in {f"blog/{x['slug']}/index.html" for x in build.POSTS} and og.get("og:type") != "article":
                 err(rel, "post should have og:type article")
         elif og or canon:
             err(rel, "hidden page should not carry a canonical link or link preview tags")
