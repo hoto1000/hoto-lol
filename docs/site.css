@@ -696,3 +696,6 @@ main > * { animation: rise 450ms ease-out both; }
 }
 @media print { main > * { animation: none; } }
 
+
+/* Social location page: print the fold-open questions too, where the browser allows it. */
+@media print { details::details-content { content-visibility: visible; display: block; } }
