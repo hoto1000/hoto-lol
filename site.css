@@ -463,6 +463,13 @@ nav.main a[aria-current="page"],
 .toc-phone a, .toc-wide a { display: block; padding: var(--s3) var(--s4) var(--s3) 0; min-height: 44px; color: var(--text); text-decoration: none; font-size: var(--fs-nav); line-height: 1.35; }
 .toc-phone a:hover, .toc-wide a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
 .toc-title { font-size: var(--fs-h3); line-height: 1.2; margin: 0 0 var(--s2); }
+/* Headings that carry their own numbers: no second counter. */
+.toc-phone ol.own-numbers li, .toc-wide ol.own-numbers li { grid-template-columns: minmax(0, 1fr); }
+.toc-phone ol.own-numbers li::before, .toc-wide ol.own-numbers li::before { content: none; }
+.toc-phone ol.own-numbers a { padding-left: var(--s4); }
+.toc-count { font-weight: 400; color: var(--muted); margin-left: 0.35em; }
+.post-nav { margin: var(--s5) 0 0; }
+.btn-grid.archive-jump, .btn-grid.series-start { margin: 0 0 var(--s5); }
 
 .essay-body { display: block; }
 .prose { max-width: var(--col); border-top: 1px solid var(--border); padding-top: var(--s5); }
