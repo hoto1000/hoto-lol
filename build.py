@@ -662,13 +662,6 @@ UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a per
               "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
 
-AI_NOTE = ("I made this site with help from AI. I'm still trying to understand what AI means for writing, "
-           "and I want to be honest with you about it while I figure that out.")
-
-AI_NOTE_LONG = ("I built this site with AI tools, and some of the writing here was organized and edited with them too. "
-                "I'm still learning what that means for honesty, for craft, and for the people who read this. "
-                "I'll keep updating this note as my thinking changes.")
-
 TEACHERS = "Most of these ideas aren't mine. I'm passing on what I learned from my professors at San Diego State."
 
 
@@ -909,7 +902,6 @@ def page(path, title, description, body, script="", published=None):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
-<aside class="ai-note" aria-label="About AI on this site">{esc(AI_NOTE)}</aside>
 {site_header(path)}
 <main id="main" tabindex="-1">
 {body}
@@ -1370,7 +1362,7 @@ def build():
 
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
     ideals = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in IDEALS)
-    write("how-i-argue/index.html", page("/how-i-argue/", "About this blog", "What this blog is, a few things I try to do here, and a note on AI.", simple(
+    write("how-i-argue/index.html", page("/how-i-argue/", "About this blog", "What this blog is and a few things I try to do here.", simple(
         "About", "About this blog",
         "I'm Nick. This is my personal blog, where I share what I care about in social justice and what I've learned in school. Most of it is my opinion.",
         f"""{BACKGROUND}
@@ -1384,8 +1376,6 @@ def build():
 <p>The same votes can produce different winners under different counting rules. <a href="/vote/">See how with made-up ballots</a>.</p>
 <h2 id="philly">In Philly?</h2>
 <p>I put together a list of <a href="/philly/">places to get organized in Philadelphia</a>, from block captains to tenant unions.</p>
-<h2 id="ai">A note on AI</h2>
-<p>{esc(AI_NOTE_LONG)}</p>
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
