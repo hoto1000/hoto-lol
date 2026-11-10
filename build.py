@@ -861,7 +861,7 @@ def canonical(path):
 
 
 SHARE_IMAGE = "/share.png"  # made by scripts/make_share_image.py, 1200 x 630
-SHARE_ALT = "otohay blog, hoto.lol, above a planet lit blue on one side and red on the other"
+SHARE_ALT = "otohay blog, hoto.lol, next to Nick's hand-drawn ink logo, in black and white"
 
 
 def share_tags(path, title, description, published=None):
