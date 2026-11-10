@@ -650,6 +650,10 @@ BACKGROUND = """<h2 id="background">My background</h2>
 <p>If you want the details, my full resume is on <a href="https://www.linkedin.com/in/nicholastho/" rel="noopener">LinkedIn</a>.</p>"""
 
 
+# Nick's TikTok profile. A plain link only: no embed, no script, nothing loads from TikTok.
+TIKTOK_URL = "https://www.tiktok.com/@hotolosophy.com"
+TIKTOK_LINK = f'<a href="{TIKTOK_URL}" rel="noopener">TikTok</a>'
+
 NAV = [("/blog/", "Blog"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
 
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
@@ -914,7 +918,7 @@ def page(path, title, description, body, script="", published=None):
 <div class="foot-top">
 <p class="foot-mark">{GLYPH}Thanks for reading. Nick</p>
 <nav aria-label="Footer">{foot_nav}</nav>
-<p class="foot-follow">See every post in the <a href="/blog/archive/">archive</a>, or follow along with the <a href="/feed.xml">RSS feed</a>.</p>
+<p class="foot-follow">See every post in the <a href="/blog/archive/">archive</a>. Follow along on {TIKTOK_LINK} or the <a href="/feed.xml">RSS feed</a>.</p>
 </div>
 <div class="foot-fine">
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
@@ -1208,7 +1212,8 @@ AUTHOR_CARD = ('<aside class="author-card" aria-labelledby="author-h">'
                '<div><p class="label" id="author-h">Written by Nick</p>'
                '<p class="author-bio">I\'m a Vietnamese American grad student training to be a marriage and family therapist. '
                'I write about the things in our society that frustrate me, why they might be that way, and what could help.</p>'
-               '<p class="author-more"><a href="/how-i-argue/">More about me</a></p></div></aside>')
+               '<p class="author-more"><a href="/how-i-argue/">More about me</a></p>'
+               f'<p class="author-more"><a href="{TIKTOK_URL}" rel="noopener">Watch my videos on TikTok</a></p></div></aside>')
 
 
 def echoes_title(title, question):
@@ -1388,6 +1393,7 @@ def build():
 <p class="aside-note">{BLUNT}</p>
 <h2 id="contact">Contact</h2>
 <p>You can reach me at <a href="mailto:1000hoto1000@gmail.com">1000hoto1000@gmail.com</a>. I read everything, but I may be slow to reply. If you're in crisis, please call or text 988 instead.</p>
+<p>I also make short videos about what I'm learning in therapy school. You can watch them on {TIKTOK_LINK}.</p>
 <p><a class="more" href="/blog/">← Back to the questions</a></p>""")))
 
     # Civic guide: a standalone page, deliberately NOT built with page(), so it never
