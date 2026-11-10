@@ -154,17 +154,6 @@ main:focus { outline: none; }
   font-family: var(--interface); font-size: var(--fs-nav);
 }
 
-/* AI note: one quiet line under the crisis strip on every page. */
-.ai-note {
-  font-family: var(--interface);
-  font-size: 0.9375rem;
-  line-height: var(--lh-ui);
-  text-align: center;
-  padding: var(--s2) var(--gutter);
-  color: var(--muted);
-  border-bottom: 1px solid var(--border);
-}
-
 /* Crisis strip: slim full-width band in normal flow. Wording never changes. */
 .crisis {
   font-family: var(--interface);
