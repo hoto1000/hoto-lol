@@ -1025,6 +1025,9 @@ def subject_page(theme):
                   f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul>' + subject_links(theme))
 
 
+LATEST_ON_HOME = 8
+
+
 def front_page():
     doors = []
     for question, href, kind, slug in DOORS:
@@ -1036,43 +1039,40 @@ def front_page():
         doors.append(f'<li class="door"><a href="{href}"><h3 class="door-q">{q(question)}</h3>'
                      f'<span class="door-meta">{meta}<b>{name}</b></span></a></li>')
 
-    latest = "".join(latest_row(p) for p in POSTS[:6])
-    themes, side = [], []
-    for t in THEMES:
-        items = [p for p in POSTS if frame(p["slug"])["theme"] == t]
-        tid = "subject-" + slugify(t)
-        cls = ' class="sc"' if sc(t) else ""
-        themes.append(f'<div class="theme"><h3 id="{tid}"{cls}>{esc(t)}</h3>'
-                      f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul></div>')
-        side.append(f'<li><a href="#{tid}">{esc(t)} ({len(items)})</a></li>')
+    newest = sorted(POSTS, key=lambda p: p["date"], reverse=True)
+    latest = "".join(latest_row(p) for p in newest[:LATEST_ON_HOME])
+    subjects = "".join(f'<li><a href="{subject_path(t)}">{esc(t)} ({sum(frame(p["slug"])["theme"] == t for p in POSTS)})</a></li>'
+                       for t in THEMES)
+    subjects += f'<li><a href="/blog/archive/">All posts ({len(POSTS)})</a></li>'
 
+    # Like most blogs: a short hello, then the newest writing on the first screen. The full lists
+    # live on /blog/archive/ and the subject pages; the planet and the notice close the page.
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
 <h1 id="hero-h">Welcome to otohay blog.</h1>
 <p class="lede">Hi, I'm Nick. This is my blog where I share my compassion for social justice issues and what I've learned in school. I'm a grad student in marriage and family therapy, so I'm still learning, and I link my sources when I can.</p>
 <p class="start-jump"><a class="jump" href="#start">New here? Start here</a></p>
-<p class="unofficial">{UNOFFICIAL}</p>
 </div>
-{HORIZON}
 </section>
 
 <div class="index-grid">
 <div class="index-main">
 <section class="section" id="latest" aria-labelledby="latest-h">
-<div class="section-head"><h2 id="latest-h">Latest writing</h2><a class="jump" href="#questions">Browse by subject</a></div>
+<div class="section-head"><h2 id="latest-h">Latest writing</h2><a class="jump" href="/blog/archive/">See all {len(POSTS)} posts</a></div>
 <ul class="rows">{latest}</ul>
+<p class="more-row"><a class="more" href="/blog/archive/">See every post in the archive</a></p>
+<p class="aside-note">{BLUNT}</p>
 </section>
 
-<section class="section" id="questions" aria-labelledby="questions-h">
-<div class="section-head"><h2 id="questions-h">By subject</h2></div>
-{"".join(themes)}
-<p class="aside-note">{BLUNT}</p>
+<section class="section subjects-phone" aria-labelledby="subjects-h">
+<div class="section-head"><h2 id="subjects-h">Browse by subject</h2></div>
+<ul class="subject-chips">{subjects}</ul>
 </section>
 </div>
 <aside class="index-side" aria-labelledby="side-h">
 <h2 id="side-h">Browse by subject</h2>
-<ul>{"".join(side)}</ul>
+<ul>{subjects}</ul>
 </aside>
 </div>
 
@@ -1091,6 +1091,8 @@ def front_page():
 </ul>
 </section>
 </div>
+{HORIZON}
+<p class="unofficial">{UNOFFICIAL}</p>
 </div>
 """
 
