@@ -659,8 +659,8 @@ NAV = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcas
 # The phone menu has room for more: everything the homepage buttons reach, minus the subject pages
 # (the archive lists those at the top).
 MENU = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
-        ("/philly/", "Get organized in Philly"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
-        ("/how-i-argue/", "About")]
+        ("/philly/", "Get organized in Philly"), ("/reading-circle/", "Start a reading circle"), ("/podcasts/", "Podcast"),
+        ("/civic/", "Civic guide"), ("/how-i-argue/", "About")]
 
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
 
@@ -1538,8 +1538,51 @@ def build():
 <h2 id="political">Learn with a political group</h2>
 <p>Some people want to organize through politics too. Philly DSA runs a monthly series of New Member 101, Socialism 101 and Organizing 101, and says curious people are welcome. Dues are pay what you can, or you can ask for a waiver. I'm listing it because it's active in the city. I'm not telling anyone how to vote or what to join.</p>
 <p class="actions"><a class="cta" href="https://www.phillydsa.org/getinvolved">See where Philly DSA says to start</a></p>
+<p>If you'd rather start by learning with friends, here's <a href="/reading-circle/">how to start a reading circle</a>.</p>
 <h2 id="hope">What I'm hoping for</h2>
 <p>I'll keep this list updated as I learn more, and fix anything that goes out of date. If you're in Philly, I hope one of these fits your week. Picking one is enough.</p>
+<p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
+
+    # Start a reading circle: a plain how-to for a small study group (no sign-up, no asks for money).
+    write("reading-circle/index.html", page("/reading-circle/", "Start a reading circle", "A simple way to start a small reading group with friends: five steps, four questions for every meeting, and a six-week reading list.", simple(
+        "Get organized", "Start a reading circle",
+        "A lot of big movements started small, with a few people reading and talking at a kitchen table. You can start one with your friends this week. You don't need to be an expert. I'm still learning too.",
+        """<h2 id="start">Where to start</h2>
+<ol>
+<li><strong>Ask 3 to 5 people you trust.</strong> Friends, classmates, coworkers, family. Small is good, because everyone gets to talk.</li>
+<li><strong>Pick a time and a place.</strong> Once a week for an hour. A living room, a library room or a park bench all work.</li>
+<li><strong>Read one short piece each week.</strong> A chapter or an essay. If someone didn't finish, they should still come.</li>
+<li><strong>Talk with the same four questions.</strong> They're below, and they keep things simple.</li>
+<li><strong>After a few weeks, pick one thing to do together.</strong> It could be a need on your block, at school or at work.</li>
+</ol>
+<h2 id="questions">The four questions</h2>
+<ol>
+<li>What stood out to you?</li>
+<li>Where do you see this in our lives right now?</li>
+<li>What confused you, or what do you disagree with?</li>
+<li>What's one small thing we could try?</li>
+</ol>
+<h2 id="list">A six-week starter list</h2>
+<p>These are books I'm reading now. Most of them are at the public library.</p>
+<ol>
+<li><strong>Week 1:</strong> Frantz Fanon, "Racism and Culture," in <cite>Toward the African Revolution</cite>. A short speech from 1956.</li>
+<li><strong>Week 2:</strong> Karl Marx and Friedrich Engels, <cite>The Communist Manifesto</cite>, Part I. It's short and still argued about, so read it and decide what you think.</li>
+<li><strong>Week 3:</strong> Walter Rodney, <cite>How Europe Underdeveloped Africa</cite>, chapter 1. What "development" means, and who it's measured for.</li>
+<li><strong>Week 4:</strong> Johanna Fernández, <cite>The Young Lords</cite>, any one chapter. Young people in East Harlem who started by asking neighbors what they needed.</li>
+<li><strong>Week 5:</strong> Gal Beckerman, <cite>The Quiet Before</cite>, the introduction. Why the slow talking before a movement matters.</li>
+<li><strong>Week 6:</strong> Thomas Sowell, <cite>Intellectuals and Society</cite>, any one chapter. A view from the other side, and good practice in hearing people you disagree with.</li>
+</ol>
+<h2 id="rules">A few ground rules</h2>
+<ul>
+<li>Everyone gets a turn before anyone talks twice.</li>
+<li>Push on ideas and stay kind to people.</li>
+<li>What people share about their lives stays in the room.</li>
+<li>Nobody has to agree, and nobody has to have read everything.</li>
+</ul>
+<h2 id="next">Then do something together</h2>
+<p>When your circle is ready to act, the <a href="/philly/">Philly organizing list</a> has places to plug in, from block captains to tenant groups.</p>
+<p>This page doesn't collect anything. There's no sign-up and no ask for money. To keep a copy, use your browser's Print option, and change anything to fit your group.</p>
+<p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
     # Privacy
@@ -1565,7 +1608,7 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/podcasts/", "/how-i-argue/", "/philly/", "/reading-circle/", "/privacy/"]
 
 
 def write_sitemap():
