@@ -913,7 +913,7 @@ def page(path, title, description, body, script="", published=None):
 <div class="foot-top">
 <p class="foot-mark">{GLYPH}Thanks for reading. Nick</p>
 <nav aria-label="Footer">{foot_nav}</nav>
-<p class="foot-follow">Follow along on {TIKTOK_LINK} or the <a href="/feed.xml">RSS feed</a>.</p>
+<p class="foot-follow">See every post in the <a href="/blog/archive/">archive</a>. Follow along on {TIKTOK_LINK} or the <a href="/feed.xml">RSS feed</a>.</p>
 </div>
 <div class="foot-fine">
 <p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
@@ -998,6 +998,35 @@ def archive_row(p):
     f = frame(p["slug"])
     return (f'<li class="arow"><a href="/blog/{p["slug"]}/">{esc(p["title"])}</a>'
             f'<span class="row-meta">{kind_badge(f["kind"])}<time datetime="{p["date"]}">{nice(p["date"])}</time></span></li>')
+
+
+def subject_path(theme):
+    return f"/topics/{slugify(theme)}/"
+
+
+def archive_page():
+    """Every post on one page, newest first, grouped by year, like the archive on most blogs."""
+    by_year = {}
+    for p in sorted(POSTS, key=lambda p: p["date"], reverse=True):
+        by_year.setdefault(p["date"][:4], []).append(p)
+    years = "".join(f'<section class="section" aria-labelledby="y{y}"><h2 id="y{y}">{y}</h2>'
+                    f'<ul class="alist">{"".join(archive_row(p) for p in ps)}</ul></section>'
+                    for y, ps in by_year.items())
+    return simple(None, "Archive", f"All {len(POSTS)} posts, newest first.", years + subject_links())
+
+
+def subject_links(current=None):
+    links = "".join(f'<li><a href="{subject_path(t)}">{esc(t)}</a></li>' for t in THEMES if t != current)
+    head = "Other subjects" if current else "Browse by subject"
+    return (f'<nav class="subjects" aria-labelledby="subj-h"><h2 id="subj-h">{head}</h2><ul>{links}</ul>'
+            f'<p><a href="/blog/archive/">See every post in the archive</a></p></nav>')
+
+
+def subject_page(theme):
+    items = sorted((p for p in POSTS if frame(p["slug"])["theme"] == theme), key=lambda p: p["date"], reverse=True)
+    n = len(items)
+    return simple("Subject", esc(theme), f"{n} post{'s' if n != 1 else ''}, newest first.",
+                  f'<ul class="alist">{"".join(archive_row(p) for p in items)}</ul>' + subject_links(theme))
 
 
 def front_page():
@@ -1176,7 +1205,7 @@ def essay_page(p):
     return f"""<article class="essay">
 <header class="essay-head">
 <a class="back" href="/blog/">← All writing</a>
-<p class="label essay-kind{sc(f["theme"])}">{esc(f["theme"])}{kind_badge(f["kind"])}</p>
+<p class="label essay-kind{sc(f["theme"])}"><a href="{subject_path(f["theme"])}">{esc(f["theme"])}</a>{kind_badge(f["kind"])}</p>
 <h1>{esc(p['title'])}</h1>
 {question}
 <div class="byline"><span class="avatar" aria-hidden="true">N</span><p class="byline-text"><span class="byline-name">By Nick</span><span class="essay-meta"><time datetime="{p['date']}">{nice(p['date'])}</time> · {minutes(slug)} min read</span></p></div>
@@ -1262,6 +1291,10 @@ def build():
 
     for p in POSTS:
         write(f"blog/{p['slug']}/index.html", page(f"/blog/{p['slug']}/", p["title"], p["summary"], essay_page(p), published=p["date"]))
+    write("blog/archive/index.html", page("/blog/archive/", "Archive", f"Every post on otohay blog, newest first, grouped by year.", archive_page()))
+    for t in THEMES:
+        write(subject_path(t).lstrip("/") + "index.html",
+              page(subject_path(t), t, f"Every otohay blog post about {t.lower()}, newest first.", subject_page(t)))
 
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
@@ -1420,13 +1453,14 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/blog/archive/", "/podcasts/", "/how-i-argue/", "/philly/", "/privacy/"]
 
 
 def write_sitemap():
     """sitemap.xml: every page search engines may list. Never the civic guide or voting demo."""
     newest = max(p["date"] for p in POSTS)
     rows = [(path, newest if path == "/blog/" else None) for path in SITEMAP_PAGES]
+    rows += [(subject_path(t), None) for t in THEMES]
     rows += [(f"/blog/{p['slug']}/", p["date"]) for p in POSTS]
     urls = "".join(f"<url><loc>{SITE_URL}{html.escape(path)}</loc>" + (f"<lastmod>{d}</lastmod>" if d else "") + "</url>\n"
                    for path, d in rows)
@@ -1445,7 +1479,7 @@ def not_found_links():
     Links are absolute because the 404 page is served at any address."""
     newest = sorted(POSTS, key=lambda p: p["date"], reverse=True)[:5]
     posts = "".join(f'<li><a href="/blog/{p["slug"]}/">{esc(p["title"])}</a></li>' for p in newest)
-    subjects = "".join(f'<li><a href="/blog/#subject-{slugify(t)}">{esc(t)}</a></li>' for t in THEMES)
+    subjects = "".join(f'<li><a href="{subject_path(t)}">{esc(t)}</a></li>' for t in THEMES)
     return (f'<div class="lost"><section aria-labelledby="lost-new"><h2 id="lost-new">Newest writing</h2><ul>{posts}</ul></section>'
             f'<section aria-labelledby="lost-sub"><h2 id="lost-sub">Browse by subject</h2><ul>{subjects}</ul></section></div>')
 
