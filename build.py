@@ -30,6 +30,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "we-made-it-okay-to-talk",
+        "title": "We made it okay to talk. Getting help is still too hard.",
+        "date": "2026-11-10",
+        "summary": "A student on the gap between talking about mental health and finding care: 137 million people in shortage areas, providers with full caseloads, and four small things to try this week.",
+    },
+    {
         "slug": "the-queue-is-the-policy",
         "title": "The queue is the policy: who pays the hidden time tax?",
         "date": "2026-11-10",
@@ -343,6 +349,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "we-made-it-okay-to-talk": {
+        "question": "What happens after someone finally asks for help?",
+        "theme": "Mental health",
+        "kind": "Essay",
+        "note": "Organized with AI help and checked against published government sources.",
+        "sit": "When you or someone close to you tried to find help, what got in the way?",
+        "related": "why-i-think-everyone-should-try-therapy",
+        "voices": [],
+    },
     "the-queue-is-the-policy": {
         "question": "Who gets screened out when the only way in is a long wait?",
         "theme": "Politics and civic life",
