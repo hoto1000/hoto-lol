@@ -342,7 +342,6 @@ nav.main a[aria-current="page"],
 .row-title a { margin: -10px 0; min-height: 0; padding: 10px 0; }
 .row-title a::after, .arow a::after { content: ""; position: absolute; inset: 0; }
 .row:hover .row-title a, .arow:hover a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.row-q { margin: var(--s2) 0 0; font-style: italic; color: var(--muted); font-size: 1.0625rem; line-height: 1.4; }
 .row-sum { margin: var(--s2) 0 0; color: var(--muted); font-size: 1rem; line-height: 1.5; }
 
 /* By subject: the full archive, compact */
@@ -648,7 +647,7 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
 
 /* ---- Pizazz pass: a little more life, same colors, CSS only ---- */
 /* Hero: bigger, bolder headline with an accent underline drawn in on load. */
-.hero h1 { font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem); letter-spacing: -0.015em; }
+.hero h1 { font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem); letter-spacing: -0.015em; }
 .hero h1::after { content: ""; display: block; width: 5.5rem; height: 4px; margin-top: var(--s4); border-radius: 2px;
   background: linear-gradient(90deg, var(--planet-day), var(--planet-dusk)); transform-origin: left; animation: draw 700ms ease-out both; }
 .hero .lede { font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem); }
@@ -661,7 +660,6 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
 .feat-q a { color: var(--text); text-decoration: none; }
 .feat-q a::after { content: ""; position: absolute; inset: 0; border-radius: 10px; }
 .featured:hover .feat-q a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
-.feat-t { font-family: var(--interface); font-weight: 600; margin: 0 0 var(--s2); }
 .feat-s { color: var(--muted); margin: 0 0 var(--s3); max-width: 40rem; }
 .feat-meta { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: 0; }
 /* Post rows: a soft highlight and an accent bar on hover. */

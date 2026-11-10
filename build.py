@@ -28,91 +28,91 @@ POSTS = [
         "slug": "why-i-think-everyone-should-try-therapy",
         "title": "Why I think everyone should try therapy",
         "date": "2026-11-07",
-        "summary": "A video script: why I think everyone should try therapy at least once, what surprised me in school, and three things I'm trying.",
+        "summary": "Why I think everyone should try therapy at least once, what surprised me in school, and three things I'm trying.",
     },
     {
         "slug": "why-so-many-of-us-feel-lonely",
         "title": "Why so many of us feel lonely",
         "date": "2026-11-06",
-        "summary": "A video script: what the Surgeon General's report on loneliness found, what couples therapy says about needing people, and three things I'm trying.",
+        "summary": "What the Surgeon General's report on loneliness found, what couples therapy says about needing people, and three things I'm trying.",
     },
     {
         "slug": "what-fights-are-really-asking",
         "title": "What fights are really asking",
         "date": "2026-11-06",
-        "summary": "A video script on Emotionally Focused Therapy: why many fights are a protest, the negative cycle, what's under the anger, and three things I'm trying.",
+        "summary": "What Emotionally Focused Therapy taught me about fights: why many fights are a protest, the negative cycle, what's under the anger, and three things I'm trying.",
     },
     {
         "slug": "who-was-your-secure-base",
         "title": "Who was your secure base? What attachment theory taught me",
         "date": "2026-11-06",
-        "summary": "A video script on attachment theory: Bowlby's report, Ainsworth's Strange Situation, the love quiz, earned security, the feminist critique, and three things I'm trying.",
+        "summary": "What attachment theory says about love: Bowlby's report, Ainsworth's Strange Situation, the love quiz, earned security, the feminist critique, and three things I'm trying.",
     },
     {
         "slug": "why-mental-health-matters",
         "title": "Why mental health matters",
         "date": "2026-11-06",
-        "summary": "A video script: half of mental health conditions start by age 14, many people wait years for help, and three things I'm trying.",
+        "summary": "Half of mental health conditions start by age 14, many people wait years for help, and three things I'm trying.",
     },
     {
         "slug": "learning-to-apologize-and-move-on",
         "title": "Learning how to apologize, and how to move on",
         "date": "2026-11-06",
-        "summary": "A video script on repair: what couples research and restorative justice taught me about apologizing, guilt versus shame, and letting myself move on.",
+        "summary": "What couples research and restorative justice taught me about apologizing, guilt versus shame, and letting myself move on.",
     },
     {
         "slug": "why-we-blame-the-person-instead-of-the-situation",
         "title": "Why we blame the person instead of the situation",
         "date": "2026-11-06",
-        "summary": "A video script on the fundamental attribution error: the Castro essays, the Good Samaritan study, how culture shapes blame, and three things I'm trying.",
+        "summary": "Why we judge others harder than ourselves: the Castro essays, the Good Samaritan study, how culture shapes blame, and three things I'm trying.",
     },
     {
         "slug": "how-competition-wears-down-the-people-at-the-bottom",
         "title": "How competition wears down the people at the bottom",
         "date": "2026-11-06",
-        "summary": "A video script: survival of the fittest, Adam Smith's sympathy, the Matthew effect, the Whitehall study, mutual aid, and three things I'm trying.",
+        "summary": "Survival of the fittest, Adam Smith's sympathy, the Matthew effect, the Whitehall study, mutual aid, and three things I'm trying.",
     },
     {
         "slug": "why-therapists-learn-cultural-humility",
         "title": "Why therapists learn cultural humility",
         "date": "2026-11-06",
-        "summary": "A video script with some history: the Tuskegee study, cultural competence, two doctors in Oakland who offered the word humility, and three things I'm trying.",
+        "summary": "Some history first: the Tuskegee study, cultural competence, two doctors in Oakland who offered the word humility, and three things I'm trying.",
     },
     {
         "slug": "socialism-starts-with-culture-philadelphia",
         "title": "Socialism starts with culture: Philadelphia",
         "date": "2026-11-06",
-        "summary": "A video script: why I think neighbors practice sharing before a country votes for it, Gramsci's war of position, and what Philly has shared since 1731.",
+        "summary": "Why I think neighbors practice sharing before a country votes for it, Gramsci's war of position, and what Philly has shared since 1731.",
     },
     {
         "slug": "who-raises-a-kid",
         "title": "Who raises a kid? Bronfenbrenner's circles",
         "date": "2026-11-05",
-        "summary": "A video script on Urie Bronfenbrenner's map of everything that raises a kid, what it changed about how I think about blame, and three things I'm trying.",
+        "summary": "Urie Bronfenbrenner's map of everything that raises a kid, what it changed about how I think about blame, and three things I'm trying.",
     },
     {
         "slug": "the-person-is-not-the-problem",
         "title": "The person is not the problem: what narrative therapy taught me",
         "date": "2026-11-05",
-        "summary": "A video script on Michael White and David Epston's narrative therapy, how it changed the way I talk about homelessness, and three things I'm trying.",
+        "summary": "Michael White and David Epston's narrative therapy, how it changed the way I talk about homelessness, and three things I'm trying.",
     },
     {
         "slug": "the-identified-patient",
         "title": "The identified patient: what one struggling kid can be carrying",
         "date": "2026-11-05",
-        "summary": "A video script on the family therapy idea of the identified patient, where I see it outside the therapy room, and three things I'm trying.",
+        "summary": "The family therapy idea of the identified patient, where I see it outside the therapy room, and three things I'm trying.",
     },
     {
         "slug": "who-gets-to-be-the-thinker",
         "title": "Who gets to be called a thinker? Gramsci and Collins",
         "date": "2026-11-05",
-        "summary": "A short video script: Gramsci on who gets the title of thinker, Patricia Hill Collins on knowledge built outside universities, and three steps I'm trying.",
+        "summary": "Gramsci on who gets the title of thinker, Patricia Hill Collins on knowledge built outside universities, and three steps I'm trying.",
     },
     {
         "slug": "intergenerational-trauma-vietnamese-americans",
         "title": "My parents never had a word for it: intergenerational trauma",
         "date": "2026-11-05",
-        "summary": "A video script about intergenerational trauma as a Vietnamese American: the rules of my house, why they made sense, and three things I'm trying.",
+        "summary": "Intergenerational trauma as a Vietnamese American: the rules of my house, why they made sense, and three things I'm trying.",
     },
     {
         "slug": "somewhere-to-put-it",
@@ -124,13 +124,13 @@ POSTS = [
         "slug": "the-story-my-family-handed-me",
         "title": "The story my family handed me",
         "date": "2026-11-03",
-        "summary": "A video script telling my story in scenes: growing up Vietnamese American in Pennsylvania, moving to San Diego, a role-play in therapy school, and what's helping me.",
+        "summary": "My story in scenes: growing up Vietnamese American in Pennsylvania, moving to San Diego, a role-play in therapy school, and what's helping me.",
     },
     {
         "slug": "do-you-know-the-number-988",
         "title": "Do you know the number for a mental health emergency?",
         "date": "2026-11-03",
-        "summary": "A short video script about 988, the free and confidential crisis line most people still haven't heard of.",
+        "summary": "988, the free and confidential crisis line most people still haven't heard of.",
     },
     {
         "slug": "where-power-and-identity-cross",
@@ -798,7 +798,8 @@ def sc(text):
 def kind_badge(kind):
     """Type label coded by shape as well as words: Opinion is filled, Sourced explainer is boxed, Essay has a square bullet."""
     cls = {"Opinion": "opinion", "Sourced explainer": "sourced"}.get(kind, "essay")
-    return f'<span class="kind kind-{cls}">{esc(kind)}</span>'
+    label = {"Video script": "From my videos"}.get(kind, kind)
+    return f'<span class="kind kind-{cls}">{esc(label)}</span>'
 
 
 # Planet Hoto: one small planet mark for the header and footer, lit blue on the day side and red on the dusk side.
@@ -994,11 +995,10 @@ def frame(slug):
 
 def latest_row(p):
     f = frame(p["slug"])
-    ask = f'<p class="row-q">{esc(f["question"])}</p>' if f["question"] else ""
     return (f'<li class="row"><div class="row-meta">{kind_badge(f["kind"])}<span>{esc(f["theme"])}</span>'
             f'<time datetime="{p["date"]}">{nice(p["date"])}</time><span>{minutes(p["slug"])} min read</span></div>'
             f'<h3 class="row-title"><a href="/blog/{p["slug"]}/">{esc(p["title"])}</a></h3>'
-            f'{ask}<p class="row-sum">{esc(p["summary"])}</p></li>')
+            f'<p class="row-sum">{esc(p["summary"])}</p></li>')
 
 
 def archive_row(p):
@@ -1107,10 +1107,9 @@ def front_page():
 
     newest = sorted(POSTS, key=lambda p: p["date"], reverse=True)
     lead = newest[0]
-    lead_q = frame(lead["slug"])["question"] or lead["title"]
     featured = (f'<article class="featured" aria-labelledby="feat-h"><p class="label">Newest</p>'
-                f'<h3 id="feat-h" class="feat-q"><a href="/blog/{lead["slug"]}/">{q(lead_q)}</a></h3>'
-                f'<p class="feat-t">{esc(lead["title"])}</p><p class="feat-s">{esc(lead["summary"])}</p>'
+                f'<h3 id="feat-h" class="feat-q"><a href="/blog/{lead["slug"]}/">{esc(lead["title"])}</a></h3>'
+                f'<p class="feat-s">{esc(lead["summary"])}</p>'
                 f'<p class="feat-meta">{minutes(lead["slug"])} min read · <span aria-hidden="true">Read the post →</span></p></article>')
     latest = "".join(latest_row(p) for p in newest[1:LATEST_ON_HOME])
     subjects = "".join(f'<li><a href="{subject_path(t)}">{esc(t)} ({sum(frame(p["slug"])["theme"] == t for p in POSTS)})</a></li>'
@@ -1122,7 +1121,7 @@ def front_page():
     btns += [(subject_path(t), t, False) for t in THEMES]
     btns += [(SERIES_PATH, "Therapy school series", False), ("#start", "Start here", False),
              ("/philly/", "Get organized in Philly", False), ("/civic/", "Civic guide", False),
-             ("/podcasts/", "Podcasts", False), ("/how-i-argue/", "About me", False), ("/feed.xml", "Follow by RSS", False)]
+             ("/podcasts/", "Podcasts", False), ("/how-i-argue/", "About", False), ("/feed.xml", "Follow by RSS", False)]
     buttons = "\n".join(f'<a class="btn{" btn-main" if main else ""}" href="{h}">{esc(t)}</a>' for h, t, main in btns)
 
     # Like most blogs: a short hello, then the newest writing on the first screen. The full lists
@@ -1130,7 +1129,8 @@ def front_page():
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<h1 id="hero-h">Welcome to otohay blog.</h1>
+<h1 id="hero-h">What therapy school is teaching me about people, and about society.</h1>
+<p class="lede">Short posts from my TikTok videos, plus longer essays. Start anywhere.</p>
 <nav class="btn-grid" aria-label="Jump in">
 {buttons}
 </nav>
@@ -1162,7 +1162,7 @@ def front_page():
 </section>
 
 <section class="section" id="about" aria-labelledby="about-h">
-<div class="section-head"><h2 id="about-h">About me</h2></div>
+<div class="section-head"><h2 id="about-h">About</h2></div>
 <ul class="about">
 <li><a href="/how-i-argue/#ideals"><span class="about-t">Where I start from</span></a></li>
 <li><a href="/how-i-argue/"><span class="about-t">About this blog</span></a></li>
@@ -1170,7 +1170,6 @@ def front_page():
 </section>
 </div>
 {HORIZON}
-<p class="unofficial">{UNOFFICIAL}</p>
 </div>
 """
 
@@ -1397,7 +1396,7 @@ def build():
         assert f["theme"] in THEMES, f"unknown theme for {slug}"
         assert not f.get("related") or any(p["slug"] == f["related"] for p in POSTS), f"bad related link in {slug}"
 
-    desc = "An independent, personal journal of hard questions about society: essays, a podcast, and a private civic self-check."
+    desc = "Nick's blog about mental health, family, and fairness, from a therapy student who's still learning."
     # The home page and /blog/ are the same front page. hoto.lol/ currently redirects to /blog/.
     write("index.html", page("/", None, desc, front_page()))
     write("blog/index.html", page("/blog/", "Writing", desc, front_page()))
@@ -1442,7 +1441,7 @@ def build():
 <h2 id="contact">Contact</h2>
 <p>You can reach me at <a href="mailto:1000hoto1000@gmail.com">1000hoto1000@gmail.com</a>. I read everything, but I may be slow to reply. If you're in crisis, please call or text 988 instead.</p>
 <p>I also make short videos about what I'm learning in therapy school. You can watch them on {TIKTOK_LINK}.</p>
-<p><a class="more" href="/blog/">← Back to the questions</a></p>""")))
+<p><a class="more" href="/blog/">← Back to all posts</a></p>""")))
 
     # Civic guide: a standalone page, deliberately NOT built with page(), so it never
     # loads the AdSense script. Its own CSP blocks all network requests. Political and
@@ -1615,7 +1614,7 @@ def write_feed():
         '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom"><channel>\n'
         f"<title>{SITE}</title><link>{SITE_URL}/blog/</link>"
         f'<atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>'
-        "<description>An independent, personal journal of hard questions about society. Education and opinion, not therapy or advice.</description>"
+        "<description>Nick's blog about mental health, family, and fairness, from a therapy student who's still learning. Education and opinion, not therapy or advice.</description>"
         "<language>en-us</language>\n" + items + "</channel></rss>\n", encoding="utf-8")
 
 
