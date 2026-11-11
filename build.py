@@ -710,7 +710,7 @@ UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a per
 
 # The site's stand, said plainly on every page (Nick, 2026-11-11: a dissident blog, no single politician).
 BANNER = "Against the rich running everything. For people sharing what they have."
-STAND_FOOT = "otohay blog is a dissident blog by Nick. Unpaid commentary. No donations, no sponsors, and no politician to follow."
+STAND_FOOT = "otohay blog is a dissident blog by Nick. Unpaid commentary. No donations, no sponsors, and no politician to follow. I speak only for myself, not for any group I belong to or link to."
 STAND = ('<aside class="where-i-stand" aria-labelledby="stand-h"><p class="label" id="stand-h">Where I stand</p>'
          "<p>I side with workers, renters and neighbors over the people who profit from them, and I write from there. "
          "I don't follow any one politician. I'm against antisemitism, and against AIPAC's money in our elections.</p>"
