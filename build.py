@@ -264,12 +264,6 @@ POSTS = [
         "summary": 'How a prison design from 1786 explains why we edit ourselves online, and one small thing to try this week.',
     },
     {
-        "slug": "a-president-who-understands-how-systems-feel",
-        "title": "A President Who Understands How Systems Feel",
-        "date": "2026-10-25",
-        "summary": "Why I might support Alexandria Ocasio-Cortez if she runs for president in 2028: social location, her record, and a politics that connects housing, health, climate, and daily costs.",
-    },
-    {
         "slug": "when-watching-students-becomes-the-lesson",
         "title": "When Watching Students Becomes the Lesson",
         "date": "2026-10-24",
@@ -459,15 +453,6 @@ FRAMING = {
         "related": "when-watching-students-becomes-the-lesson",
         "voices": ['Michel Foucault'],
     },
-    "a-president-who-understands-how-systems-feel": {
-        "question": "Can where a leader comes from shape what they see?",
-        "theme": "Politics and civic life",
-        "kind": "Opinion",
-        "note": "Personal opinion; not affiliated with her or any campaign.",
-        "sit": "Which parts of your own life shape what you notice about how the country works, and what might they hide from you?",
-        "related": "what-im-learning-about-third-parties",
-        "voices": [],
-    },
     "when-watching-students-becomes-the-lesson": {
         "question": "What do students learn when someone is always watching?",
         "theme": "Schools",
@@ -497,7 +482,7 @@ FRAMING = {
         "theme": "Politics and civic life",
         "kind": "Sourced explainer",
         "sit": "If your vote could never be wasted, who would you vote for?",
-        "related": "a-president-who-understands-how-systems-feel",
+        "related": "fearless-speech-for-regular-people",
         "voices": ["Maurice Duverger", "Richard Hofstadter"],
     },
     "a-rest-from-happiness": {
@@ -776,7 +761,6 @@ RELATED = {
     ],
     "social-location-where-you-stand": [
         "we-didnt-all-start-at-the-same-line",
-        "a-president-who-understands-how-systems-feel",
         "the-i-am-poem-who-we-say-we-are"
     ],
     "what-a-freudian-slip-can-and-cannot-tell-us": [
@@ -805,11 +789,6 @@ RELATED = {
     ],
     "the-watcher-in-your-pocket": [
         "when-watching-students-becomes-the-lesson",
-        "how-great-thinkers-are-made"
-    ],
-    "a-president-who-understands-how-systems-feel": [
-        "social-location-where-you-stand",
-        "we-didnt-all-start-at-the-same-line",
         "how-great-thinkers-are-made"
     ],
     "when-watching-students-becomes-the-lesson": [
