@@ -372,6 +372,9 @@ FRAMING = {
         "sit": "What need on your block could neighbors meet together?",
         "related": "socialism-starts-with-culture-philadelphia",
         "voices": ["Martin Luther King Jr.", "Huey P. Newton", "Bobby Seale", "Fred Hampton", "Alondra Nelson"],
+        "corrections": [
+            ("2026-11-13", "I wrote that the FBI feared a messiah who could unify Black Americans. The FBI's words were about unifying the Black nationalist movement, and it named King as a possible one if he gave up nonviolence. I fixed the sentence."),
+        ],
     },
     "somewhere-to-put-it": {
         "question": "Where is a kid supposed to put the anger?",
@@ -423,6 +426,10 @@ FRAMING = {
         "sit": "What is one way you take part in your community, and what would it take to try another?",
         "related": "what-im-learning-about-third-parties",
         "voices": [],
+        "corrections": [
+            ("2026-11-13", "Every event on this list has now passed, and so has Election Day. I'm keeping the page up as a record of what was planned in late October 2026."),
+            ("2026-11-13", "I changed the Inquirer date to October 17, 2026, the date in the article's link, and took out the words at City Hall because I couldn't confirm where that rally was."),
+        ],
     },
     "what-we-teach-men-about-pain": {
         "question": "Why does help so often fail to reach men?",
@@ -487,6 +494,10 @@ FRAMING = {
         "sit": "If your vote could never be wasted, who would you vote for?",
         "related": "fearless-speech-for-regular-people",
         "voices": ["Maurice Duverger", "Richard Hofstadter"],
+        "corrections": [
+            ("2026-11-13", "Updated after the November 3, 2026 election. Dan Osborn lost to Pete Ricketts in early unofficial results, Jeff Merkley and Ned Lamont both won, Alaska voted on repealing ranked-choice voting again, and nineteen states now ban it."),
+            ("2026-11-13", "I also fixed my fusion voting history. It wasn't banned everywhere in the 1890s. It was common in the 1800s, and Republican lawmakers started rolling it back after the Populists used it. New Hampshire allows full fusion too, and Oregon allows a partial version."),
+        ],
     },
     "a-rest-from-happiness": {
         "question": "Is the pressure to be happy making us less happy?",
@@ -567,6 +578,9 @@ FRAMING = {
         "sit": "Where in your life do you feel like you're always competing?",
         "related": "we-didnt-all-start-at-the-same-line",
         "voices": ["Herbert Spencer", "Adam Smith", "Robert Merton", "Michael Marmot", "Peter Kropotkin"],
+        "corrections": [
+            ("2026-11-13", "I wrote that the heart disease gap in the Whitehall study stayed above three times even after counting smoking, blood pressure, and cholesterol. That was wrong. The gap was about three and a half times before those factors, and they explained less than half of it."),
+        ],
     },
     "why-therapists-learn-cultural-humility": {
         "question": "Can you ever finish learning about someone else's culture?",
