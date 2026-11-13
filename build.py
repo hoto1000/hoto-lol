@@ -710,7 +710,7 @@ NAV = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcas
 # (the archive lists those at the top).
 MENU = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
         ("/social-location/", "Map your social location"), ("/philly/", "Get organized in Philly"),
-        ("/reading-circle/", "Start a reading circle"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+        ("/reading-circle/", "Start a reading circle"), ("/reading-list/", "Reading list"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
         ("/how-i-argue/", "About")]
 
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
@@ -1646,6 +1646,44 @@ def build():
 <p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
+    # Reading list: Nick's books, grouped, with what each argues and why it's on the path.
+    # No buy or affiliate links; sources are plain links to publishers and reference pages.
+    write("reading-list/index.html", page("/reading-list/", "Reading list", "Seven books I'm reading to understand capitalism and what people have done about it, with what each one argues and one strong view from the other side.", simple(
+        "Get organized", "Reading list",
+        "These are the books I'm reading to understand how our economy got this way, and what people have done to change it. I'm still learning, so read them with me and argue with them too.",
+        """<p>I grouped them so you can pick a place to start. Six of them are also the six weeks of the <a href="/reading-circle/">reading circle</a>, and there's a <a href="/handouts/reading-circle-packet.pdf">printable packet</a> with a page for each week. Most of them are at the public library.</p>
+<h2 id="start">Start here</h2>
+<h3 id="manifesto">The Communist Manifesto</h3>
+<p><strong>Karl Marx and Friedrich Engels, 1848.</strong> A short pamphlet that says the history of society is a history of conflict between classes. It argues that working people would one day overthrow capitalism and end private property.</p>
+<p><strong>Why it's here:</strong> almost every argument about capitalism still circles back to it. It's short, so you can read it yourself and decide what you think. In the reading circle it's <a href="/reading-circle/#list">week 2</a>.</p>
+<h3 id="fanon">Toward the African Revolution</h3>
+<p><strong>Frantz Fanon, essays from 1952 to 1961, collected in 1964.</strong> Articles, essays and letters, many first printed in the underground newspaper of Algeria's National Liberation Front. They follow his thinking on racism, colonialism and the fight for African independence.</p>
+<p><strong>Why it's here:</strong> Fanon treats racism and colonialism as systems that people built, which means people can take them apart. That's how I want to look at capitalism too. Start with "Racism and Culture," a speech he gave in 1956. In the reading circle it's <a href="/reading-circle/#list">week 1</a>.</p>
+<h3 id="quiet-before">The Quiet Before: On the Unexpected Origins of Radical Ideas</h3>
+<p><strong>Gal Beckerman, 2022.</strong> Beckerman argues that radical ideas usually take shape in small, private spaces where a few people can talk things through. He worries social media is crowding those spaces out.</p>
+<p><strong>Why it's here:</strong> it explains why slow conversations in small groups matter before any big change. That's the whole idea behind a reading circle. In the circle it's <a href="/reading-circle/#list">week 5</a>.</p>
+<h2 id="history">History</h2>
+<h3 id="rodney">How Europe Underdeveloped Africa</h3>
+<p><strong>Walter Rodney, 1972.</strong> Rodney argues that the gap between Europe and Africa came from Europe exploiting Africa, and that colonialism left damage that lasts today.</p>
+<p><strong>Why it's here:</strong> it shows how one place's wealth can be tied to another place's poverty. It also asks who "development" is measured for. In the reading circle it's <a href="/reading-circle/#list">week 3</a>.</p>
+<h3 id="young-lords">The Young Lords: A Radical History</h3>
+<p><strong>Johanna Fernández, 2020.</strong> The history of the Young Lords, poor and working-class Puerto Rican young people in Chicago and New York who modeled themselves on the Black Panther Party. Fernández shows how their protests won reforms and helped spread socialist ideas in the U.S.</p>
+<p><strong>Why it's here:</strong> it shows people organizing around what their own neighborhood needed. In the reading circle it's <a href="/reading-circle/#list">week 4</a>.</p>
+<h2 id="other-side">The other side</h2>
+<h3 id="sowell">Intellectuals and Society</h3>
+<p><strong>Thomas Sowell, 2009 (expanded in 2011).</strong> Sowell argues that intellectuals shape policy mostly by shaping public opinion, and that they're rarely held to account when their ideas fail. He says their fixes for society have often been badly wrong.</p>
+<p><strong>Why it's here:</strong> a lot of his critique lands on people who think the way I do. A reading path that only agrees with itself isn't worth much, and if I can't answer his best points, I want to know that. In the reading circle it's <a href="/reading-circle/#list">week 6</a>.</p>
+<h2 id="fiction">Fiction</h2>
+<h3 id="vonnegut">Slaughterhouse-Five</h3>
+<p><strong>Kurt Vonnegut, 1969.</strong> An antiwar novel about Billy Pilgrim, an American prisoner of war who survives the firebombing of Dresden and comes "unstuck in time." It's funny and grim at once.</p>
+<p><strong>Why it's here:</strong> it's about ordinary people getting used up by big systems. One line, from a made-up propaganda pamphlet in the book, says "America is the wealthiest nation on Earth, but its people are mainly poor, and poor Americans are urged to hate themselves." It isn't in the six weeks, so it works as a seventh meeting.</p>
+<h2 id="next">What I want to do next</h2>
+<p>I'm reading these slowly, and I want to keep adding to this list as I learn, especially history from closer to home. If you want to read with friends, the <a href="/reading-circle/">reading circle page</a> has five steps and four questions, and that's enough to start.</p>
+<h2 id="sources">Sources</h2>
+<ul class="sources"><li>Encyclopaedia Britannica, <a href="https://www.britannica.com/topic/The-Communist-Manifesto">The Communist Manifesto</a>.</li><li>Grove Atlantic, <a href="https://groveatlantic.com/book/toward-the-african-revolution/">Toward the African Revolution</a> (publisher's description).</li><li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Toward_the_African_Revolution">Toward the African Revolution</a> (French edition of 1964, and the 1956 speech).</li><li>Penguin Random House, <a href="https://www.penguinrandomhouse.com/books/552622/the-quiet-before-by-gal-beckerman/9781524759186">The Quiet Before</a> (publisher's description).</li><li>Verso, How Europe Underdeveloped Africa (publisher's description, via <a href="https://www.harvard.com/book/9781788731188">Harvard Book Store</a>).</li><li>UNC Press, <a href="https://uncpress.org/book/9781469653440/the-young-lords">The Young Lords: A Radical History</a> (publisher's description).</li><li>Basic Books, Intellectuals and Society, revised and expanded edition (publisher's description, via <a href="https://www.harvard.com/book/9780465025220">Harvard Book Store</a>).</li><li>Encyclopaedia Britannica, <a href="https://www.britannica.com/topic/Slaughterhouse-Five">Slaughterhouse-Five</a>.</li><li>Open Culture, <a href="https://openculture.com/2017/05/kurt-vonnegut-ponders-why-poor-americans-are-taught-to-hate-themselves.html">the Slaughterhouse-Five passage on poor Americans</a>.</li></ul>
+<p class="actions"><a class="cta" href="/reading-circle/">Start a reading circle</a></p>
+<p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
+
     # Map your social location: a reflection page built on Hays' ADDRESSING framework, Crenshaw's
     # intersectionality and Bronfenbrenner's circles. Nothing is typed in or saved; no script, no form.
     write("social-location/index.html", page("/social-location/", "Map your social location", "A short interview about the groups you belong to, laid out as a map at three levels: micro (you), meso (your communities) and macro (society). Nothing is typed in, saved or sent.", simple(
@@ -1713,7 +1751,7 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/social-location/", "/podcasts/", "/how-i-argue/", "/philly/", "/reading-circle/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/social-location/", "/podcasts/", "/how-i-argue/", "/philly/", "/reading-circle/", "/reading-list/", "/privacy/"]
 
 
 def write_sitemap():
