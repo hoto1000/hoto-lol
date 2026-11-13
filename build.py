@@ -34,7 +34,7 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 POSTS = [
     {
         "slug": "where-the-wages-went",
-        "title": "Where the Wages Went",
+        "title": "Where the wages went",
         "date": "2026-11-13",
         "summary": "American workers produce a lot more per hour than they did in the 1970s, typical pay grew far less, and this is where the difference went and what people are doing about it.",
     },
