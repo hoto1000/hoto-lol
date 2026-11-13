@@ -33,6 +33,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "where-the-wages-went",
+        "title": "Where the Wages Went",
+        "date": "2026-11-13",
+        "summary": "American workers produce a lot more per hour than they did in the 1970s, typical pay grew far less, and this is where the difference went and what people are doing about it.",
+    },
+    {
         "slug": "we-made-it-okay-to-talk",
         "title": "We made it okay to talk. Getting help is still too hard.",
         "date": "2026-11-10",
@@ -346,6 +352,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "where-the-wages-went": {
+        "question": "If workers make so much more per hour than they did 50 years ago, why doesn't a typical paycheck show it?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from published sources, then reviewed by me.",
+        "sit": "Where in your own life have you worked harder or gotten better at something and watched someone else keep most of what it was worth?",
+        "related": "how-competition-wears-down-the-people-at-the-bottom",
+        "voices": ["Michael Strain", "Robert Lawrence"],
+    },
     "we-made-it-okay-to-talk": {
         "question": "What happens after someone finally asks for help?",
         "theme": "Mental health",
