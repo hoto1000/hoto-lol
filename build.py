@@ -23,8 +23,11 @@ SITE = "otohay blog"
 import sys
 sys.path.insert(0, str(ROOT))
 import social_location as SL  # the social location interview (no script)
+import where_you_stand as WS  # the "Where do you stand?" questionnaire (no script)
 assert SL.css_block() in (ROOT / "site.css").read_text(encoding="utf-8"), \
     "site.css interview rules are out of date: run python3 social_location.py, then build again"
+assert WS.css_block() in (ROOT / "site.css").read_text(encoding="utf-8"), \
+    "site.css questionnaire rules are out of date: run python3 where_you_stand.py, then build again"
 CSS_VERSION = hashlib.sha256((ROOT / "site.css").read_bytes()).hexdigest()[:10]
 CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
@@ -270,12 +273,6 @@ POSTS = [
         "summary": 'How a prison design from 1786 explains why we edit ourselves online, and one small thing to try this week.',
     },
     {
-        "slug": "a-president-who-understands-how-systems-feel",
-        "title": "A President Who Understands How Systems Feel",
-        "date": "2026-10-25",
-        "summary": "Why I might support Alexandria Ocasio-Cortez if she runs for president in 2028: social location, her record, and a politics that connects housing, health, climate, and daily costs.",
-    },
-    {
         "slug": "when-watching-students-becomes-the-lesson",
         "title": "When Watching Students Becomes the Lesson",
         "date": "2026-10-24",
@@ -474,15 +471,6 @@ FRAMING = {
         "related": "when-watching-students-becomes-the-lesson",
         "voices": ['Michel Foucault'],
     },
-    "a-president-who-understands-how-systems-feel": {
-        "question": "Can where a leader comes from shape what they see?",
-        "theme": "Politics and civic life",
-        "kind": "Opinion",
-        "note": "Personal opinion; not affiliated with her or any campaign.",
-        "sit": "Which parts of your own life shape what you notice about how the country works, and what might they hide from you?",
-        "related": "what-im-learning-about-third-parties",
-        "voices": [],
-    },
     "when-watching-students-becomes-the-lesson": {
         "question": "What do students learn when someone is always watching?",
         "theme": "Schools",
@@ -512,7 +500,7 @@ FRAMING = {
         "theme": "Politics and civic life",
         "kind": "Sourced explainer",
         "sit": "If your vote could never be wasted, who would you vote for?",
-        "related": "a-president-who-understands-how-systems-feel",
+        "related": "fearless-speech-for-regular-people",
         "voices": ["Maurice Duverger", "Richard Hofstadter"],
     },
     "a-rest-from-happiness": {
@@ -719,20 +707,30 @@ BACKGROUND = """<h2 id="background">My background</h2>
 TIKTOK_URL = "https://www.tiktok.com/@hotolosophy.com"
 TIKTOK_LINK = f'<a href="{TIKTOK_URL}" rel="noopener">TikTok</a>'
 
-NAV = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+NAV = [("/start-here/", "Start here"), ("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
        ("/how-i-argue/", "About")]
 # The phone menu has room for more: everything the homepage buttons reach, minus the subject pages
 # (the archive lists those at the top).
-MENU = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
+MENU = [("/start-here/", "Start here, 7 steps"), ("/where-do-you-stand/", "Where do you stand?"),
+        ("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
         ("/social-location/", "Map your social location"), ("/philly/", "Get organized in Philly"),
-        ("/reading-circle/", "Start a reading circle"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+        ("/reading-circle/", "Start a reading circle"), ("/reading-list/", "Reading list"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
         ("/how-i-argue/", "About")]
 
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
 
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
-              "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
+              "endorsed by, or paid for by any politician, campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
+
+# The site's stand, said plainly on every page (Nick, 2026-11-11: a dissident blog, no single politician).
+BANNER = "Against the rich running everything. For people sharing what they have."
+STAND_FOOT = "otohay blog is a dissident blog by Nick. Unpaid commentary. No donations, no sponsors, and no politician to follow. I speak only for myself, not for any group I belong to or link to."
+STAND = ('<aside class="where-i-stand" aria-labelledby="stand-h"><p class="label" id="stand-h">Where I stand</p>'
+         "<p>I side with workers, renters and neighbors over the people who profit from them, and I write from there. "
+         "I don't follow any one politician. I'm against antisemitism, and against AIPAC's money in our elections.</p>"
+         "<p>I could be wrong, so read the other side's best case too.</p>"
+         '<p class="actions"><a class="cta" href="/start-here/">Next step: start here</a></p></aside>')
 
 TEACHERS = "Most of these ideas aren't mine. I'm passing on what I learned from my professors at San Diego State."
 
@@ -791,7 +789,6 @@ RELATED = {
     ],
     "social-location-where-you-stand": [
         "we-didnt-all-start-at-the-same-line",
-        "a-president-who-understands-how-systems-feel",
         "the-i-am-poem-who-we-say-we-are"
     ],
     "what-a-freudian-slip-can-and-cannot-tell-us": [
@@ -820,11 +817,6 @@ RELATED = {
     ],
     "the-watcher-in-your-pocket": [
         "when-watching-students-becomes-the-lesson",
-        "how-great-thinkers-are-made"
-    ],
-    "a-president-who-understands-how-systems-feel": [
-        "social-location-where-you-stand",
-        "we-didnt-all-start-at-the-same-line",
         "how-great-thinkers-are-made"
     ],
     "when-watching-students-becomes-the-lesson": [
@@ -915,7 +907,7 @@ def site_header(path):
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     menu_links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in MENU)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="otohay blog, home">{LOGO}otohay <span>blog</span></a>\n'
+            f'<a class="wordmark" href="/" aria-label="otohay blog, a dissident blog, home">{LOGO}<span class="wm-text"><span class="wm-name">otohay <span>blog</span></span><small class="stamp">a dissident blog</small></span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{menu_links}</nav></details>\n'
             f'</header>')
@@ -985,6 +977,7 @@ def page(path, title, description, body, script="", published=None):
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
 {site_header(path)}
+<aside class="stand-banner" aria-label="Where this blog stands">{BANNER}</aside>
 <main id="main" tabindex="-1">
 {body}
 </main>
@@ -995,7 +988,8 @@ def page(path, title, description, body, script="", published=None):
 <p class="foot-follow">See every post in the <a href="/blog/archive/">archive</a>. Follow along on {TIKTOK_LINK} or the <a href="/feed.xml">RSS feed</a>.</p>
 </div>
 <div class="foot-fine">
-<p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
+<p>{STAND_FOOT}</p>
+<p>Independent and unofficial. Not affiliated with any politician, party or campaign.</p>
 <p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
@@ -1190,8 +1184,8 @@ def front_page():
 
     btns = [(f'/blog/{lead["slug"]}/', "Read the newest post", True), ("/blog/archive/", f"All {len(POSTS)} posts", True)]
     btns += [(subject_path(t), t, False) for t in THEMES]
-    btns += [(SERIES_PATH, "Therapy school series", False), ("/social-location/", "Map your social location", False),
-             ("#start", "Start here", False),
+    btns += [("/start-here/", "Start here, 7 steps", False), (SERIES_PATH, "Therapy school series", False),
+             ("/social-location/", "Map your social location", False),
              ("/philly/", "Get organized in Philly", False), ("/civic/", "Civic guide", False),
              ("/podcasts/", "Podcasts", False), ("/how-i-argue/", "About", False), ("/feed.xml", "Follow by RSS", False)]
     buttons = "\n".join(f'<a class="btn{" btn-main" if main else ""}" href="{h}">{esc(t)}</a>' for h, t, main in btns)
@@ -1201,9 +1195,9 @@ def front_page():
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<h1 id="hero-h">What therapy school is teaching me about people, and about society.</h1>
-<p class="lede">Short posts from my TikTok videos, plus longer essays. Start anywhere.</p>
-{SL.HOME_ASK}
+<h1 id="hero-h">A blog for the people who do the work.</h1>
+<p class="lede">What therapy school is teaching me about people, what money and power do to our heads, and what we can build together instead. Short posts from my TikTok videos, plus longer essays.</p>
+{WS.HOME_ASK}
 <nav class="btn-grid" aria-label="Jump in">
 {buttons}
 </nav>
@@ -1371,7 +1365,7 @@ def essay_page(p):
         after.insert(0, series_nav)
     after.append(AUTHOR_CARD)
     after.append(older_newer(slug))
-    after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
+    after.append(STAND)
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
     toc_phone = toc_wide = ""
@@ -1530,7 +1524,7 @@ def build():
     assert quiz.count(placeholder) == 1, "civic guide must have exactly one header placeholder"
     civic_html = quiz.replace(placeholder, site_header("/civic/")).replace(plain_link, CSS_LINK)
     assert 'class="menu"' in civic_html, "civic guide must include the phone menu"
-    assert not any(f'>{label}</a>' in civic_html for label in ("Start here", "Questions")), "civic guide has a stale menu link"
+    assert not any(f'>{label}</a>' in civic_html for label in ("Questions",)), "civic guide has a stale menu link"
     assert 'href="/blog/#start"' not in civic_html and 'aria-current="page">Civic guide</a>' in civic_html, "civic guide header is out of date"
     write("civic/index.html", civic_html)
 
@@ -1661,6 +1655,44 @@ def build():
 <p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
+    # Reading list: Nick's books, grouped, with what each argues and why it's on the path.
+    # No buy or affiliate links; sources are plain links to publishers and reference pages.
+    write("reading-list/index.html", page("/reading-list/", "Reading list", "Seven books I'm reading to understand capitalism and what people have done about it, with what each one argues and one strong view from the other side.", simple(
+        "Get organized", "Reading list",
+        "These are the books I'm reading to understand how our economy got this way, and what people have done to change it. I'm still learning, so read them with me and argue with them too.",
+        """<p>I grouped them so you can pick a place to start. Six of them are also the six weeks of the <a href="/reading-circle/">reading circle</a>, and there's a <a href="/handouts/reading-circle-packet.pdf">printable packet</a> with a page for each week. Most of them are at the public library.</p>
+<h2 id="start">Start here</h2>
+<h3 id="manifesto">The Communist Manifesto</h3>
+<p><strong>Karl Marx and Friedrich Engels, 1848.</strong> A short pamphlet that says the history of society is a history of conflict between classes. It argues that working people would one day overthrow capitalism and end private property.</p>
+<p><strong>Why it's here:</strong> almost every argument about capitalism still circles back to it. It's short, so you can read it yourself and decide what you think. In the reading circle it's <a href="/reading-circle/#list">week 2</a>.</p>
+<h3 id="fanon">Toward the African Revolution</h3>
+<p><strong>Frantz Fanon, essays from 1952 to 1961, collected in 1964.</strong> Articles, essays and letters, many first printed in the underground newspaper of Algeria's National Liberation Front. They follow his thinking on racism, colonialism and the fight for African independence.</p>
+<p><strong>Why it's here:</strong> Fanon treats racism and colonialism as systems that people built, which means people can take them apart. That's how I want to look at capitalism too. Start with "Racism and Culture," a speech he gave in 1956. In the reading circle it's <a href="/reading-circle/#list">week 1</a>.</p>
+<h3 id="quiet-before">The Quiet Before: On the Unexpected Origins of Radical Ideas</h3>
+<p><strong>Gal Beckerman, 2022.</strong> Beckerman argues that radical ideas usually take shape in small, private spaces where a few people can talk things through. He worries social media is crowding those spaces out.</p>
+<p><strong>Why it's here:</strong> it explains why slow conversations in small groups matter before any big change. That's the whole idea behind a reading circle. In the circle it's <a href="/reading-circle/#list">week 5</a>.</p>
+<h2 id="history">History</h2>
+<h3 id="rodney">How Europe Underdeveloped Africa</h3>
+<p><strong>Walter Rodney, 1972.</strong> Rodney argues that the gap between Europe and Africa came from Europe exploiting Africa, and that colonialism left damage that lasts today.</p>
+<p><strong>Why it's here:</strong> it shows how one place's wealth can be tied to another place's poverty. It also asks who "development" is measured for. In the reading circle it's <a href="/reading-circle/#list">week 3</a>.</p>
+<h3 id="young-lords">The Young Lords: A Radical History</h3>
+<p><strong>Johanna Fernández, 2020.</strong> The history of the Young Lords, poor and working-class Puerto Rican young people in Chicago and New York who modeled themselves on the Black Panther Party. Fernández shows how their protests won reforms and helped spread socialist ideas in the U.S.</p>
+<p><strong>Why it's here:</strong> it shows people organizing around what their own neighborhood needed. In the reading circle it's <a href="/reading-circle/#list">week 4</a>.</p>
+<h2 id="other-side">The other side</h2>
+<h3 id="sowell">Intellectuals and Society</h3>
+<p><strong>Thomas Sowell, 2009 (expanded in 2011).</strong> Sowell argues that intellectuals shape policy mostly by shaping public opinion, and that they're rarely held to account when their ideas fail. He says their fixes for society have often been badly wrong.</p>
+<p><strong>Why it's here:</strong> a lot of his critique lands on people who think the way I do. A reading path that only agrees with itself isn't worth much, and if I can't answer his best points, I want to know that. In the reading circle it's <a href="/reading-circle/#list">week 6</a>.</p>
+<h2 id="fiction">Fiction</h2>
+<h3 id="vonnegut">Slaughterhouse-Five</h3>
+<p><strong>Kurt Vonnegut, 1969.</strong> An antiwar novel about Billy Pilgrim, an American prisoner of war who survives the firebombing of Dresden and comes "unstuck in time." It's funny and grim at once.</p>
+<p><strong>Why it's here:</strong> it's about ordinary people getting used up by big systems. One line, from a made-up propaganda pamphlet in the book, says "America is the wealthiest nation on Earth, but its people are mainly poor, and poor Americans are urged to hate themselves." It isn't in the six weeks, so it works as a seventh meeting.</p>
+<h2 id="next">What I want to do next</h2>
+<p>I'm reading these slowly, and I want to keep adding to this list as I learn, especially history from closer to home. If you want to read with friends, the <a href="/reading-circle/">reading circle page</a> has five steps and four questions, and that's enough to start.</p>
+<h2 id="sources">Sources</h2>
+<ul class="sources"><li>Encyclopaedia Britannica, <a href="https://www.britannica.com/topic/The-Communist-Manifesto">The Communist Manifesto</a>.</li><li>Grove Atlantic, <a href="https://groveatlantic.com/book/toward-the-african-revolution/">Toward the African Revolution</a> (publisher's description).</li><li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Toward_the_African_Revolution">Toward the African Revolution</a> (French edition of 1964, and the 1956 speech).</li><li>Penguin Random House, <a href="https://www.penguinrandomhouse.com/books/552622/the-quiet-before-by-gal-beckerman/9781524759186">The Quiet Before</a> (publisher's description).</li><li>Verso, How Europe Underdeveloped Africa (publisher's description, via <a href="https://www.harvard.com/book/9781788731188">Harvard Book Store</a>).</li><li>UNC Press, <a href="https://uncpress.org/book/9781469653440/the-young-lords">The Young Lords: A Radical History</a> (publisher's description).</li><li>Basic Books, Intellectuals and Society, revised and expanded edition (publisher's description, via <a href="https://www.harvard.com/book/9780465025220">Harvard Book Store</a>).</li><li>Encyclopaedia Britannica, <a href="https://www.britannica.com/topic/Slaughterhouse-Five">Slaughterhouse-Five</a>.</li><li>Open Culture, <a href="https://openculture.com/2017/05/kurt-vonnegut-ponders-why-poor-americans-are-taught-to-hate-themselves.html">the Slaughterhouse-Five passage on poor Americans</a>.</li></ul>
+<p class="actions"><a class="cta" href="/reading-circle/">Start a reading circle</a></p>
+<p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
+
     # Map your social location: a reflection page built on Hays' ADDRESSING framework, Crenshaw's
     # intersectionality and Bronfenbrenner's circles. Nothing is typed in or saved; no script, no form.
     write("social-location/index.html", page("/social-location/", "Map your social location", "A short interview about the groups you belong to, laid out as a map at three levels: micro (you), meso (your communities) and macro (society). Nothing is typed in, saved or sent.", simple(
@@ -1705,6 +1737,34 @@ def build():
 </div>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
+    # Start here: the seven-step path, smallest step first. Every step is a link the reader chooses.
+    write("start-here/index.html", page("/start-here/", "Start here", "Seven steps, smallest first: from what you already believe to doing one thing with your neighbors.", simple(
+        "Start here", "Seven steps, smallest first",
+        "This blog takes a side. I think a few people own too much, decide too much, and leave everyone else to fight over what's left. Here's the path I'd walk a friend through. Take it at your own pace, skip anything, and argue with me on the way.",
+        """<ol class="path">
+<li><h2 id="step-1">Where do you stand?</h2><p>Thirty quick questions about sharing, work, home, care, power and hope. Most people believe in sharing more than they think. No score, nothing saved.</p><p class="actions"><a class="cta" href="/where-do-you-stand/">Answer the questions</a></p></li>
+<li><h2 id="step-2">Map your social location</h2><p>Where you stand shapes what you can see easily, and what's hard to see.</p><p><a href="/social-location/">Map your social location</a></p></li>
+<li><h2 id="step-3">How the system gets inside your head</h2><p>What therapy school is teaching me about how a society shapes the way we see ourselves. A series on Fanon, Freud and Foucault is on the way. For now, start with the therapy school series.</p><p><a href="/series/therapy-school/">Things therapy school taught me about society</a> · <a href="/blog/the-person-is-not-the-problem/">The person is not the problem</a></p></li>
+<li><h2 id="step-4">Who pays, who profits</h2><p>Who ends up with less, and why the system keeps working that way.</p><p><a href="/blog/how-competition-wears-down-the-people-at-the-bottom/">How competition wears down the people at the bottom</a> · <a href="/blog/one-roll-of-toilet-paper/">One roll of toilet paper</a> · <a href="/blog/we-didnt-all-start-at-the-same-line/">We didn't all start at the same line</a></p></li>
+<li><h2 id="step-5">What people built instead</h2><p>People have always fed, housed and cared for each other when the system wouldn't.</p><p><a href="/blog/what-the-panthers-and-king-both-saw-about-poverty/">What the Black Panthers and Dr. King both saw about poverty</a> · <a href="/philly/#coops">Food co-ops in Philly</a> · <a href="/philly/#fridges">Community fridges</a></p></li>
+<li><h2 id="step-6">Read with friends</h2><p>A few people, one short reading a week, four questions. Week six is a writer who disagrees with most of this, on purpose.</p><p><a href="/reading-circle/">Start a reading circle</a></p></li>
+<li><h2 id="step-7">Do one thing</h2><p>Talk with a coworker. Knock on a neighbor's door. Stock a fridge. Picking one is enough.</p><p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p></li>
+</ol>
+<p>Nothing on this path asks for money, and nothing you do here is saved. If you think I've got something wrong, that's okay. Read the other side's best case and decide for yourself.</p>
+<p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
+    # Where do you stand?: thirty statements, no script, no form, no score. Nothing is typed, saved or sent.
+    write("where-do-you-stand/index.html", page("/where-do-you-stand/", "Where do you stand?", "Thirty questions about sharing, work, home, care, power and hope. No score, no label, and nothing is saved or sent.", simple(
+        "Questions", "Where do you stand?",
+        "Thirty statements about sharing, work, home, care, power and hope. Pick \"That's me,\" \"Not sure\" or \"Not me\" for each, or skip it. At the end you'll see the ideas you already agree with.",
+        """<div class="prose">
+<p>I'll be honest about what this is. This blog takes a side, and these questions come from that side. I think a lot of people already believe in sharing, fair work and care for everyone, and just haven't heard it said out loud. You might not, and that's okay too.</p>
+<p>There's no score, no label, and no wrong answer. Nothing is typed in, saved or sent.</p>
+</div>
+""" + WS.questionnaire_html() + """
+<h2 id="next">What now?</h2>
+<p>If you said "That's me" a lot, you already believe much of what this blog argues. If you didn't, I'd still like you to stick around and push back.</p>
+<p class="actions"><a class="cta" href="/start-here/#step-2">Next step: map your social location</a></p>
+<p><a class="more" href="/start-here/">See all 7 steps</a></p>""")))
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
         None, "Privacy", None, """<p>I don't want your data. There are no accounts and no forms, and nothing you type here is sent to this site.</p>
@@ -1728,7 +1788,7 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/social-location/", "/podcasts/", "/how-i-argue/", "/philly/", "/reading-circle/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/blog/archive/", "/start-here/", "/where-do-you-stand/", SERIES_PATH, "/social-location/", "/podcasts/", "/how-i-argue/", "/philly/", "/reading-circle/", "/reading-list/", "/privacy/"]
 
 
 def write_sitemap():
@@ -1783,7 +1843,8 @@ def write_feed():
 
 CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
 FOOTER_LINES = [
-    "Independent and unofficial. Not affiliated with AOC or any campaign.",
+    "Independent and unofficial. Not affiliated with any politician, party or campaign.",
+    STAND_FOOT,
     "Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.",
     'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
 ]
