@@ -104,7 +104,7 @@ def questionnaire_css():
 
 HOME_ASK = """<section class="sl-ask" aria-labelledby="ask-h">
 <h2 id="ask-h">Where do you stand?</h2>
-<p>Thirty questions about sharing, work, home, care, power and hope, about seven minutes. Most people believe in sharing more than they think. There's no score, and nothing is saved or sent.</p>
+<p>Thirty questions about sharing, work, home, care, power and hope, about seven minutes. Most people believe in sharing more than they think. There's no score.</p>
 <p class="btn-grid"><a class="btn btn-main" href="/where-do-you-stand/#sharing">Start the questions</a><a class="btn" href="/start-here/">See all 7 steps</a></p>
 </section>"""
 

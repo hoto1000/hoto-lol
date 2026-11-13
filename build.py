@@ -48,37 +48,37 @@ POSTS = [
         "slug": "what-the-panthers-and-king-both-saw-about-poverty",
         "title": "What the Black Panthers and Dr. King both saw about poverty",
         "date": "2026-11-10",
-        "summary": "Why I think the Black Panther Party and Martin Luther King Jr. belong in one story: free breakfast, a guaranteed income, why the FBI went after both, and what I'm trying.",
+        "summary": "Why I think the Black Panther Party and Martin Luther King Jr. belong in one story: free breakfast, a guaranteed income, and why the FBI went after both.",
     },
     {
         "slug": "why-i-think-everyone-should-try-therapy",
         "title": "Why I think everyone should try therapy",
         "date": "2026-11-07",
-        "summary": "Why I think everyone should try therapy at least once, what surprised me in school, and three things I'm trying.",
+        "summary": "Why I think everyone should try therapy at least once, and what surprised me in school.",
     },
     {
         "slug": "why-so-many-of-us-feel-lonely",
         "title": "Why so many of us feel lonely",
         "date": "2026-11-06",
-        "summary": "What the Surgeon General's report on loneliness found, what couples therapy says about needing people, and three things I'm trying.",
+        "summary": "What the Surgeon General's report on loneliness found, and what couples therapy says about needing people.",
     },
     {
         "slug": "what-fights-are-really-asking",
         "title": "What fights are really asking",
         "date": "2026-11-06",
-        "summary": "What Emotionally Focused Therapy taught me about fights: why many fights are a protest, the negative cycle, what's under the anger, and three things I'm trying.",
+        "summary": "What Emotionally Focused Therapy taught me about fights: why many fights are a protest, the negative cycle, and what's under the anger.",
     },
     {
         "slug": "who-was-your-secure-base",
         "title": "Who was your secure base? What attachment theory taught me",
         "date": "2026-11-06",
-        "summary": "What attachment theory says about love: Bowlby's report, Ainsworth's Strange Situation, the love quiz, earned security, the feminist critique, and three things I'm trying.",
+        "summary": "What attachment theory says about love: Bowlby's report, Ainsworth's Strange Situation, the love quiz, earned security, and the feminist critique.",
     },
     {
         "slug": "why-mental-health-matters",
         "title": "Why mental health matters",
         "date": "2026-11-06",
-        "summary": "Half of mental health conditions start by age 14, many people wait years for help, and three things I'm trying.",
+        "summary": "Half of mental health conditions start by age 14, and many people wait years for help.",
     },
     {
         "slug": "learning-to-apologize-and-move-on",
@@ -90,19 +90,19 @@ POSTS = [
         "slug": "why-we-blame-the-person-instead-of-the-situation",
         "title": "Why we blame the person instead of the situation",
         "date": "2026-11-06",
-        "summary": "Why we judge others harder than ourselves: the Castro essays, the Good Samaritan study, how culture shapes blame, and three things I'm trying.",
+        "summary": "Why we judge others harder than ourselves: the Castro essays, the Good Samaritan study, and how culture shapes blame.",
     },
     {
         "slug": "how-competition-wears-down-the-people-at-the-bottom",
         "title": "How competition wears down the people at the bottom",
         "date": "2026-11-06",
-        "summary": "Survival of the fittest, Adam Smith's sympathy, the Matthew effect, the Whitehall study, mutual aid, and three things I'm trying.",
+        "summary": "Survival of the fittest, Adam Smith's sympathy, the Matthew effect, the Whitehall study, and mutual aid.",
     },
     {
         "slug": "why-therapists-learn-cultural-humility",
         "title": "Why therapists learn cultural humility",
         "date": "2026-11-06",
-        "summary": "Some history first: the Tuskegee study, cultural competence, two doctors in Oakland who offered the word humility, and three things I'm trying.",
+        "summary": "Some history first: the Tuskegee study, cultural competence, and two doctors in Oakland who offered the word humility.",
     },
     {
         "slug": "socialism-starts-with-culture-philadelphia",
@@ -114,31 +114,31 @@ POSTS = [
         "slug": "who-raises-a-kid",
         "title": "Who raises a kid? Bronfenbrenner's circles",
         "date": "2026-11-05",
-        "summary": "Urie Bronfenbrenner's map of everything that raises a kid, what it changed about how I think about blame, and three things I'm trying.",
+        "summary": "Urie Bronfenbrenner's map of everything that raises a kid, and what it changed about how I think about blame.",
     },
     {
         "slug": "the-person-is-not-the-problem",
         "title": "The person is not the problem: what narrative therapy taught me",
         "date": "2026-11-05",
-        "summary": "Michael White and David Epston's narrative therapy, how it changed the way I talk about homelessness, and three things I'm trying.",
+        "summary": "Michael White and David Epston's narrative therapy, and how it changed the way I talk about homelessness.",
     },
     {
         "slug": "the-identified-patient",
         "title": "The identified patient: what one struggling kid can be carrying",
         "date": "2026-11-05",
-        "summary": "The family therapy idea of the identified patient, where I see it outside the therapy room, and three things I'm trying.",
+        "summary": "The family therapy idea of the identified patient, and where I see it outside the therapy room.",
     },
     {
         "slug": "who-gets-to-be-the-thinker",
         "title": "Who gets to be called a thinker? Gramsci and Collins",
         "date": "2026-11-05",
-        "summary": "Gramsci on who gets the title of thinker, Patricia Hill Collins on knowledge built outside universities, and three steps I'm trying.",
+        "summary": "Gramsci on who gets the title of thinker, and Patricia Hill Collins on knowledge built outside universities.",
     },
     {
         "slug": "intergenerational-trauma-vietnamese-americans",
         "title": "My parents never had a word for it: intergenerational trauma",
         "date": "2026-11-05",
-        "summary": "Intergenerational trauma as a Vietnamese American: the rules of my house, why they made sense, and three things I'm trying.",
+        "summary": "Intergenerational trauma as a Vietnamese American: the rules of my house, and why they made sense.",
     },
     {
         "slug": "somewhere-to-put-it",
@@ -661,13 +661,6 @@ EPISODE_QUESTIONS = {
     "a-study-on-happiness": "What makes a life feel full?",
 }
 
-# Start here: three doors into what is already live.
-DOORS = [
-    ("How do I think better?", "/blog/how-great-thinkers-are-made/", "Essay", "how-great-thinkers-are-made"),
-    ("What should school feel like?", "/blog/a-school-should-be-a-harbor/", "Essay", "a-school-should-be-a-harbor"),
-    ("What makes a life feel full?", "/podcasts/#a-study-on-happiness", "Podcast", "a-study-on-happiness"),
-]
-
 RULES = [
     ("I try to label my opinions.", "When a piece is my view, it says so. Opinion pieces are marked on the index."),
     ("I try to link my sources.", "Facts link to where they come from. Uncertain parts are marked as uncertain."),
@@ -706,17 +699,15 @@ BACKGROUND = """<h2 id="background">My background</h2>
 TIKTOK_URL = "https://www.tiktok.com/@hotolosophy.com"
 TIKTOK_LINK = f'<a href="{TIKTOK_URL}" rel="noopener">TikTok</a>'
 
-NAV = [("/start-here/", "Start here"), ("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+NAV = [("/start-here/", "Start here"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
        ("/how-i-argue/", "About")]
-# The phone menu has room for more: everything the homepage buttons reach, minus the subject pages
+# The phone menu has room for more: the main pages, minus the subject pages
 # (the archive lists those at the top).
 MENU = [("/start-here/", "Start here, 7 steps"), ("/where-do-you-stand/", "Where do you stand?"),
-        ("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
+        ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
         ("/social-location/", "Map your social location"), ("/philly/", "Get organized in Philly"),
         ("/reading-circle/", "Start a reading circle"), ("/reading-list/", "Reading list"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
         ("/how-i-argue/", "About")]
-
-BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
 
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
               "endorsed by, or paid for by any politician, campaign, party, or political committee. "
@@ -864,44 +855,14 @@ def kind_badge(kind):
     return f'<span class="kind kind-{cls}">{esc(label)}</span>'
 
 
-# Planet Hoto: one small planet mark for the header and footer, lit blue on the day side and red on the dusk side.
-# Decorative only (aria-hidden), so screen readers hear the same names as before.
-GLYPH = ('<svg class="glyph" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">'
-         '<circle class="g-body" cx="12" cy="12" r="9"/>'
-         '<path class="g-day" d="M12 3a9 9 0 0 0 0 18"/><path class="g-dusk" d="M12 3a9 9 0 0 1 0 18"/></svg>')
-
 # Nick's own hand-drawn face logo, used in the header next to the name. Made from his ink drawing
 # (black ink on a white disk so it reads on light and dark). Decorative: the link already has a name.
 LOGO = '<img class="logo" src="/logo.png" width="36" height="36" alt="">'
 
-# The hero horizon: the top of one large planet, seen from orbit, with a thin orbit and a small moon.
-# It sits below the hero text, never behind it. Colors come from the --planet-* tokens in site.css.
-HORIZON = """<div class="horizon" aria-hidden="true">
-<svg viewBox="0 0 1200 260" focusable="false">
-<defs>
-<linearGradient id="ph-rim" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="s-day"/><stop offset=".42" class="s-day s-fade"/><stop offset=".58" class="s-dusk s-fade"/><stop offset="1" class="s-dusk"/></linearGradient>
-<linearGradient id="ph-body" x1="0" x2="0" y1="0" y2="1"><stop offset="0" class="s-top"/><stop offset="1" class="s-bottom"/></linearGradient>
-</defs>
-<g class="stars"><circle cx="140" cy="62" r="1.6"/><circle cx="250" cy="150" r="1.2"/><circle cx="470" cy="28" r="1.4"/><circle cx="742" cy="60" r="1.2"/><circle cx="1012" cy="34" r="1.6"/><circle cx="1120" cy="150" r="1.2"/></g>
-<path class="orbit" d="M40 230Q600-190 1160 230"/>
-<path class="body" d="M28 260A1000 1000 0 0 1 1172 260Z"/>
-<path class="halo" d="M28 260A1000 1000 0 0 1 1172 260"/>
-<path class="rim" d="M28 260A1000 1000 0 0 1 1172 260"/>
-<path class="lat" d="M200 260Q600 172 1000 260"/>
-<circle class="moon" cx="914" cy="86" r="6"/>
-</svg>
-</div>"""
-
-
 def site_header(path):
     """The shared desktop and phone header, used by page() and by the standalone civic guide."""
     def cur(href):
-        # Writing covers the front page, /blog/ and every post; the others cover their own section.
-        if href == "/blog/":
-            on = (path.startswith("/blog/") and not path.startswith("/blog/archive/")) or path == "/"
-        else:
-            on = path.startswith(href)
-        return ' aria-current="page"' if on else ""
+        return ' aria-current="page"' if path.startswith(href) else ""
 
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     menu_links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in MENU)
@@ -953,7 +914,6 @@ def page(path, title, description, body, script="", published=None):
     hidden = path in NOINDEX_PATHS
     robots = "noindex, nofollow" if hidden else "index, follow"
     canon = "" if hidden else f'<link rel="canonical" href="{canonical(path)}">\n' + share_tags(path, title, description, published)
-    foot_nav = "".join(f'<a href="{href}">{label}</a>' for href, label in NAV)
     full_title = "otohay blog" if title is None else f"{title} · {SITE}"
     return f"""<!doctype html>
 <html lang="en">
@@ -982,14 +942,11 @@ def page(path, title, description, body, script="", published=None):
 </main>
 <footer>
 <div class="foot-top">
-<p class="foot-mark">{GLYPH}Thanks for reading. Nick</p>
-<nav aria-label="Footer">{foot_nav}</nav>
-<p class="foot-follow">See every post in the <a href="/blog/archive/">archive</a>. Follow along on {TIKTOK_LINK} or the <a href="/feed.xml">RSS feed</a>.</p>
+<p class="foot-mark">Thanks for reading. Nick</p>
+<p class="foot-follow">Follow along on {TIKTOK_LINK} or the <a href="/feed.xml">RSS feed</a>.</p>
 </div>
 <div class="foot-fine">
 <p>{STAND_FOOT}</p>
-<p>Independent and unofficial. Not affiliated with any politician, party or campaign.</p>
-<p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
 </div>
@@ -1087,7 +1044,7 @@ def archive_page():
     chips += [(f"#y{y}", y) for y in by_year] if len(by_year) > 1 else []
     jump = ('<nav class="btn-grid archive-jump" aria-label="Jump to a subject">'
             + "".join(f'<a class="btn" href="{h}">{esc(t)}</a>' for h, t in chips) + '</nav>')
-    return simple(None, "Archive", f"All {len(POSTS)} posts, newest first.", jump + years + subject_links())
+    return simple(None, "Archive", f"All {len(POSTS)} posts, newest first.", jump + years)
 
 
 # A series: posts meant to be read in order. Each part shows "Part X of Y" and Next / Previous,
@@ -1159,16 +1116,6 @@ LATEST_ON_HOME = 8
 
 
 def front_page():
-    doors = []
-    for question, href, kind, slug in DOORS:
-        if kind == "Podcast":
-            e = next(x for x in EPISODES if x["slug"] == slug)
-            meta, name = f"Podcast · {esc(e['length'])}", esc(e["title"])
-        else:
-            meta, name = f"{kind_badge(kind)}{minutes(slug)} min read", esc(post(slug)["title"])
-        doors.append(f'<li class="door"><a href="{href}"><h3 class="door-q">{q(question)}</h3>'
-                     f'<span class="door-meta">{meta}<b>{name}</b></span></a></li>')
-
     newest = sorted(POSTS, key=lambda p: p["date"], reverse=True)
     lead = newest[0]
     featured = (f'<article class="featured" aria-labelledby="feat-h"><p class="label">Newest</p>'
@@ -1178,28 +1125,16 @@ def front_page():
     latest = "".join(latest_row(p) for p in newest[1:LATEST_ON_HOME])
     subjects = "".join(f'<li><a href="{subject_path(t)}">{esc(t)} ({sum(frame(p["slug"])["theme"] == t for p in POSTS)})</a></li>'
                        for t in THEMES)
-    subjects += f'<li><a href="/blog/archive/">All posts ({len(POSTS)})</a></li>'
     subjects += f'<li><a href="{SERIES_PATH}">Series: Things therapy school taught me ({len(SERIES["parts"])})</a></li>'
 
-    btns = [(f'/blog/{lead["slug"]}/', "Read the newest post", True), ("/blog/archive/", f"All {len(POSTS)} posts", True)]
-    btns += [(subject_path(t), t, False) for t in THEMES]
-    btns += [("/start-here/", "Start here, 7 steps", False), (SERIES_PATH, "Therapy school series", False),
-             ("/social-location/", "Map your social location", False),
-             ("/philly/", "Get organized in Philly", False), ("/civic/", "Civic guide", False),
-             ("/podcasts/", "Podcasts", False), ("/how-i-argue/", "About", False), ("/feed.xml", "Follow by RSS", False)]
-    buttons = "\n".join(f'<a class="btn{" btn-main" if main else ""}" href="{h}">{esc(t)}</a>' for h, t, main in btns)
-
     # Like most blogs: a short hello, then the newest writing on the first screen. The full lists
-    # live on /blog/archive/ and the subject pages; the planet and the notice close the page.
+    # live on /blog/archive/ and the subject pages; the subject list sits beside them on wide screens.
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
 <h1 id="hero-h">A blog for the people who do the work.</h1>
-<p class="lede">What therapy school is teaching me about people, what money and power do to our heads, and what we can build together instead. Short posts from my TikTok videos, plus longer essays.</p>
+<p class="lede">I'm a therapy student writing about what capitalism does to our heads, and what we can build together instead.</p>
 {WS.HOME_ASK}
-<nav class="btn-grid" aria-label="Jump in">
-{buttons}
-</nav>
 </div>
 </section>
 
@@ -1209,8 +1144,6 @@ def front_page():
 <div class="section-head"><h2 id="latest-h">Latest writing</h2><a class="jump" href="/blog/archive/">See all {len(POSTS)} posts</a></div>
 {featured}
 <ul class="rows">{latest}</ul>
-<p class="more-row"><a class="more" href="/blog/archive/">See every post in the archive</a></p>
-<p class="aside-note">{BLUNT}</p>
 </section>
 
 </div>
@@ -1221,12 +1154,6 @@ def front_page():
 </div>
 
 <div class="index-main">
-<section class="section" id="start" aria-labelledby="start-h">
-<div class="section-head"><h2 id="start-h">Start here</h2><p>These are the three I'd read first.</p></div>
-<ul class="doors">{"".join(doors)}</ul>
-<p class="civic-callout">Or try the civic guide, <a href="/civic/">Where do my political views sit?</a> Seven policy areas, no labels, no voting advice. Your answers never leave your device.</p>
-</section>
-
 <section class="section" id="about" aria-labelledby="about-h">
 <div class="section-head"><h2 id="about-h">About</h2></div>
 <ul class="about">
@@ -1235,7 +1162,6 @@ def front_page():
 </ul>
 </section>
 </div>
-{HORIZON}
 </div>
 """
 
@@ -1295,8 +1221,7 @@ AUTHOR_CARD = ('<aside class="author-card" aria-labelledby="author-h">'
                '<div><p class="label" id="author-h">Written by Nick</p>'
                '<p class="author-bio">I\'m a Vietnamese American grad student training to be a marriage and family therapist. '
                'I write about the things in our society that frustrate me, why they might be that way, and what could help.</p>'
-               '<p class="author-more"><a href="/how-i-argue/">More about me</a></p>'
-               f'<p class="author-more"><a href="{TIKTOK_URL}" rel="noopener">Watch my videos on TikTok</a></p></div></aside>')
+               '<p class="author-more"><a href="/how-i-argue/">More about me</a></p></div></aside>')
 
 
 def echoes_title(title, question):
@@ -1397,7 +1322,6 @@ def essay_page(p):
 </div>
 <div class="after">
 {"".join(after)}
-<p class="essay-end"><a class="back" href="#main">↑ Back to top</a><a class="back" href="/blog/">← All writing</a><a class="back" href="/how-i-argue/">About</a></p>
 </div>
 </article>
 """
@@ -1481,8 +1405,7 @@ def build():
     cards = "".join(episode_card(e) for e in EPISODES)
     write("podcasts/index.html", page("/podcasts/", "Podcast", "Podcast episodes: thinking out loud about hard questions.", simple(
         "otohay blog podcast", "Podcast",
-        "These episodes are my reflections on the same questions I write about. They're my opinion, and they aren't therapy. Nothing plays until you press Play. "
-        "Every essay also has its own Listen player at the top of the page.",
+        "Audio on the same questions I write about. It's my opinion, and it isn't therapy.",
         cards)))
 
     rules = "".join(f"<h3>{esc(a)}</h3><p>{esc(b)}</p>" for a, b in RULES)
@@ -1504,8 +1427,6 @@ def build():
 <h2>What this is not</h2>
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
-<p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
-<p class="aside-note">{BLUNT}</p>
 <h2 id="contact">Contact</h2>
 <p>You can reach me at <a href="mailto:1000hoto1000@gmail.com">1000hoto1000@gmail.com</a>. I read everything, but I may be slow to reply. If you're in crisis, please call or text 988 instead.</p>
 <p>I also make short videos about what I'm learning in therapy school. You can watch them on {TIKTOK_LINK}.</p>
@@ -1542,9 +1463,8 @@ def build():
     # Every group was checked against its own page or local news in November 2026.
     write("philly/index.html", page("/philly/", "How to get organized in Philadelphia", "Local groups in Philadelphia where neighbors organize together: blocks, renters, fridges, co-ops, libraries and community groups.", simple(
         "Philadelphia", "How to get organized in Philadelphia",
-        "I grew up in Philadelphia and live in San Diego now. A lot of what makes the city work is neighbors doing things together, and most of it is easy to miss from the outside.",
-        """<p>I'm still learning how organizing works, so this is the list I wish I'd had. Each section says what the group does, who can join, and one first step you can take this week.</p>
-<p>Every group here is real, and I checked each one against its own page or local news in November 2026. Contacts change, so open the link before you go. Listing a group isn't an endorsement, and nothing on this page asks you for money.</p>
+        "I grew up in Philadelphia, and this is the list I wish I'd had.",
+        """<p>Each group has what it does, who can join and one first step. I checked every group in November 2026, but contacts change, so open the link before you go. Listing a group isn't an endorsement.</p>
 <h2 id="start">Where to start</h2>
 <ol>
 <li><a href="#block">Become a block captain</a></li>
@@ -1650,7 +1570,7 @@ def build():
 </ul>
 <h2 id="next">Then do something together</h2>
 <p>When your circle is ready to act, the <a href="/philly/">Philly organizing list</a> has places to plug in, from block captains to tenant groups.</p>
-<p>This page doesn't collect anything. There's no sign-up and no ask for money. There's a <a href="/handouts/reading-circle-packet.pdf">printable packet</a> with a one-page handout for each week. Change anything to fit your group.</p>
+<p>There's a <a href="/handouts/reading-circle-packet.pdf">printable packet</a> with a one-page handout for each week. Change anything to fit your group.</p>
 <p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
@@ -1696,7 +1616,7 @@ def build():
     # intersectionality and Bronfenbrenner's circles. Nothing is typed in or saved; no script, no form.
     write("social-location/index.html", page("/social-location/", "Map your social location", "A short interview about the groups you belong to, laid out as a map at three levels: micro (you), meso (your communities) and macro (society). Nothing is typed in, saved or sent.", simple(
         "Reflection", "Map your social location",
-        "A short interview. Pick the words that fit you, skip anything you like, and see your map at the end. Nothing here is typed in, saved or sent.",
+        "A short interview. Pick the words that fit you, skip anything you like, and see your map at the end.",
         """<div class="prose">
 <p>Your social location is the mix of groups you belong to, like your age, your culture, your class, and your gender. Where you stand shapes what you can see easily, and what's hard to see.</p>
 <p>Social workers and therapists often look at a life on three levels. <strong>Micro</strong> is you. <strong>Meso</strong> is the communities and places around you. <strong>Macro</strong> is the larger society: its history, laws, and messages.</p>
@@ -1743,21 +1663,21 @@ def build():
         """<ol class="path">
 <li><h2 id="step-1">Where do you stand?</h2><p>Thirty quick questions about sharing, work, home, care, power and hope. Most people believe in sharing more than they think. No score, nothing saved.</p><p class="actions"><a class="cta" href="/where-do-you-stand/">Answer the questions</a></p></li>
 <li><h2 id="step-2">Map your social location</h2><p>Where you stand shapes what you can see easily, and what's hard to see.</p><p><a href="/social-location/">Map your social location</a></p></li>
-<li><h2 id="step-3">How the system gets inside your head</h2><p>What therapy school is teaching me about how a society shapes the way we see ourselves. A series on Fanon, Freud and Foucault is on the way. For now, start with the therapy school series.</p><p><a href="/series/therapy-school/">Things therapy school taught me about society</a> · <a href="/blog/the-person-is-not-the-problem/">The person is not the problem</a></p></li>
+<li><h2 id="step-3">How the system gets inside your head</h2><p>What therapy school is teaching me about how a society shapes the way we see ourselves.</p><p><a href="/series/therapy-school/">Things therapy school taught me about society</a> · <a href="/blog/the-person-is-not-the-problem/">The person is not the problem</a></p></li>
 <li><h2 id="step-4">Who pays, who profits</h2><p>Who ends up with less, and why the system keeps working that way.</p><p><a href="/blog/how-competition-wears-down-the-people-at-the-bottom/">How competition wears down the people at the bottom</a> · <a href="/blog/one-roll-of-toilet-paper/">One roll of toilet paper</a> · <a href="/blog/we-didnt-all-start-at-the-same-line/">We didn't all start at the same line</a></p></li>
 <li><h2 id="step-5">What people built instead</h2><p>People have always fed, housed and cared for each other when the system wouldn't.</p><p><a href="/blog/what-the-panthers-and-king-both-saw-about-poverty/">What the Black Panthers and Dr. King both saw about poverty</a> · <a href="/philly/#coops">Food co-ops in Philly</a> · <a href="/philly/#fridges">Community fridges</a></p></li>
 <li><h2 id="step-6">Read with friends</h2><p>A few people, one short reading a week, four questions. Week six is a writer who disagrees with most of this, on purpose.</p><p><a href="/reading-circle/">Start a reading circle</a></p></li>
 <li><h2 id="step-7">Do one thing</h2><p>Talk with a coworker. Knock on a neighbor's door. Stock a fridge. Picking one is enough.</p><p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p></li>
 </ol>
-<p>Nothing on this path asks for money, and nothing you do here is saved. If you think I've got something wrong, that's okay. Read the other side's best case and decide for yourself.</p>
+<p>If you think I've got something wrong, that's okay. Read the other side's best case and decide for yourself.</p>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
     # Where do you stand?: thirty statements, no script, no form, no score. Nothing is typed, saved or sent.
     write("where-do-you-stand/index.html", page("/where-do-you-stand/", "Where do you stand?", "Thirty questions about sharing, work, home, care, power and hope. No score, no label, and nothing is saved or sent.", simple(
         "Questions", "Where do you stand?",
         "Thirty statements about sharing, work, home, care, power and hope. Pick \"That's me,\" \"Not sure\" or \"Not me\" for each, or skip it. At the end you'll see the ideas you already agree with.",
         """<div class="prose">
-<p>I'll be honest about what this is. This blog takes a side, and these questions come from that side. I think a lot of people already believe in sharing, fair work and care for everyone, and just haven't heard it said out loud. You might not, and that's okay too.</p>
-<p>There's no score, no label, and no wrong answer. Nothing is typed in, saved or sent.</p>
+<p>This blog takes a side, and these questions come from it. I think a lot of people already believe in sharing, fair work and care, and just haven't heard it said out loud.</p>
+<p>There's no score, no label, and no wrong answer.</p>
 </div>
 """ + WS.questionnaire_html() + """
 <h2 id="next">What now?</h2>
@@ -1842,7 +1762,6 @@ def write_feed():
 
 CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
 FOOTER_LINES = [
-    "Independent and unofficial. Not affiliated with any politician, party or campaign.",
     STAND_FOOT,
     "Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.",
     'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
