@@ -23,8 +23,11 @@ SITE = "otohay blog"
 import sys
 sys.path.insert(0, str(ROOT))
 import social_location as SL  # the social location interview (no script)
+import where_you_stand as WS  # the "Where do you stand?" questionnaire (no script)
 assert SL.css_block() in (ROOT / "site.css").read_text(encoding="utf-8"), \
     "site.css interview rules are out of date: run python3 social_location.py, then build again"
+assert WS.css_block() in (ROOT / "site.css").read_text(encoding="utf-8"), \
+    "site.css questionnaire rules are out of date: run python3 where_you_stand.py, then build again"
 CSS_VERSION = hashlib.sha256((ROOT / "site.css").read_bytes()).hexdigest()[:10]
 CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
@@ -264,12 +267,6 @@ POSTS = [
         "summary": 'How a prison design from 1786 explains why we edit ourselves online, and one small thing to try this week.',
     },
     {
-        "slug": "a-president-who-understands-how-systems-feel",
-        "title": "A President Who Understands How Systems Feel",
-        "date": "2026-10-25",
-        "summary": "Why I might support Alexandria Ocasio-Cortez if she runs for president in 2028: social location, her record, and a politics that connects housing, health, climate, and daily costs.",
-    },
-    {
         "slug": "when-watching-students-becomes-the-lesson",
         "title": "When Watching Students Becomes the Lesson",
         "date": "2026-10-24",
@@ -459,15 +456,6 @@ FRAMING = {
         "related": "when-watching-students-becomes-the-lesson",
         "voices": ['Michel Foucault'],
     },
-    "a-president-who-understands-how-systems-feel": {
-        "question": "Can where a leader comes from shape what they see?",
-        "theme": "Politics and civic life",
-        "kind": "Opinion",
-        "note": "Personal opinion; not affiliated with her or any campaign.",
-        "sit": "Which parts of your own life shape what you notice about how the country works, and what might they hide from you?",
-        "related": "what-im-learning-about-third-parties",
-        "voices": [],
-    },
     "when-watching-students-becomes-the-lesson": {
         "question": "What do students learn when someone is always watching?",
         "theme": "Schools",
@@ -497,7 +485,7 @@ FRAMING = {
         "theme": "Politics and civic life",
         "kind": "Sourced explainer",
         "sit": "If your vote could never be wasted, who would you vote for?",
-        "related": "a-president-who-understands-how-systems-feel",
+        "related": "fearless-speech-for-regular-people",
         "voices": ["Maurice Duverger", "Richard Hofstadter"],
     },
     "a-rest-from-happiness": {
@@ -704,11 +692,12 @@ BACKGROUND = """<h2 id="background">My background</h2>
 TIKTOK_URL = "https://www.tiktok.com/@hotolosophy.com"
 TIKTOK_LINK = f'<a href="{TIKTOK_URL}" rel="noopener">TikTok</a>'
 
-NAV = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
+NAV = [("/start-here/", "Start here"), ("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
        ("/how-i-argue/", "About")]
 # The phone menu has room for more: everything the homepage buttons reach, minus the subject pages
 # (the archive lists those at the top).
-MENU = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
+MENU = [("/start-here/", "Start here, 7 steps"), ("/where-do-you-stand/", "Where do you stand?"),
+        ("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-school/", "Therapy school series"),
         ("/social-location/", "Map your social location"), ("/philly/", "Get organized in Philly"),
         ("/reading-circle/", "Start a reading circle"), ("/podcasts/", "Podcast"), ("/civic/", "Civic guide"),
         ("/how-i-argue/", "About")]
@@ -716,8 +705,17 @@ MENU = [("/blog/", "Blog"), ("/blog/archive/", "Archive"), ("/series/therapy-sch
 BLUNT = ("<strong>Heads up: I write bluntly.</strong> If a post brings up something heavy, it's okay to stop reading.")
 
 UNOFFICIAL = ("<strong>Independent and unofficial.</strong> otohay blog is a personal project. It is not affiliated with, "
-              "endorsed by, or paid for by Alexandria Ocasio-Cortez, any campaign, party, or political committee. "
+              "endorsed by, or paid for by any politician, campaign, party, or political committee. "
               "Essays are opinion. Sourced claims are linked where they appear.")
+
+# The site's stand, said plainly on every page (Nick, 2026-11-11: a dissident blog, no single politician).
+BANNER = "Against the rich running everything. For people sharing what they have."
+STAND_FOOT = "otohay blog is a dissident blog by Nick. Unpaid commentary. No donations, no sponsors, and no politician to follow. I speak only for myself, not for any group I belong to or link to."
+STAND = ('<aside class="where-i-stand" aria-labelledby="stand-h"><p class="label" id="stand-h">Where I stand</p>'
+         "<p>I side with workers, renters and neighbors over the people who profit from them, and I write from there. "
+         "I don't follow any one politician. I'm against antisemitism, and against AIPAC's money in our elections.</p>"
+         "<p>I could be wrong, so read the other side's best case too.</p>"
+         '<p class="actions"><a class="cta" href="/start-here/">Next step: start here</a></p></aside>')
 
 TEACHERS = "Most of these ideas aren't mine. I'm passing on what I learned from my professors at San Diego State."
 
@@ -776,7 +774,6 @@ RELATED = {
     ],
     "social-location-where-you-stand": [
         "we-didnt-all-start-at-the-same-line",
-        "a-president-who-understands-how-systems-feel",
         "the-i-am-poem-who-we-say-we-are"
     ],
     "what-a-freudian-slip-can-and-cannot-tell-us": [
@@ -805,11 +802,6 @@ RELATED = {
     ],
     "the-watcher-in-your-pocket": [
         "when-watching-students-becomes-the-lesson",
-        "how-great-thinkers-are-made"
-    ],
-    "a-president-who-understands-how-systems-feel": [
-        "social-location-where-you-stand",
-        "we-didnt-all-start-at-the-same-line",
         "how-great-thinkers-are-made"
     ],
     "when-watching-students-becomes-the-lesson": [
@@ -900,7 +892,7 @@ def site_header(path):
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     menu_links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in MENU)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="otohay blog, home">{LOGO}otohay <span>blog</span></a>\n'
+            f'<a class="wordmark" href="/" aria-label="otohay blog, a dissident blog, home">{LOGO}<span class="wm-text"><span class="wm-name">otohay <span>blog</span></span><small class="stamp">a dissident blog</small></span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{menu_links}</nav></details>\n'
             f'</header>')
@@ -970,6 +962,7 @@ def page(path, title, description, body, script="", published=None):
 <a class="skip" href="#main">Skip to content</a>
 <aside class="crisis" aria-label="Crisis help">In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.</aside>
 {site_header(path)}
+<aside class="stand-banner" aria-label="Where this blog stands">{BANNER}</aside>
 <main id="main" tabindex="-1">
 {body}
 </main>
@@ -980,7 +973,8 @@ def page(path, title, description, body, script="", published=None):
 <p class="foot-follow">See every post in the <a href="/blog/archive/">archive</a>. Follow along on {TIKTOK_LINK} or the <a href="/feed.xml">RSS feed</a>.</p>
 </div>
 <div class="foot-fine">
-<p>Independent and unofficial. Not affiliated with AOC or any campaign.</p>
+<p>{STAND_FOOT}</p>
+<p>Independent and unofficial. Not affiliated with any politician, party or campaign.</p>
 <p>{TEACHERS}</p>
 <p>Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.</p>
 <p>This site currently shows no ads. <a href="/privacy/">Privacy</a>.</p>
@@ -1175,8 +1169,8 @@ def front_page():
 
     btns = [(f'/blog/{lead["slug"]}/', "Read the newest post", True), ("/blog/archive/", f"All {len(POSTS)} posts", True)]
     btns += [(subject_path(t), t, False) for t in THEMES]
-    btns += [(SERIES_PATH, "Therapy school series", False), ("/social-location/", "Map your social location", False),
-             ("#start", "Start here", False),
+    btns += [("/start-here/", "Start here, 7 steps", False), (SERIES_PATH, "Therapy school series", False),
+             ("/social-location/", "Map your social location", False),
              ("/philly/", "Get organized in Philly", False), ("/civic/", "Civic guide", False),
              ("/podcasts/", "Podcasts", False), ("/how-i-argue/", "About", False), ("/feed.xml", "Follow by RSS", False)]
     buttons = "\n".join(f'<a class="btn{" btn-main" if main else ""}" href="{h}">{esc(t)}</a>' for h, t, main in btns)
@@ -1186,9 +1180,9 @@ def front_page():
     return f"""<div class="frame">
 <section class="hero" aria-labelledby="hero-h">
 <div class="hero-text">
-<h1 id="hero-h">What therapy school is teaching me about people, and about society.</h1>
-<p class="lede">Short posts from my TikTok videos, plus longer essays. Start anywhere.</p>
-{SL.HOME_ASK}
+<h1 id="hero-h">A blog for the people who do the work.</h1>
+<p class="lede">What therapy school is teaching me about people, what money and power do to our heads, and what we can build together instead. Short posts from my TikTok videos, plus longer essays.</p>
+{WS.HOME_ASK}
 <nav class="btn-grid" aria-label="Jump in">
 {buttons}
 </nav>
@@ -1356,7 +1350,7 @@ def essay_page(p):
         after.insert(0, series_nav)
     after.append(AUTHOR_CARD)
     after.append(older_newer(slug))
-    after.append('<p class="disagree"><strong>Disagree? That\'s okay.</strong> I could be wrong, so read the other side\'s best case too.</p>')
+    after.append(STAND)
     body, parts = with_outline(body_of(slug))
     POST_BODIES.append(body)
     toc_phone = toc_wide = ""
@@ -1515,7 +1509,7 @@ def build():
     assert quiz.count(placeholder) == 1, "civic guide must have exactly one header placeholder"
     civic_html = quiz.replace(placeholder, site_header("/civic/")).replace(plain_link, CSS_LINK)
     assert 'class="menu"' in civic_html, "civic guide must include the phone menu"
-    assert not any(f'>{label}</a>' in civic_html for label in ("Start here", "Questions")), "civic guide has a stale menu link"
+    assert not any(f'>{label}</a>' in civic_html for label in ("Questions",)), "civic guide has a stale menu link"
     assert 'href="/blog/#start"' not in civic_html and 'aria-current="page">Civic guide</a>' in civic_html, "civic guide header is out of date"
     write("civic/index.html", civic_html)
 
@@ -1690,6 +1684,34 @@ def build():
 </div>
 <p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
 
+    # Start here: the seven-step path, smallest step first. Every step is a link the reader chooses.
+    write("start-here/index.html", page("/start-here/", "Start here", "Seven steps, smallest first: from what you already believe to doing one thing with your neighbors.", simple(
+        "Start here", "Seven steps, smallest first",
+        "This blog takes a side. I think a few people own too much, decide too much, and leave everyone else to fight over what's left. Here's the path I'd walk a friend through. Take it at your own pace, skip anything, and argue with me on the way.",
+        """<ol class="path">
+<li><h2 id="step-1">Where do you stand?</h2><p>Thirty quick questions about sharing, work, home, care, power and hope. Most people believe in sharing more than they think. No score, nothing saved.</p><p class="actions"><a class="cta" href="/where-do-you-stand/">Answer the questions</a></p></li>
+<li><h2 id="step-2">Map your social location</h2><p>Where you stand shapes what you can see easily, and what's hard to see.</p><p><a href="/social-location/">Map your social location</a></p></li>
+<li><h2 id="step-3">How the system gets inside your head</h2><p>What therapy school is teaching me about how a society shapes the way we see ourselves. A series on Fanon, Freud and Foucault is on the way. For now, start with the therapy school series.</p><p><a href="/series/therapy-school/">Things therapy school taught me about society</a> · <a href="/blog/the-person-is-not-the-problem/">The person is not the problem</a></p></li>
+<li><h2 id="step-4">Who pays, who profits</h2><p>Who ends up with less, and why the system keeps working that way.</p><p><a href="/blog/how-competition-wears-down-the-people-at-the-bottom/">How competition wears down the people at the bottom</a> · <a href="/blog/one-roll-of-toilet-paper/">One roll of toilet paper</a> · <a href="/blog/we-didnt-all-start-at-the-same-line/">We didn't all start at the same line</a></p></li>
+<li><h2 id="step-5">What people built instead</h2><p>People have always fed, housed and cared for each other when the system wouldn't.</p><p><a href="/blog/what-the-panthers-and-king-both-saw-about-poverty/">What the Black Panthers and Dr. King both saw about poverty</a> · <a href="/philly/#coops">Food co-ops in Philly</a> · <a href="/philly/#fridges">Community fridges</a></p></li>
+<li><h2 id="step-6">Read with friends</h2><p>A few people, one short reading a week, four questions. Week six is a writer who disagrees with most of this, on purpose.</p><p><a href="/reading-circle/">Start a reading circle</a></p></li>
+<li><h2 id="step-7">Do one thing</h2><p>Talk with a coworker. Knock on a neighbor's door. Stock a fridge. Picking one is enough.</p><p class="actions"><a class="cta" href="/philly/">Get organized in Philly</a></p></li>
+</ol>
+<p>Nothing on this path asks for money, and nothing you do here is saved. If you think I've got something wrong, that's okay. Read the other side's best case and decide for yourself.</p>
+<p><a class="more" href="/blog/">← Back to the blog</a></p>""")))
+    # Where do you stand?: thirty statements, no script, no form, no score. Nothing is typed, saved or sent.
+    write("where-do-you-stand/index.html", page("/where-do-you-stand/", "Where do you stand?", "Thirty questions about sharing, work, home, care, power and hope. No score, no label, and nothing is saved or sent.", simple(
+        "Questions", "Where do you stand?",
+        "Thirty statements about sharing, work, home, care, power and hope. Pick \"That's me,\" \"Not sure\" or \"Not me\" for each, or skip it. At the end you'll see the ideas you already agree with.",
+        """<div class="prose">
+<p>I'll be honest about what this is. This blog takes a side, and these questions come from that side. I think a lot of people already believe in sharing, fair work and care for everyone, and just haven't heard it said out loud. You might not, and that's okay too.</p>
+<p>There's no score, no label, and no wrong answer. Nothing is typed in, saved or sent.</p>
+</div>
+""" + WS.questionnaire_html() + """
+<h2 id="next">What now?</h2>
+<p>If you said "That's me" a lot, you already believe much of what this blog argues. If you didn't, I'd still like you to stick around and push back.</p>
+<p class="actions"><a class="cta" href="/start-here/#step-2">Next step: map your social location</a></p>
+<p><a class="more" href="/start-here/">See all 7 steps</a></p>""")))
     # Privacy
     write("privacy/index.html", page("/privacy/", "Privacy", "How this site handles your data and ads.", simple(
         None, "Privacy", None, """<p>I don't want your data. There are no accounts and no forms, and nothing you type here is sent to this site.</p>
@@ -1713,7 +1735,7 @@ def build():
         + '<p class="actions"><a class="cta" href="/blog/">Back to the blog</a></p>')))
 
 
-SITEMAP_PAGES = ["/blog/", "/blog/archive/", SERIES_PATH, "/social-location/", "/podcasts/", "/how-i-argue/", "/philly/", "/reading-circle/", "/privacy/"]
+SITEMAP_PAGES = ["/blog/", "/blog/archive/", "/start-here/", "/where-do-you-stand/", SERIES_PATH, "/social-location/", "/podcasts/", "/how-i-argue/", "/philly/", "/reading-circle/", "/privacy/"]
 
 
 def write_sitemap():
@@ -1768,7 +1790,8 @@ def write_feed():
 
 CRISIS = ('In crisis? Call or text <a href="tel:988">988</a> (U.S.) or call <a href="tel:911">911</a> for an emergency.')
 FOOTER_LINES = [
-    "Independent and unofficial. Not affiliated with AOC or any campaign.",
+    "Independent and unofficial. Not affiliated with any politician, party or campaign.",
+    STAND_FOOT,
     "Everything here is education and opinion. It is not therapy, diagnosis, or treatment, and it is not a substitute for a licensed professional.",
     'This site currently shows no ads. <a href="/privacy/">Privacy</a>.',
 ]
