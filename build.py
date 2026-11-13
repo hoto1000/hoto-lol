@@ -892,7 +892,7 @@ def site_header(path):
     links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in NAV)
     menu_links = "".join(f'<a href="{href}"{cur(href)}>{label}</a>' for href, label in MENU)
     return (f'<header class="top">\n'
-            f'<a class="wordmark" href="/" aria-label="otohay blog, a dissident blog, home">{LOGO}<span class="wm-text"><span class="wm-name">otohay <span>blog</span></span><small class="stamp">a dissident blog</small></span></a>\n'
+            f'<a class="wordmark" href="/">{LOGO}<span class="wm-text"><span class="wm-name">otohay <span>blog</span></span><small class="stamp">a dissident blog</small></span></a>\n'
             f'<nav class="main nav-wide" aria-label="Main">{links}</nav>\n'
             f'<details class="menu"><summary>Menu</summary><nav class="nav-menu" aria-label="Main">{menu_links}</nav></details>\n'
             f'</header>')
