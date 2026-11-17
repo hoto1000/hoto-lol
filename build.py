@@ -33,6 +33,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "a-liveable-future-is-possible-for-philly",
+        "title": "A liveable future is possible for Philly",
+        "date": "2026-11-17",
+        "summary": "A sourced, hopeful look at what makes Philadelphia hard to live in (poverty, rent, heat, gun violence, transit) and the real programs and neighbors already building a more liveable city.",
+    },
+    {
         "slug": "we-made-it-okay-to-talk",
         "title": "We made it okay to talk. Getting help is still too hard.",
         "date": "2026-11-10",
@@ -346,6 +352,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "a-liveable-future-is-possible-for-philly": {
+        "question": "What would it take for Philadelphia to be a city where working people can afford to stay, breathe and get around?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "My own argument, organized with AI help and checked against published sources.",
+        "sit": "Which of these things already exists on your block, and which one would you want to help build?",
+        "related": "socialism-starts-with-culture-philadelphia",
+        "voices": [],
+    },
     "we-made-it-okay-to-talk": {
         "question": "What happens after someone finally asks for help?",
         "theme": "Mental health",
