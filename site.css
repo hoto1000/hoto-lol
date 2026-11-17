@@ -1,8 +1,6 @@
-/* Project Hoto: Planet Hoto. One planet, lit blue on its day side and red on its dusk side, on a black sky.
+/* otohay blog. Black and white, like the ink drawing in the logo.
    Dark (black) is the primary look; light is a pale "daylight" version of the same identity, from prefers-color-scheme: light.
-   Red and blue are light and atmosphere: the planet, rules, borders, the current-page underline and the wordmark.
-   Body text is off-white (dark) or ink (light). Blue carries links because it passes AA in both themes.
-   The planet is the only gradient on the site, and it never sits behind text.
+   Body text is off-white (dark) or ink (light).
    Fonts: system stacks only. Editorial serif for titles, headings and body; interface sans for nav, metadata, labels, buttons.
    Type tokens (families, scale, line heights, rhythm, measure, tracking) follow review/type-tokens, DRAFT v0.1.
    Everything is in rem or em so user font settings scale the whole system. */
@@ -17,12 +15,6 @@
   --accent: #f2f2f2;
   --border: #3a3a3a;
   --ring: #f2f2f2;
-  --planet-day: #f2f2f2;
-  --planet-dusk: #f2f2f2;
-  --planet-top: #262626;
-  --planet-bottom: #0b0b0b;
-  --planet-line: #3a3a3a;
-  --star: #8a8a8a;
 
   /* Families: system fonts only, no web fonts. */
   --font-serif: Georgia, Cambria, "Noto Serif", "Droid Serif", "Times New Roman",
@@ -99,12 +91,6 @@
     --accent: #111111;
     --border: #d4d4d4;
     --ring: #111111;
-    --planet-day: #111111;
-    --planet-dusk: #111111;
-    --planet-top: #e6e6e6;
-    --planet-bottom: #ffffff;
-    --planet-line: #bdbdbd;
-    --star: transparent;
     --paper: #ffffff;
     --card: #f2f2f2;
     --ink: #111111;
@@ -207,12 +193,6 @@ header.top {
 /* Nick's drawn logo in the header: a small round mark, thin ring so the white disk has an edge in light mode. */
 .logo { flex: none; width: 1.5em; height: 1.5em; margin-right: 0.45em; border-radius: 50%; box-shadow: 0 0 0 1px var(--border); }
 
-/* Planet mark: header and footer. Day rim blue, dusk rim red. */
-.glyph { flex: none; width: 1em; height: 1em; margin-right: 0.45em; overflow: visible; }
-.glyph .g-body { fill: var(--planet-top); }
-.glyph .g-day, .glyph .g-dusk { fill: none; stroke-width: 2.25; }
-.glyph .g-day { stroke: var(--planet-day); }
-.glyph .g-dusk { stroke: var(--planet-dusk); }
 
 nav.main { display: flex; flex-wrap: wrap; gap: 0 var(--s2); }
 nav.main a {
@@ -282,23 +262,6 @@ nav.main a[aria-current="page"],
   margin: var(--s2) 0 var(--s3);
   text-wrap: balance;
 }
-/* The signature: a planet horizon under the hero text. Fixed aspect ratio, so the arc never distorts.
-   Strokes keep their pixel width at every size. */
-.horizon { margin: var(--s5) 0 0; aspect-ratio: 1200 / 260; }
-.horizon svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.horizon path, .horizon circle { vector-effect: non-scaling-stroke; }
-.horizon .s-day { stop-color: var(--planet-day); }
-.horizon .s-dusk { stop-color: var(--planet-dusk); }
-.horizon .s-fade { stop-opacity: 0.25; }
-.horizon .s-top { stop-color: var(--planet-top); }
-.horizon .s-bottom { stop-color: var(--planet-bottom); }
-.horizon .body { fill: url(#ph-body); }
-.horizon .halo { fill: none; stroke: url(#ph-rim); stroke-width: 9; stroke-opacity: 0.22; }
-.horizon .rim { fill: none; stroke: url(#ph-rim); stroke-width: 2; }
-.horizon .lat { fill: none; stroke: var(--planet-line); stroke-width: 1; }
-.horizon .orbit { fill: none; stroke: var(--planet-line); stroke-width: 1; }
-.horizon .moon { fill: var(--planet-dusk); }
-.horizon .stars circle { fill: var(--star); }
 .hero + .index-grid #latest { border-top: 0; }
 .lede { font-size: var(--fs-lead); line-height: var(--lh-lede); max-width: 38rem; margin: 0 0 var(--s4); }
 .page-head .lede { margin-bottom: 0; }
@@ -319,16 +282,6 @@ nav.main a[aria-current="page"],
 .section-head h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); margin: 0; }
 .section-head p { font-family: var(--interface); color: var(--muted); margin: 0; max-width: 34rem; font-size: var(--fs-desc); line-height: 1.5; }
 
-/* Start here: three compact doors, each a whole-row link */
-.doors { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--s5); }
-.door a { display: block; padding: var(--s3) 0; min-height: 44px; border-top: 1px solid var(--border); color: var(--text); text-decoration: none; }
-.door:first-child a { border-top: 0; }
-.door a:hover .door-q { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.door-q { margin: 0; font-size: var(--fs-h3); line-height: 1.2; }
-.door-meta { display: block; margin-top: var(--s1); font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); }
-.door-meta b { display: block; color: var(--text); font-family: var(--editorial); font-style: italic; font-weight: 400; font-size: 1.0625rem; margin-top: var(--s1); }
-.civic-callout { font-family: var(--interface); margin: var(--s4) 0 0; color: var(--muted); font-size: var(--fs-nav); }
-.civic-callout a { font-weight: 600; display: inline-block; padding: 10px 0; margin: -10px 0; }
 
 /* Blog index: latest writing as rows. One anchor per row, stretched over the whole row. */
 .jump { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--interface); font-size: var(--fs-nav); font-weight: 600; }
@@ -357,8 +310,6 @@ nav.main a[aria-current="page"],
 .subject-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s2); }
 .subject-chips a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s4); border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text); font-family: var(--interface); font-size: var(--fs-nav); text-decoration: none; }
 .subject-chips a:hover { text-decoration: underline; }
-.more-row { margin: var(--s3) 0 0; }
-.frame > .horizon { margin-top: var(--s7); }
 .frame > .unofficial { margin-top: var(--s4); }
 @media (min-width: 48rem) {
   .index-grid { display: grid; grid-template-columns: minmax(0, 45rem) 16.25rem; justify-content: space-between; align-items: start; }
@@ -369,10 +320,6 @@ nav.main a[aria-current="page"],
   .index-side ul { list-style: none; margin: 0; padding: 0; }
   .index-side li { border-top: 1px solid var(--border); }
   .index-side a { display: flex; align-items: center; min-height: 48px; font-family: var(--interface); font-size: var(--fs-nav); color: var(--text); }
-  .doors { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .door a, .door:first-child a { border-top: 0; padding-right: var(--s2); }
-  .door a { border-left: 1px solid var(--border); padding-left: var(--s4); }
-  .door:first-child a { border-left: 0; padding-left: 0; }
 }
 .index-grid + .index-main .section:first-child { border-top: 1px solid var(--border); }
 
@@ -393,7 +340,6 @@ nav.main a[aria-current="page"],
 .essay-kind .kind { margin: 0; vertical-align: baseline; }
 .essay-kind > a { color: inherit; display: inline-flex; align-items: center; min-height: 24px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .essay-kind > a:hover { color: var(--link); }
-.door-meta .kind { margin: 0 0.7em 0 0; }
 
 /* Open questions: a compact list */
 .shelf { list-style: none; margin: 0; padding: 0; }
@@ -430,13 +376,12 @@ nav.main a[aria-current="page"],
 }
 .essay-q { font-size: var(--fs-lead); font-style: italic; line-height: var(--lh-lede); color: var(--muted); margin: 0 0 var(--s3); max-width: 38rem; }
 .essay-meta { font-family: var(--interface); font-size: var(--fs-meta); color: var(--muted); margin: 0; }
-/* Byline and author card, in the style of Substack and LinkedIn articles. The "N" circle uses the
-   planet's day and dusk colors as its ring, like the site glyph. */
+/* Byline and author card, in the style of Substack and LinkedIn articles. The "N" circle has an accent ring. */
 .byline { display: flex; align-items: center; gap: var(--s3); margin: var(--s4) 0 0; padding: var(--s3) 0; border-block: 1px solid var(--border); }
 .byline-text { display: flex; flex-direction: column; margin: 0; font-family: var(--interface); line-height: 1.35; }
 .byline-name { font-size: var(--fs-nav); font-weight: 600; color: var(--text); }
 .avatar { flex: none; display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%;
-  border: 2px solid; border-color: var(--planet-day) var(--planet-dusk) var(--planet-dusk) var(--planet-day);
+  border: 2px solid var(--accent);
   background: var(--surface); color: var(--text); font-family: var(--editorial); font-size: 1.125rem; font-weight: 700; }
 .avatar-lg { width: 3.5rem; height: 3.5rem; font-size: 1.5rem; }
 .author-card { display: flex; align-items: flex-start; gap: var(--s4); margin: var(--s6) 0 0; padding: var(--s5); border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
@@ -530,7 +475,6 @@ nav.main a[aria-current="page"],
 .read-next cite { display: block; font-size: 1rem; font-style: italic; color: var(--muted); margin-top: var(--s2); }
 .disagree { font-family: var(--interface); color: var(--muted); font-size: var(--fs-nav); margin: var(--s5) 0 0; }
 .disagree strong { color: var(--text); }
-.essay-end { display: flex; flex-wrap: wrap; gap: 0 var(--s5); margin: var(--s4) 0 var(--s6); }
 
 /* Simple pages (podcast, method, privacy, 404) */
 .page { width: min(var(--wide), 100% - 2 * var(--gutter)); margin-inline: auto; padding: var(--s6) 0 var(--s7); }
@@ -587,16 +531,14 @@ footer {
 }
 footer p { margin: 0 0 var(--s2); max-width: 46rem; }
 footer .foot-mark { display: flex; align-items: center; font-family: var(--editorial); font-size: 1.125rem; line-height: 1.3; color: var(--text); margin: 0 0 var(--s2); max-width: none; }
-footer nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s5); margin-bottom: var(--s3); }
-footer nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 footer p a { display: inline-flex; align-items: center; min-height: 44px; }
-/* Footer in two parts, like most blogs: name, links and follow on top, small print below. */
+/* Footer in two parts, like most blogs: name and follow on top, small print below. */
 footer .foot-top { padding-bottom: var(--s4); margin-bottom: var(--s4); border-bottom: 1px solid var(--border); }
 footer .foot-follow { margin: 0; }
 footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom: var(--s1); }
 @media (min-width: 48rem) {
   footer .foot-top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s6); }
-  footer .foot-top .foot-mark, footer .foot-top nav { margin: 0; }
+  footer .foot-top .foot-mark { margin: 0; }
   footer .foot-follow { margin-left: auto; }
 }
 /* 404: newest posts and subjects side by side on wide screens. */
@@ -649,12 +591,12 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
 /* Hero: bigger, bolder headline with an accent underline drawn in on load. */
 .hero h1 { font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem); letter-spacing: -0.015em; }
 .hero h1::after { content: ""; display: block; width: 5.5rem; height: 4px; margin-top: var(--s4); border-radius: 2px;
-  background: linear-gradient(90deg, var(--planet-day), var(--planet-dusk)); transform-origin: left; animation: draw 700ms ease-out both; }
+  background: var(--accent); transform-origin: left; animation: draw 700ms ease-out both; }
 .hero .lede { font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem); }
 /* Featured newest post: its question, big, like a pull quote. */
 .featured { position: relative; margin: var(--s2) 0 var(--s5); padding: var(--s5) var(--s5) var(--s4); border: 1px solid var(--border); border-radius: 10px; background: var(--surface);
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
-.featured::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 10px 0 0 10px; background: linear-gradient(180deg, var(--planet-day), var(--planet-dusk)); }
+.featured::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 10px 0 0 10px; background: var(--accent); }
 .featured:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -18px rgba(0,0,0,.45); border-color: var(--muted); }
 .feat-q { font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); line-height: 1.15; font-style: italic; margin: var(--s2) 0 var(--s3); text-wrap: balance; }
 .feat-q a { color: var(--text); text-decoration: none; }
@@ -675,7 +617,7 @@ footer .foot-fine p { font-size: var(--fs-meta); line-height: 1.5; margin-bottom
 .series-nav a:hover, .subject-chips a:hover { border-color: var(--muted); transform: translateY(-1px); }
 /* Section headings get a short accent mark. */
 .section-head h2::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; margin-right: 0.45em; border-radius: 50%; vertical-align: 0.05em;
-  background: conic-gradient(var(--planet-day) 0 50%, var(--planet-dusk) 50% 100%); }
+  background: var(--accent); }
 /* Homepage buttons: jump straight to something to read. */
 .btn-grid { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s2); margin: var(--s4) 0 0; }
 .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s4); border: 1px solid var(--border); border-radius: 999px;
