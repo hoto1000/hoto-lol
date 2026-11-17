@@ -33,6 +33,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "what-i-mean-by-capitalism",
+        "title": "What I mean when I say capitalism",
+        "date": "2026-11-13",
+        "summary": "Part one of \"Capitalism, explained plainly\": private ownership, wage labor, profit and accumulation, how it differs from trade, what socialists propose, and what Adam Smith and Milton Friedman argue.",
+    },
+    {
         "slug": "we-made-it-okay-to-talk",
         "title": "We made it okay to talk. Getting help is still too hard.",
         "date": "2026-11-10",
@@ -346,6 +352,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "what-i-mean-by-capitalism": {
+        "question": "What do people actually mean when they say capitalism?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from the original texts and published sources, then reviewed by me.",
+        "sit": "When you hear the word capitalism, what picture comes to mind first, and where did you get it?",
+        "related": "how-competition-wears-down-the-people-at-the-bottom",
+        "voices": ["Karl Marx", "Friedrich Engels", "Adam Smith", "Milton Friedman", "Chiara Cordelli"],
+    },
     "we-made-it-okay-to-talk": {
         "question": "What happens after someone finally asks for help?",
         "theme": "Mental health",
