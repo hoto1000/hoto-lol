@@ -1428,7 +1428,7 @@ def build():
 <p>{UNOFFICIAL}</p>
 <p>{TEACHERS}</p>
 <h2 id="contact">Contact</h2>
-<p>You can reach me at <a href="mailto:1000hoto1000@gmail.com">1000hoto1000@gmail.com</a>. I read everything, but I may be slow to reply. If you're in crisis, please call or text 988 instead.</p>
+<p>You can reach me at <a href="mailto:itsnickho@gmail.com">itsnickho@gmail.com</a>. I read everything, but I may be slow to reply. If you're in crisis, please call or text 988 instead.</p>
 <p>I also make short videos about what I'm learning in therapy school. You can watch them on {TIKTOK_LINK}.</p>
 <p><a class="more" href="/blog/">← Back to all posts</a></p>""")))
 
