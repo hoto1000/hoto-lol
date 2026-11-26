@@ -1,0 +1,21 @@
+name: linkcheck
+on:
+  push:
+    branches: [linkcheck]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every link in the built site
+        uses: lycheeverse/lychee-action@v2.0.2
+        with:
+          args: >-
+            --no-progress --max-concurrency 8 --timeout 20 --max-retries 2
+            --accept 200..=299,403,429 --root-dir docs
+            --exclude-path docs/fonts
+            'docs/**/*.html'
+          fail: false
+          output: lychee.md
+      - name: Print report
+        run: cat lychee.md
