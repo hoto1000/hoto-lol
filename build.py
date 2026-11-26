@@ -39,6 +39,12 @@ POSTS = [
         "summary": "An angry case for accountability and action: the 1968 intercom study, toddlers who help without being asked, breakfast at St. Augustine's, and why I want to be the one who gets up.",
     },
     {
+        "slug": "a-liveable-future-is-possible-for-philly",
+        "title": "A liveable future is possible for Philly",
+        "date": "2026-11-17",
+        "summary": "A sourced, hopeful look at what makes Philadelphia hard to live in (poverty, rent, heat, gun violence, transit) and the real programs and neighbors already building a more liveable city.",
+    },
+    {
         "slug": "we-made-it-okay-to-talk",
         "title": "We made it okay to talk. Getting help is still too hard.",
         "date": "2026-11-10",
@@ -360,6 +366,15 @@ FRAMING = {
         "sit": "What is one thing you could promise a group of people this month, and then keep?",
         "related": "what-the-panthers-and-king-both-saw-about-poverty",
         "voices": ["John Darley", "Bibb Latan\u00e9", "Peter Kropotkin", "Karl Marx", "Paulo Freire", "Frederick Douglass", "Grace Lee Boggs"],
+    },
+    "a-liveable-future-is-possible-for-philly": {
+        "question": "What would it take for Philadelphia to be a city where working people can afford to stay, breathe and get around?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "My own argument, organized with AI help and checked against published sources.",
+        "sit": "Which of these things already exists on your block, and which one would you want to help build?",
+        "related": "socialism-starts-with-culture-philadelphia",
+        "voices": [],
     },
     "we-made-it-okay-to-talk": {
         "question": "What happens after someone finally asks for help?",
