@@ -33,6 +33,12 @@ CSS_LINK = f'<link rel="stylesheet" href="/site.css?v={CSS_VERSION}">'
 
 POSTS = [
     {
+        "slug": "we-are-naturally-activists",
+        "title": "We are naturally activists",
+        "date": "2026-11-26",
+        "summary": "An angry case for accountability and action: the 1968 intercom study, toddlers who help without being asked, breakfast at St. Augustine's, and why I want to be the one who gets up.",
+    },
+    {
         "slug": "we-made-it-okay-to-talk",
         "title": "We made it okay to talk. Getting help is still too hard.",
         "date": "2026-11-10",
@@ -346,6 +352,15 @@ EPISODES = [
 THEMES = ["Politics and civic life", "Schools", "Mind and how to live", "Mental health"]
 
 FRAMING = {
+    "we-are-naturally-activists": {
+        "question": "If we all see what's wrong, why does almost nobody get up?",
+        "theme": "Politics and civic life",
+        "kind": "Opinion",
+        "note": "My own argument, organized with AI help from published sources and my own interview answers, then reviewed by me.",
+        "sit": "What is one thing you could promise a group of people this month, and then keep?",
+        "related": "what-the-panthers-and-king-both-saw-about-poverty",
+        "voices": ["John Darley", "Bibb Latan\u00e9", "Peter Kropotkin", "Karl Marx", "Paulo Freire", "Frederick Douglass", "Grace Lee Boggs"],
+    },
     "we-made-it-okay-to-talk": {
         "question": "What happens after someone finally asks for help?",
         "theme": "Mental health",
