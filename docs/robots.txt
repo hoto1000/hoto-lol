@@ -1,5 +1,4 @@
-User-agent: Mediapartners-Google
+User-agent: *
 Allow: /
 
-User-agent: *
-Disallow: /
+Sitemap: https://hoto.lol/sitemap.xml
