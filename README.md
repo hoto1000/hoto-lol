@@ -4,6 +4,7 @@ Static blog + podcast site. No framework, no trackers.
 
 - Edit posts in `content/posts/`, list them in `POSTS` in `build.py`.
 - Add episodes: drop audio in `podcasts/`, add to `EPISODES` in `build.py`.
+- Add a video essay: put `video/<slug>.mp4` (720x1280, H.264, faststart) and an optional `video/<slug>.jpg` poster next to it. The essay page shows a player above the text only when the file exists.
 - Build: `python3 build.py` (writes `docs/`). Commit `docs/` too.
 - Served by GitHub Pages: Settings → Pages → Deploy from branch `main`, folder `/docs`. Custom domain: hoto.lol.
 
