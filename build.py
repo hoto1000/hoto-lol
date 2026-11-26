@@ -39,6 +39,12 @@ POSTS = [
         "summary": "An angry case for accountability and action: the 1968 intercom study, toddlers who help without being asked, breakfast at St. Augustine's, and why I want to be the one who gets up.",
     },
     {
+        "slug": "where-the-wages-went",
+        "title": "Where the wages went",
+        "date": "2026-11-13",
+        "summary": "American workers produce a lot more per hour than they did in the 1970s, typical pay grew far less, and this is where the difference went and what people are doing about it.",
+    },
+    {
         "slug": "we-made-it-okay-to-talk",
         "title": "We made it okay to talk. Getting help is still too hard.",
         "date": "2026-11-10",
@@ -360,6 +366,15 @@ FRAMING = {
         "sit": "What is one thing you could promise a group of people this month, and then keep?",
         "related": "what-the-panthers-and-king-both-saw-about-poverty",
         "voices": ["John Darley", "Bibb Latan\u00e9", "Peter Kropotkin", "Karl Marx", "Paulo Freire", "Frederick Douglass", "Grace Lee Boggs"],
+    },
+    "where-the-wages-went": {
+        "question": "If workers make so much more per hour than they did 50 years ago, why doesn't a typical paycheck show it?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from published sources, then reviewed by me.",
+        "sit": "Where in your own life have you worked harder or gotten better at something and watched someone else keep most of what it was worth?",
+        "related": "how-competition-wears-down-the-people-at-the-bottom",
+        "voices": ["Michael Strain", "Robert Lawrence"],
     },
     "we-made-it-okay-to-talk": {
         "question": "What happens after someone finally asks for help?",
