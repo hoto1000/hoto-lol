@@ -39,6 +39,12 @@ POSTS = [
         "summary": "An angry case for accountability and action: the 1968 intercom study, toddlers who help without being asked, breakfast at St. Augustine's, and why I want to be the one who gets up.",
     },
     {
+        "slug": "what-i-mean-by-capitalism",
+        "title": "What I mean when I say capitalism",
+        "date": "2026-11-13",
+        "summary": "Part one of \"Capitalism, explained plainly\": private ownership, wage labor, profit and accumulation, how it differs from trade, what socialists propose, and what Adam Smith and Milton Friedman argue.",
+    },
+    {
         "slug": "we-made-it-okay-to-talk",
         "title": "We made it okay to talk. Getting help is still too hard.",
         "date": "2026-11-10",
@@ -360,6 +366,15 @@ FRAMING = {
         "sit": "What is one thing you could promise a group of people this month, and then keep?",
         "related": "what-the-panthers-and-king-both-saw-about-poverty",
         "voices": ["John Darley", "Bibb Latan\u00e9", "Peter Kropotkin", "Karl Marx", "Paulo Freire", "Frederick Douglass", "Grace Lee Boggs"],
+    },
+    "what-i-mean-by-capitalism": {
+        "question": "What do people actually mean when they say capitalism?",
+        "theme": "Politics and civic life",
+        "kind": "Sourced explainer",
+        "note": "Drafted with AI help from the original texts and published sources, then reviewed by me.",
+        "sit": "When you hear the word capitalism, what picture comes to mind first, and where did you get it?",
+        "related": "how-competition-wears-down-the-people-at-the-bottom",
+        "voices": ["Karl Marx", "Friedrich Engels", "Adam Smith", "Milton Friedman", "Chiara Cordelli"],
     },
     "we-made-it-okay-to-talk": {
         "question": "What happens after someone finally asks for help?",
